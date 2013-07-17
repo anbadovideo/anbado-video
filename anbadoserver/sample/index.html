@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <title>socket.io test</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    WEB_SOCKET_DEBUG = true;
+
+    jQuery(function() {
+        var socket = io.connect("http://localhost:8888/");
+
+        socket.on('connect', function() {
+            socket.on('return', function(data) {
+                console.log(data);
+            });
+
+            socket.emit('sample', {hello: 'world'});
+        });
+    });
+</script>
+</body>
+</html>
