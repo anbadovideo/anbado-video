@@ -12,7 +12,7 @@ Anbado Video Solution의 Server 소스 코드입니다.
 
 필요한 패키지는 아래의 명령으로 설치할 수 있습니다. 단, libevent는 작동하는 머신의 운영체제에 맞게 미리 설치되어있어야 합니다.
 
-		pip -r requirements.txt		
+		pip install -r requirements.txt
 
 ## Run
 
