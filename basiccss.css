@@ -1,0 +1,38 @@
+#video
+{
+	/*position : absolute;*/
+}
+
+.para1
+{
+	background-color: red;
+	font-size: 12em;
+}
+
+#para3
+{
+	background-color: green;
+}
+#canvas1
+{
+	position: absolute;
+	top:0;
+	left:0;	
+	width: 640px;
+	height: 430px;
+	/*background-color: green;*/
+	/*opacity: 0.4;*/
+}
+#ourvideo
+{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 640px;
+	height: 480px;
+	/*z-index: 30;*/
+}
+#textinput1
+{
+	z-index: 20;
+}
