@@ -2,15 +2,13 @@
 <html>
 <head>
 
-  <title>aa</title>
+  <title>anbado player example</title>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
   
   <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
   <script src="http://localhost:8888/socket.io/socket.io.js"></script>
-
-
   <link rel="stylesheet" type="text/css" href="basiccss.css">
   <script type="text/javascript">
 
@@ -24,7 +22,7 @@
         console.log(data);
       });
 
-      socket.emit('sample', {hello: 'worldworld'});
+      socket.emit('sample', {hello: 'world'});
     });
   });
   // socket.on('connect', function (data) {
@@ -33,7 +31,7 @@
   //   socket.on('return', function(data) {console.log(data)})
   // });
 
-
+  
     var popcornobject; // global access video object 
 
     var canvaslayer; // canvas overlay
@@ -52,8 +50,8 @@
         })
       });
 
-      $canvaslayer = document.getElementById("canvas1");
-      stage = new createjs.Stage($canvaslayer);
+      canvaslayer = document.getElementById("canvas1");
+      stage = new createjs.Stage(canvaslayer);
 
 
       var content = new createjs.DOMElement("testdiv");
@@ -77,6 +75,19 @@
       // stage.update();
     });
 
+
+
+    function eventGenerate(clicktime, posx, poxy){ // video interaction event generation 
+      var eventObjcet = new Object();
+      eventObject.eventID = 0; 
+      eventObject.eventVideoClickPoint = clicktime;
+      eventObject.eventPosX = posx;  // 화면의 디스플레이를 표시하도록
+      eventObject.eventPosY = posy; 
+      eventObject.eventVideoClickDuration = 0; 
+      evententObject.eventOccuredTime = 0; 
+      eventObject.eventType = "text"; // event type e.g text, image,, webcam
+      eventObject.eventContent = "event content";  
+    }
 
 function displayInputPanel(evt){
 
