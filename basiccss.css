@@ -3,8 +3,6 @@
 	position: absolute;
 	top:0;
 	left:0;	
-	width: 640px;
-	height: 430px;
 	/*background-color: green;*/
 	/*opacity: 0.4;*/
 }
@@ -13,8 +11,6 @@
 	position: absolute;
 	top:500px;
 	left:0;
-	width: 640px;
-	height: 130px;
 	background-color: blue;
 	/*z-index : 20;*/
 }
@@ -30,4 +26,21 @@
 #textinput1
 {
 	z-index: 20;
+}
+
+#happy1
+{
+position: absolute;
+	top:650px;
+	left:300px;
+
+}
+#sad1
+{
+
+position: absolute;
+	top:650px;
+	left:500px;
+
+
 }

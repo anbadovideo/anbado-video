@@ -35,39 +35,52 @@
     var popcornobject; // global access video object 
 
     var canvaslayer; // canvas overlay
+    var canvas_bar;
 
     var container;
     var stage;
-
+    var stage_bar;
+    var time_posision=0; 
     document.addEventListener( "DOMContentLoaded", function() {
       popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
+     
       popcornobject.on("play", function() {
-
         console.log("Playing!");
+        
         popcornobject.on("timeupdate", function(){
-          console.log(popcornobject.currentTime());
+          time_posision=(this.currentTime()/this.duration());
+          
           socket.emit('sample',{hello: popcornobject.currentTime()});
-        })
+        
+        });
+
       });
 
       canvaslayer = document.getElementById("canvas1");
       stage = new createjs.Stage(canvaslayer);
+      canvas_bar=document.getElementById("canvas2");
+      stage_bar = new createjs.Stage(canvas_bar);
 
-
-      var content = new createjs.DOMElement("testdiv");
-      content.regX = 154;
-      content.regY = 100;
-      // content.style.color = red;
 
       container = new createjs.Container();
-      // $container.addChild("content");
-      
+      container.x=0;
+      container.y=0;
+
+     
+
+
 
       
       console.log($("#textinput1").val());
       //socket io 부분 테스팅 
 
-      
+      //offset 값으로 나중에 수정 vidio의 위치 
+$("#canvas1").css({"top":100,"left":240});
+$("#canvas2").css({"top":600,"left":240});
+$("#ourvideo").css({"top":100,"left":240});
+$("#textinput1").css({"top":100,"left":240});
+$("#textbutton1").css({"top":100,"left":240});
+
       stage.onMouseDown = displayInputPanel; // on mouse click - input event occur. onClick won't work
       // alert(stage.mouseY);
       // stage.update();
@@ -91,8 +104,8 @@
 
 function displayInputPanel(evt){
 
-  alert("in display");
-  
+  //alert("in display");
+  console.log("in display");
 
   var textInputField = new createjs.DOMElement("textinput1");
   var textInputButton = new createjs.DOMElement("textbutton1");
@@ -102,12 +115,14 @@ function displayInputPanel(evt){
   textInputField.regY = 0;
 
   textInputField.x = stage.mouseX;
-  alert(textInputField.x + " " + stage.mouseX);
+  //alert(textInputField.x + " " + stage.mouseX);
   textInputField.y = stage.mouseY;
   textInputButton.regX = -300; 
   textInputButton.regY = 0; 
   textInputButton.x = stage.mouseX;
   textInputButton.y = stage.mouseY;
+  
+ 
 
   var frame = new createjs.Shape();
   frame.graphics.beginFill("#00F").drawRect(stage.mouseX,stage.mouseY,28,28);
@@ -127,6 +142,32 @@ function displayInputPanel(evt){
       alert("savetext");
     }
 
+    function happybutton()
+    {
+    
+ var target = new createjs.Shape();
+      target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
+console.log(time_posision+"%");
+
+          container.addChild(target);
+          stage_bar.addChild(container);
+
+          stage_bar.update();
+    }
+
+       function sadbutton()
+    {
+    
+ var target = new createjs.Shape();
+      target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
+console.log(time_posision+"%");
+
+          container.addChild(target);
+          stage_bar.addChild(container);
+
+          stage_bar.update();
+    }
+
     
     </script>
     
@@ -140,7 +181,7 @@ function displayInputPanel(evt){
       </video>
       <div id="canvascontainer">
         <canvas id="canvas1" width = "640px" height = "430px"></canvas>
-        <canvas id="canvas2"></canvas>
+        <canvas id="canvas2"width = "640px" height = "50px"></canvas>
       </div>
 
     </div>
@@ -155,8 +196,11 @@ function displayInputPanel(evt){
     
     <input id="textinput1" name="nowfeel" type = "text" value="지금 당신의 생각을 남기세요" />
     <input id="textbutton1" type = "submit" value= "now"/> 
-    
-    
+  
+    <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
+   <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
+  
+
 
   </body>
   </html>
