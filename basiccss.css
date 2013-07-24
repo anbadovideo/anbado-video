@@ -3,8 +3,8 @@
 	position: absolute;
 	top:0;
 	left:0;	
-	/*background-color: green;*/
-	/*opacity: 0.4;*/
+	background-color: green;
+	opacity: 0.4;
 }
 #canvas2
 {
