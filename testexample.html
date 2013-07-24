@@ -12,6 +12,8 @@
   <link rel="stylesheet" type="text/css" href="basiccss.css">
   <script type="text/javascript">
 
+
+
   // var socket = io.connect('http://localhost:8888');
   var socket;
   jQuery(function() {
@@ -30,7 +32,7 @@
   //   socket.emit('my other event', { my: 'data' });
   //   socket.on('return', function(data) {console.log(data)})
   // });
-    
+
     var popcornobject; // global access video object 
 
     var canvaslayer; // canvas overlay
@@ -40,6 +42,9 @@
     var stage;
     var stage_bar;
     var time_posision=0; 
+
+
+
     document.addEventListener( "DOMContentLoaded", function() {
       popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
      
@@ -65,10 +70,6 @@
       container.x=0;
       container.y=0;
 
-     
-
-
-
       
       console.log($("#textinput1").val());
       //socket io 부분 테스팅 
@@ -79,6 +80,11 @@ $("#canvas2").css({"top":600,"left":240});
 $("#ourvideo").css({"top":100,"left":240});
 $("#textinput1").css({"top":100,"left":240});
 $("#textbutton1").css({"top":100,"left":240});
+
+    $("input:text").hide();
+    $("input:submit").hide();
+    
+
 
       stage.onMouseDown = displayInputPanel; // on mouse click - input event occur. onClick won't work
       // alert(stage.mouseY);
@@ -105,7 +111,9 @@ function displayInputPanel(evt){
 
   //alert("in display");
   console.log("in display");
-
+  
+    $("input:text").show();
+    $("input:submit").show();
   var textInputField = new createjs.DOMElement("textinput1");
   var textInputButton = new createjs.DOMElement("textbutton1");
   console.log(textInputField);
@@ -133,7 +141,10 @@ function displayInputPanel(evt){
       stage.addChild(textInputButton);
       stage.addChild(frame);
       // stage.addChild($container);
+
       stage.update();
+
+
     }
 
     function savetext()
@@ -152,6 +163,7 @@ console.log(time_posision+"%");
           stage_bar.addChild(container);
 
           stage_bar.update();
+
     }
 
        function sadbutton()
@@ -192,10 +204,10 @@ console.log(time_posision+"%");
       <p>div tesing </p>
     </div>
 
-    
+
     <input id="textinput1" name="nowfeel" type = "text" value="지금 당신의 생각을 남기세요" />
     <input id="textbutton1" type = "submit" value= "now"/> 
-  
+
     <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
    <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
   
