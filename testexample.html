@@ -30,7 +30,7 @@
 //   }
 // };
 
-
+  
 
   var socket;
   jQuery(function() {
@@ -64,14 +64,11 @@
 
     var eventList = new Array();
 
-
-
-
-
     document.addEventListener( "DOMContentLoaded", function() {
 
 
-
+$(".emoticon_button").css("width", 50);
+  $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정 
 
 
 
@@ -161,6 +158,10 @@
       $("input:submit").show();
       var textInputField = new createjs.DOMElement("textinput1");
       var textInputButton = new createjs.DOMElement("textbutton1");
+      var emoticonInput = new createjs.DOMElement("emoticonTable");
+      console.log(emoticonInput);
+
+      
 
       textInputField.regX = 0;
       textInputField.regY = 0;
@@ -168,10 +169,20 @@
       textInputField.x = stage.mouseX;
       textInputField.y = stage.mouseY;
 
+
+      emoticonInput.regX = -200;
+      emoticonInput.regY = -100;
+
+      emoticonInput.x = stage.mouseX;
+      emoticonInput.y = stage.mouseY;
+
+
       textInputButton.regX = -180; 
       textInputButton.regY = 0; 
       textInputButton.x = stage.mouseX;
       textInputButton.y = stage.mouseY;
+
+      stage.addChild(emoticonInput);
       stage.addChild(textInputField);
       stage.addChild(textInputButton);
       
@@ -288,9 +299,17 @@ function enterKeyInit(){
   <input id="textinput2" type = "text" value = "ass">
   <input id="textbutton2" type = "submit" value= "now"/> 
 
-
+<table id = "emoticonTable">
+<tr>
+       <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Joy" onclick="" class="emoticon_button"></input> </td>
+       <td align="center"><input id="emotion2" type="image" src="AssetImages/emoticon2.png" name="button" value="Hope" onclick="" class="emoticon_button"></input> </td>
+       <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Proud" onclick="" class="emoticon_button"></input> </td>
+       <td align="center"><input id="emotion4" type="image" src="AssetImages/emoticon4.png" name="button" value="Boring" onclick="" class="emoticon_button"></input> </td>
+     </tr>
+</table>
   <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
   <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
+
   
 
 
