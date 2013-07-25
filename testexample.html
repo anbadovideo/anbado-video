@@ -13,10 +13,23 @@
   <script type="text/javascript">
 
 
-//aaaaa
-
-
   // var socket = io.connect('http://localhost:8888');
+
+// document.onkeydown = function (evt) {
+//   var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+//   if (keyCode == 13) {
+//     // For Enter.
+//     alert("df");
+//     // Your function here.
+//   }
+//   if (keyCode == 27) {
+//     // For Escape.
+//     // Your function here.
+//   } else {
+//     return true;
+//   }
+// };
+
 
 
   var socket;
@@ -53,7 +66,16 @@
 
 
 
+
+
     document.addEventListener( "DOMContentLoaded", function() {
+
+
+
+
+
+
+
       popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
 
       popcornobject.on("play", function() {
@@ -99,6 +121,9 @@
 
       $("input:text").hide();
       $("input:submit").hide();
+
+
+      enterKeyInit(); // DOM을 넘겨줘서 실행하는 것으로 
 
 
 
@@ -197,6 +222,14 @@
     }
 
 
+function enterKeyInit(){
+
+  $("#textinput1").keypress(function(evt) {
+  if(evt.keyCode == 13){alert("13");}
+  // console.log("Handler for .keypress() called.");
+});
+
+}
 
     function happybutton()
     {
@@ -225,6 +258,11 @@
      stage_bar.update();
    }
 
+   function savetext()
+   {
+    // alert("text on");
+   }
+
 
    </script>
 
@@ -243,7 +281,7 @@
 
   </div>
 
-  <input id="textinput1" type = "text" value = "ass">
+  <input id="textinput1" type = "text" value = "input" onkeypress="savetext()">
   <input id="textbutton1" type = "submit" value= "now"/> 
 
 
