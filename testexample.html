@@ -13,8 +13,12 @@
   <script type="text/javascript">
 
 
+//aaaaa
+
 
   // var socket = io.connect('http://localhost:8888');
+
+
   var socket;
   jQuery(function() {
     socket = io.connect("http://localhost:8888/");
@@ -35,6 +39,7 @@
 
     var popcornobject; // global access video object 
     var totalEvent =0; // total event number
+    var currentEventPosition = 0; 
 
     var canvaslayer; // canvas overlay
     var canvas_bar;
@@ -43,6 +48,8 @@
     var stage;
     var stage_bar;
     var time_posision=0; 
+
+    var eventList = new Array();
 
 
 
@@ -53,13 +60,21 @@
         console.log("Playing!");
         
         popcornobject.on("timeupdate", function(){
-          time_posision=(this.currentTime()/this.duration());
-          
-          socket.emit('sample',{hello: popcornobject.currentTime()});
+
+          if(((this.currentTime()-eventList[currentEventPosition].eventVideoClickTime)>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()==this.duration()))   // 같거나 비디오가 끝나면 디스플레이를 없애준다. 
+          {
+            $("input:text").hide();
+            $("input:submit").hide();
+          }
+          console.log("this time:"+this.currentTime());
+
+        }); 
+
+          // socket.emit('sample',{hello: popcornobject.currentTime()});
 
         });
 
-      });
+      
 
       canvaslayer = document.getElementById("canvas1");
       stage = new createjs.Stage(canvaslayer);
@@ -99,16 +114,18 @@
     function eventGenerate(evt){ // video interaction event generation 
       var eventObject = new Object();
       eventObject.eventID = totalEvent++; 
-      eventObject.eventVideoClickTime = 0; // 플레어에서의 currentTime을 받는 것으로 
+      eventObject.eventVideoClickTime = popcornobject.currentTime(); // 플레어에서의 currentTime을 받는 것으로 
       eventObject.eventOccuredAbsoluteTime = 0; // 이벤트가 생성된 현재 시간. 
-      eventObject.eventVideoClickDuration = 5; // 얼마나 지속되는지 
+      eventObject.eventVideoClickDuration = 2; // 얼마나 지속되는지 
       eventObject.eventPosX = stage.x;  // 화면의 디스플레이를 표시하도록
       eventObject.eventPosY = stage.y; 
       eventObject.timelineOffset;  // 타임라인에서 얼마나 떨어져 있는가?       
       eventObject.eventType = "text"; // event type e.g text, emoticon, image, buttonaction, webcam
       eventObject.eventContent = "event content";  
       eventObject.secUnit = 100* Math.round(popcornobject.currentTime() / popcornobject.duration());// 몇번째 유닛인지? 
-      console.log(eventObject);
+      // console.log(eventObject);
+
+      eventList.push("eventObject"); 
       displayInputPanel();
 
     }
@@ -117,11 +134,8 @@
 
       $("input:text").show();
       $("input:submit").show();
-      var textInputField = new createjs.DOMElement("input");
-      var textInputButton = new createjs.DOMElement("input");
-
-
-  
+      var textInputField = new createjs.DOMElement("textinput1");
+      var textInputButton = new createjs.DOMElement("textbutton1");
 
       textInputField.regX = 0;
       textInputField.regY = 0;
@@ -141,7 +155,47 @@
       stage.update();
 
 
+      if(popcornobject.currentTime()==popcornobject.duration())// check video end
+      {      
+        $("input:text").hide();
+        $("input:submit").hide(); 
+     // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+      }
+
+
+   //  function click_video_canvas(mousex,mousey)
+   //  {
+
+   //    var textInputField = new createjs.DOMElement("textinput1");
+   //    var textInputButton = new createjs.DOMElement("textbutton1");
+
+
+   //    textInputField.regX = -100;
+   //    textInputField.regY = 0;
+
+   //    textInputField.x = mousex;
+   //    textInputField.y = mousey;
+   //    textInputButton.regX = -300; 
+   //    textInputButton.regY = 0; 
+   //    textInputButton.x = mousex;
+   //    textInputButton.y = mousey;
+  
+   //    $("input:text").show();
+   //    $("input:submit").show();
+   //    stage.addChild(textInputField);
+   //    stage.addChild(textInputButton);
+ 
+   //    stage.update();
+
+   //    if(popcornobject.currentTime()==popcornobject.duration())// check video end
+   //     {      $("input:text").hide();
+   //   $("input:submit").hide(); 
+   //   // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+   // } 
+
+
     }
+
 
 
     function happybutton()
