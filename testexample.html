@@ -48,17 +48,17 @@
     document.addEventListener( "DOMContentLoaded", function() {
       popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
      
-      popcornobject.on("play", function() {
-        console.log("Playing!");
+      // popcornobject.on("play", function() {
+      //   console.log("Playing!");
         
-        popcornobject.on("timeupdate", function(){
-          time_posision=(this.currentTime()/this.duration());
+      //   popcornobject.on("timeupdate", function(){
+      //     time_posision=(this.currentTime()/this.duration());
           
-          socket.emit('sample',{hello: popcornobject.currentTime()});
+      //     socket.emit('sample',{hello: popcornobject});
         
-        });
+      //   });
 
-      });
+      // });
 
       canvaslayer = document.getElementById("canvas1");
       stage = new createjs.Stage(canvaslayer);
@@ -112,37 +112,25 @@ function displayInputPanel(evt){
   //alert("in display");
   console.log("in display");
   
-    $("input:text").show();
-    $("input:submit").show();
-  var textInputField = new createjs.DOMElement("textinput1");
-  var textInputButton = new createjs.DOMElement("textbutton1");
-  console.log(textInputField);
 
-  textInputField.regX = -100;
-  textInputField.regY = 0;
-
-  textInputField.x = stage.mouseX;
-  //alert(textInputField.x + " " + stage.mouseX);
-  textInputField.y = stage.mouseY;
-  textInputButton.regX = -300; 
-  textInputButton.regY = 0; 
-  textInputButton.x = stage.mouseX;
-  textInputButton.y = stage.mouseY;
-  
  
 
-  var frame = new createjs.Shape();
-  frame.graphics.beginFill("#00F").drawRect(stage.mouseX,stage.mouseY,28,28);
-  
+  click_vidio_canvers(stage.mouseX,stage.mouseY);
 
-  
+      console.log("this time:"+popcornobject.currentTime());
+
+
+   
+      //   popcornobject.on("timeupdate", function(){
+         
+
+      //       console.log("this time:"+this.currentTime());
+
+      //          }); 
+
+
       // container.addChild(textInputField, submitbutton1, frame);
-      stage.addChild(textInputField);
-      stage.addChild(textInputButton);
-      stage.addChild(frame);
-      // stage.addChild($container);
 
-      stage.update();
 
 
     }
@@ -178,6 +166,34 @@ console.log(time_posision+"%");
 
           stage_bar.update();
     }
+
+    function click_vidio_canvers(mousex,mousey)
+    {
+
+      var textInputField = new createjs.DOMElement("textinput1");
+      var textInputButton = new createjs.DOMElement("textbutton1");
+
+
+      textInputField.regX = -100;
+      textInputField.regY = 0;
+
+      textInputField.x = mousex;
+      textInputField.y = mousey;
+      textInputButton.regX = -300; 
+      textInputButton.regY = 0; 
+      textInputButton.x = mousex;
+      textInputButton.y = mousey;
+  
+      $("input:text").show();
+      $("input:submit").show();
+      stage.addChild(textInputField);
+      stage.addChild(textInputButton);
+ 
+      stage.update();
+
+    }
+
+
 
     
     </script>
