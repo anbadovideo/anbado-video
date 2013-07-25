@@ -34,6 +34,7 @@
   // });
 
     var popcornobject; // global access video object 
+    var totalEvent =0; // total event number
 
     var canvaslayer; // canvas overlay
     var canvas_bar;
@@ -47,7 +48,7 @@
 
     document.addEventListener( "DOMContentLoaded", function() {
       popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
-     
+
       popcornobject.on("play", function() {
         console.log("Playing!");
         
@@ -55,7 +56,7 @@
           time_posision=(this.currentTime()/this.duration());
           
           socket.emit('sample',{hello: popcornobject.currentTime()});
-        
+
         });
 
       });
@@ -75,18 +76,18 @@
       //socket io 부분 테스팅 
 
       //offset 값으로 나중에 수정 vidio의 위치 
-$("#canvas1").css({"top":100,"left":240});
-$("#canvas2").css({"top":600,"left":240});
-$("#ourvideo").css({"top":100,"left":240});
-$("#textinput1").css({"top":100,"left":240});
-$("#textbutton1").css({"top":100,"left":240});
+      $("#canvas1").css({"top":100,"left":240});
+      $("#canvas2").css({"top":600,"left":240});
+      $("#ourvideo").css({"top":100,"left":240});
+      $("#textinput1").css({"top":100,"left":240});
+      $("#textbutton1").css({"top":100,"left":240});
 
-    $("input:text").hide();
-    $("input:submit").hide();
-    
+      $("input:text").hide();
+      $("input:submit").hide();
 
 
-      stage.onMouseDown = displayInputPanel; // on mouse click - input event occur. onClick won't work
+
+      stage.onMouseDown = eventGenerate; // on mouse click - input event occur. onClick won't work
       // alert(stage.mouseY);
       // stage.update();
       // alert(stage.mouseY);
@@ -95,123 +96,111 @@ $("#textbutton1").css({"top":100,"left":240});
 
 
 
-    function eventGenerate(clicktime, posx, poxy){ // video interaction event generation 
-      var eventObjcet = new Object();
-      eventObject.eventID = 0; 
-      eventObject.eventVideoClickPoint = clicktime;
-      eventObject.eventPosX = posx;  // 화면의 디스플레이를 표시하도록
-      eventObject.eventPosY = posy; 
-      eventObject.eventVideoClickDuration = 0; 
-      evententObject.eventOccuredTime = 0; 
-      eventObject.eventType = "text"; // event type e.g text, image,, webcam
+    function eventGenerate(evt){ // video interaction event generation 
+      var eventObject = new Object();
+      eventObject.eventID = totalEvent++; 
+      eventObject.eventVideoClickTime = 0; // 플레어에서의 currentTime을 받는 것으로 
+      eventObject.eventOccuredAbsoluteTime = 0; // 이벤트가 생성된 현재 시간. 
+      eventObject.eventVideoClickDuration = 5; // 얼마나 지속되는지 
+      eventObject.eventPosX = stage.x;  // 화면의 디스플레이를 표시하도록
+      eventObject.eventPosY = stage.y; 
+      eventObject.timelineOffset;  // 타임라인에서 얼마나 떨어져 있는가?       
+      eventObject.eventType = "text"; // event type e.g text, emoticon, image, buttonaction, webcam
       eventObject.eventContent = "event content";  
+      eventObject.secUnit = 100* Math.round(popcornobject.currentTime() / popcornobject.duration());// 몇번째 유닛인지? 
+      console.log(eventObject);
+      displayInputPanel();
+
     }
 
-function displayInputPanel(evt){
+    function displayInputPanel(){ // on first screen, display text input panel, submit button, emoticon panel
 
-  //alert("in display");
-  console.log("in display");
-  
-    $("input:text").show();
-    $("input:submit").show();
-  var textInputField = new createjs.DOMElement("textinput1");
-  var textInputButton = new createjs.DOMElement("textbutton1");
-  console.log(textInputField);
+      $("input:text").show();
+      $("input:submit").show();
+      var textInputField = new createjs.DOMElement("textinput1");
+      var textInputButton = new createjs.DOMElement("textbutton1");
 
-  textInputField.regX = -100;
-  textInputField.regY = 0;
-
-  textInputField.x = stage.mouseX;
-  //alert(textInputField.x + " " + stage.mouseX);
-  textInputField.y = stage.mouseY;
-  textInputButton.regX = -300; 
-  textInputButton.regY = 0; 
-  textInputButton.x = stage.mouseX;
-  textInputButton.y = stage.mouseY;
-  
- 
-
-  var frame = new createjs.Shape();
-  frame.graphics.beginFill("#00F").drawRect(stage.mouseX,stage.mouseY,28,28);
-  
 
   
-      // container.addChild(textInputField, submitbutton1, frame);
+
+      textInputField.regX = 0;
+      textInputField.regY = 0;
+
+      textInputField.x = stage.mouseX;
+      textInputField.y = stage.mouseY;
+
+      textInputButton.regX = -180; 
+      textInputButton.regY = 0; 
+      textInputButton.x = stage.mouseX;
+      textInputButton.y = stage.mouseY;
       stage.addChild(textInputField);
       stage.addChild(textInputButton);
-      stage.addChild(frame);
-      // stage.addChild($container);
+      
+  
 
       stage.update();
 
 
     }
 
-    function savetext()
-    {
-      alert("savetext");
-    }
 
     function happybutton()
     {
-    
- var target = new createjs.Shape();
-      target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
-console.log(time_posision+"%");
 
-          container.addChild(target);
-          stage_bar.addChild(container);
+     var target = new createjs.Shape();
+     target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
+     console.log(time_posision+"%");
 
-          stage_bar.update();
+     container.addChild(target);
+     stage_bar.addChild(container);
 
-    }
+     stage_bar.update();
 
-       function sadbutton()
-    {
-    
- var target = new createjs.Shape();
-      target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
-console.log(time_posision+"%");
+   }
 
-          container.addChild(target);
-          stage_bar.addChild(container);
+   function sadbutton()
+   {
 
-          stage_bar.update();
-    }
+     var target = new createjs.Shape();
+     target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
+     console.log(time_posision+"%");
 
-    
-    </script>
-    
-  </head>
-  <body>
-    <div>
-      <video id="ourvideo" controls="false">
-        <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>
-        <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv"/>
-        <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/>
-      </video>
-      <div id="canvascontainer">
-        <canvas id="canvas1" width = "640px" height = "430px"></canvas>
-        <canvas id="canvas2"width = "640px" height = "50px"></canvas>
-      </div>
+     container.addChild(target);
+     stage_bar.addChild(container);
 
+     stage_bar.update();
+   }
+
+
+   </script>
+
+ </head>
+ <body>
+  <div>
+    <video id="ourvideo" controls="false">
+      <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>
+      <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv"/>
+      <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/>
+    </video>
+    <div id="canvascontainer">
+      <canvas id="canvas1" width = "640px" height = "430px"></canvas>
+      <canvas id="canvas2"width = "640px" height = "50px"></canvas>
     </div>
 
-    
-    
+  </div>
 
-    <div id="testdiv">
-      <p>div tesing </p>
-    </div>
+  <input id="textinput1" type = "text" value = "ass">
+  <input id="textbutton1" type = "submit" value= "now"/> 
 
 
-    <input id="textinput1" name="nowfeel" type = "text" value="지금 당신의 생각을 남기세요" />
-    <input id="textbutton1" type = "submit" value= "now"/> 
+  <input id="textinput2" type = "text" value = "ass">
+  <input id="textbutton2" type = "submit" value= "now"/> 
 
-    <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
-   <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
+
+  <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
+  <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
   
 
 
-  </body>
-  </html>
+</body>
+</html>
