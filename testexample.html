@@ -30,20 +30,22 @@
 //   }
 // };
 
-  
 
-  var socket;
-  jQuery(function() {
-    socket = io.connect("http://localhost:8888/");
+var inputPanelShowed = false;
 
-    socket.on('connect', function() {
-      socket.on('return', function(data) {
-        console.log(data);
-      });
 
-      socket.emit('sample', {hello: 'world'});
+var socket;
+jQuery(function() {
+  socket = io.connect("http://localhost:8888/");
+
+  socket.on('connect', function() {
+    socket.on('return', function(data) {
+      console.log(data);
     });
+
+    socket.emit('sample', {hello: 'world'});
   });
+});
   // socket.on('connect', function (data) {
   //   console.log(data);
   //   socket.emit('my other event', { my: 'data' });
@@ -67,8 +69,8 @@
     document.addEventListener( "DOMContentLoaded", function() {
 
 
-$(".emoticon_button").css("width", 50);
-  $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정 
+      $(".emoticon_button").css("width", 50);
+      $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정 
 
 
 
@@ -82,8 +84,8 @@ $(".emoticon_button").css("width", 50);
 
           if(((this.currentTime()-eventList[currentEventPosition].eventVideoClickTime)>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()==this.duration()))   // 같거나 비디오가 끝나면 디스플레이를 없애준다. 
           {
-            $("input:text").hide();
-            $("input:submit").hide();
+            // $("input:text").hide();
+            // $("input:submit").hide();
           }
           console.log("this time:"+this.currentTime());
 
@@ -98,7 +100,7 @@ $(".emoticon_button").css("width", 50);
       canvaslayer = document.getElementById("canvas1");
       stage = new createjs.Stage(canvaslayer);
       canvas_bar=document.getElementById("canvas2");
-      stage_bar = new createjs.Stage(canvas_bar);
+      stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
 
 
       container = new createjs.Container();
@@ -106,25 +108,25 @@ $(".emoticon_button").css("width", 50);
       container.y=0;
 
       
-      console.log($("#textinput1").val());
+      // console.log($("#textinput1").val());
       //socket io 부분 테스팅 
 
-      //offset 값으로 나중에 수정 vidio의 위치 
+      //offset 값으로 나중에 수정 video의 위치 
       $("#canvas1").css({"top":100,"left":240});
       $("#canvas2").css({"top":600,"left":240});
       $("#ourvideo").css({"top":100,"left":240});
       $("#textinput1").css({"top":100,"left":240});
       $("#textbutton1").css({"top":100,"left":240});
 
-      $("input:text").hide();
-      $("input:submit").hide();
+      // $("input:text").hide();
+      // $("input:submit").hide();
 
 
-      enterKeyInit(); // DOM을 넘겨줘서 실행하는 것으로 
+      // enterKeyInit(); // DOM을 넘겨줘서 실행하는 것으로 
 
 
 
-      stage.onMouseDown = eventGenerate; // on mouse click - input event occur. onClick won't work
+      stage.onMouseDown = eventGenerate; // on mouse click - input event occur. onClick does not work
       // alert(stage.mouseY);
       // stage.update();
       // alert(stage.mouseY);
@@ -134,151 +136,251 @@ $(".emoticon_button").css("width", 50);
 
 
     function eventGenerate(evt){ // video interaction event generation 
-      var eventObject = new Object();
-      eventObject.eventID = totalEvent++; 
-      eventObject.eventVideoClickTime = popcornobject.currentTime(); // 플레어에서의 currentTime을 받는 것으로 
-      eventObject.eventOccuredAbsoluteTime = 0; // 이벤트가 생성된 현재 시간. 
-      eventObject.eventVideoClickDuration = 2; // 얼마나 지속되는지 
-      eventObject.eventPosX = stage.x;  // 화면의 디스플레이를 표시하도록
-      eventObject.eventPosY = stage.y; 
-      eventObject.timelineOffset;  // 타임라인에서 얼마나 떨어져 있는가?       
-      eventObject.eventType = "text"; // event type e.g text, emoticon, image, buttonaction, webcam
-      eventObject.eventContent = "event content";  
-      eventObject.secUnit = 100* Math.round(popcornobject.currentTime() / popcornobject.duration());// 몇번째 유닛인지? 
-      // console.log(eventObject);
-
-      eventList.push("eventObject"); 
-      displayInputPanel();
-
+      var eventObject = {
+        eventID : totalEvent,
+      eventVideoClickTime : popcornobject.currentTime(), // 플레어에서의 currentTime을 받는 것으로 
+      eventOccuredAbsoluteTime : 0, // 이벤트가 생성된 현재 시간. 
+      eventVideoClickDuration : 2, // 얼마나 지속되는지 
+      eventPosX : stage.x,  // 화면의 디스플레이를 표시하도록
+      eventPosY : stage.y, 
+      timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?       
+      eventType : "text", // event type e.g text, emoticon, image, buttonaction, webcam
+      eventContent : "event content", 
+      secUnit : 100* Math.round(popcornobject.currentTime() / popcornobject.duration()),// 몇번째 유닛인지? 
+      eaCanvasDisplayObject : {}
     }
+    // console.log(eventObject);
 
-    function displayInputPanel(){ // on first screen, display text input panel, submit button, emoticon panel
+    displayInputPanel(eventObject);
 
-      $("input:text").show();
-      $("input:submit").show();
-      var textInputField = new createjs.DOMElement("textinput1");
-      var textInputButton = new createjs.DOMElement("textbutton1");
-      var emoticonInput = new createjs.DOMElement("emoticonTable");
-      console.log(emoticonInput);
+  }
 
+    function displayInputPanel(eventObject){ // on first screen, display text input panel, submit button, emoticon panel
+
+      // alert(eventObject);
+      // alert(eventObject.eventContent);
+
+      // $("input:text").show();
+      // $("input:submit").show();
+/*
+      var textinput1 = document.createElement("input"); // 자바스크립트로 동적 생성하도록 
+      textinput1.setAttribute("id", "textinput1");
+      textinput1.setAttribute("type", "text");
+      textinput1.setAttribute("value", "input"); 
+
+      $("#textinput1").css("width", "100px");
+      $("#textinput1").css("height", "15px");*/
+
+      console.log(textinput1);
+      var eaTextInputField = new createjs.DOMElement("textinput1");
+      var eaTextInputButton = new createjs.DOMElement("textbutton1");
       
 
-      textInputField.regX = 0;
-      textInputField.regY = 0;
+      var eaEmoticonInputArray = new Array(); 
 
-      textInputField.x = stage.mouseX;
-      textInputField.y = stage.mouseY;
+      var emoticonNumber = 4; 
 
-
-      emoticonInput.regX = -200;
-      emoticonInput.regY = -100;
-
-      emoticonInput.x = stage.mouseX;
-      emoticonInput.y = stage.mouseY;
-
-
-      textInputButton.regX = -180; 
-      textInputButton.regY = 0; 
-      textInputButton.x = stage.mouseX;
-      textInputButton.y = stage.mouseY;
-
-      stage.addChild(emoticonInput);
-      stage.addChild(textInputField);
-      stage.addChild(textInputButton);
+      for(var i =0 ; i < emoticonNumber; i++)
+      {
+        
+        var eaTemp = new createjs.DOMElement("emoticon"+i);
+        
+        eaEmoticonInputArray.push(eaTemp); 
+        eaEmoticonInputArray[i]; 
+      }
       
-  
 
-      stage.update();
+      // DOM객체로 직접 입력을 받지 않고 easeljs 객체로 변환하는 이유는 캔버스위에서 조정하기가 더 편하기 때문. 
+      // jquery를 이용하더라도 canvas의 마우스 좌표등은 받을 수 있으나 캔버스 위에서 easeljs를 사용을 많이 하므로 변환 사용이 편리하다. 
+      
+      // console.log(eaTextInputField.htmlElement);
 
+      eaTextInputField.regX = 20;
+      eaTextInputField.regY = 10;
 
-      if(popcornobject.currentTime()==popcornobject.duration())// check video end
-      {      
-        $("input:text").hide();
-        $("input:submit").hide(); 
-     // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+      eaTextInputField.x = stage.mouseX;
+      eaTextInputField.y = stage.mouseY;
+      console.log(eaTextInputField.x);
+
+      for (var i = 0; i < emoticonNumber; i++){
+
+        eaEmoticonInputArray[i].regX = -200-(50*i);
+        eaEmoticonInputArray[i].regY = -100;
+        eaEmoticonInputArray[i].x = stage.mouseX + 120;
+        eaEmoticonInputArray[i].y = stage.mouseY;
+
       }
 
+      eaTextInputButton.regX = -180; 
+      eaTextInputButton.regY = 0; 
+      eaTextInputButton.x = stage.mouseX;
+      eaTextInputButton.y = stage.mouseY;
 
-   //  function click_video_canvas(mousex,mousey)
-   //  {
-
-   //    var textInputField = new createjs.DOMElement("textinput1");
-   //    var textInputButton = new createjs.DOMElement("textbutton1");
-
-
-   //    textInputField.regX = -100;
-   //    textInputField.regY = 0;
-
-   //    textInputField.x = mousex;
-   //    textInputField.y = mousey;
-   //    textInputButton.regX = -300; 
-   //    textInputButton.regY = 0; 
-   //    textInputButton.x = mousex;
-   //    textInputButton.y = mousey;
-  
-   //    $("input:text").show();
-   //    $("input:submit").show();
-   //    stage.addChild(textInputField);
-   //    stage.addChild(textInputButton);
- 
-   //    stage.update();
-
-   //    if(popcornobject.currentTime()==popcornobject.duration())// check video end
-   //     {      $("input:text").hide();
-   //   $("input:submit").hide(); 
-   //   // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
-   // } 
+      stage.addChild(eaTextInputButton); // 스테이지에 easel 객체로 인풋 패널 추가. 
+      stage.addChild(eaTextInputField);
 
 
+      for (var i = 0; i<emoticonNumber; i++){ // 이모티콘 패널 업데이트 
+        stage.addChild(eaEmoticonInputArray[i]);
+
+      }
+      // 인풋 패널을 그려주고 난 후 이벤트에 따라 처리함. eventObject의 eaCanvasDisplayObject 객체에 대한 할당
+
+      stage.update(); // 패널 보여주고 나서 스테이지 업데이트 
+      // document.getElementById("textinput1").focus();
+      // eaTextInputField.htmlElement.focus(); // DOM 객체 포커스를 통해 바로 텍스트입력하도록
+
+      $("#textinput2").focus();
+
+      eaTextInputField.htmlElement.onkeypress = function(evt)
+      {
+        // console.log(eventObject);
+
+        // evt.keyCode == 13;
+        eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용 
+        eventObject.eaCanvasDisplayObject = new createjs.Text(eventObject.eventContent, "25px Arial", "#000");
+        eventObject.eaCanvasDisplayObject.regX = 0;
+        eventObject.eaCanvasDisplayObject.regY = 0;
+        eventObject.eaCanvasDisplayObject.x = stage.mouseX;
+        eventObject.eaCanvasDisplayObject.y = stage.mouseY;
+        console.log(eventObject.eaCanvasDisplayObject.x);
+
+        stage.addChild(eventObject.eaCanvasDisplayObject); // 각 액션이 끝난후 그에 맞는 easeljs 객체를 넣어줌 
+
+        endup();
+      }
+
+      eaTemp.htmlElement.onclick = function(evt) // 각 이모티콘 객체에 대한 이벤트 핸들러
+      {
+        console.log(eventObject.eventContent);
+        console.log("target : target " + evt.target.src);
+        eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon1.png");
+        eventObject.eaCanvasDisplayObject.regX = -10;
+        eventObject.eaCanvasDisplayObject.regY = 50;
+        eventObject.eaCanvasDisplayObject.x = stage.mouseX;
+        eventObject.eaCanvasDisplayObject.y = stage.mouseY;
+        eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.4;
+        stage.addChild(eventObject.eaCanvasDisplayObject);
+
+        endup();
+      }
+
+      // console.log("eaemoticon" + eaEmoticonInput.getAttritute());
+
+
+      function endup(){
+
+      eventList.push(eventObject); // 전체 이벤트 목록에 저장
+      stage.update();
+      
+      /*
+      stage.removeChild(eaTextInputField);
+
+      for(var i = 0; i < emoticonNumber; i++){
+        stage.removeChild(eaEmoticonInputArray[i]);
+      }
+
+      stage.removeChild(eaTextInputButton);
+      */
+      totalEvent++;
+
+      }
     }
 
 
-function enterKeyInit(){
 
-  $("#textinput1").keypress(function(evt) {
-  if(evt.keyCode == 13){alert("13");}
-  // console.log("Handler for .keypress() called.");
-});
+  //       $("#textinput1").keypress(function(evt) {
+  // // if(evt.keyCode == 13){alert("13");}
+  //     stage.update();
+
+  //     if(popcornobject.currentTime()==popcornobject.duration())// check video end
+  //     {      
+  //       $("input:text").hide();
+  //       $("input:submit").hide(); 
+  //    // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+  //     }
+
+
+  //  //  function click_video_canvas(mousex,mousey)
+  //  //  {
+
+  //  //    var textInputField = new createjs.DOMElement("textinput1");
+  //  //    var textInputButton = new createjs.DOMElement("textbutton1");
+
+
+  //  //    textInputField.regX = -100;
+  //  //    textInputField.regY = 0;
+
+  //  //    textInputField.x = mousex;
+  //  //    textInputField.y = mousey;
+  //  //    textInputButton.regX = -300; 
+  //  //    textInputButton.regY = 0; 
+  //  //    textInputButton.x = mousex;
+  //  //    textInputButton.y = mousey;
+  
+  //  //    $("input:text").show();
+  //  //    $("input:submit").show();
+  //  //    stage.addChild(textInputField);
+  //  //    stage.addChild(textInputButton);
+
+  //  //    stage.update();
+
+  //  //    if(popcornobject.currentTime()==popcornobject.duration())// check video end
+  //  //     {      $("input:text").hide();
+  //  //   $("input:submit").hide(); 
+  //  //   // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+  //  // } 
+
+
+  //   }
+
+
+// function enterKeyInit(){
+
+//   $("#textinput1").keypress(function(evt) {
+//   if(evt.keyCode == 13){alert("13");}
+//   // console.log("Handler for .keypress() called.");
+// });
+
+// }
+
+function happybutton()
+{
+
+ var target = new createjs.Shape();
+ target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
+ console.log(time_posision+"%");
+
+ container.addChild(target);
+ stage_bar.addChild(container);
+
+ stage_bar.update();
 
 }
 
-    function happybutton()
-    {
+function sadbutton()
+{
 
-     var target = new createjs.Shape();
-     target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
-     console.log(time_posision+"%");
+ var target = new createjs.Shape();
+ target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
+ console.log(time_posision+"%");
 
-     container.addChild(target);
-     stage_bar.addChild(container);
+ container.addChild(target);
+ stage_bar.addChild(container);
 
-     stage_bar.update();
+ stage_bar.update();
+}
 
-   }
-
-   function sadbutton()
-   {
-
-     var target = new createjs.Shape();
-     target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
-     console.log(time_posision+"%");
-
-     container.addChild(target);
-     stage_bar.addChild(container);
-
-     stage_bar.update();
-   }
-
-   function savetext()
-   {
+function savetext()
+{
     // alert("text on");
-   }
+  }
 
 
-   </script>
+  </script>
 
- </head>
- <body>
+</head>
+<body>
   <div>
     <video id="ourvideo" controls="false">
       <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>
@@ -292,25 +394,28 @@ function enterKeyInit(){
 
   </div>
 
-  <input id="textinput1" type = "text" value = "input" onkeypress="savetext()">
+  <input id="textinput1" type = "text" value = "input">
   <input id="textbutton1" type = "submit" value= "now"/> 
 
 
-  <input id="textinput2" type = "text" value = "ass">
+  <input id="textinput2" type = "text" value = "interactive">
   <input id="textbutton2" type = "submit" value= "now"/> 
 
-<table id = "emoticonTable">
-<tr>
-       <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Joy" onclick="" class="emoticon_button"></input> </td>
-       <td align="center"><input id="emotion2" type="image" src="AssetImages/emoticon2.png" name="button" value="Hope" onclick="" class="emoticon_button"></input> </td>
-       <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Proud" onclick="" class="emoticon_button"></input> </td>
-       <td align="center"><input id="emotion4" type="image" src="AssetImages/emoticon4.png" name="button" value="Boring" onclick="" class="emoticon_button"></input> </td>
-     </tr>
-</table>
-  <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
-  <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
+  <table id = "emoticonTable">
+    <tr>
+     <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon1.png" name="button" value="Joy" class="emoticon_button"></input> </td>
+     
+     <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon2.png" name="button" value="Hope" class="emoticon_button"></input> </td>
+     
+     <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon3.png" name="button" value="Proud" class="emoticon_button"></input> </td>
+     
+     <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon4.png" name="button" value="Boring" class="emoticon_button"></input> </td>
+   </tr>
+ </table>
+ <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
+ <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
 
-  
+
 
 
 </body>
