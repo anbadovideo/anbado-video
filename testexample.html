@@ -31,7 +31,7 @@
 // };
 
 
-var inputPanelShowed = false;
+var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
 
 
 var socket;
@@ -52,7 +52,7 @@ jQuery(function() {
   //   socket.on('return', function(data) {console.log(data)})
   // });
 
-    var popcornobject; // global access video object 
+    var popcornobject; // global access video object. global variable is not recommended 
     var totalEvent =0; // total event number
     var currentEventPosition = 0; 
 
@@ -65,6 +65,14 @@ jQuery(function() {
     var time_posision=0; 
 
     var eventList = new Array();
+
+    var emoticonNumber = 4; 
+
+    var eaTextInputField; // 이 네가지 변수는 local로 전환할 것
+      var eaTextInputButton; 
+      var eaEmoticonInputArray;
+      var eaTextInputContainer;
+
 
     document.addEventListener( "DOMContentLoaded", function() {
 
@@ -99,7 +107,7 @@ jQuery(function() {
 
       canvaslayer = document.getElementById("canvas1");
       stage = new createjs.Stage(canvaslayer);
-      canvas_bar=document.getElementById("canvas2");
+      canvas_bar = document.getElementById("canvas2");
       stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
 
 
@@ -151,7 +159,15 @@ jQuery(function() {
     }
     // console.log(eventObject);
 
-    displayInputPanel(eventObject);
+    if(inputPanelShow === false){
+      inputPanelShow = true; // 클릭이 되었음을 표시
+      displayInputPanel(eventObject);
+    }
+    else if(inputPanelShow === true){
+      inputPanelShow = false;
+      endup();
+    }
+    
 
   }
 
@@ -171,14 +187,27 @@ jQuery(function() {
       $("#textinput1").css("width", "100px");
       $("#textinput1").css("height", "15px");*/
 
+      $("#textinput1").show();
+      $("#textbutton1").show();
+      $("#emoticonTable").show();
+
+
       console.log(textinput1);
-      var eaTextInputField = new createjs.DOMElement("textinput1");
-      var eaTextInputButton = new createjs.DOMElement("textbutton1");
+
+      eaTextInputContainer = new createjs.Container();
+
+      eaTextInputField = new createjs.DOMElement("textinput1");
+      eaTextInputButton = new createjs.DOMElement("textbutton1");
+
+      var eaTextFrame = new createjs.Shape();
+      eaTextFrame.graphics.beginFill("#000").drawRect(0,0,120,80);
+      eaTextFrame.regX = 0;
+      eaTextFrame.regY = 0;
       
 
-      var eaEmoticonInputArray = new Array(); 
+      eaEmoticonInputArray = new Array(); 
 
-      var emoticonNumber = 4; 
+      
 
       for(var i =0 ; i < emoticonNumber; i++)
       {
@@ -232,22 +261,30 @@ jQuery(function() {
 
       $("#textinput2").focus();
 
-      eaTextInputField.htmlElement.onkeypress = function(evt)
+      eaTextInputField.htmlElement.onkeydown = function(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통해서 사용. onkeypress대신 onkeydown을 사용해야 esc 받을 수 있
       {
         // console.log(eventObject);
 
-        // evt.keyCode == 13;
-        eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용 
-        eventObject.eaCanvasDisplayObject = new createjs.Text(eventObject.eventContent, "25px Arial", "#000");
-        eventObject.eaCanvasDisplayObject.regX = 0;
-        eventObject.eaCanvasDisplayObject.regY = 0;
-        eventObject.eaCanvasDisplayObject.x = stage.mouseX;
-        eventObject.eaCanvasDisplayObject.y = stage.mouseY;
-        console.log(eventObject.eaCanvasDisplayObject.x);
+        console.log(evt.charCode);
+        if(evt.keyCode == 13){
+          eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용 
+          eventObject.eaCanvasDisplayObject = new createjs.Text(eventObject.eventContent, "25px Arial", "#000");
+          eventObject.eaCanvasDisplayObject.regX = 0;
+          eventObject.eaCanvasDisplayObject.regY = 0;
+          eventObject.eaCanvasDisplayObject.x = stage.mouseX;
+          eventObject.eaCanvasDisplayObject.y = stage.mouseY;
+          
 
-        stage.addChild(eventObject.eaCanvasDisplayObject); // 각 액션이 끝난후 그에 맞는 easeljs 객체를 넣어줌 
-
-        endup();
+          stage.addChild(eventObject.eaCanvasDisplayObject); // 각 액션이 끝난후 그에 맞는 easeljs 객체를 넣어줌 
+          eventList.push(eventObject); // 전체 이벤트 목록에 저장
+          endup();  
+        }
+        
+        if(evt.keyCode == 27 || evt.charCode == 27){ // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해 
+          console.log("escape");
+          endup();
+        }
+        
       }
 
       eaTemp.htmlElement.onclick = function(evt) // 각 이모티콘 객체에 대한 이벤트 핸들러
@@ -261,16 +298,34 @@ jQuery(function() {
         eventObject.eaCanvasDisplayObject.y = stage.mouseY;
         eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.4;
         stage.addChild(eventObject.eaCanvasDisplayObject);
-
+        eventList.push(eventObject); // 전체 이벤트 목록에 저장
         endup();
       }
 
       // console.log("eaemoticon" + eaEmoticonInput.getAttritute());
 
+    }
 
-      function endup(){
+     function endup(){
+        console.log("inner endup");
+      stage.removeChild(eaTextInputButton); // 스테이지에 easel 객체로 인풋 패널 제거. 
+      stage.removeChild(eaTextInputField);
 
-      eventList.push(eventObject); // 전체 이벤트 목록에 저장
+
+      for (var i = 0; i<emoticonNumber; i++){ // 이모티콘 패널 업데이트 
+        stage.removeChild(eaEmoticonInputArray[i]);
+      }
+
+      $("#textinput1").val("what you feel now?")
+      $("#textinput1").hide();
+      $("#textbutton1").hide();
+      $("#emoticonTable").hide();
+      
+
+
+
+      
+      
       stage.update();
       
       /*
@@ -285,7 +340,6 @@ jQuery(function() {
       totalEvent++;
 
       }
-    }
 
 
 
