@@ -3,7 +3,7 @@
 <head>
 
   <title>anbado player example</title>
-  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+  <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
   
   <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -172,7 +172,7 @@ jQuery(function() {
   }
 
     function displayInputPanel(eventObject){ // on first screen, display text input panel, submit button, emoticon panel
-
+      document.getElementById("textinput1").focus();
       // alert(eventObject);
       // alert(eventObject.eventContent);
 
@@ -188,8 +188,12 @@ jQuery(function() {
       $("#textinput1").css("height", "15px");*/
 
       $("#textinput1").show();
+      
       $("#textbutton1").show();
       $("#emoticonTable").show();
+
+
+
 
 
       console.log(textinput1);
@@ -256,11 +260,13 @@ jQuery(function() {
       // document.getElementById("textinput1").focus();
       // eaTextInputField.htmlElement.focus(); // DOM 객체 포커스를 통해 바로 텍스트입력하도록
 
-      $("#textinput2").focus();
+      
 
       eaTextInputField.htmlElement.onkeydown = function(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통해서 사용. onkeypress대신 onkeydown을 사용해야 esc 받을 수 있
       {
-        // console.log(eventObject);
+
+        $("#textinput1").attr('size', $("#textinput1").val().length); // by text length size scailing. key by key
+
 
         console.log(evt.charCode);
         if(evt.keyCode == 13){
@@ -275,7 +281,7 @@ jQuery(function() {
       eaTextFrame.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY,eventObject.eaCanvasDisplayObject.getMeasuredWidth(),40);
       eaTextFrame.regX = 0;
       eaTextFrame.regY = 0;
-      eaTextInputContainer.addChild(eaTextFrame, eaTextInputField);
+      eaTextInputContainer.addChild(eaTextFrame, eaTextInputField); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
       
           
 
@@ -300,7 +306,7 @@ jQuery(function() {
         eventObject.eaCanvasDisplayObject.regY = 50;
         eventObject.eaCanvasDisplayObject.x = stage.mouseX;
         eventObject.eaCanvasDisplayObject.y = stage.mouseY;
-        eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.4;
+        eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.3;
         stage.addChild(eventObject.eaCanvasDisplayObject);
         eventList.push(eventObject); // 전체 이벤트 목록에 저장
         endup();
