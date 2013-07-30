@@ -195,14 +195,11 @@ jQuery(function() {
       console.log(textinput1);
 
       eaTextInputContainer = new createjs.Container();
+      stage.addChild(eaTextInputContainer);
 
       eaTextInputField = new createjs.DOMElement("textinput1");
       eaTextInputButton = new createjs.DOMElement("textbutton1");
 
-      var eaTextFrame = new createjs.Shape();
-      eaTextFrame.graphics.beginFill("#000").drawRect(0,0,120,80);
-      eaTextFrame.regX = 0;
-      eaTextFrame.regY = 0;
       
 
       eaEmoticonInputArray = new Array(); 
@@ -268,11 +265,18 @@ jQuery(function() {
         console.log(evt.charCode);
         if(evt.keyCode == 13){
           eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용 
-          eventObject.eaCanvasDisplayObject = new createjs.Text(eventObject.eventContent, "25px Arial", "#000");
+          eventObject.eaCanvasDisplayObject = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
           eventObject.eaCanvasDisplayObject.regX = 0;
           eventObject.eaCanvasDisplayObject.regY = 0;
           eventObject.eaCanvasDisplayObject.x = stage.mouseX;
           eventObject.eaCanvasDisplayObject.y = stage.mouseY;
+
+          var eaTextFrame = new createjs.Shape();
+      eaTextFrame.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY,eventObject.eaCanvasDisplayObject.getMeasuredWidth(),40);
+      eaTextFrame.regX = 0;
+      eaTextFrame.regY = 0;
+      eaTextInputContainer.addChild(eaTextFrame, eaTextInputField);
+      
           
 
           stage.addChild(eventObject.eaCanvasDisplayObject); // 각 액션이 끝난후 그에 맞는 easeljs 객체를 넣어줌 
