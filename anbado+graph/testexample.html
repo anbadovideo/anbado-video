@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>anbado player example</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+  
+   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+  <script src="http://localhost:8888/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" type="text/css" href="basiccss.css">
+  
+ <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+
+
+  <script type="text/javascript">
+
+var good=0 ,bad=0,sad=0;
+var intvidiotime=0
+
+ var time=100;
+
+var array = [];
+ // for (var i=0;i<5;i++) {
+ //     array[i] = [];
+ //  }
+ 
+  for (var i=0;i<time;i++) {// 앞에 꺼 time
+      array[i] = [];
+   }
+ 
+      array[0][0] = "0";array[0][1] = "good";array[0][2] = "bad";
+     //array[0][3] = "happy";array[0][4] = "soso";array[0][5] = "fuck you";
+
+for(var j=1;j<time;j++)
+{
+  array[j][0] = "test";array[j][1] = 0;array[j][2] =0;
+
+}
+
+
+
+
+//aaaaa
+
+
+  // var socket = io.connect('http://localhost:8888');
+
+
+  var socket;
+  jQuery(function() {
+    socket = io.connect("http://localhost:8888/");
+
+    socket.on('connect', function() {
+      socket.on('return', function(data) {
+        console.log(data);
+      });
+
+      socket.emit('sample', {hello: 'world'});
+    });
+  });
+  // socket.on('connect', function (data) {
+  //   console.log(data);
+  //   socket.emit('my other event', { my: 'data' });
+  //   socket.on('return', function(data) {console.log(data)})
+  // });
+
+    var popcornobject; // global access video object 
+    var totalEvent =0; // total event number
+    var currentEventPosition = 0; 
+
+    var canvaslayer; // canvas overlay
+    var canvas_bar;
+
+    var container;
+    var stage;
+    var stage_bar;
+    var time_posision=0; 
+
+    var eventList = new Array();
+
+var inttime=0;
+          
+
+    document.addEventListener( "DOMContentLoaded", function() {
+      popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
+
+      popcornobject.on("play", function() {
+        console.log("Playing!");
+
+        
+        popcornobject.on("timeupdate", function(){
+
+          if(((this.currentTime()-eventList[currentEventPosition].eventVideoClickTime)>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()==this.duration()))   // 같거나 비디오가 끝나면 디스플레이를 없애준다. 
+          {
+            $("input:text").hide();
+            $("input:submit").hide();
+          }
+
+          var tek=0;
+          tek=this.currentTime();
+          tek=parseInt(tek);
+
+          if(tek>intvidiotime)
+            {good=0;bad=0;}
+           //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
+
+          intvidiotime=this.currentTime();
+          intvidiotime=parseInt(intvidiotime);
+
+        }); 
+
+          // socket.emit('sample',{hello: popcornobject.currentTime()});
+
+        });
+
+      
+
+      canvaslayer = document.getElementById("canvas1");
+      stage = new createjs.Stage(canvaslayer);
+      canvas_bar=document.getElementById("canvas2");
+      stage_bar = new createjs.Stage(canvas_bar);
+
+
+      container = new createjs.Container();
+      container.x=0;
+      container.y=0;
+
+      
+      console.log($("#textinput1").val());
+      //socket io 부분 테스팅 
+
+      //offset 값으로 나중에 수정 vidio의 위치 
+      $("#canvas1").css({"top":100,"left":240});
+      $("#canvas2").css({"top":600,"left":240});
+      $("#ourvideo").css({"top":100,"left":240});
+      $("#textinput1").css({"top":100,"left":240});
+      $("#textbutton1").css({"top":100,"left":240});
+
+      $("input:text").hide();
+      $("input:submit").hide();
+
+      $("#visualization").css({"top":700,"left":240});
+
+
+
+      stage.onMouseDown = eventGenerate; // on mouse click - input event occur. onClick won't work
+      // alert(stage.mouseY);
+      // stage.update();
+      // alert(stage.mouseY);
+      // stage.update();
+    });
+
+
+
+    function eventGenerate(evt){ // video interaction event generation 
+      var eventObject = new Object();
+      eventObject.eventID = totalEvent++; 
+      eventObject.eventVideoClickTime = popcornobject.currentTime(); // 플레어에서의 currentTime을 받는 것으로 
+      eventObject.eventOccuredAbsoluteTime = 0; // 이벤트가 생성된 현재 시간. 
+      eventObject.eventVideoClickDuration = 2; // 얼마나 지속되는지 
+      eventObject.eventPosX = stage.x;  // 화면의 디스플레이를 표시하도록
+      eventObject.eventPosY = stage.y; 
+      eventObject.timelineOffset;  // 타임라인에서 얼마나 떨어져 있는가?       
+      eventObject.eventType = "text"; // event type e.g text, emoticon, image, buttonaction, webcam
+      eventObject.eventContent = "event content";  
+      eventObject.secUnit = 100* Math.round(popcornobject.currentTime() / popcornobject.duration());// 몇번째 유닛인지? 
+      // console.log(eventObject);
+
+      eventList.push("eventObject"); 
+      displayInputPanel();
+
+    }
+
+    function displayInputPanel(){ // on first screen, display text input panel, submit button, emoticon panel
+
+      $("input:text").show();
+      $("input:submit").show();
+      var textInputField = new createjs.DOMElement("textinput1");
+      var textInputButton = new createjs.DOMElement("textbutton1");
+
+      textInputField.regX = 0;
+      textInputField.regY = 0;
+
+      textInputField.x = stage.mouseX;
+      textInputField.y = stage.mouseY;
+
+      textInputButton.regX = -180; 
+      textInputButton.regY = 0; 
+      textInputButton.x = stage.mouseX;
+      textInputButton.y = stage.mouseY;
+      stage.addChild(textInputField);
+      stage.addChild(textInputButton);
+      
+  
+
+      stage.update();
+
+
+      if(popcornobject.currentTime()==popcornobject.duration())// check video end
+      {      
+        $("input:text").hide();
+        $("input:submit").hide(); 
+     // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+      }
+
+
+    }
+
+
+
+
+      function drawVisualization() {
+
+       
+          var inttime=0;
+
+          inttime=popcornobject.currentTime();
+          inttime=parseInt(inttime);
+
+
+
+
+   array[inttime][0] = "test";array[inttime][1] = (array[inttime][1]+good);array[inttime][2] =(array[inttime][2]+bad);
+
+
+      console.log("good:"+good);
+
+        var data = google.visualization.arrayToDataTable(array);
+
+             // Create and draw the visualization.
+        var ac = new google.visualization.AreaChart(document.getElementById('visualization'));
+           // var ac = new google.visualization.LineChart(document.getElementById('visualization'));
+           ac.draw(data, {
+          title : 'Monthly Coffee Production by Country',
+          isStacked: true, // 그래프 테이터 겹쳐 보일건지 쌓여서 보일건지 
+          width: 800,
+          height: 400,
+          //curveType:'function'
+          enableInteractivity: true,  //그래프에 말풍선 나타내는것
+          areaOpacity: 0.3,// 투명도 
+          lineWidth: 0 ,//그래프위에 나오는 선 두께 area위에 
+          focusTarget:'category' ,// 카테고리 두개 나오게 하기 
+          vAxis:{maxValue:100},    // y축 최대값
+          hAxis:{maxValue:150}
+          //vAxis: {title: "Cups"},// 세로축에 텍스트 넣기 
+          //hAxis: {title: "Month"}// 가록축에 텍스트 넣기 
+        });
+      }
+
+
+
+
+
+    function happybutton()
+    {
+
+    //  var target = new createjs.Shape();
+    //  target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
+    //  console.log(time_posision+"%");
+
+    //  container.addChild(target);
+    //  stage_bar.addChild(container);
+
+    //  stage_bar.update();
+
+    good++;
+     drawVisualization();
+   }
+
+   function sadbutton()
+   {
+
+     // var target = new createjs.Shape();
+     // target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
+     // console.log(time_posision+"%");
+
+     // container.addChild(target);
+     // stage_bar.addChild(container);
+
+     // stage_bar.update();
+     bad++;
+     drawVisualization();
+   }
+
+
+      google.setOnLoadCallback(drawVisualization);
+
+   </script>
+
+ </head>
+ <body>
+  <div>
+    <video id="ourvideo" controls="false">
+
+    <!--   <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>
+      <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv"/>
+      <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/> -->
+
+      <source src="/Users/mijong/Desktop/googlechart/RyanMerkley_2012G.mp4"/>
+    </video>
+    <div id="canvascontainer">
+      <canvas id="canvas1" width = "640px" height = "430px"></canvas>
+      <canvas id="canvas2"width = "640px" height = "50px"></canvas>
+    </div>
+
+  </div>
+
+
+    <div id="visualization" style="width: 800px; height: 400px;"></div>
+
+
+  <input id="textinput1" type = "text" value = "ass">
+  <input id="textbutton1" type = "submit" value= "now"/> 
+
+
+  <input id="textinput2" type = "text" value = "ass">
+  <input id="textbutton2" type = "submit" value= "now"/> 
+
+
+  <input id="happy1" type = "button" onclick="happybutton()" value= "happy" /> 
+  <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" /> 
+  
+
+
+</body>
+</html>
