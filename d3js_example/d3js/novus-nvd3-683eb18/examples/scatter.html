@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+
+</style>
+<body>
+
+<svg id="test1"></svg>
+
+<script src="../lib/d3.v3.js"></script>
+<script src="../lib/fisheye.js"></script>
+<script src="../nv.d3.js"></script>
+<script src="../src/models/legend.js"></script>
+<script src="../src/models/scatter.js"></script>
+<script>
+
+
+//Format A
+nv.addGraph({
+  generate: function() {
+      // var width = nv.utils.windowSize().width - 40,
+      //     height = nv.utils.windowSize().height - 40;
+
+       var width = 500,height = 200;
+
+
+      var chart = nv.models.scatter()
+                .width(width)       // 원이 표현 되는 가로 길이 
+                .height(height)
+                .margin({top: 20, right: 20, bottom: 20, left: 20}) // 말그대로 절대 위치 
+                .size(function(d) { return d.z })
+                .useVoronoi(false)
+                //.interactive(false)
+
+
+    d3.select('#test1')
+      .attr('width', width)
+      .attr('height', height)
+      .datum(randomData())     // 여기에 데이터를 넣음 
+    .transition().duration(500)
+      .call(chart);
+
+    return chart;
+  },
+  callback: function(graph) {
+    window.onresize = function() {
+        var width = nv.utils.windowSize().width - 40,
+             height = nv.utils.windowSize().height - 40,
+        margin = graph.margin();
+
+
+      if (width < margin.left + margin.right + 20)
+        width = margin.left + margin.right + 20;
+
+      if (height < margin.top + margin.bottom + 20)
+        height = margin.top + margin.bottom + 20;
+
+
+      graph
+         .width(width)
+         .height(height);
+
+      d3.select('#test1')
+        .attr('width', width)
+        .attr('height', height)
+        .call(graph);
+
+    };
+  }
+});
+
+
+
+
+function randomData() {  //출려되는 값이 상대적이 값이다  조심하시오 
+  var data = [];
+
+  for (i = 0; i < 1; i++) {// 같은 양을 가지는 데이터의 개수 
+    data.push({
+      key: 'Group ' + i,
+      values: []
+    });
+
+    for (j = 0; j < 10; j++) {
+      if((j%2)==1)
+      data[i].values.push({x: j, y: 50, z: 0.9});
+    else
+      data[i].values.push({x: j, y: 50, z: 0.5});
+    }
+
+  }
+
+
+
+  return data;
+}
+
+
+</script>
