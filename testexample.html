@@ -52,7 +52,7 @@ jQuery(function() {
 //   socket.on('return', function(data) {console.log(data)})
 // });
 
-var popcornobject; // global access video object. global variable is not recommended
+var popcornobj; // global access video object. global variable is not recommended
 var totalEvent =0; // total event number
 var currentEventPosition = 0;
 
@@ -74,21 +74,25 @@ var eaEmoticonInputArray;
 var eaTextInputContainer;
 
 
+function getFocus(){
+    $("#textinput1").focus();
+}
 document.addEventListener( "DOMContentLoaded", function() {
+
+//    $("#textinput1").focus(function(){alert("focus inner");}); // 포커스 체크 함수
+
+
 
 
     $(".emoticon_button").css("width", 50);
     $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
 
 
+    popcornobj = Popcorn("#ourvideo"); // 팝콘 객체 생성
 
-
-    popcornobject = Popcorn("#ourvideo"); // 팝콘 객체 생성
-
-    popcornobject.on("play", function() {
+    popcornobj.on("play", function() {
         console.log("Playing!");
-
-        popcornobject.on("timeupdate", function(){
+        popcornobj.on("timeupdate", function(){
 
             if(((this.currentTime()-eventList[currentEventPosition].eventVideoClickTime)>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()==this.duration()))   // 같거나 비디오가 끝나면 디스플레이를 없애준다.
             {
@@ -99,7 +103,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
         });
 
-        // socket.emit('sample',{hello: popcornobject.currentTime()});
+        // socket.emit('sample',{hello: popcornobj.currentTime()});
 
     });
 
@@ -144,7 +148,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 function eventGenerate(evt){ // video interaction event generation
     var eventObject = {
         eventID : totalEvent,
-        eventVideoClickTime : popcornobject.currentTime(), // 플레어에서의 currentTime을 받는 것으로
+        eventVideoClickTime : popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
         eventOccuredAbsoluteTime : 0, // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 2, // 얼마나 지속되는지
         eventPosX : stage.x,  // 화면의 디스플레이를 표시하도록
@@ -152,17 +156,22 @@ function eventGenerate(evt){ // video interaction event generation
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
         eventType : "text", // event type e.g text, emoticon, image, buttonaction, webcam
         eventContent : "event content",
-        secUnit : 100* Math.round(popcornobject.currentTime() / popcornobject.duration()),// 몇번째 유닛인지?
+        secUnit : 100* Math.round(popcornobj.currentTime() / popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasDisplayObject : {}
-    }
+    };
     // console.log(eventObject);
 
     if(inputPanelShow === false){
         inputPanelShow = true; // 클릭이 되었음을 표시
+
         displayInputPanel(eventObject);
     }
-    else if(inputPanelShow === true){
+    else if(inputPanelShow === true){ // 클릭이 되어 있는 경우
         inputPanelShow = false;
+        $("#textinput1").hide();
+        $("#permissionSelect").hide();
+        $("#emoticonTable").hide();
+
         endup();
     }
 
@@ -170,6 +179,7 @@ function eventGenerate(evt){ // video interaction event generation
 }
 
 function displayInputPanel(eventObject){ // on first screen, display text input panel, submit button, emoticon panel
+
 
     // alert(eventObject);
     // alert(eventObject.eventContent);
@@ -186,11 +196,10 @@ function displayInputPanel(eventObject){ // on first screen, display text input 
      $("#textinput1").css("height", "15px");*/
 
     $("#textinput1").show();
-
     $("#permissionSelect").show();
     $("#emoticonTable").show();
 
-    console.log(textinput1);
+    console.log("textinput1");
 
     eaTextInputContainer = new createjs.Container();
     stage.addChild(eaTextInputContainer);
@@ -240,6 +249,7 @@ function displayInputPanel(eventObject){ // on first screen, display text input 
     stage.addChild(eaTextInputField);
 
 
+
     for (var i = 0; i<emoticonNumber; i++){ // 이모티콘 패널 업데이트
         stage.addChild(eaEmoticonInputArray[i]);
 
@@ -247,6 +257,7 @@ function displayInputPanel(eventObject){ // on first screen, display text input 
     // 인풋 패널을 그려주고 난 후 이벤트에 따라 처리함. eventObject의 eaCanvasDisplayObject 객체에 대한 할당
 
     stage.update(); // 패널 보여주고 나서 스테이지 업데이트
+
     // document.getElementById("textinput1").focus();
     // eaTextInputField.htmlElement.focus(); // DOM 객체 포커스를 통해 바로 텍스트입력하도록
 
@@ -256,6 +267,7 @@ function displayInputPanel(eventObject){ // on first screen, display text input 
     {
 
         $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
+
 
 
         console.log(evt.charCode);
@@ -316,10 +328,14 @@ function endup(){ // 이벤트 후 처리 부분
         stage.removeChild(eaEmoticonInputArray[i]);
     }
 
-    $("#textinput1").val("what you feel now?")
-    $("#textinput1").hide();
-    $("#permissionSelect").hide();
-    $("#emoticonTable").hide();
+    getFocus();
+    /*
+
+     $("#textinput1").val("what you feel now?")
+     $("#textinput1").hide();
+     $("#permissionSelect").hide();
+     $("#emoticonTable").hide();
+     */
 
 
 
@@ -328,6 +344,7 @@ function endup(){ // 이벤트 후 처리 부분
 
 
     stage.update();
+
 //
 
     /*
@@ -349,7 +366,7 @@ function endup(){ // 이벤트 후 처리 부분
 // // if(evt.keyCode == 13){alert("13");}
 //     stage.update();
 
-//     if(popcornobject.currentTime()==popcornobject.duration())// check video end
+//     if(popcornobj.currentTime()==popcornobj.duration())// check video end
 //     {
 //       $("input:text").hide();
 //       $("input:submit").hide();
@@ -381,7 +398,7 @@ function endup(){ // 이벤트 후 처리 부분
 
 //  //    stage.update();
 
-//  //    if(popcornobject.currentTime()==popcornobject.duration())// check video end
+//  //    if(popcornobj.currentTime()==popcornobj.duration())// check video end
 //  //     {      $("input:text").hide();
 //  //   $("input:submit").hide();
 //  //   // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해
@@ -475,6 +492,7 @@ function savetext()
 </table>
 <input id="happy1" type = "button" onclick="happybutton()" value= "happy" />
 <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" />
+<input id="button1" type="button" value="getfocus" onclick="getFocus();"/>
 
 
 
