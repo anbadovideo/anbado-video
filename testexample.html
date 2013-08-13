@@ -72,7 +72,7 @@ var emoticonNumber = 4;
 var eaTextInputField; // 이 네가지 변수는 local로 전환할 것
 var eaTextInputButton;
 var eaEmoticonInputArray;
-var eaTextInputContainer;
+
 
 
 function getFocus(){
@@ -100,14 +100,23 @@ popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
 popcornobj.on("play", function() {
     console.log("Playing!");
     popcornobj.on("timeupdate", function(){
-
-        if(((this.currentTime()-eventList[currentEventPosition].eventVideoClickTime)>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()==this.duration()))   // 같거나 비디오가 끝나면 디스플레이를 없애준다.
+        for(currentEventPosition = 0; currentEventPosition<eventList.length; currentEventPosition++)
         {
-            // $("input:text").hide();
-            // $("input:submit").hide();
-        }
-        console.log("this time:"+this.currentTime());
 
+            var deltaTime = this.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
+            if((deltaTime<0)||(deltaTime>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()===this.duration()))   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+            {
+
+                stage.removeChild(eventList[currentEventPosition].eaCanvasDisplayObject);
+                stage.update();
+            }
+            else if(deltaTime <= eventList[currentEventPosition].eventVideoClickDuration ){
+                stage.addChild(eventList[currentEventPosition].eaCanvasDisplayObject);
+                stage.update();
+            }
+
+            console.log("this time:"+this.currentTime());
+        }
     });
 
     // socket.emit('sample',{hello: popcornobj.currentTime()});
@@ -172,9 +181,6 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 
     console.log("textinput1");
 
-    eaTextInputContainer = new createjs.Container(); // 텍스트 인풋 패널을 위해
-    stage.addChild(eaTextInputContainer);
-
     eaTextInputField = new createjs.DOMElement("textinput1");
     eaTextInputButton = new createjs.DOMElement("permissionSelect");
 
@@ -228,8 +234,6 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 
 
 
-    endup();
-
     // console.log("eaemoticon" + eaEmoticonInput.getAttritute());
 
 }
@@ -266,7 +270,7 @@ function emoticonClick(evt) // 각 이모티콘 객체에 대한 이벤트 핸�
     console.log("target : target " + evt.target.id);
 
     eventGenerate(evt.target.id);
-    endup();
+
 }
 
 
@@ -276,7 +280,7 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
         eventVideoClickTime : popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
         eventOccuredAbsoluteTime : 0, // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 2, // 얼마나 지속되는지
-        eventPosX : stage.x,  // 화면의 디스플레이를 표시하도록
+        eventPosX : stage.x,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
         eventPosY : stage.y,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
         eventType : eventTypeArg, // event type e.g text, emoticon, image, buttonaction, webcam
@@ -293,21 +297,28 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
     switch(eventTypeArg)
     {
         case "text":
-
+            eventObject.eaCanvasDisplayObject = new createjs.Container();
 
             eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
 
-            eventObject.eaCanvasDisplayObject = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
-            eventObject.eaCanvasDisplayObject.regX = 0;
-            eventObject.eaCanvasDisplayObject.regY = 0;
-            eventObject.eaCanvasDisplayObject.x = stage.mouseX;
-            eventObject.eaCanvasDisplayObject.y = stage.mouseY;
+            var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
+            eaTextContent.regX = 0;
+            eaTextContent.regY = 0;
+            eaTextContent.x = stage.mouseX;
+            eaTextContent.y = stage.mouseY;
 
             var eaTextFrame = new createjs.Shape();
-            eaTextFrame.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY,eventObject.eaCanvasDisplayObject.getMeasuredWidth(),40);
+            eaTextFrame.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY, eaTextContent.getMeasuredWidth(),40);
             eaTextFrame.regX = 0;
             eaTextFrame.regY = 0;
-            eaTextInputContainer.addChild(eaTextFrame, eaTextInputField); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
+
+            eventObject.eaCanvasDisplayObject.addChild(eaTextFrame, eaTextContent); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
+            stage.addChild(eventObject.eaCanvasDisplayObject);
+
+            eventList.push(eventObject); // 전체 이벤트 목록에 저장
+
 
             console.log("text");
             break;
@@ -370,7 +381,8 @@ function eaDisplaySetting(eventObject)
     eventObject.eaCanvasDisplayObject.regY = 50;
     eventObject.eaCanvasDisplayObject.x = stage.mouseX;
     eventObject.eaCanvasDisplayObject.y = stage.mouseY;
-    eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.3;
+    eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.8;
+
     stage.addChild(eventObject.eaCanvasDisplayObject);
 
     eventList.push(eventObject); // 전체 이벤트 목록에 저장
