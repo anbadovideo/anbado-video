@@ -12,22 +12,6 @@
 <link rel="stylesheet" type="text/css" href="basiccss.css">
 <script type="text/javascript">
 
-// var socket = io.connect('http://localhost:8888');
-
-// document.onkeydown = function (evt) {
-//   var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-//   if (keyCode == 13) {
-//     // For Enter.
-//     alert("df");
-//     // Your function here.
-//   }
-//   if (keyCode == 27) {
-//     // For Escape.
-//     // Your function here.
-//   } else {
-//     return true;
-//   }
-// };
 
 
 var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
@@ -77,6 +61,7 @@ var eaEmoticonInputArray;
 function getFocus(){
     $("#textinput1").focus();
     console.log("getfocus");
+    console.log(document.getElementById("permissionSelect").value);
 
 }
 //
@@ -166,6 +151,15 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
     $("#permissionSelect").show();
     $("#emoticonTable").show();
 
+    var emo0 = document.getElementById("emoticon0");
+    emo0.addEventListener("click", emoticonDOMClick);
+    var emo1 = document.getElementById("emoticon1");
+    emo1.addEventListener("click", emoticonDOMClick);
+    var emo2 = document.getElementById("emoticon2");
+    emo2.addEventListener("click", emoticonDOMClick);
+    var emo3 = document.getElementById("emoticon3");
+    emo3.addEventListener("click", emoticonDOMClick);
+
     console.log("textinput1");
 
     eaTextInputField = new createjs.DOMElement("textinput1");
@@ -182,7 +176,7 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
         eaTemp.regY = -100;
         eaTemp.x = stage.mouseX + 120;
         eaTemp.y = stage.mouseY;
-        eaTemp.htmlElement.onclick = emoticonClick; // 이모티콘 클릭 이벤트 핸들
+//        eaTemp.htmlElement.onclick = emoticonClick; // 이모티콘 클릭 이벤트 핸들
 
         eaEmoticonInputArray.push(eaTemp);
 
@@ -234,10 +228,17 @@ function keyDownCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통�
 
     if(evt.keyCode === 27 || evt.charCode === 27){ // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
         console.log("escape");
-        disapperPanel();
+        hidePanel();
     }
 }
-function disapperPanel(){
+
+function showPanel(){
+    $("#textinput1").show();
+    $("#permissionSelect").show();
+    $("#emoticonTable").show();
+}
+
+function hidePanel(){
     $("#textinput1").hide();
     $("#permissionSelect").hide();
     $("#emoticonTable").hide();
@@ -249,18 +250,25 @@ function emoticonClick(evt){
     eventGenerate(evt.target.id);
 }
 
+function emoticonDOMClick(evt){
+// 각 이모티콘 객체에 대한 이벤트 핸들러
+    console.log("target : target " + evt);
+    eventGenerate(evt.target.id);
+}
+
 
 function eventGenerate(eventTypeArg){ // video interaction event generation
     var eventObject = {
         eventID : totalEvent,
-        eventProfile : {ownerName : "owner", ownerProfilePicture : "profile url"},
+        eventOwnerName : "owner",
+        eventOwnerProfilePicture : "profile url",
         eventVideoClickTime : popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
-        eventOccuredAbsoluteTime : 0, // 이벤트가 생성된 현재 시간.
+        eventOccuredAbsoluteTime : (new Date().getTime()), // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 2, // 얼마나 지속되는지
         eventPosX : stage.x,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
         eventPosY : stage.y,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
-        eventType : eventTypeArg, // event type e.g text, emoticon, image, buttonaction, webcam
+        eventType : eventTypeArg, // event type e.g text, emoticon, image, button action, webcam
         eventContent : "event content",
         secUnit : 100* Math.round(popcornobj.currentTime() / popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasDisplayObject : {}
@@ -272,9 +280,6 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
     {
         case "text":
             eventObject.eaCanvasDisplayObject = new createjs.Container();
-
-
-
             eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
 
             var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
@@ -283,19 +288,19 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
             eaTextContent.x = stage.mouseX;
             eaTextContent.y = stage.mouseY;
 
-            var eaTextFrame = new createjs.Shape();
-            eaTextFrame.graphics.beginFill("#555").drawRect(stage.mouseX,stage.mouseY, eaTextContent.getMeasuredWidth()+130,40);
-            eaTextFrame.regX = 40;
-            eaTextFrame.regY = 0;
+            var eaBackPanel = new createjs.Shape();
+            eaBackPanel.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY, eaTextContent.getMeasuredWidth()+130,40);
+            eaBackPanel.regX = 40;
+            eaBackPanel.regY = 0;
 
-            var eaProfileImage = new createjs.Bitmap("AssetImages/profile.png"); // profile example
+            var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
             eaProfileImage.regX = 350;
             eaProfileImage.regY = 0;
             eaProfileImage.x = stage.mouseX;
             eaProfileImage.y = stage.mouseY;
             eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
-            eventObject.eaCanvasDisplayObject.addChild(eaTextFrame, eaTextContent, eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+            eventObject.eaCanvasDisplayObject.addChild(eaBackPanel, eaTextContent, eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
             stage.addChild(eventObject.eaCanvasDisplayObject);
 
@@ -305,27 +310,27 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
             break;
 
         case "emoticon0":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon1.png"); // make emoticon easeljs object
+            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon0.png"); // make emoticon easeljs object
             eaDisplaySetting(eventObject);
             break;
         case "emoticon1":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon2.png"); // make emoticon easeljs object
+            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon1.png"); // make emoticon easeljs object
             eaDisplaySetting(eventObject);
             break;
         case "emoticon2":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon3.png"); // make emoticon easeljs object
+            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon2.png"); // make emoticon easeljs object
             eaDisplaySetting(eventObject);
             break;
         case "emoticon3":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon4.png"); // make emoticon easeljs object
+            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon3.png"); // make emoticon easeljs object
 
             eaDisplaySetting(eventObject);
             break;
 
-
-
         default :
             alert("default");
+
+
     }
 
     stage.addChild(eventObject.eaCanvasDisplayObject); // 각 액션이 끝난후 그에 맞는 easeljs 객체를 넣어줌
@@ -336,25 +341,20 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
         inputPanelShow = true; // 클릭이 되었음을 표시
 
         displayInputPanel(eventObject);
-        endup();
-        getFocus();
-        $("#textinput1").show();
-        $("#permissionSelect").show();
-        $("#emoticonTable").show();
 
+        getFocus();
+        showPanel();
+        endup();
 
     }
     else if(inputPanelShow === true){ // 클릭이 되어 있는 경우
         inputPanelShow = false;
-        $("#textinput1").hide();
-        $("#permissionSelect").hide();
-        $("#emoticonTable").hide();
-
+        hidePanel();
         endup();
     }
 }
-function eaDisplaySetting(eventObject)
-{
+
+function eaDisplaySetting(eventObject){
 
     eventObject.eaCanvasDisplayObject.regX = -10;
     eventObject.eaCanvasDisplayObject.regY = 50;
@@ -367,45 +367,20 @@ function eaDisplaySetting(eventObject)
     eventList.push(eventObject); // 전체 이벤트 목록에 저장
 
     console.log("emoticon");
-
 }
 
-
 function endup(){ // 이벤트 후 처리 부분
+
     console.log("inner endup");
-/*
-    stage.removeChild(eaTextInputField);
-    stage.removeChild(eaTextInputButton); // 스테이지에 easel 객체로 인풋 패널 제거.
-
-    for (var i = 0; i<emoticonNumber; i++){ // 이모티콘 패널 업데이트
-        stage.removeChild(eaEmoticonInputArray[i]);
-    }*/
-
-
-    /*
-
-     $("#textinput1").val("what you feel now?")
-     $("#textinput1").hide();
-     $("#permissionSelect").hide();
-     $("#emoticonTable").hide();
-     */
-   /* if($("#textinput1").is(":visible")=== true){
-        getFocus();
-
-    }*/
-
 
     stage.update();
 
     totalEvent++;
-//    setTimeout(function(){alert("ddf");},150);
+
     setTimeout(function(){getFocus();},100);
 
 
 }
-
-
-
 
 //     if(popcornobj.currentTime()==popcornobj.duration())// check video end
 //     {
@@ -435,7 +410,6 @@ function happybutton()
     stage_bar.addChild(container);
 
     stage_bar.update();
-
 }
 
 function sadbutton()
@@ -488,21 +462,14 @@ function savetext()
 
 <table id = "emoticonTable">
     <tr>
-        <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon1.png" name="button" value="Joy" class="emoticon_button"/> </td>
-
-        <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon2.png" name="button" value="Hope" class="emoticon_button"/> </td>
-
-        <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon3.png" name="button" value="Proud" class="emoticon_button"/> </td>
-
-        <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon4.png" name="button" value="Boring" class="emoticon_button"/> </td>
+        <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
+        <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
+        <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
+        <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
     </tr>
 </table>
 <input id="happy1" type = "button" onclick="happybutton()" value= "happy" >
 <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" >
 <input id="button1" type="button" value="getfocus" onclick="getFocus();">
-
-
-
-
 </body>
 </html>

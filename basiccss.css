@@ -1,21 +1,20 @@
-#canvas1
-{
+#canvas1{
 	position: absolute;
 	top:0;
 	left:0;	
 	/*background-color: green;*/
+    /*z-index:2147483647;*/
+    z-index: 2147483647;
 	opacity: 1;
 }
-#canvas2
-{
+#canvas2{
 	position: absolute;
 	top:500px;
 	left:0;
 	background-color: blue;
 	/*z-index : 20;*/
 }
-#ourvideo
-{
+#ourvideo{
 	position: absolute;
 	top:0;
 	left:0;
@@ -23,20 +22,17 @@
 	height: 480px;
 	/*z-index: 30;*/
 }
-#textinput1
-{
-	z-index: 20;
+#textinput1{
+	z-index: 2147483647;
 }
 
-#happy1
-{
+#happy1{
 position: absolute;
 	top:650px;
 	left:300px;
 
 }
-#sad1
-{
+#sad1{
 
 position: absolute;
 	top:650px;
