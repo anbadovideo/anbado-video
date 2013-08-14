@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>anbado player example</title>
+
+<meta charset="utf-8">
+
+  <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+  <script src="http://localhost:8888/socket.io/socket.io.js"></script>
+
+ <link rel="stylesheet" type="text/css" href="basiccss.css">
+
+  <link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+
+  <style>
+
+
+      text {
+          font: 12px sans-serif;
+
+          position: absolute;
+          top:900px;
+          left:0;
+
+      }
+
+      #stackedarea {
+          height: 110px;
+          position: absolute;
+          top:700px;
+          left:0;
+      }
+
+
+      /*line chart */
+
+      svg {
+          display: block;
+      }
+
+      #linechart svg {
+          height: 100px;
+          min-width: 100px;
+          min-height: 100px;
+          position: absolute;
+          top:700px;
+          left:0;
+      }
+
+      /*pichart*/
+      #pichart
+      {
+          position: absolute;
+          top:700px;
+          left:0;
+
+
+      }
+
+      /*half chart*/
+      #halfchart
+      {
+          position: absolute;
+          top:700px;
+          left:0;
+
+      }
+
+      .mypiechart {
+          width: 500px;
+          border: 2px;
+      }
+
+      /*scatter_chart*/
+
+
+      #offsetDiv {
+          margin-left: 100px;
+          margin-top: 100px;
+      }
+
+
+      #scatterchart {
+          margin: 0;
+          position: absolute;
+          top:800px;
+          left:0;
+          width:1500px;
+      }
+
+      #scatterchart svg {
+          height: 1500px;
+          width: 1000px;
+
+      }
+
+  </style>
+  <script src="../lib/d3.v3.js"></script>
+  <script src="../nv.d3.js"></script>
+  <script src="../src/utils.js"></script>
+  <script src="../src/models/axis.js"></script>
+  <script src="../src/tooltip.js"></script>
+  <script src="../src/models/legend.js"></script>
+  <script src="../src/models/axis.js"></script>
+  <script src="../src/models/scatter.js"></script>
+  <script src="../src/models/stackedArea.js"></script>
+  <script src="../src/models/stackedAreaChart.js"></script>
+  <script src="../src/models/pie.js"></script>
+  <script src="../src/models/pieChart.js"></script>
+
+  <script type="text/javascript">
+
+var good=0 ,bad=0,sad=0;
+var intvidiotime=0
+
+ var time=0;
+
+var arrayg = [],arrayb = [];
+
+var graphshape=0;
+
+//aaaaa
+
+
+  // var socket = io.connect('http://localhost:8888');
+
+
+  var socket;
+  jQuery(function() 
+  {
+    socket = io.connect("http://localhost:8888/");
+
+    socket.on('connect', function() {
+      socket.on('return', function(data) {
+        console.log(data);
+      });
+
+      socket.emit('sample', {hello: 'world'});
+    });
+  });
+  // socket.on('connect', function (data) {
+  //   console.log(data);
+  //   socket.emit('my other event', { my: 'data' });
+  //   socket.on('return', function(data) {console.log(data)})
+  // });
+
+    var popcornobject; // global access video object 
+    var totalEvent =0; // total event number
+    var currentEventPosition = 0; 
+
+    var canvaslayer; // canvas overlay
+    var canvas_bar;
+
+    var container;
+    var stage;
+    var stage_bar;
+    var time_posision=0; 
+
+    var eventList = new Array();
+
+    var inttime=0;
+
+    var data = [];
+
+
+
+    document.addEventListener( "DOMContentLoaded", function()
+     {
+       popcornobject = Popcorn.smart("#ourvideo","/Users/mijong/Desktop/googlechart/RyanMerkley_2012G.mp4"); // 팝콘 객체 생성
+
+      popcornobject.on("play", function()
+       {
+        console.log("Playing!");
+
+        popcornobject.on("timeupdate", function(){
+
+          if(((this.currentTime()-eventList[currentEventPosition].eventVideoClickTime)>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()==this.duration()))   // 같거나 비디오가 끝나면 디스플레이를 없애준다.
+          {
+            $("input:text").hide();
+            $("input:submit").hide();
+          }
+
+          var tek=0;
+          tek=this.currentTime();
+          tek=parseInt(tek);
+
+          if(tek>intvidiotime)
+            {good=0;bad=0;}
+           //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
+
+          intvidiotime=this.currentTime();
+          intvidiotime=parseInt(intvidiotime);
+
+        });
+
+          // socket.emit('sample',{hello: popcornobject.currentTime()});
+
+        });
+
+
+      canvaslayer = document.getElementById("canvas1");
+      stage = new createjs.Stage(canvaslayer);
+      canvas_bar=document.getElementById("canvas2");
+      stage_bar = new createjs.Stage(canvas_bar);
+
+
+      container = new createjs.Container();
+      container.x=0;
+      container.y=0;
+
+
+      console.log($("#textinput1").val());
+
+      //socket io 부분 테스팅
+
+      //offset 값으로 나중에 수정 vidio의 위치
+      $("#canvas1").css({"top":100,"left":240});
+      //$("#canvas2").css({"top":600,"left":240});
+      $("#ourvideo").css({"top":100,"left":240});
+      $("#textinput1").css({"top":100,"left":240});
+      $("#textbutton1").css({"top":100,"left":240});
+
+      $("input:text").hide();
+      $("input:submit").hide();
+
+      $("#visualization").css({"top":700,"left":240});
+
+      var durationtime=0;
+         setTimeout(function(){
+        if(popcornobject!="NaN")
+        {
+            durationtime= popcornobject.duration();
+            make_array(durationtime);
+            console.log(durationtime);
+
+
+            if(graphshape==1)
+            {stactareachart();}
+            else if(graphshape==2)
+            {line();}
+            else if(graphshape==3)
+            {pichart();}
+            else if(graphshape==4)
+            {halfpichart();}
+
+
+        }
+      },1000);
+
+
+         stage.onMouseDown = eventGenerate; // on mouse click - input event occur. onClick won't work
+
+
+    });
+
+//
+//function make_scatterarray(time)
+//{
+//
+//    console.log("hello");
+//
+//    for (i = 0; i < 1; i++) {
+//        data.push({
+//            key: 'Group ' +'time'+ i,
+//            values: [],
+//            slope: 0,
+//            intercept: 0
+//        });
+//
+//        for (j = 0; j < time; j++) {
+//
+//            data[i].values.push({
+//                x: j,//random(),
+//                y: 1,
+//                size: 0.1
+//            });
+//
+//        }
+//    }
+//
+//    console.log(data);
+//
+//}
+
+
+
+
+
+function make_array( gettime )
+{
+
+    gettime=parseInt(gettime);
+    gettime=gettime+1;
+      console.log("array time:"+gettime);
+
+ 
+ //array 2d ㅁ만들기
+  for (var i=0;i<gettime;i++)
+  {// 앞에 꺼 time
+      arrayg[i] = [];
+      arrayb[i] = [];
+   }
+ 
+
+for(var j=0;j<gettime;j++)
+{
+  arrayg[j][0] = j;arrayg[j][1] = 0.1;
+    arrayb[j][0] = j;arrayb[j][1] = 0.1;
+
+}
+
+
+
+}
+
+    
+
+
+
+    function eventGenerate(evt){ // video interaction event generation 
+      var eventObject = new Object();
+      eventObject.eventID = totalEvent++; 
+      eventObject.eventVideoClickTime = popcornobject.currentTime(); // 플레어에서의 currentTime을 받는 것으로 
+      eventObject.eventOccuredAbsoluteTime = 0; // 이벤트가 생성된 현재 시간. 
+      eventObject.eventVideoClickDuration = 2; // 얼마나 지속되는지 
+      eventObject.eventPosX = stage.x;  // 화면의 디스플레이를 표시하도록
+      eventObject.eventPosY = stage.y; 
+      eventObject.timelineOffset;  // 타임라인에서 얼마나 떨어져 있는가?       
+      eventObject.eventType = "text"; // event type e.g text, emoticon, image, buttonaction, webcam
+      eventObject.eventContent = "event content";  
+      eventObject.secUnit = 100* Math.round(popcornobject.currentTime() / popcornobject.duration());// 몇번째 유닛인지? 
+      // console.log(eventObject);
+
+      eventList.push("eventObject"); 
+      displayInputPanel();
+
+    }
+
+    function displayInputPanel(){ // on first screen, display text input panel, submit button, emoticon panel
+
+      $("input:text").show();
+      $("input:submit").show();
+      var textInputField = new createjs.DOMElement("textinput1");
+      var textInputButton = new createjs.DOMElement("textbutton1");
+
+      textInputField.regX = 0;
+      textInputField.regY = 0;
+
+      textInputField.x = stage.mouseX;
+      textInputField.y = stage.mouseY;
+
+      textInputButton.regX = -180; 
+      textInputButton.regY = 0; 
+      textInputButton.x = stage.mouseX;
+      textInputButton.y = stage.mouseY;
+      stage.addChild(textInputField);
+      stage.addChild(textInputButton);
+      
+  
+
+      stage.update();
+
+
+      if(popcornobject.currentTime()==popcornobject.duration())// check video end
+      {      
+        $("input:text").hide();
+        $("input:submit").hide(); 
+     // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해 
+      }
+
+
+    }
+
+
+
+
+      function drawVisualization() {
+
+
+          var inttime= 0;
+
+          inttime=popcornobject.currentTime();
+          inttime=parseInt(inttime);
+
+
+   arrayg[inttime][1] = (arrayg[inttime][1]+good);
+   arrayb[inttime][1] = (arrayb[inttime][1]+bad);
+
+
+          console.log("time:"+arrayg[inttime][1]);
+
+
+
+          if(graphshape==1)
+          {stactareachart();}
+          else if(graphshape==2)
+          {line();}
+          else if(graphshape==3)
+          {pichart();}
+          else if(graphshape==4)
+          {halfpichart();}
+      }
+
+
+
+
+
+    function happybutton()
+    {
+    good++;
+     drawVisualization();
+   }
+
+   function sadbutton()
+   {
+      bad++;
+     drawVisualization();
+   }
+
+
+  function stactareachart()
+  {
+      var histcatexplong = [
+          {
+              "key" : "good" ,
+              "values" : arrayg
+          },
+          {
+              "key" : "bad" ,
+              "values" : arrayb
+          },
+
+      ];
+
+      var colors = d3.scale.category20();
+      keyColor = function(d, i) {return colors(d.key)};
+
+      var chart;
+      nv.addGraph(function() {
+          chart = nv.models.stackedAreaChart()
+                  .x(function(d) { return d[0] })
+                  .y(function(d) { return d[1] })
+                  .color(keyColor)
+          //.clipEdge(true);
+
+// chart.stacked.scatter.clipVoronoi(false);        // x축 날짜로 나타남
+//
+//  chart.xAxis
+//      .tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
+
+          chart.yAxis
+                  .tickFormat(d3.format(',.2f'));
+
+          d3.select('#stackedarea')
+                  .datum(histcatexplong)
+                  .transition().duration(500).call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+          return chart;
+      });
+
+  }
+
+function line()
+{
+    // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
+    var chart;
+    var goood = [],baad=[];
+
+    for (var i = 0; i < arrayg.length; i++) {
+        goood.push({x: arrayg[i][0], y: arrayg[i][1]-0.1 }); //the nulls are to show how defined works
+        baad.push({x: arrayb[i][0], y: arrayb[i][1]});
+    }
+
+
+    var test =[
+        {
+            values: goood,
+            key: "good",
+            color: "#2ca02c"
+        },
+        {
+            values: baad,
+            key: "bad",
+            color: "red"
+        }
+
+    ];
+
+
+    nv.addGraph(function() {
+        chart = nv.models.lineChart();
+
+        chart
+                .x(function(d,i) { return i })
+
+
+        chart.xAxis // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+                .tickFormat(d3.format(',.1f'));
+
+        chart.yAxis
+                .axisLabel('Voltage (v)')
+                .tickFormat(d3.format(',.2f'));
+
+        chart.showXAxis(true);
+
+        d3.select('#linechart svg')
+            //.datum([]) //for testing noData
+                .datum(test)
+                .transition().duration(500)
+                .call(chart);
+
+        //TODO: Figure out a good way to do this automatically
+        nv.utils.windowResize(chart.update);
+        //nv.utils.windowResize(function() { d3.select('#chart1 svg').call(chart) });
+
+        chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+        return chart;
+    });
+}
+
+
+
+function pichart()
+{
+    var goodpi= 0,badpi=0;
+
+    for(var k=0;k<arrayg.length;k++)
+    {
+        goodpi=goodpi+(arrayg[k][1]-0.1);
+        badpi=badpi+(arrayb[k][1]-0.1);
+    }
+
+    var testdata = [
+        {
+            key: "good",
+            y: goodpi+0.01
+        },
+        {
+            key: "bad",
+            y: badpi+0.01
+        }
+    ];
+
+    nv.addGraph(function() {
+        var width = 200,
+                height = 200;
+
+        var chart = nv.models.pieChart()
+                .x(function(d) { return d.key })
+                .y(function(d) { return d.y })
+            //.showLabels(false)
+                .values(function(d) { return d })
+                .color(d3.scale.category10().range())
+                .width(width)
+                .height(height);
+
+        d3.select("#pie")
+                .datum([testdata])
+                .transition().duration(1200)
+                .attr('width', width)
+                .attr('height', height)
+                .call(chart);
+
+        chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+        return chart;
+    });
+}
+
+
+function halfpichart()
+{
+
+    var goodpi= 0,badpi=0;
+
+    for(var k=0;k<arrayg.length;k++)
+    {
+        goodpi=goodpi+(arrayg[k][1]-0.1);
+        badpi=badpi+(arrayb[k][1]-0.1);
+    }
+
+    var testdata = [
+        {
+            key: "good",
+            y: goodpi+0.01
+        },
+        {
+            key: "bad",
+            y: badpi+0.01
+        }
+    ];
+
+    nv.addGraph(function() {
+
+        var width = 200,
+                height = 200;
+
+        var chart = nv.models.pieChart()
+                .x(function(d) { return d.key })
+            //.y(function(d) { return d.value })
+                .values(function(d) { return d })
+            //.labelThreshold(.08)
+            //.showLabels(false)
+                .color(d3.scale.category10().range())
+                .width(width)
+                .height(height)
+                .donut(true);
+
+        chart.pie
+                .startAngle(function(d) { return d.startAngle/2 -Math.PI/2 })
+                .endAngle(function(d) { return d.endAngle/2 -Math.PI/2 });
+
+        //chart.pie.donutLabelsOutside(true).donut(true);
+
+        d3.select("#halfpi")
+            //.datum(historicalBarChart)
+                .datum([testdata])
+                .transition().duration(1200)
+                .attr('width', width)
+                .attr('height', height)
+                .call(chart);
+
+        return chart;
+    });
+
+}
+
+
+
+  function graphselect()
+  {
+   var gra=document.selectform;
+      if(gra.graph.value=='1')//area graph
+      {graphshape=1;
+          stactareachart();
+          $('.areadiv').show();
+          $('.linediv').hide();
+          $('.piediv').hide();
+          $('.halfdiv').hide();
+      }
+      else if(gra.graph.value=='2') //line graph
+      {graphshape=2;
+          line();
+          $('.areadiv').hide();
+          $('.linediv').show();
+          $('.piediv').hide();
+          $('.halfdiv').hide();
+      }
+      else if(gra.graph.value=='3')
+      {graphshape=3;
+          pichart();
+          $('.areadiv').hide();
+          $('.linediv').hide();
+          $('.piediv').show();
+          $('.halfdiv').hide();
+      }
+      else if(gra.graph.value=='4')
+      {graphshape=4;
+          halfpichart()
+          $('.areadiv').hide();
+          $('.linediv').hide();
+          $('.piediv').hide();
+          $('.halfdiv').show();
+
+
+
+      }
+
+  }
+  </script>
+
+ </head>
+
+ <body>
+
+
+  <div>
+    <video id="ourvideo" controls="false">
+      <source src="/Users/mijong/Desktop/googlechart/RyanMerkley_2012G.mp4"/>
+    </video>
+    <div id="canvascontainer">
+      <canvas id="canvas1" width = "640px" height = "430px"></canvas>
+      <!-- <canvas id="canvas2"width = "640px" height = "50px"></canvas> -->
+    </div>
+
+  </div>
+
+
+  <div id="visualization" style="width: 800px; height: 400px;"></div>
+
+
+  <input id="textinput1" type = "text" value = "ass">
+  <input id="textbutton1" type = "submit" value= "now"/>
+
+
+  <input id="textinput2" type = "text" value = "ass">
+  <input id="textbutton2" type = "submit" value= "now"/>
+
+
+  <input id="happy1" type = "button" onclick="happybutton()" value= "happy" />
+  <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" />
+
+  <div class="areadiv">
+      <svg id="stackedarea"></svg>
+  </div>
+
+  <div class="linediv" id="linechart">
+      <svg style="..."></svg>
+  </div>
+
+  <div class="piediv" id="pichart">
+      <svg id="pie" class="mypiechart"></svg>
+  </div>
+
+  <div class="halfdiv" id="halfchart">
+      <svg id="halfpi" class="mypiechart"></svg>
+  </div>
+
+
+  <form name="selectform">
+      관심사 : <br />
+      <select name="graph" onchange="graphselect();">
+          <option value="1">area graph</option>
+          <option value="2" selected="selected">line graph</option>
+          <option value="3">pie graph</option>
+          <option value="4">halfpie graph</option>
+      </select>
+      <input id="exit" type = "button" onclick="dis();" value= "exit" />
+  </form>
+
+      </body>
+</html>
