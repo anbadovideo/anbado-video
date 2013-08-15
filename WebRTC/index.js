@@ -1,12 +1,17 @@
 var start = document.getElementById('record-video');
-var stop = document.getElementById('stop-recording-video');
+var stop = document.getElementById('stop-video');
 var video = document.getElementById('test');
 var img = document.querySelector('img');
 
 
-var canvas = document.querySelector('canvas');
+var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var localStream = null;
+
+// animation id 
+var requestId = 0;
+// whammy is webm encoder.
+var whammy = new Whammy.Video(15);
 
 var device = document.getElementById('device');
 var gif = new GIF({
@@ -20,6 +25,15 @@ video.addEventListener('click',
             var numberOfCanvas = imgs.children;        
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
+
+            animation(Date.now());
+            function animation (timestamp) {
+                context.drawImage(video, 0, 0);
+                whammy.add(canvas);
+                handle = window.requestAnimationFrame(animation);
+            };
+
+            /*
             var i = 0;
             var interval = setInterval(function() {              
                 var paper = numberOfCanvas[i];
@@ -29,7 +43,6 @@ video.addEventListener('click',
                 var context = paper.getContext('2d');
                 context.drawImage(video, 0, 0);  
                 gif.addFrame(paper);
-//                console.log(window.URL.createObjectURL(context));
                 if ( i > 28 ) {
                     clearInterval(interval);
                     gif.render();
@@ -39,6 +52,7 @@ video.addEventListener('click',
             gif.on('finished', function(blob) {
                 img.src = URL.createObjectURL(blob);
             });
+            */
         }
     }, true);
 start.onclick = function() {
@@ -73,7 +87,13 @@ start.onclick = function() {
 };
 
 stop.onclick = function() {
-    localStream.stop();
+    if (requestId) {
+        window.cancelAnimationFrame(requestId);
+    }
+    var compile = whammy.compile();
+    var result = document.getElementById('result');
+    result.src = window.URL.createObjectURL(compile);
+    result.autoplay = true;
 };
 
 device.onchange = function(stream) {
