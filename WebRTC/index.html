@@ -6,9 +6,10 @@
 <body>
 	<div>
 		<video style="width:640px;height:480px" id = "test" controls> </video>		
-		<canvas style="display:none"> </canvas>
+		<canvas id="canvas" style="display:none"> </canvas>
 		<img styple="width:640px;height:480px" src="">
 	</div>
+	<video style="width:640px;height:480px" id="result" controls> </video>
 	<input type="video" aceept="video/*;capture=camcorder">
 	<input type="audio" aceept="audio/*;capture=microphone">	
 	<input type="file" accept="image/*;capture=camera">
@@ -18,6 +19,7 @@
 	<button id="stop-video"> stop </button>
 	<button id="stop-recording-video"></button>
 	<script src="gif.js"></script>	
+	<script src="whammy.js"></script>		
 	<script src="index.js"></script>
 	<div id="imgs">
 		<canvas style="width:640px;height:480px;display:none"></canvas>
