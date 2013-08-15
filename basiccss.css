@@ -4,7 +4,7 @@
 	left:0;	
 	/*background-color: green;*/
     /*z-index:2147483647;*/
-    z-index: 2147483647;
+    /*z-index: 2147483647;*/
 	opacity: 1;
 }
 #canvas2{
@@ -23,7 +23,7 @@
 	/*z-index: 30;*/
 }
 #textinput1{
-	z-index: 2147483647;
+	/*z-index: 2147483647;*/
 }
 
 #happy1{

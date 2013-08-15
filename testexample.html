@@ -270,11 +270,12 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
         eventType : eventTypeArg, // event type e.g text, emoticon, image, button action, webcam
         eventContent : "event content",
+        eventPermission : $("#permissionSelect").val(),
         secUnit : 100* Math.round(popcornobj.currentTime() / popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasDisplayObject : {}
     };
 
-    console.log(eventObject.eventType);
+    console.log(eventObject.eventPermission);
 
     switch(eventTypeArg)
     {
@@ -306,25 +307,19 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
 
             eventList.push(eventObject); // 전체 이벤트 목록에 저장
 
-            console.log("text");
             break;
 
         case "emoticon0":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon0.png"); // make emoticon easeljs object
-            eaDisplaySetting(eventObject);
+            eaDisplaySetting(eventObject, "emoticon0");
             break;
         case "emoticon1":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon1.png"); // make emoticon easeljs object
-            eaDisplaySetting(eventObject);
+            eaDisplaySetting(eventObject, "emoticon1");
             break;
         case "emoticon2":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon2.png"); // make emoticon easeljs object
-            eaDisplaySetting(eventObject);
+            eaDisplaySetting(eventObject, "emoticon2");
             break;
         case "emoticon3":
-            eventObject.eaCanvasDisplayObject = new createjs.Bitmap("AssetImages/emoticon3.png"); // make emoticon easeljs object
-
-            eaDisplaySetting(eventObject);
+            eaDisplaySetting(eventObject, "emoticon3");
             break;
 
         default :
@@ -354,14 +349,32 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
     }
 }
 
-function eaDisplaySetting(eventObject){
+function eaDisplaySetting(eventObject, content){
 
-    eventObject.eaCanvasDisplayObject.regX = -10;
-    eventObject.eaCanvasDisplayObject.regY = 50;
-    eventObject.eaCanvasDisplayObject.x = stage.mouseX;
-    eventObject.eaCanvasDisplayObject.y = stage.mouseY;
-    eventObject.eaCanvasDisplayObject.scaleX = eventObject.eaCanvasDisplayObject.scaleY = eventObject.eaCanvasDisplayObject.scale = 0.8;
+    eventObject.eaCanvasDisplayObject = new createjs.Container();
+    console.log(content);
 
+    var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
+
+    eaTempEmoticon.regX = -10;
+    eaTempEmoticon.regY = 50;
+    eaTempEmoticon.x = stage.mouseX;
+    eaTempEmoticon.y = stage.mouseY;
+    eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
+
+    var eaBackPanel = new createjs.Shape();
+    eaBackPanel.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY, 0, 0);
+    eaBackPanel.regX = 40;
+    eaBackPanel.regY = 0;
+
+    var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
+    eaProfileImage.regX = 350;
+    eaProfileImage.regY = 0;
+    eaProfileImage.x = stage.mouseX;
+    eaProfileImage.y = stage.mouseY;
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
+
+    eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaTempEmoticon , eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
     stage.addChild(eventObject.eaCanvasDisplayObject);
 
     eventList.push(eventObject); // 전체 이벤트 목록에 저장
@@ -453,7 +466,6 @@ function savetext()
     <option value="me only">Me only</option>
     <option value="my friends">My friends</option>
     <option value="everybody">Everybody</option>
-
 </select>
 
 
