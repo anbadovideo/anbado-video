@@ -9,6 +9,8 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
 <script src="http://localhost:8888/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <link rel="stylesheet" type="text/css" href="basiccss.css">
 <script type="text/javascript">
 
@@ -147,9 +149,8 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
      $("#textinput1").css("height", "15px");
      */
 
-    $("#textinput1").show();
-    $("#permissionSelect").show();
-    $("#emoticonTable").show();
+    showPanel();
+    setTimeout(function(){getFocus();},300);
 
     var emo0 = document.getElementById("emoticon0");
     emo0.addEventListener("click", emoticonDOMClick);
@@ -233,9 +234,9 @@ function keyDownCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통�
 }
 
 function showPanel(){
-    $("#textinput1").show();
-    $("#permissionSelect").show();
-    $("#emoticonTable").show();
+    $("#textinput1").show("scale",300);
+    $("#permissionSelect").show("scale",300);
+    $("#emoticonTable").show("scale",300);
 }
 
 function hidePanel(){
@@ -290,7 +291,7 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
             eaTextContent.y = stage.mouseY;
 
             var eaBackPanel = new createjs.Shape();
-            eaBackPanel.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY, eaTextContent.getMeasuredWidth()+130,40);
+            eaBackPanel.graphics.beginFill("rgba(0,0,0,0.6)").drawRect(stage.mouseX,stage.mouseY, eaTextContent.getMeasuredWidth()+130,40);
             eaBackPanel.regX = 40;
             eaBackPanel.regY = 0;
 
@@ -347,6 +348,7 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
         hidePanel();
         endup();
     }
+    endup();
 }
 
 function eaDisplaySetting(eventObject, content){
@@ -380,6 +382,8 @@ function eaDisplaySetting(eventObject, content){
     eventList.push(eventObject); // 전체 이벤트 목록에 저장
 
     console.log("emoticon");
+
+    endup();
 }
 
 function endup(){ // 이벤트 후 처리 부분
@@ -391,8 +395,6 @@ function endup(){ // 이벤트 후 처리 부분
     totalEvent++;
 
     setTimeout(function(){getFocus();},100);
-
-
 }
 
 //     if(popcornobj.currentTime()==popcornobj.duration())// check video end
