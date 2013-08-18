@@ -75,6 +75,13 @@ body{
 
 #textinput1{
     float: left;
+    position: absolute;
+}
+#emoticonPanel{
+    position: absolute;
+}
+#permissionSelect{
+    position: absolute;
 }
 select{
     float: left;
