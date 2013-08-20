@@ -14,9 +14,12 @@
 <link rel="stylesheet" type="text/css" href="basiccss.css">
 <script type="text/javascript">
 
+$("#textinput2").css("width", "400");
+
 
 
 var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
+
 
 
 var socket;
@@ -63,12 +66,11 @@ var eaEmoticonInputArray;
 
 function getFocus(){
     $("#textinput1").focus();
-
-
-
 }
 //
 document.addEventListener( "DOMContentLoaded", function() {
+
+    hidePanel();
 
 //    $("#textinput1").focus(function(){
 //        alert("focus inner");
@@ -79,7 +81,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 $(".emoticon_button").css("width", 50);
 $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
 
-
+var totalCount = 0;
 popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
 
 popcornobj.on("play", function() {
@@ -94,6 +96,8 @@ popcornobj.on("play", function() {
                 stage.addChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 보여주기
                 stage.update();
             }
+            totalCount++;
+            console.log("TOTAL : " + totalCount);
 //            console.log("this time:"+this.currentTime());
         }
     });
@@ -133,6 +137,7 @@ $("#permissionSelect").css({"top":100,"left":240});
 
 
 });
+var tempEvent = {};
 
 
 function displayInputPanel(evt){ // on first screen, display text input panel, submit button, emoticon panel
@@ -152,7 +157,7 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
      $("#textinput1").css("height", "15px");
      */
 
-    console.log("on event");
+
 
     if(inputPanelShow === false){
         inputPanelShow = true; // 클릭이 되었음을 표시
@@ -160,12 +165,13 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 
 //        displayInputPanel(eventObject);
 
+        tempEvent.x = evt.pageX;
+        tempEvent.y = evt.pageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
+
         $("#textinput1").css({"top": evt.pageY,"left":evt.pageX});
         $("#textinput1").keydown(keyDownCheck);
-
         $("#permissionSelect").css({"top":evt.pageY,"left":evt.pageX +200});
-
-        $("#emoticonPanel").css({"top":evt.pageY+100,"left":evt.pageX});
+        $("#emoticonPanel").css({"top":evt.pageY+25,"left":evt.pageX});
 
         showPanel();
 
@@ -179,11 +185,6 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 
     }
 
-
-
-
-
-
     setTimeout(function(){getFocus();},300);
 
     var emo0 = document.getElementById("emoticon0");
@@ -194,6 +195,8 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
     emo2.addEventListener("click", emoticonDOMClick);
     var emo3 = document.getElementById("emoticon3");
     emo3.addEventListener("click", emoticonDOMClick);
+
+    console.log(emo0);
 
 //
 //    eaTextInputField = new createjs.DOMElement("textinput1");
@@ -256,7 +259,7 @@ function keyDownCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통�
 
     if(evt.keyCode == 13){ // 엔터인 경우
 
-        eventGenerate("text");
+        eventGenerate(evt);
         endup();
     }
 
@@ -285,12 +288,14 @@ function hidePanel(){
 
 function emoticonDOMClick(evt){
 // 각 이모티콘 객체에 대한 이벤트 핸들러
-
-    eventGenerate(evt.target.id);
+    console.log("DOMClick");
+    eventGenerate(evt);
 }
 
 
-function eventGenerate(eventTypeArg){ // video interaction event generation
+function eventGenerate(evt){ // video interaction event generation
+
+    console.log("on event");
     var eventObject = {
         eventID : totalEvent,
         eventOwnerName : "owner",
@@ -298,64 +303,65 @@ function eventGenerate(eventTypeArg){ // video interaction event generation
         eventVideoClickTime : popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
         eventOccuredAbsoluteTime : (new Date().getTime()), // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 2, // 얼마나 지속되는지
-        eventPosX : stage.x,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
-        eventPosY : stage.y,
+        eventPosX : tempEvent.x  - canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
+        eventPosY : tempEvent.y  - canvaslayer.offsetTop,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
-        eventType : eventTypeArg, // event type e.g text, emoticon, image, button action, webcam
+        eventType : evt.target.id, // event type e.g text, emoticon, image, button action, webcam
         eventContent : "event content",
         eventPermission : $("#permissionSelect").val(),
         secUnit : 100* Math.round(popcornobj.currentTime() / popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasDisplayObject : {}
     };
+    console.log(eventObject.eventPosX+","+ eventObject.eventPosY );
 
 
 
-    switch(eventTypeArg)
+    switch(evt.target.id)
     {
-        case "text":
+        case "textinput1":
+                console.log(evt);
             eventObject.eaCanvasDisplayObject = new createjs.Container();
             eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
 
             var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
             eaTextContent.regX = 0;
             eaTextContent.regY = 0;
-            eaTextContent.x = stage.mouseX;
-            eaTextContent.y = stage.mouseY;
+            eaTextContent.x = eventObject.eventPosX;
+            eaTextContent.y = eventObject.eventPosY;
 
             var eaBackPanel = new createjs.Shape();
             var eaAlpha = 0.2;
-
-
-            eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(stage.mouseX,stage.mouseY, eaTextContent.getMeasuredWidth()+120,40);
-            eaBackPanel.regX = 40;
+            eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 120,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+            eaBackPanel.regX = 0;
             eaBackPanel.regY = 0;
-            console.log(eaBackPanel.graphics.beginFill("rgba(0,0,0,eaAlpha)"));
+
+
             var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
-            eaProfileImage.regX = 350;
+            eaProfileImage.regX = 0;
             eaProfileImage.regY = 0;
-            eaProfileImage.x = stage.mouseX;
-            eaProfileImage.y = stage.mouseY;
+            eaProfileImage.x = eventObject.eventPosX - 60;
+            eaProfileImage.y = eventObject.eventPosY;
             eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
-            eventObject.eaCanvasDisplayObject.addChild(eaBackPanel, eaTextContent, eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+            eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaTextContent,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
             stage.addChild(eventObject.eaCanvasDisplayObject);
 
             eventList.push(eventObject); // 전체 이벤트 목록에 저장
-
+            stage.update();
             break;
 
         case "emoticon0":
-            eaDisplaySetting(eventObject, "emoticon0");
+            eaDisplaySetting(eventObject, evt.target.id);
             break;
         case "emoticon1":
-            eaDisplaySetting(eventObject, "emoticon1");
+            eaDisplaySetting(eventObject, evt.target.id);
             break;
         case "emoticon2":
-            eaDisplaySetting(eventObject, "emoticon2");
+            eaDisplaySetting(eventObject, evt.target.id);
             break;
         case "emoticon3":
-            eaDisplaySetting(eventObject, "emoticon3");
+            eaDisplaySetting(eventObject, evt.target.id);
             break;
 
         default :
@@ -379,25 +385,25 @@ function eaDisplaySetting(eventObject, content){
 
     var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
 
-    eaTempEmoticon.regX = -10;
-    eaTempEmoticon.regY = 50;
-    eaTempEmoticon.x = stage.mouseX;
-    eaTempEmoticon.y = stage.mouseY;
+    eaTempEmoticon.regX = 0;
+    eaTempEmoticon.regY = 0;
+    eaTempEmoticon.x = eventObject.eventPosX;
+    eaTempEmoticon.y = eventObject.eventPosY;
     eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
 
     var eaBackPanel = new createjs.Shape();
-    eaBackPanel.graphics.beginFill("#000").drawRect(stage.mouseX,stage.mouseY, 0, 0);
-    eaBackPanel.regX = 40;
+    eaBackPanel.graphics.beginFill("#000").drawRect(eventObject.eventPosX,eventObject.eventPosY, 0, 0);
+    eaBackPanel.regX = 0;
     eaBackPanel.regY = 0;
 
     var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
-    eaProfileImage.regX = 350;
+    eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.x = stage.mouseX;
-    eaProfileImage.y = stage.mouseY;
+    eaProfileImage.x = eventObject.eventPosX - 50;
+    eaProfileImage.y = eventObject.eventPosY;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
-    eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaTempEmoticon , eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+    eventObject.eaCanvasDisplayObject.addChild(eaBackPanel, eaTempEmoticon ,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
     stage.addChild(eventObject.eaCanvasDisplayObject);
 
 

@@ -2,7 +2,7 @@ body{
     background: #333;
     background-size: cover;
     font-family: Lato, helvetica;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 
@@ -33,6 +33,12 @@ body{
 #textinput1{
 	/*z-index: 2147483647;*/
 }
+#textinput2{
+    position :absolute;
+    top : 500px;
+    left : 300px;
+    opacity : 0.4;
+}
 
 #happy1{
     position: relative;
@@ -46,7 +52,7 @@ body{
     border: none;
     float: left;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
-
+    z-index: 2147483647;
 }
 #sad1{
 
@@ -61,6 +67,7 @@ body{
     border: none;
     float: left;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+    z-index: 2147483647;
 }
 
 #textinput2, #textinput1{
