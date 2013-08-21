@@ -16,11 +16,7 @@
 
 $("#textinput2").css("width", "400");
 
-
-
 var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
-
-
 
 var socket;
 jQuery(function() {
@@ -178,8 +174,23 @@ $("#permissionSelect").css({"top":100,"left":240});
 var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
 
 
+$("textinput2").keydown(textinput2Keydown);
+
 function textinput2Keydown(){
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
+
+
+    if(evt.keyCode == 13){ // 엔터인 경우
+
+        eventGenerate(evt);
+        endup();
+    }
+//
+//    if(evt.keyCode === 27 || evt.charCode === 27){ // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
+//        console.log("escape");
+//        hidePanel();
+//    }
+
 }
 
 
@@ -211,8 +222,7 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
         tempEvent.x = evt.pageX;
         tempEvent.y = evt.pageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
 
-        $("#textinput1").css({"top": evt.pageY,"left":evt.pageX});
-        $("#textinput1").keydown(keyDownCheck);
+        $("#textinput1").css({"top": evt.pageY,"left":evt.pageX}).keydown(keyDownCheck);
         $("#permissionSelect").css({"top":evt.pageY,"left":evt.pageX +200});
         $("#emoticonPanel").css({"top":evt.pageY+25,"left":evt.pageX});
 
@@ -350,11 +360,12 @@ function eventGenerate(evt){ // video interaction event generation
         eventPosY : tempEvent.y  - canvaslayer.offsetTop,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
         eventType : evt.target.id, // event type e.g text, emoticon, image, button action, webcam
-        eventContent : "event content",
+        eventContent : evt.target.value,
         eventPermission : $("#permissionSelect").val(),
         secUnit : 100* Math.round(popcornobj.currentTime() / popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasDisplayObject : {}
     };
+    $("#textinput1").val("");
     console.log(eventObject.eventPosX+","+ eventObject.eventPosY );
 
 
@@ -362,37 +373,38 @@ function eventGenerate(evt){ // video interaction event generation
     switch(evt.target.id)
     {
         case "textinput1":
-                console.log(evt);
-            eventObject.eaCanvasDisplayObject = new createjs.Container();
-            eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
 
-            var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
-            eaTextContent.regX = 0;
-            eaTextContent.regY = 0;
-            eaTextContent.x = eventObject.eventPosX;
-            eaTextContent.y = eventObject.eventPosY;
+//            eventObject.eaCanvasDisplayObject = new createjs.Container();
+//            eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
+//
+//            var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
+//            eaTextContent.regX = 0;
+//            eaTextContent.regY = 0;
+//            eaTextContent.x = eventObject.eventPosX;
+//            eaTextContent.y = eventObject.eventPosY;
+//
+//            var eaBackPanel = new createjs.Shape();
+//            var eaAlpha = 0.2;
+//            eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 120,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+//            eaBackPanel.regX = 0;
+//            eaBackPanel.regY = 0;
+//
+//
+//            var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
+//            eaProfileImage.regX = 0;
+//            eaProfileImage.regY = 0;
+//            eaProfileImage.x = eventObject.eventPosX - 60;
+//            eaProfileImage.y = eventObject.eventPosY;
+//            eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
+//
+//            eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaTextContent,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+//
+//            stage.addChild(eventObject.eaCanvasDisplayObject);
+//
+//            eventList.push(eventObject); // 전체 이벤트 목록에 저장
+//            stage.update();
+//            break;
 
-            var eaBackPanel = new createjs.Shape();
-            var eaAlpha = 0.2;
-            eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 120,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-            eaBackPanel.regX = 0;
-            eaBackPanel.regY = 0;
-
-
-            var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
-            eaProfileImage.regX = 0;
-            eaProfileImage.regY = 0;
-            eaProfileImage.x = eventObject.eventPosX - 60;
-            eaProfileImage.y = eventObject.eventPosY;
-            eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
-
-            eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaTextContent,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-
-            stage.addChild(eventObject.eaCanvasDisplayObject);
-
-            eventList.push(eventObject); // 전체 이벤트 목록에 저장
-            stage.update();
-            break;
 
         case "emoticon0":
             eaDisplaySetting(eventObject, evt.target.id);
@@ -424,7 +436,16 @@ function eventGenerate(evt){ // video interaction event generation
 function eaDisplaySetting(eventObject, content){
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
-    console.log(content);
+
+    if(content === "textinput1"){
+    var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
+    eaTextContent.regX = 0;
+    eaTextContent.regY = 0;
+    eaTextContent.x = eventObject.eventPosX;
+    eaTextContent.y = eventObject.eventPosY;
+    eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
+    }
+    else if(content === "emoticon0" ||"emoticon1"||"emoticon2"||"emoticon3") {
 
     var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
 
@@ -433,9 +454,10 @@ function eaDisplaySetting(eventObject, content){
     eaTempEmoticon.x = eventObject.eventPosX;
     eaTempEmoticon.y = eventObject.eventPosY;
     eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
-
+        eventObject.eaCanvasDisplayObject.addChild(eaTempEmoticon);
+    }
     var eaBackPanel = new createjs.Shape();
-    eaBackPanel.graphics.beginFill("#000").drawRect(eventObject.eventPosX,eventObject.eventPosY, 0, 0);
+    eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 120,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
     eaBackPanel.regX = 0;
     eaBackPanel.regY = 0;
 
@@ -446,7 +468,7 @@ function eaDisplaySetting(eventObject, content){
     eaProfileImage.y = eventObject.eventPosY;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
-    eventObject.eaCanvasDisplayObject.addChild(eaBackPanel, eaTempEmoticon ,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+    eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
     stage.addChild(eventObject.eaCanvasDisplayObject);
 
 
