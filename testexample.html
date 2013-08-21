@@ -134,9 +134,9 @@ container.y=0;
 //socket io 부분 테스팅
 
 //offset 값으로 나중에 수정 video의 위치
-$("#canvas1").css({"top":100,"left":240});
-$("#canvas2").css({"top":600,"left":240});
-$("#ourvideo").css({"top":100,"left":240});
+$("#canvas1").css({"top":100,"left":330});
+$("#canvas2").css({"top":600,"left":330});
+$("#ourvideo").css({"top":100,"left":330});
 $("#textinput1").css({"top":100,"left":240});
 $("#permissionSelect").css({"top":100,"left":240});
 
@@ -149,7 +149,6 @@ $("#permissionSelect").css({"top":100,"left":240});
             durationtime= popcornobj.duration();
             make_array(durationtime);
             console.log(durationtime);
-
 
             if(graphshape==1)
             {stactareachart();}
@@ -176,7 +175,12 @@ $("#permissionSelect").css({"top":100,"left":240});
 
 
 });
-var tempEvent = {};
+var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
+
+
+function textinput2Keydown(){
+    $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
+}
 
 
 function displayInputPanel(evt){ // on first screen, display text input panel, submit button, emoticon panel
@@ -878,10 +882,10 @@ function graphselect()
 {
 //    var gra=document.selectform;
     var graphTemp = $("#graphSelector").val();
-    
+
     if(graphTemp === "1" )//area graph
     {graphshape=1;
-        alert("dsf");
+        
         stactareachart();
         $('.areadiv').show();
         $('.linediv').hide();
@@ -928,6 +932,8 @@ function graphselect()
     <div id="canvascontainer">
         <canvas id="canvas1" width = "640px" height = "430px"></canvas>
         <canvas id="canvas2"width = "640px" height = "50px"></canvas>
+        <canvas id="canvasMyChat" width = "320px" height = "500px"></canvas>
+        <canvas id="canvasFriendChat" width = "320px" height = "500px"></canvas>
     </div>
 
 </div>
@@ -940,8 +946,8 @@ function graphselect()
 </select>
 
 
-<input id="textinput2" type = "text" value = "interactive">
-<input id="textbutton2" type = "submit" value= "now"/>
+<input id="textinput2" type = "text" value = "interactive"/>
+<input id="textbutton2" type = "button" value= "now"/>
 <div id="emoticonPanel">
 <table id = "emoticonTable">
     <tr>
