@@ -670,12 +670,12 @@ function stactareachart()
         {
             "key" : "bad" ,
             "values" : arrayb
-        },
+        }
 
     ];
 
     var colors = d3.scale.category20();
-    keyColor = function(d, i) {return colors(d.key)};
+    var keyColor = function(d, i) {return colors(d.key)};
 
     var chart;
     nv.addGraph(function() {
