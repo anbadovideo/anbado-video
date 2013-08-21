@@ -86,6 +86,8 @@ popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
 
 popcornobj.on("play", function() {
     console.log("Playing!");
+
+
     popcornobj.on("timeupdate", function(){
         for(currentEventPosition = 0; currentEventPosition<eventList.length; currentEventPosition++){
             var deltaTime = this.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
@@ -100,6 +102,19 @@ popcornobj.on("play", function() {
             console.log("TOTAL : " + totalCount);
 //            console.log("this time:"+this.currentTime());
         }
+
+
+        var tek=0;
+        tek=this.currentTime();
+        tek=parseInt(tek);
+
+        if(tek>intvidiotime)
+        {good=0;bad=0;}
+        //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
+
+        intvidiotime=this.currentTime();
+        intvidiotime=parseInt(intvidiotime);
+
     });
     // socket.emit('sample',{hello: popcornobj.currentTime()});
 });
@@ -124,6 +139,30 @@ $("#canvas2").css({"top":600,"left":240});
 $("#ourvideo").css({"top":100,"left":240});
 $("#textinput1").css({"top":100,"left":240});
 $("#permissionSelect").css({"top":100,"left":240});
+
+    $("#visualization").css({"top":700,"left":240});
+
+    var durationtime=0;
+    setTimeout(function(){
+        if(popcornobj!="NaN")
+        {
+            durationtime= popcornobj.duration();
+            make_array(durationtime);
+            console.log(durationtime);
+
+
+            if(graphshape==1)
+            {stactareachart();}
+            else if(graphshape==2)
+            {line();}
+            else if(graphshape==3)
+            {pichart();}
+            else if(graphshape==4)
+            {halfpichart();}
+
+
+        }
+    },1000);
 
 // $("input:text").hide();
 // $("input:submit").hide();
@@ -442,32 +481,439 @@ function endup(){ // 이벤트 후 처리 부분
 
 //   }
 
+
+
+
+</script>
+
+
+<link href="nv.d3.css" rel="stylesheet" type="text/css">
+
+<style>
+
+
+    #text {
+        font: 12px sans-serif;
+
+        position: absolute;
+        top:900px;
+        left:0;
+
+    }
+
+    #stackedarea {
+        height: 110px;
+        position: absolute;
+        top:700px;
+        left:0;
+    }
+
+
+        /*line chart */
+
+    svg {
+        display: block;
+    }
+
+    #linechart svg {
+        height: 100px;
+        min-width: 100px;
+        min-height: 100px;
+        position: absolute;
+        top:700px;
+        left:0;
+    }
+
+        /*pichart*/
+    #pichart
+    {
+        position: absolute;
+        top:700px;
+        left:0;
+
+
+    }
+
+        /*half chart*/
+    #halfchart
+    {
+        position: absolute;
+        top:700px;
+        left:0;
+
+    }
+
+    .mypiechart {
+        width: 500px;
+        border: 2px;
+    }
+
+        /*scatter_chart*/
+
+
+    #offsetDiv {
+        margin-left: 100px;
+        margin-top: 100px;
+    }
+
+
+    #scatterchart {
+        margin: 0;
+        position: absolute;
+        top:800px;
+        left:0;
+        width:1500px;
+    }
+
+    #scatterchart svg {
+        height: 1500px;
+        width: 1000px;
+
+    }
+
+</style>
+<script src="d3.v3.js"></script>
+<script src="nv.d3.js"></script>
+
+<script type="text/javascript">
+
+var time=0;
+
+var good=0 ,bad=0,sad=0;
+var intvidiotime=0
+
+var arrayg = [],arrayb = [];
+
+var graphshape=0;
+
+var time_posision=0;
+var inttime=0;
+
+var data = [];
+
+function make_array( gettime )
+{
+
+    gettime=parseInt(gettime);
+    gettime=gettime+1;
+    console.log("array time:"+gettime);
+
+
+    //array 2d ㅁ만들기
+    for (var i=0;i<gettime;i++)
+    {// 앞에 꺼 time
+        arrayg[i] = [];
+        arrayb[i] = [];
+    }
+
+
+    for(var j=0;j<gettime;j++)
+    {
+        arrayg[j][0] = j;arrayg[j][1] = 0.1;
+        arrayb[j][0] = j;arrayb[j][1] = 0.1;
+
+    }
+
+}
+
+
+function drawVisualization() {
+
+
+    var inttime= 0;
+
+    inttime=popcornobj.currentTime();
+    inttime=parseInt(inttime);
+
+
+    arrayg[inttime][1] = (arrayg[inttime][1]+good);
+    arrayb[inttime][1] = (arrayb[inttime][1]+bad);
+
+
+    console.log("time:"+arrayg[inttime][1]);
+
+
+
+    if(graphshape==1)
+    {stactareachart();}
+    else if(graphshape==2)
+    {line();}
+    else if(graphshape==3)
+    {pichart();}
+    else if(graphshape==4)
+    {halfpichart();}
+}
+
+
+
+
 function happybutton()
 {
 
-    var target = new createjs.Shape();
-    target.graphics.beginFill("rgba(255,0,0,1)").drawRect(640*time_posision,0,5,50);
-
-
-    container.addChild(target);
-    stage_bar.addChild(container);
-
-    stage_bar.update();
+    good++;
+    drawVisualization();
 }
 
 function sadbutton()
 {
+    bad++;
+    drawVisualization();
+}
 
-    var target = new createjs.Shape();
-    target.graphics.beginFill("rgba(0,255,0,1)").drawRect(640*time_posision,0,5,50);
+function stactareachart()
+{
+    var histcatexplong = [
+        {
+            "key" : "good" ,
+            "values" : arrayg
+        },
+        {
+            "key" : "bad" ,
+            "values" : arrayb
+        },
 
-    container.addChild(target);
-    stage_bar.addChild(container);
+    ];
 
-    stage_bar.update();
+    var colors = d3.scale.category20();
+    keyColor = function(d, i) {return colors(d.key)};
+
+    var chart;
+    nv.addGraph(function() {
+        chart = nv.models.stackedAreaChart()
+                .x(function(d) { return d[0] })
+                .y(function(d) { return d[1] })
+                .color(keyColor)
+        //.clipEdge(true);
+
+// chart.stacked.scatter.clipVoronoi(false);        // x축 날짜로 나타남
+//
+//  chart.xAxis
+//      .tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
+
+        chart.yAxis
+                .tickFormat(d3.format(',.2f'));
+
+        d3.select('#stackedarea')
+                .datum(histcatexplong)
+                .transition().duration(500).call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+        return chart;
+    });
+
+}
+
+function line()
+{
+    // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
+    var chart;
+    var goood = [],baad=[];
+
+    for (var i = 0; i < arrayg.length; i++) {
+        goood.push({x: arrayg[i][0], y: arrayg[i][1]-0.1 }); //the nulls are to show how defined works
+        baad.push({x: arrayb[i][0], y: arrayb[i][1]});
+    }
+
+
+    var test =[
+        {
+            values: goood,
+            key: "good",
+            color: "#2ca02c"
+        },
+        {
+            values: baad,
+            key: "bad",
+            color: "red"
+        }
+
+    ];
+
+
+    nv.addGraph(function() {
+        chart = nv.models.lineChart();
+
+        chart
+                .x(function(d,i) { return i })
+
+
+        chart.xAxis // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+                .tickFormat(d3.format(',.1f'));
+
+        chart.yAxis
+                .axisLabel('Voltage (v)')
+                .tickFormat(d3.format(',.2f'));
+
+        chart.showXAxis(true);
+
+        d3.select('#linechart svg')
+            //.datum([]) //for testing noData
+                .datum(test)
+                .transition().duration(500)
+                .call(chart);
+
+        //TODO: Figure out a good way to do this automatically
+        nv.utils.windowResize(chart.update);
+        //nv.utils.windowResize(function() { d3.select('#chart1 svg').call(chart) });
+
+        chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+        return chart;
+    });
 }
 
 
+
+function pichart()
+{
+    var goodpi= 0,badpi=0;
+
+    for(var k=0;k<arrayg.length;k++)
+    {
+        goodpi=goodpi+(arrayg[k][1]-0.1);
+        badpi=badpi+(arrayb[k][1]-0.1);
+    }
+
+    var testdata = [
+        {
+            key: "good",
+            y: goodpi+0.01
+        },
+        {
+            key: "bad",
+            y: badpi+0.01
+        }
+    ];
+
+    nv.addGraph(function() {
+        var width = 200,
+                height = 200;
+
+        var chart = nv.models.pieChart()
+                .x(function(d) { return d.key })
+                .y(function(d) { return d.y })
+            //.showLabels(false)
+                .values(function(d) { return d })
+                .color(d3.scale.category10().range())
+                .width(width)
+                .height(height);
+
+        d3.select("#pie")
+                .datum([testdata])
+                .transition().duration(1200)
+                .attr('width', width)
+                .attr('height', height)
+                .call(chart);
+
+        chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+        return chart;
+    });
+}
+
+
+function halfpichart()
+{
+
+    var goodpi= 0,badpi=0;
+
+    for(var k=0;k<arrayg.length;k++)
+    {
+        goodpi=goodpi+(arrayg[k][1]-0.1);
+        badpi=badpi+(arrayb[k][1]-0.1);
+    }
+
+    var testdata = [
+        {
+            key: "good",
+            y: goodpi+0.01
+        },
+        {
+            key: "bad",
+            y: badpi+0.01
+        }
+    ];
+
+    nv.addGraph(function() {
+
+        var width = 200,
+                height = 200;
+
+        var chart = nv.models.pieChart()
+                .x(function(d) { return d.key })
+            //.y(function(d) { return d.value })
+                .values(function(d) { return d })
+            //.labelThreshold(.08)
+            //.showLabels(false)
+                .color(d3.scale.category10().range())
+                .width(width)
+                .height(height)
+                .donut(true);
+
+        chart.pie
+                .startAngle(function(d) { return d.startAngle/2 -Math.PI/2 })
+                .endAngle(function(d) { return d.endAngle/2 -Math.PI/2 });
+
+        //chart.pie.donutLabelsOutside(true).donut(true);
+
+        d3.select("#halfpi")
+            //.datum(historicalBarChart)
+                .datum([testdata])
+                .transition().duration(1200)
+                .attr('width', width)
+                .attr('height', height)
+                .call(chart);
+
+        return chart;
+    });
+
+}
+
+
+
+function graphselect()
+{
+//    var gra=document.selectform;
+    var graphTemp = $("#graphSelector").val();
+    alert("graphTemp = " + graphTemp);
+    if(graphTemp === "1" )//area graph
+    {graphshape=1;
+        alert("dsf");
+        stactareachart();
+        $('.areadiv').show();
+        $('.linediv').hide();
+        $('.piediv').hide();
+        $('.halfdiv').hide();
+    }
+    else if(graphTemp === "2") //line graph
+    {graphshape=2;
+        line();
+        $('.areadiv').hide();
+        $('.linediv').show();
+        $('.piediv').hide();
+        $('.halfdiv').hide();
+    }
+    else if(graphTemp === "3")
+    {graphshape=3;
+        pichart();
+        $('.areadiv').hide();
+        $('.linediv').hide();
+        $('.piediv').show();
+        $('.halfdiv').hide();
+    }
+    else if(graphTemp === "4")
+    {graphshape=4;
+        halfpichart()
+        $('.areadiv').hide();
+        $('.linediv').hide();
+        $('.piediv').hide();
+        $('.halfdiv').show();
+    }
+
+}
 
 </script>
 
@@ -509,5 +955,36 @@ function sadbutton()
 <input id="happy1" type = "button" onclick="happybutton()" value= "happy" >
 <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" >
 <input id="button1" type="button" value="getfocus" onclick="getFocus();">
+
+
+
+<div>
+    관심사 : <br>
+    <select id="graphSelector" name="graph" onchange="graphselect();">
+        <option value = "1" selected="selected">area graph</option>
+        <option value = "2">line graph</option>
+        <option value = "3">pie graph</option>
+        <option value = "4">halfpie graph</option>
+    </select>
+    <input id="exit" type = "button" onclick="dis();" value= "exit" />
+</div>
+
+<div id="visualization" style="width: 800px; height: 400px;"></div>
+<div class="areadiv">
+    <svg id="stackedarea"></svg>
+</div>
+
+<div class="linediv" id="linechart">
+    <svg style="..."></svg>
+</div>
+
+<div class="piediv" id="pichart">
+    <svg id="pie" class="mypiechart"></svg>
+</div>
+
+<div class="halfdiv" id="halfchart">
+    <svg id="halfpi" class="mypiechart"></svg>
+</div>
+
 </body>
 </html>
