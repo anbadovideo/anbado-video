@@ -43,8 +43,10 @@ var currentEventPosition = 0;
 var canvaslayer; // canvas overlay
 
 var canvas_bar;
+var canvas3,canvas4;
+var chatRightStage, chatLeftStage;
 
-var container;
+
 var stage;
 var stage_bar;
 var time_posision=0;
@@ -66,6 +68,7 @@ function getFocus(){
 //
 document.addEventListener( "DOMContentLoaded", function() {
 
+    $("#textinput2").keydown(textinput2Keydown);
     hidePanel();
 
 //    $("#textinput1").focus(function(){
@@ -100,7 +103,7 @@ popcornobj.on("play", function() {
         }
 
 
-        var tek=0;
+        var tek;
         tek=this.currentTime();
         tek=parseInt(tek);
 
@@ -122,9 +125,11 @@ stage = new createjs.Stage(canvaslayer);
 canvas_bar = document.getElementById("canvas2");
 stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
 
-container = new createjs.Container();
-container.x=0;
-container.y=0;
+canvas3 = document.getElementById("canvasMyChat");
+canvas4 = document.getElementById("canvasFriendChat");
+    chatLeftStage = new createjs.Stage(canvas3);
+    chatRightStage = new createjs.Stage(canvas4);
+
 
 // console.log($("#textinput1").val());
 //socket io 부분 테스팅
@@ -174,9 +179,13 @@ $("#permissionSelect").css({"top":100,"left":240});
 var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
 
 
-$("textinput2").keydown(textinput2Keydown);
 
-function textinput2Keydown(){
+
+function textinput2Keydown(evt){
+
+    console.log("text2");
+    tempEvent.x = 20;
+    tempEvent.y = 20;
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
 
 
@@ -373,37 +382,12 @@ function eventGenerate(evt){ // video interaction event generation
     switch(evt.target.id)
     {
         case "textinput1":
+            eaDisplaySetting(eventObject, evt.target.id);
+            break;
 
-//            eventObject.eaCanvasDisplayObject = new createjs.Container();
-//            eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
-//
-//            var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
-//            eaTextContent.regX = 0;
-//            eaTextContent.regY = 0;
-//            eaTextContent.x = eventObject.eventPosX;
-//            eaTextContent.y = eventObject.eventPosY;
-//
-//            var eaBackPanel = new createjs.Shape();
-//            var eaAlpha = 0.2;
-//            eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 120,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-//            eaBackPanel.regX = 0;
-//            eaBackPanel.regY = 0;
-//
-//
-//            var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
-//            eaProfileImage.regX = 0;
-//            eaProfileImage.regY = 0;
-//            eaProfileImage.x = eventObject.eventPosX - 60;
-//            eaProfileImage.y = eventObject.eventPosY;
-//            eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
-//
-//            eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaTextContent,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-//
-//            stage.addChild(eventObject.eaCanvasDisplayObject);
-//
-//            eventList.push(eventObject); // 전체 이벤트 목록에 저장
-//            stage.update();
-//            break;
+        case "textinput2":
+            eaDisplaySetting(eventObject, evt.target.id);
+            break;
 
 
         case "emoticon0":
@@ -437,23 +421,23 @@ function eaDisplaySetting(eventObject, content){
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
 
-    if(content === "textinput1"){
-    var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
-    eaTextContent.regX = 0;
-    eaTextContent.regY = 0;
-    eaTextContent.x = eventObject.eventPosX;
-    eaTextContent.y = eventObject.eventPosY;
-    eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
+    if(content === "textinput1" || "textinput2"){
+        var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
+        eaTextContent.regX = 0;
+        eaTextContent.regY = 0;
+        eaTextContent.x = eventObject.eventPosX;
+        eaTextContent.y = eventObject.eventPosY;
+        eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
     }
     else if(content === "emoticon0" ||"emoticon1"||"emoticon2"||"emoticon3") {
 
-    var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
+        var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
 
-    eaTempEmoticon.regX = 0;
-    eaTempEmoticon.regY = 0;
-    eaTempEmoticon.x = eventObject.eventPosX;
-    eaTempEmoticon.y = eventObject.eventPosY;
-    eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
+        eaTempEmoticon.regX = 0;
+        eaTempEmoticon.regY = 0;
+        eaTempEmoticon.x = eventObject.eventPosX;
+        eaTempEmoticon.y = eventObject.eventPosY;
+        eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
         eventObject.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
     var eaBackPanel = new createjs.Shape();
@@ -469,8 +453,14 @@ function eaDisplaySetting(eventObject, content){
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
     eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-    stage.addChild(eventObject.eaCanvasDisplayObject);
 
+    if(content === "textinput2"){
+        chatLeftStage.addChild(eventObject.eaCanvasDisplayObject);
+        chatLeftStage.update();
+    }
+    else {
+        stage.addChild(eventObject.eaCanvasDisplayObject);
+    }
 
 
     console.log("emoticon");
