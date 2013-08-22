@@ -613,7 +613,7 @@ function make_array( gettime )
 
     for(var j=0;j<gettime;j++)
     {
-        arrayg[j][0] = j;arrayg[j][1] = 0.0002;
+        arrayg[j][0] = j;arrayg[j][1] = 0.0001;
         arrayb[j][0] = j;arrayb[j][1] = 0.0001;
 
     }
@@ -717,7 +717,7 @@ function line()
     var goood = [],baad=[];
         for (var i = 0; i < arrayg.length; i++) {
         goood.push({x: arrayg[i][0], y: arrayg[i][1]}); //the nulls are to show how defined works
-        baad.push({x: arrayb[i][0], y: arrayb[i][1]});
+        baad.push({x: arrayb[i][0], y: arrayb[i][1]-0.0001});
     }
 
 
