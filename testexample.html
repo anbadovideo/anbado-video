@@ -496,14 +496,14 @@ function endup(){ // 이벤트 후 처리 부분
 <style>
 
 
-    #text {
-        font: 12px sans-serif;
+    /*#text {*/
+        /*font: 12px sans-serif;*/
 
-        position: absolute;
-        top:900px;
-        left:0;
+        /*position: absolute;*/
+        /*top:900px;*/
+        /*left:0;*/
 
-    }
+    /*}*/
 
     #stackedarea {
         height: 110px;
@@ -613,8 +613,8 @@ function make_array( gettime )
 
     for(var j=0;j<gettime;j++)
     {
-        arrayg[j][0] = j;arrayg[j][1] = 0.1;
-        arrayb[j][0] = j;arrayb[j][1] = 0.1;
+        arrayg[j][0] = j;arrayg[j][1] = 0;
+        arrayb[j][0] = j;arrayb[j][1] = 0;
 
     }
 
@@ -632,7 +632,8 @@ function drawVisualization() {
 
     arrayg[inttime][1] = (arrayg[inttime][1]+good);
     arrayb[inttime][1] = (arrayb[inttime][1]+bad);
-
+    good=0;
+    bad=0;
 
     console.log("time:"+arrayg[inttime][1]);
 
@@ -666,6 +667,7 @@ function sadbutton()
 
 function stactareachart()
 {
+
     var histcatexplong = [
         {
             "key" : "good" ,
@@ -715,12 +717,10 @@ function line()
     // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
     var chart;
     var goood = [],baad=[];
-
-    for (var i = 0; i < arrayg.length; i++) {
-        goood.push({x: arrayg[i][0], y: arrayg[i][1]-0.1 }); //the nulls are to show how defined works
+        for (var i = 0; i < arrayg.length; i++) {
+        goood.push({x: arrayg[i][0], y: arrayg[i][1]}); //the nulls are to show how defined works
         baad.push({x: arrayb[i][0], y: arrayb[i][1]});
     }
-
 
     var test =[
         {
@@ -777,18 +777,18 @@ function pichart()
 
     for(var k=0;k<arrayg.length;k++)
     {
-        goodpi=goodpi+(arrayg[k][1]-0.1);
-        badpi=badpi+(arrayb[k][1]-0.1);
+        goodpi=goodpi+(arrayg[k][1]);
+        badpi=badpi+(arrayb[k][1]);
     }
 
     var testdata = [
         {
             key: "good",
-            y: goodpi+0.01
+            y: goodpi
         },
         {
             key: "bad",
-            y: badpi+0.01
+            y: badpi
         }
     ];
 
@@ -826,18 +826,18 @@ function halfpichart()
 
     for(var k=0;k<arrayg.length;k++)
     {
-        goodpi=goodpi+(arrayg[k][1]-0.1);
-        badpi=badpi+(arrayb[k][1]-0.1);
+        goodpi=goodpi+(arrayg[k][1]);
+        badpi=badpi+(arrayb[k][1]);
     }
 
     var testdata = [
         {
             key: "good",
-            y: goodpi+0.01
+            y: goodpi
         },
         {
             key: "bad",
-            y: badpi+0.01
+            y: badpi
         }
     ];
 
