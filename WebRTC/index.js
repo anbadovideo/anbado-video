@@ -42,7 +42,8 @@ cameraOn.onclick = function() {
     }
 
     navigator.getUserMedia({
-        video : true
+        video : true,
+        audio : true
     },
     function(stream) {//onSuccess        
         video.src = window.URL.createObjectURL(stream);
