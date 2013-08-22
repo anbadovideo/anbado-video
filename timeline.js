@@ -62,6 +62,8 @@ function drawVisualization() {
     good=0;
     bad=0;
 
+    console.log("time:"+arrayg[inttime][1]);
+
 
 
     if(graphshape==1)
@@ -198,18 +200,13 @@ function line()
 
 function pichart()
 {
-
-
     var goodpi= 0,badpi=0;
 
     for(var k=0;k<arrayg.length;k++)
     {
-        goodpi=goodpi+(arrayg[k][1]-0.0001);
-        badpi=badpi+(arrayb[k][1]-0.0001);
+        goodpi=goodpi+(arrayg[k][1]);
+        badpi=badpi+(arrayb[k][1]);
     }
-    console.log("pichrt:"+arrayg[inttime][1]);
-
-
 
     var testdata = [
         {
@@ -256,8 +253,8 @@ function halfpichart()
 
     for(var k=0;k<arrayg.length;k++)
     {
-        goodpi=goodpi+(arrayg[k][1]-0.0001);
-        badpi=badpi+(arrayb[k][1]-0.0001);
+        goodpi=goodpi+(arrayg[k][1]);
+        badpi=badpi+(arrayb[k][1]);
     }
 
     var testdata = [
