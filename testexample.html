@@ -613,11 +613,10 @@ function make_array( gettime )
 
     for(var j=0;j<gettime;j++)
     {
-        arrayg[j][0] = j;arrayg[j][1] = 0;
-        arrayb[j][0] = j;arrayb[j][1] = 0;
+        arrayg[j][0] = j;arrayg[j][1] = 0.0002;
+        arrayb[j][0] = j;arrayb[j][1] = 0.0001;
 
     }
-
 }
 
 
@@ -679,7 +678,6 @@ function stactareachart()
         }
 
     ];
-
     var colors = d3.scale.category20();
     var keyColor = function(d, i) {return colors(d.key)};
 
@@ -721,6 +719,7 @@ function line()
         goood.push({x: arrayg[i][0], y: arrayg[i][1]}); //the nulls are to show how defined works
         baad.push({x: arrayb[i][0], y: arrayb[i][1]});
     }
+
 
     var test =[
         {
