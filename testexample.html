@@ -78,67 +78,67 @@ document.addEventListener( "DOMContentLoaded", function() {
 //    $("#textinput1").hover(function(){getFocus();});
 
 
-$(".emoticon_button").css("width", 50);
-$(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
+    $(".emoticon_button").css("width", 50);
+    $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
 
-var totalCount = 0;
-popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
+    var totalCount = 0;
+    popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
 
-popcornobj.on("play", function() {
-    console.log("Playing!");
+    popcornobj.on("play", function() {
+        console.log("Playing!");
 
 
-    popcornobj.on("timeupdate", function(){
-        for(currentEventPosition = 0; currentEventPosition<eventList.length; currentEventPosition++){
-            var deltaTime = this.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
-            if((deltaTime<0)||(deltaTime>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()===this.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
-                stage.removeChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
-                stage.update();
-            }else if(deltaTime <= eventList[currentEventPosition].eventVideoClickDuration ){
-                stage.addChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 보여주기
-                stage.update();
-            }
-            totalCount++;
-            console.log("TOTAL : " + totalCount);
+        popcornobj.on("timeupdate", function(){
+            for(currentEventPosition = 0; currentEventPosition<eventList.length; currentEventPosition++){
+                var deltaTime = this.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
+                if((deltaTime<0)||(deltaTime>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()===this.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+                    stage.removeChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
+                    stage.update();
+                }else if(deltaTime <= eventList[currentEventPosition].eventVideoClickDuration ){
+                    stage.addChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 보여주기
+                    stage.update();
+                }
+                totalCount++;
+                console.log("TOTAL : " + totalCount);
 //            console.log("this time:"+this.currentTime());
-        }
+            }
 
 
-        var tek=0;
-        tek=this.currentTime();
-        tek=parseInt(tek);
+            var tek=0;
+            tek=this.currentTime();
+            tek=parseInt(tek);
 
-        if(tek>intvidiotime)
-        {good=0;bad=0;}
-        //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
+            if(tek>intvidiotime)
+            {good=0;bad=0;}
+            //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
 
-        intvidiotime=this.currentTime();
-        intvidiotime=parseInt(intvidiotime);
+            intvidiotime=this.currentTime();
+            intvidiotime=parseInt(intvidiotime);
 
+        });
+        // socket.emit('sample',{hello: popcornobj.currentTime()});
     });
-    // socket.emit('sample',{hello: popcornobj.currentTime()});
-});
 
-canvaslayer = document.getElementById("canvas1");
-canvaslayer.onclick = displayInputPanel;
+    canvaslayer = document.getElementById("canvas1");
+    canvaslayer.onclick = displayInputPanel;
 
-stage = new createjs.Stage(canvaslayer);
-canvas_bar = document.getElementById("canvas2");
-stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
+    stage = new createjs.Stage(canvaslayer);
+    canvas_bar = document.getElementById("canvas2");
+    stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
 
-container = new createjs.Container();
-container.x=0;
-container.y=0;
+    container = new createjs.Container();
+    container.x=0;
+    container.y=0;
 
 // console.log($("#textinput1").val());
 //socket io 부분 테스팅
 
 //offset 값으로 나중에 수정 video의 위치
-$("#canvas1").css({"top":100,"left":330});
-$("#canvas2").css({"top":600,"left":330});
-$("#ourvideo").css({"top":100,"left":330});
-$("#textinput1").css({"top":100,"left":240});
-$("#permissionSelect").css({"top":100,"left":240});
+    $("#canvas1").css({"top":100,"left":330});
+    $("#canvas2").css({"top":600,"left":330});
+    $("#ourvideo").css({"top":100,"left":330});
+    $("#textinput1").css({"top":100,"left":240});
+    $("#permissionSelect").css({"top":100,"left":240});
 
     $("#visualization").css({"top":700,"left":240});
 
@@ -148,6 +148,8 @@ $("#permissionSelect").css({"top":100,"left":240});
         {
             durationtime= popcornobj.duration();
             make_array(durationtime);
+            //make_array(1600);
+
             console.log(durationtime);
 
             if(graphshape==1)
@@ -362,7 +364,7 @@ function eventGenerate(evt){ // video interaction event generation
     switch(evt.target.id)
     {
         case "textinput1":
-                console.log(evt);
+            console.log(evt);
             eventObject.eaCanvasDisplayObject = new createjs.Container();
             eventObject.eventContent = $("#textinput1").val(); // 사용자의 현재 입력값을 받는다. jquery 이용
 
@@ -496,14 +498,14 @@ function endup(){ // 이벤트 후 처리 부분
 <style>
 
 
-    /*#text {*/
+        /*#text {*/
         /*font: 12px sans-serif;*/
 
         /*position: absolute;*/
         /*top:900px;*/
         /*left:0;*/
 
-    /*}*/
+        /*}*/
 
     #stackedarea {
         height: 110px;
@@ -611,14 +613,14 @@ function endup(){ // 이벤트 후 처리 부분
 <input id="textinput2" type = "text" value = "interactive"/>
 <input id="textbutton2" type = "button" value= "now"/>
 <div id="emoticonPanel">
-<table id = "emoticonTable">
-    <tr>
-        <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
-        <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
-        <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
-        <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
-    </tr>
-</table>
+    <table id = "emoticonTable">
+        <tr>
+            <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
+        </tr>
+    </table>
 </div>
 <input id="happy1" type = "button" onclick="happybutton()" value= "happy" >
 <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" >
