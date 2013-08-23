@@ -12437,7 +12437,11 @@ nv.models.stackedArea = function() {
   //------------------------------------------------------------
 
   scatter.dispatch.on('elementClick.area', function(e) {
-    dispatch.areaClick(e);
+  //  dispatch.areaClick(e);
+      var time=popcornobj.duration();
+      time=parseInt(time);
+      time= e.pos[0]/(1090/time);
+      console.log("kimmijong"+time );
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
