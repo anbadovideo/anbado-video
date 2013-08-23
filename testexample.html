@@ -102,17 +102,8 @@ popcornobj.on("play", function() {
 //            console.log("this time:"+this.currentTime());
         }
 
-
-        var tek;
-        tek=this.currentTime();
-        tek=parseInt(tek);
-
-        if(tek>intvidiotime)
-        {good=0;bad=0;}
         //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
 
-        intvidiotime=this.currentTime();
-        intvidiotime=parseInt(intvidiotime);
 
     });
     // socket.emit('sample',{hello: popcornobj.currentTime()});
