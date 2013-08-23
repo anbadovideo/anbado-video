@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from sqlalchemy import Table, Column, ForeignKey, Integer, String, Enum, DateTime, BigInteger
+from sqlalchemy import Table, Column, ForeignKey, Integer, String, Enum, DateTime
 from sqlalchemy.orm import backref, relationship
 
 from anbadoserver.database import Base
@@ -49,8 +49,8 @@ class Event(Base):
     video = relationship('Video')
 
     registered = Column(DateTime, default=datetime.now())
-    appeared = Column(BigInteger)
-    disappeared = Column(BigInteger)
+    appeared = Column(Integer)
+    disappeared = Column(Integer)
 
     content = Column(String(2048, convert_unicode=True))
     category = Column(Enum(u'text', u'image', u'movie'))
@@ -60,4 +60,9 @@ class Event(Base):
     children = relationship('Event', uselist=True, lazy='dynamic')
 
     permission = Column(Enum(u'inherited', u'private', u'public', u'protected'))
+
+    coord_lx = Column(Integer)
+    coord_rx = Column(Integer)
+    coord_ty = Column(Integer)
+    coord_by = Column(Integer)
 
