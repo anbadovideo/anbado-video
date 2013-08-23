@@ -38,6 +38,7 @@ jQuery(function() {
 
 var popcornobj; // global access video object. global variable is not recommended
 var totalEvent =0; // total event number
+var totalChat = 0;
 var currentEventPosition = 0;
 
 var canvaslayer; // canvas overlay
@@ -77,20 +78,49 @@ document.addEventListener( "DOMContentLoaded", function() {
 //    $("#textinput1").hover(function(){getFocus();});
 
 
-$(".emoticon_button").css("width", 50);
-$(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
+    $(".emoticon_button").css("width", 50);
+    $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
 
-var totalCount = 0;
-popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
+    var totalCount = 0;
+    popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
+    var inti;
 
-popcornobj.on("play", function() {
-    console.log("Playing!");
+    popcornobj.on("playing", function() {
+        console.log("Playing!");
+
+        inti = self.setInterval(function(){timeCheck()},1000);
 
 
-    popcornobj.on("timeupdate", function(){
+        popcornobj.on("timeupdate", function(){
+
+
+
+            var tek;
+            tek=this.currentTime();
+            tek=parseInt(tek);
+
+            if(tek>intvidiotime)
+            {good=0;bad=0;}
+            //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
+
+            intvidiotime=this.currentTime();
+            intvidiotime=parseInt(intvidiotime);
+
+        });
+        // socket.emit('sample',{hello: popcornobj.currentTime()});
+
+
+
+
+
+        timeCheck();
+    });
+
+
+    function timeCheck(){
         for(currentEventPosition = 0; currentEventPosition<eventList.length; currentEventPosition++){
-            var deltaTime = this.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
-            if((deltaTime<0)||(deltaTime>=eventList[currentEventPosition].eventVideoClickDuration)||(this.currentTime()===this.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+            var deltaTime = popcornobj.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
+            if((deltaTime<0)||(deltaTime>=eventList[currentEventPosition].eventVideoClickDuration)||(popcornobj.currentTime()===popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
                 stage.removeChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
                 stage.update();
             }else if(deltaTime <= eventList[currentEventPosition].eventVideoClickDuration ){
@@ -102,31 +132,24 @@ popcornobj.on("play", function() {
 //            console.log("this time:"+this.currentTime());
         }
 
+        if(popcornobj.duration() === popcornobj.currentTime())
+        {
+            inti=window.clearInterval(inti); // 시간이 같은 경우에 초기화
+        }
 
-        var tek;
-        tek=this.currentTime();
-        tek=parseInt(tek);
+    }
 
-        if(tek>intvidiotime)
-        {good=0;bad=0;}
-        //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
 
-        intvidiotime=this.currentTime();
-        intvidiotime=parseInt(intvidiotime);
 
-    });
-    // socket.emit('sample',{hello: popcornobj.currentTime()});
-});
+    canvaslayer = document.getElementById("canvas1");
+    canvaslayer.onclick = displayInputPanel;
 
-canvaslayer = document.getElementById("canvas1");
-canvaslayer.onclick = displayInputPanel;
+    stage = new createjs.Stage(canvaslayer);
+    canvas_bar = document.getElementById("canvas2");
+    stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
 
-stage = new createjs.Stage(canvaslayer);
-canvas_bar = document.getElementById("canvas2");
-stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
-
-canvas3 = document.getElementById("canvasMyChat");
-canvas4 = document.getElementById("canvasFriendChat");
+    canvas3 = document.getElementById("canvasMyChat");
+    canvas4 = document.getElementById("canvasFriendChat");
     chatLeftStage = new createjs.Stage(canvas3);
     chatRightStage = new createjs.Stage(canvas4);
 
@@ -135,11 +158,11 @@ canvas4 = document.getElementById("canvasFriendChat");
 //socket io 부분 테스팅
 
 //offset 값으로 나중에 수정 video의 위치
-$("#canvas1").css({"top":100,"left":330});
-$("#canvas2").css({"top":600,"left":330});
-$("#ourvideo").css({"top":100,"left":330});
-$("#textinput1").css({"top":100,"left":240});
-$("#permissionSelect").css({"top":100,"left":240});
+    $("#canvas1").css({"top":100,"left":330});
+    $("#canvas2").css({"top":600,"left":330});
+    $("#ourvideo").css({"top":100,"left":330});
+    $("#textinput1").css({"top":100,"left":240});
+    $("#permissionSelect").css({"top":100,"left":240});
 
     $("#visualization").css({"top":700,"left":240});
 
@@ -408,7 +431,6 @@ function eventGenerate(evt){ // video interaction event generation
         default :
             alert("default");
 
-
     }
 
 
@@ -422,16 +444,35 @@ function eventGenerate(evt){ // video interaction event generation
 function eaDisplaySetting(eventObject, content){
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
+    console.log(content);
 
-    if(content === "textinput1" || "textinput2"){
-        var eaTextContent = new createjs.Text(eventObject.eventContent, "25px Arial", "#ffffff");
+
+    if(content === "textinput1" || content === "textinput2"){
+        console.log("in if");
+        if(content === "textinput2"){
+            eventObject.eventPosX = 100;
+            eventObject.eventPosY = 0+ totalChat * 50;
+            totalChat++;
+
+        }
+        var eaBackPanel = new createjs.Shape();
+        eaBackPanel.graphics.beginFill("rgba(0,255,0,1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = 0;
+        eaBackPanel.regY = -3;
+        eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
+
+        var eaTextContent = new createjs.Text(eventObject.eventContent, "25px helvetica", "#ffffff");
         eaTextContent.regX = 0;
-        eaTextContent.regY = 0;
+        eaTextContent.regY = -3;
         eaTextContent.x = eventObject.eventPosX;
         eaTextContent.y = eventObject.eventPosY;
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
+
+
+
     }
-    else if(content === "emoticon0" ||"emoticon1"||"emoticon2"||"emoticon3") {
+    else if(content === "emoticon0" ||content === "emoticon1"||content === "emoticon2"||content === "emoticon3") {
 
         var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
 
@@ -442,30 +483,29 @@ function eaDisplaySetting(eventObject, content){
         eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
         eventObject.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
-    var eaBackPanel = new createjs.Shape();
-    eaBackPanel.graphics.beginFill("rgba(0,0,0,0.1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 120,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-    eaBackPanel.regX = 0;
-    eaBackPanel.regY = 0;
 
     var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.x = eventObject.eventPosX - 50;
+    eaProfileImage.x = eventObject.eventPosX - 55;
     eaProfileImage.y = eventObject.eventPosY;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
-    eventObject.eaCanvasDisplayObject.addChild(eaBackPanel,eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+    eventObject.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
     if(content === "textinput2"){
+        console.log("in print");
         chatLeftStage.addChild(eventObject.eaCanvasDisplayObject);
         chatLeftStage.update();
+
+
     }
     else {
         stage.addChild(eventObject.eaCanvasDisplayObject);
     }
 
 
-    console.log("emoticon");
+
     eventList.push(eventObject); // 전체 이벤트 목록에 저장
     endup();
 }
@@ -478,6 +518,7 @@ function endup(){ // 이벤트 후 처리 부분
     hidePanel();
 
     totalEvent++;
+
 
     setTimeout(function(){getFocus();},100);
 }
@@ -510,14 +551,14 @@ function endup(){ // 이벤트 후 처리 부분
 <style>
 
 
-    /*#text {*/
+        /*#text {*/
         /*font: 12px sans-serif;*/
 
         /*position: absolute;*/
         /*top:900px;*/
         /*left:0;*/
 
-    /*}*/
+        /*}*/
 
     #stackedarea {
         height: 110px;
@@ -625,14 +666,14 @@ function endup(){ // 이벤트 후 처리 부분
 <input id="textinput2" type = "text" value = "interactive"/>
 <input id="textbutton2" type = "button" value= "now"/>
 <div id="emoticonPanel">
-<table id = "emoticonTable">
-    <tr>
-        <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
-        <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
-        <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
-        <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
-    </tr>
-</table>
+    <table id = "emoticonTable">
+        <tr>
+            <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
+        </tr>
+    </table>
 </div>
 <input id="happy1" type = "button" onclick="happybutton()" value= "happy" >
 <input id="sad1" type = "button" onclick="sadbutton()" value= "sad" >

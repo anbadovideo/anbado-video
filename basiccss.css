@@ -27,7 +27,7 @@ body{
     top : 100px;
     left : 0px;
     background: greenyellow;
-    opacity: 0.3;
+    /*opacity: 0.3;*/
 }
 #canvasFriendChat{
 
@@ -35,7 +35,7 @@ body{
     top : 100px;
     left : 980px;
     background: burlywood;
-    opacity: 0.3;
+    /*opacity: 0.3;*/
 }
 
 
@@ -53,7 +53,8 @@ body{
 #textinput2{
     position :absolute;
     top : 500px;
-    left : 300px;
+    left : 390px;
+    width : 500px;
     opacity : 0.4;
 }
 
