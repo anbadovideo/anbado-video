@@ -19,8 +19,8 @@ class User(Base):
     __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key=True)
-    nickname = Column(String(64, convert_unicode=True), unique=True)
     profile_image = Column(String(2048, convert_unicode=True))
+    videos = relationship('Video', backref='user', uselist=True, lazy='dynamic')
     events = relationship('Event', backref='user', uselist=True, lazy='dynamic')
 
 
