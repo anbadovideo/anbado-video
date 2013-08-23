@@ -12442,6 +12442,7 @@ nv.models.stackedArea = function() {
       time=parseInt(time);
       time= e.pos[0]/(1090/time);
       console.log("kimmijong"+time );
+      popcornobj.pause(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
@@ -12622,7 +12623,7 @@ nv.models.stackedAreaChart = function() {
         y = yAxis.tickFormat()(stacked.y()(e.point, e.pointIndex)),
         content = tooltip(e.series.key, x, y, e, chart);
 
-    nv.tooltip.show([left, top+300], content, e.value < 0 ? 'n' : 's', null, offsetElement);
+    nv.tooltip.show([left, top+250], content, e.value < 0 ? 'n' : 's', null, offsetElement);
   };
 
   //============================================================
