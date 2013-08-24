@@ -4519,7 +4519,7 @@ nv.models.lineChart = function() {
         y = yAxis.tickFormat()(lines.y()(e.point, e.pointIndex)),
         content = tooltip(e.series.key, x, y, e, chart);
 
-    nv.tooltip.show([left, top], content, null, null, offsetElement);
+    nv.tooltip.show([left, top], content, null, null, offsetElement);  //mijong 여기 가 툴팁 저장하는곳
   };
 
   //============================================================
@@ -4753,7 +4753,17 @@ nv.models.lineChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  lines.dispatch.on('elementMouseover.tooltip', function(e) {
+
+    lines.dispatch.on('elementClick.area', function(e) {
+
+        var time=popcornobj.duration();
+        time=parseInt(time);
+        time= e.pos[0]/(1090/time);
+        console.log("kimmijong"+time );
+        popcornobj.pause(time);
+    });
+
+  lines.dispatch.on('elementMouseover.tooltip', function(e) {//mijong
     e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
     dispatch.tooltipShow(e);
   });
@@ -12056,7 +12066,7 @@ nv.models.sparklinePlus = function() {
 
       gEnter.select('.nv-hoverArea').append('rect')
           .on('mousemove', sparklineHover)
-          .on('click', function() { paused = !paused })
+          .on('click', function() {paused = !paused })
           .on('mouseout', function() { index = []; updateValueLine(); });
           //.on('mouseout', function() { index = null; updateValueLine(); });
 
@@ -12437,7 +12447,12 @@ nv.models.stackedArea = function() {
   //------------------------------------------------------------
 
   scatter.dispatch.on('elementClick.area', function(e) {
-    dispatch.areaClick(e);
+  //  dispatch.areaClick(e);
+      var time=popcornobj.duration();
+      time=parseInt(time);
+      time= e.pos[0]/(1090/time);
+      console.log("kimmijong"+time );
+      popcornobj.pause(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
@@ -12618,7 +12633,7 @@ nv.models.stackedAreaChart = function() {
         y = yAxis.tickFormat()(stacked.y()(e.point, e.pointIndex)),
         content = tooltip(e.series.key, x, y, e, chart);
 
-    nv.tooltip.show([left, top], content, e.value < 0 ? 'n' : 's', null, offsetElement);
+    nv.tooltip.show([left, top+250], content, e.value < 0 ? 'n' : 's', null, offsetElement);
   };
 
   //============================================================
