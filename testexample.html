@@ -36,6 +36,32 @@ jQuery(function() {
 //   socket.on('return', function(data) {console.log(data)})
 // });
 
+
+
+var CLIENTVAR = {
+    popcornboj : {},
+    totalEvent : 0,
+    totalChat : 0,
+    currentEventPosition : 0,
+    canvaslayer : {},
+    canvas_bar : {},
+    canvas3 : {},
+    canvas4 : {},
+    chatStage : {
+        rightPanel : {},
+        leftPanel : {}
+    }
+    stage : {},
+    stage_bar : {},
+    time_position : 0,
+    eventList : new Array(),
+    emoticonNumber : 4,
+    eaTextInputField : {},
+    eaTextInputButton : {},
+    eaEmotionInputArray : {},
+    durationTime : 0
+}
+
 var popcornobj; // global access video object. global variable is not recommended
 var totalEvent =0; // total event number
 var totalChat = 0;
@@ -61,6 +87,7 @@ var eaTextInputField; // 이 네가지 변수는 local로 전환할 것
 var eaTextInputButton;
 var eaEmoticonInputArray;
 
+var durationtime=0;
 
 
 function getFocus(){
@@ -88,7 +115,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     popcornobj.on("playing", function() {
         console.log("Playing!");
 
-        inti = self.setInterval(function(){timeCheck()},1000);
+        inti = self.setInterval(function(){timeCheck()},500);
 
 
         popcornobj.on("timeupdate", function(){
@@ -109,10 +136,9 @@ document.addEventListener( "DOMContentLoaded", function() {
         });
         // socket.emit('sample',{hello: popcornobj.currentTime()});
 
-
-
-
-
+        timeCheck();
+    });
+    popcornobj.on("seeking", function(){
         timeCheck();
     });
 
@@ -132,15 +158,14 @@ document.addEventListener( "DOMContentLoaded", function() {
 //            console.log("this time:"+this.currentTime());
         }
 
+
+
         if(popcornobj.duration() === popcornobj.currentTime())
         {
             inti=window.clearInterval(inti); // 시간이 같은 경우에 초기화
         }
 
     }
-
-
-
     canvaslayer = document.getElementById("canvas1");
     canvaslayer.onclick = displayInputPanel;
 
@@ -166,7 +191,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     $("#visualization").css({"top":700,"left":240});
 
-    var durationtime=0;
+
     setTimeout(function(){
         if(popcornobj!="NaN")
         {
@@ -184,8 +209,6 @@ document.addEventListener( "DOMContentLoaded", function() {
             {pichart();}
             else if(graphshape==4)
             {halfpichart();}
-
-
         }
     },1000);
 
@@ -244,8 +267,6 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
      $("#textinput1").css("width", "100px");
      $("#textinput1").css("height", "15px");
      */
-
-
 
     if(inputPanelShow === false){
         inputPanelShow = true; // 클릭이 되었음을 표시
@@ -402,8 +423,6 @@ function eventGenerate(evt){ // video interaction event generation
     $("#textinput1").val("");
     console.log(eventObject.eventPosX+","+ eventObject.eventPosY );
 
-
-
     switch(evt.target.id)
     {
         case "textinput1":
@@ -433,12 +452,7 @@ function eventGenerate(evt){ // video interaction event generation
 
     }
 
-
-
     endup();
-
-
-
 }
 
 function eaDisplaySetting(eventObject, content){
