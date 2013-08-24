@@ -50,7 +50,7 @@ var CLIENTVAR = {
     chatStage : {
         rightPanel : {},
         leftPanel : {}
-    }
+    },
     stage : {},
     stage_bar : {},
     time_position : 0,
@@ -136,7 +136,6 @@ document.addEventListener( "DOMContentLoaded", function() {
         });
         // socket.emit('sample',{hello: popcornobj.currentTime()});
 
-        timeCheck();
     });
     popcornobj.on("seeking", function(){
         timeCheck();
@@ -158,21 +157,15 @@ document.addEventListener( "DOMContentLoaded", function() {
 //            console.log("this time:"+this.currentTime());
         }
 
-<<<<<<< HEAD
-
 
         if(popcornobj.duration() === popcornobj.currentTime())
         {
             inti=window.clearInterval(inti); // 시간이 같은 경우에 초기화
         }
-=======
+
         //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
 
 
-    });
-    // socket.emit('sample',{hello: popcornobj.currentTime()});
-});
->>>>>>> afe3faa737db61d45f17b1a94872654addbe75f5
 
     }
     canvaslayer = document.getElementById("canvas1");
