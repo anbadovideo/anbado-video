@@ -179,16 +179,15 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
 
-            var tek;
-            tek=this.currentTime();
-            tek=parseInt(tek);
-
-            if(tek>intvidiotime)
-            {good=0;bad=0;}
-            //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
-
-            intvidiotime=this.currentTime();
-            intvidiotime=parseInt(intvidiotime);
+//            var tek;
+//            tek=this.currentTime();
+//            tek=parseInt(tek);
+//
+//            if(tek>intvidiotime)
+//            {CLIENTVAR.good=0;CLIENTVAR.bad=0;}
+//
+//            intvidiotime=this.currentTime();
+//            intvidiotime=parseInt(intvidiotime);
 
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
@@ -248,13 +247,13 @@ document.addEventListener( "DOMContentLoaded", function() {
 
             console.log(durationtime);
 
-            if(graphshape==1)
+            if(CLIENTVAR.graphshape==1)
             {stactareachart();}
-            else if(graphshape==2)
+            else if(CLIENTVAR.graphshape==2)
             {line();}
-            else if(graphshape==3)
+            else if(CLIENTVAR.graphshape==3)
             {pichart();}
-            else if(graphshape==4)
+            else if(CLIENTVAR.graphshape==4)
             {halfpichart();}
         }
     },1000);

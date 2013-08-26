@@ -7,20 +7,6 @@
  */
 
 
-var time=0;
-
-var good=0 ,bad=0,sad=0;
-var intvidiotime=0
-
-var arrayg = [],arrayb = [];
-
-var graphshape=1;
-
-var time_posision=0;
-var inttime=0;
-
-var data = [];
-
 
 
 function make_array( gettime )
@@ -34,15 +20,15 @@ function make_array( gettime )
     //array 2d ㅁ만들기
     for (var i=0;i<gettime;i++)
     {// 앞에 꺼 time
-        arrayg[i] = [];
-        arrayb[i] = [];
+        CLIENTVAR.arrayg[i] = [];
+        CLIENTVAR.arrayb[i] = [];
     }
 
 
     for(var j=0;j<gettime;j++)
     {
-        arrayg[j][0] = j;arrayg[j][1] = 0.0001;
-        arrayb[j][0] = j;arrayb[j][1] = 0.0001;
+        CLIENTVAR.arrayg[j][0] = j;CLIENTVAR.arrayg[j][1] = 0.0001;
+        CLIENTVAR.arrayb[j][0] = j;CLIENTVAR.arrayb[j][1] = 0.0001;
 
     }
 }
@@ -51,26 +37,25 @@ function make_array( gettime )
 function drawVisualization() {
 
 
-    var inttime= 0;
 
-    inttime=popcornobj.currentTime();
-    inttime=parseInt(inttime);
-
-
-    arrayg[inttime][1] = (arrayg[inttime][1]+good);
-    arrayb[inttime][1] = (arrayb[inttime][1]+bad);
-    good=0;
-    bad=0;
+    CLIENTVAR.inttime=CLIENTVAR.popcornobj.currentTime();
+    CLIENTVAR.inttime=parseInt(CLIENTVAR.inttime);
 
 
+    CLIENTVAR.arrayg[CLIENTVAR.inttime][1] = (CLIENTVAR.arrayg[CLIENTVAR.inttime][1]+CLIENTVAR.good);
+    CLIENTVAR.arrayb[CLIENTVAR.inttime][1] = (CLIENTVAR.arrayb[CLIENTVAR.inttime][1]+CLIENTVAR.bad);
+    CLIENTVAR.good=0;
+    CLIENTVAR.bad=0;
 
-    if(graphshape==1)
+
+
+    if(CLIENTVAR.graphshape==1)
     {stactareachart();}
-    else if(graphshape==2)
+    else if(CLIENTVAR.graphshape==2)
     {line();}
-    else if(graphshape==3)
+    else if(CLIENTVAR.graphshape==3)
     {pichart();}
-    else if(graphshape==4)
+    else if(CLIENTVAR.graphshape==4)
     {halfpichart();}
 }
 
@@ -80,13 +65,13 @@ function drawVisualization() {
 function happybutton()
 {
 
-    good++;
+    CLIENTVAR.good++;
     drawVisualization();
 }
 
 function sadbutton()
 {
-    bad++;
+    CLIENTVAR.bad++;
     drawVisualization();
 }
 
@@ -96,11 +81,11 @@ function stactareachart()
     var histcatexplong = [
         {
             "key" : "good" ,
-            "values" : arrayg
+            "values" : CLIENTVAR.arrayg
         },
         {
             "key" : "bad" ,
-            "values" : arrayb
+            "values" : CLIENTVAR.arrayb
         }
 
     ];
@@ -141,9 +126,9 @@ function line()
     // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
     var chart;
     var goood = [],baad=[];
-    for (var i = 0; i < arrayg.length; i++) {
-        goood.push({x: arrayg[i][0], y: arrayg[i][1]}); //the nulls are to show how defined works
-        baad.push({x: arrayb[i][0], y: arrayb[i][1]-0.0001});
+    for (var i = 0; i < CLIENTVAR.arrayg.length; i++) {
+        goood.push({x: CLIENTVAR.arrayg[i][0], y: CLIENTVAR.arrayg[i][1]}); //the nulls are to show how defined works
+        baad.push({x: CLIENTVAR.arrayb[i][0], y: CLIENTVAR.arrayb[i][1]-0.0001});
     }
 
 
@@ -202,12 +187,12 @@ function pichart()
 
     var goodpi= 0,badpi=0;
 
-    for(var k=0;k<arrayg.length;k++)
+    for(var k=0;k<CLIENTVAR.arrayg.length;k++)
     {
-        goodpi=goodpi+(arrayg[k][1]-0.0001);
-        badpi=badpi+(arrayb[k][1]-0.0001);
+        goodpi=goodpi+(CLIENTVAR.arrayg[k][1]-0.0001);
+        badpi=badpi+(CLIENTVAR.arrayb[k][1]-0.0001);
     }
-    console.log("pichrt:"+arrayg[inttime][1]);
+    console.log("pichrt:"+CLIENTVAR.arrayg[CLIENTVAR.inttime][1]);
 
 
 
@@ -254,10 +239,10 @@ function halfpichart()
 
     var goodpi= 0,badpi=0;
 
-    for(var k=0;k<arrayg.length;k++)
+    for(var k=0;k<CLIENTVAR.arrayg.length;k++)
     {
-        goodpi=goodpi+(arrayg[k][1]-0.0001);
-        badpi=badpi+(arrayb[k][1]-0.0001);
+        goodpi=goodpi+(CLIENTVAR.arrayg[k][1]-0.0001);
+        badpi=badpi+(CLIENTVAR.arrayb[k][1]-0.0001);
     }
 
     var testdata = [
@@ -314,7 +299,7 @@ function graphselect()
     var graphTemp = $("#graphSelector").val();
 
     if(graphTemp === "1" )//area graph
-    {graphshape=1;
+    {CLIENTVAR.graphshape=1;
 
         stactareachart();
         $('.areadiv').show();
@@ -323,7 +308,7 @@ function graphselect()
         $('.halfdiv').hide();
     }
     else if(graphTemp === "2") //line graph
-    {graphshape=2;
+    {CLIENTVAR.graphshape=2;
         line();
         $('.areadiv').hide();
         $('.linediv').show();
@@ -331,7 +316,7 @@ function graphselect()
         $('.halfdiv').hide();
     }
     else if(graphTemp === "3")
-    {graphshape=3;
+    {CLIENTVAR.graphshape=3;
         pichart();
         $('.areadiv').hide();
         $('.linediv').hide();
@@ -339,7 +324,7 @@ function graphselect()
         $('.halfdiv').hide();
     }
     else if(graphTemp === "4")
-    {graphshape=4;
+    {CLIENTVAR.graphshape=4;
         halfpichart()
         $('.areadiv').hide();
         $('.linediv').hide();
