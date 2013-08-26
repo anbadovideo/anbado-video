@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="basiccss.css">
 <script type="text/javascript">
 
-$("#textinput2").css("width", "400");
+
 
 var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
 
@@ -27,7 +27,7 @@ jQuery(function() {
             console.log(data);
         });
 
-        socket.emit('sample', {hello: 'world'});
+        socket.emit('sample', {hello: 'world!!'});
     });
 });
 // socket.on('connect', function (data) {
@@ -38,8 +38,10 @@ jQuery(function() {
 
 
 
+
+
 var CLIENTVAR = {
-    popcornboj : {},
+    popcornobj : {},
     totalEvent : 0,
     totalChat : 0,
     currentEventPosition : 0,
@@ -61,8 +63,8 @@ var CLIENTVAR = {
     eaEmotionInputArray : {},
     durationTime : 0
 }
-
-var popcornobj; // global access video object. global variable is not recommended
+/*
+var CLIENTVAR.popcornobj; // global access video object. global variable is not recommended
 var totalEvent =0; // total event number
 var totalChat = 0;
 var currentEventPosition = 0;
@@ -89,7 +91,7 @@ var eaEmoticonInputArray;
 
 var durationtime=0;
 
-
+*/
 function getFocus(){
     $("#textinput1").focus();
 }
@@ -98,6 +100,8 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     $("#textinput2").keydown(textinput2Keydown);
     hidePanel();
+
+    elementCSSSetting(); // 전체 요소들의 값을 설정
 
 //    $("#textinput1").focus(function(){
 //        alert("focus inner");
@@ -109,16 +113,16 @@ document.addEventListener( "DOMContentLoaded", function() {
     $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
 
     var totalCount = 0;
-    popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
+    CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
     var inti;
 
-    popcornobj.on("playing", function() {
+    CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
 
         inti = self.setInterval(function(){timeCheck()},500);
 
 
-        popcornobj.on("timeupdate", function(){
+        CLIENTVAR.popcornobj.on("timeupdate", function(){
 
 
 
@@ -134,23 +138,23 @@ document.addEventListener( "DOMContentLoaded", function() {
             intvidiotime=parseInt(intvidiotime);
 
         });
-        // socket.emit('sample',{hello: popcornobj.currentTime()});
+        // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
     });
-    popcornobj.on("seeking", function(){
+    CLIENTVAR.popcornobj.on("seeking", function(){
         timeCheck();
     });
 
 
     function timeCheck(){
-        for(currentEventPosition = 0; currentEventPosition<eventList.length; currentEventPosition++){
-            var deltaTime = popcornobj.currentTime()-eventList[currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
-            if((deltaTime<0)||(deltaTime>=eventList[currentEventPosition].eventVideoClickDuration)||(popcornobj.currentTime()===popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
-                stage.removeChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
-                stage.update();
-            }else if(deltaTime <= eventList[currentEventPosition].eventVideoClickDuration ){
-                stage.addChild(eventList[currentEventPosition].eaCanvasDisplayObject); // 보여주기
-                stage.update();
+        for(CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition<CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++){
+            var deltaTime = CLIENTVAR.popcornobj.currentTime()-CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
+            if((deltaTime<0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+                CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
+                CLIENTVAR.stage.update();
+            }else if(deltaTime <= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration ){
+                CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
+                CLIENTVAR.stage.update();
             }
             totalCount++;
             console.log("TOTAL : " + totalCount);
@@ -158,46 +162,34 @@ document.addEventListener( "DOMContentLoaded", function() {
         }
 
 
-        if(popcornobj.duration() === popcornobj.currentTime())
+        if(CLIENTVAR.popcornobj.duration() === CLIENTVAR.popcornobj.currentTime())
         {
             inti=window.clearInterval(inti); // 시간이 같은 경우에 초기화
         }
 
         //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
-
-
-
     }
-    canvaslayer = document.getElementById("canvas1");
-    canvaslayer.onclick = displayInputPanel;
+    CLIENTVAR.canvaslayer = document.getElementById("canvas1");
+    CLIENTVAR.canvaslayer.onclick = displayInputPanel;
 
-    stage = new createjs.Stage(canvaslayer);
-    canvas_bar = document.getElementById("canvas2");
-    stage_bar = new createjs.Stage(canvas_bar); // 하단 차트 표시할 부분
+    CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
+    CLIENTVAR.canvas_bar = document.getElementById("canvas2");
+    CLIENTVAR.stage_bar = new createjs.Stage(CLIENTVAR.canvas_bar); // 하단 차트 표시할 부분
 
-    canvas3 = document.getElementById("canvasMyChat");
-    canvas4 = document.getElementById("canvasFriendChat");
-    chatLeftStage = new createjs.Stage(canvas3);
-    chatRightStage = new createjs.Stage(canvas4);
+    CLIENTVAR.canvas3 = document.getElementById("canvasMyChat");
+    CLIENTVAR.canvas4 = document.getElementById("canvasFriendChat");
+    CLIENTVAR.chatLeftStage = new createjs.Stage(CLIENTVAR.canvas3);
+    CLIENTVAR.chatRightStage = new createjs.Stage(CLIENTVAR.canvas4);
 
 
 // console.log($("#textinput1").val());
 //socket io 부분 테스팅
 
-//offset 값으로 나중에 수정 video의 위치
-    $("#canvas1").css({"top":100,"left":330});
-    $("#canvas2").css({"top":600,"left":330});
-    $("#ourvideo").css({"top":100,"left":330});
-    $("#textinput1").css({"top":100,"left":240});
-    $("#permissionSelect").css({"top":100,"left":240});
-
-    $("#visualization").css({"top":700,"left":240});
-
 
     setTimeout(function(){
-        if(popcornobj!="NaN")
+        if(CLIENTVAR.popcornobj!="NaN")
         {
-            durationtime= popcornobj.duration();
+            durationtime= CLIENTVAR.popcornobj.duration();
             make_array(durationtime);
             //make_array(1600);
 
@@ -228,6 +220,17 @@ document.addEventListener( "DOMContentLoaded", function() {
 });
 var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
 
+
+function elementCSSSetting(){
+//offset 값으로 나중에 수정 video의 위치
+    $("#textinput2").css("width", "400");
+    $("#canvas1").css({"top":100,"left":330});
+    $("#canvas2").css({"top":600,"left":330});
+    $("#ourvideo").css({"top":100,"left":330});
+    $("#textinput1").css({"top":100,"left":240});
+    $("#permissionSelect").css({"top":100,"left":240});
+    $("#visualization").css({"top":700,"left":240});
+}
 
 
 
@@ -309,12 +312,12 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
     console.log(emo0);
 
 //
-//    eaTextInputField = new createjs.DOMElement("textinput1");
+//    CLIENTVAR.eaTextInputField = new createjs.DOMElement("textinput1");
 //    eaTextInputButton = new createjs.DOMElement("permissionSelect");
 //
 //    eaEmoticonInputArray = new Array();
 //
-//    for(var i =0 ; i < emoticonNumber; i++) // 각 이모티콘 DOM 객체를 캔버스 객체로 할당
+//    for(var i =0 ; i < CLIENTVAR.emoticonNumber; i++) // 각 이모티콘 DOM 객체를 캔버스 객체로 할당
 //    {
 //
 //        var eaTemp = new createjs.DOMElement("emoticon"+i);
@@ -333,13 +336,13 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 //    // DOM객체로 직접 입력을 받지 않고 easeljs 객체로 변환하는 이유는 캔버스위에서 조정하기가 더 편하기 때문.
 //    // jquery를 이용하더라도 canvas의 마우스 좌표등은 받을 수 있으나 캔버스 위에서 easeljs를 사용을 많이 하므로 변환 사용이 편리하다.
 //
-//    // console.log(eaTextInputField.htmlElement);
+//    // console.log(CLIENTVAR.eaTextInputField.htmlElement);
 //
-//    eaTextInputField.regX = 20;
-//    eaTextInputField.regY = 10;
+//    CLIENTVAR.eaTextInputField.regX = 20;
+//    CLIENTVAR.eaTextInputField.regY = 10;
 //
-//    eaTextInputField.x = stage.mouseX;
-//    eaTextInputField.y = stage.mouseY;
+//    CLIENTVAR.eaTextInputField.x = stage.mouseX;
+//    CLIENTVAR.eaTextInputField.y = stage.mouseY;
 //
 //
 //
@@ -349,16 +352,16 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 //    eaTextInputButton.y = stage.mouseY;
 //
 ////    stage.addChild(eaTextInputButton); // 스테이지에 easel 객체로 인풋 패널 추가.
-////    stage.addChild(eaTextInputField);
+////    stage.addChild(CLIENTVAR.eaTextInputField);
 //
 //    // 인풋 패널을 그려주고 난 후 이벤트에 따라 처리함. eventObject의 eaCanvasDisplayObject 객체에 대한 할당
 
 //    stage.update(); // 패널 보여주고 나서 스테이지 업데이트
 
     // document.getElementById("textinput1").focus();
-    // eaTextInputField.htmlElement.focus(); // DOM 객체 포커스를 통해 바로 텍스트입력하도록
+    // CLIENTVAR.eaTextInputField.htmlElement.focus(); // DOM 객체 포커스를 통해 바로 텍스트입력하도록
 
-//    eaTextInputField.htmlElement.onkeydown = keyDownCheck; // 텍스트 창에서 키 입력에 대한 이벤트 핸들러
+//    CLIENTVAR.eaTextInputField.htmlElement.onkeydown = keyDownCheck; // 텍스트 창에서 키 입력에 대한 이벤트 핸들러
     // console.log("eaemoticon" + eaEmoticonInput.getAttritute());
 }
 
@@ -407,19 +410,19 @@ function eventGenerate(evt){ // video interaction event generation
 
     console.log("on event");
     var eventObject = {
-        eventID : totalEvent,
+        eventID : CLIENTVAR.totalEvent,
         eventOwnerName : "owner",
         eventOwnerProfilePicture : "profile url",
-        eventVideoClickTime : popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
+        eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
         eventOccuredAbsoluteTime : (new Date().getTime()), // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 2, // 얼마나 지속되는지
-        eventPosX : tempEvent.x  - canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
-        eventPosY : tempEvent.y  - canvaslayer.offsetTop,
+        eventPosX : tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
+        eventPosY : tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
         eventType : evt.target.id, // event type e.g text, emoticon, image, button action, webcam
         eventContent : evt.target.value,
         eventPermission : $("#permissionSelect").val(),
-        secUnit : 100* Math.round(popcornobj.currentTime() / popcornobj.duration()),// 몇번째 유닛인지?
+        secUnit : 100* Math.round(CLIENTVAR.popcornobj.currentTime() / CLIENTVAR.popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasDisplayObject : {}
     };
     $("#textinput1").val("");
@@ -467,8 +470,8 @@ function eaDisplaySetting(eventObject, content){
         console.log("in if");
         if(content === "textinput2"){
             eventObject.eventPosX = 100;
-            eventObject.eventPosY = 0+ totalChat * 50;
-            totalChat++;
+            eventObject.eventPosY = 0+ CLIENTVAR.totalChat * 50;
+            CLIENTVAR.totalChat++;
 
         }
         var eaBackPanel = new createjs.Shape();
@@ -511,18 +514,18 @@ function eaDisplaySetting(eventObject, content){
 
     if(content === "textinput2"){
         console.log("in print");
-        chatLeftStage.addChild(eventObject.eaCanvasDisplayObject);
-        chatLeftStage.update();
+        CLIENTVAR.chatLeftStage.addChild(eventObject.eaCanvasDisplayObject);
+        CLIENTVAR.chatLeftStage.update();
 
 
     }
     else {
-        stage.addChild(eventObject.eaCanvasDisplayObject);
+        CLIENTVAR.stage.addChild(eventObject.eaCanvasDisplayObject);
     }
 
 
 
-    eventList.push(eventObject); // 전체 이벤트 목록에 저장
+    CLIENTVAR.eventList.push(eventObject); // 전체 이벤트 목록에 저장
     endup();
 }
 
@@ -530,16 +533,16 @@ function endup(){ // 이벤트 후 처리 부분
 
 
 
-    stage.update();
+    CLIENTVAR.stage.update();
     hidePanel();
 
-    totalEvent++;
+    CLIENTVAR.totalEvent++;
 
 
     setTimeout(function(){getFocus();},100);
 }
 
-//     if(popcornobj.currentTime()==popcornobj.duration())// check video end
+//     if(CLIENTVAR.popcornobj.currentTime()==CLIENTVAR.popcornobj.duration())// check video end
 //     {
 //       $("input:text").hide();
 //       $("input:submit").hide();
@@ -547,7 +550,7 @@ function endup(){ // 이벤트 후 처리 부분
 //     }
 
 
-//  //    if(popcornobj.currentTime()==popcornobj.duration())// check video end
+//  //    if(CLIENTVAR.popcornobj.currentTime()==CLIENTVAR.popcornobj.duration())// check video end
 //  //     {      $("input:text").hide();
 //  //   $("input:submit").hide();
 //  //   // 동영상이 끝나고 클릭했을 경우 입력 패널이 뜨는 문제점을 방지하기 위해
@@ -680,7 +683,7 @@ function endup(){ // 이벤트 후 처리 부분
 
 
 <input id="textinput2" type = "text" value = "interactive"/>
-<input id="textbutton2" type = "button" value= "now"/>
+
 <div id="emoticonPanel">
     <table id = "emoticonTable">
         <tr>
