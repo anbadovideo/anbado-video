@@ -6,6 +6,7 @@ body{
 }
 
 
+
 #canvas1{
 	position: absolute;
 	top:0;
@@ -133,4 +134,13 @@ input{
 
 #emoticonTable{
     background: #ff0;
+}
+
+#responseSummaryPanel{
+    position : absolute;
+    top : 900px;
+    width : 800px;
+    height : 500px;
+    background : lightgoldenrodyellow;
+
 }

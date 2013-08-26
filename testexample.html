@@ -12,24 +12,96 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <link rel="stylesheet" type="text/css" href="basiccss.css">
+<script type="text/javascript" src="clientglobalvar.js"></script>
+
+<script type="text/javascript">
+    WEB_SOCKET_DEBUG = true;
+
+    var createGuid = function() {
+        var s4 = function() {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        };
+
+        return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+    };
+
+    var logger = (function() {
+        var $log_element = $('div#socket-io-log');
+
+        return {
+            log: function(object) {
+                var text = JSON.stringify(object);
+                $log_element.append($('<div></div>').text(text));
+            }
+        };
+    })();
+
+    jQuery(function() {
+        var socket = null;
+
+        $('#socket-io-connect').click(function() {
+            socket = io.connect("http://localhost:8888/socket.io/v1/video");
+
+            socket.on('reconnect', function() {
+                alert("1");
+            });
+
+            socket.on('connect', function() {
+                logger.log('connected');
+
+                // send require packet
+                var param = {
+                    video_id: Math.floor(Math.random() * 10),
+                    user_id: Math.floor(Math.random() * 10),
+                    transaction_id: createGuid()
+                };
+                socket.emit('require', param);
+                logger.log('require packet sended');
+                logger.log(param);
+
+                // disconnect handler
+                socket.on('disconnect', function() {
+                    logger.log('disconnected');
+                    socket = null;
+                });
+
+                // require_response handler
+                socket.on('require_response', function(param) {
+                    logger.log('require response arrived');
+                    logger.log(param);
+                });
+
+                // event_appeared handler
+                socket.on('event_appeared', function(param) {
+                    logger.log('event appeared arrived');
+                    logger.log(param);
+                });
+            });
+        });
+
+        $('#socket-io-disconnect').click(function() {
+            socket.disconnect();
+        });
+    });
+</script>
 <script type="text/javascript">
 
 
 
 var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
 
-var socket;
-jQuery(function() {
-    socket = io.connect("http://localhost:8888/");
-
-    socket.on('connect', function() {
-        socket.on('return', function(data) {
-            console.log(data);
-        });
-
-        socket.emit('sample', {hello: 'world!!'});
-    });
-});
+//var socket;
+//jQuery(function() {
+//    socket = io.connect("http://localhost:8888/");
+//
+//    socket.on('connect', function() {
+//        socket.on('return', function(data) {
+//            console.log(data);
+//        });
+//
+//        socket.emit('sample', {hello: 'world!!'});
+//    });
+//});
 // socket.on('connect', function (data) {
 //   console.log(data);
 //   socket.emit('my other event', { my: 'data' });
@@ -40,31 +112,9 @@ jQuery(function() {
 
 
 
-var CLIENTVAR = {
-    popcornobj : {},
-    totalEvent : 0,
-    totalChat : 0,
-    currentEventPosition : 0,
-    canvaslayer : {},
-    canvas_bar : {},
-    canvas3 : {},
-    canvas4 : {},
-    chatStage : {
-        rightPanel : {},
-        leftPanel : {}
-    },
-    stage : {},
-    stage_bar : {},
-    time_position : 0,
-    eventList : new Array(),
-    emoticonNumber : 4,
-    eaTextInputField : {},
-    eaTextInputButton : {},
-    eaEmotionInputArray : {},
-    durationTime : 0
-}
+
 /*
-var CLIENTVAR.popcornobj; // global access video object. global variable is not recommended
+var CLIENTVAR.popcornobj;
 var totalEvent =0; // total event number
 var totalChat = 0;
 var currentEventPosition = 0;
@@ -90,6 +140,7 @@ var eaTextInputButton;
 var eaEmoticonInputArray;
 
 var durationtime=0;
+ var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
 
 */
 function getFocus(){
@@ -218,7 +269,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
 });
-var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
+
 
 
 function elementCSSSetting(){
@@ -237,8 +288,8 @@ function elementCSSSetting(){
 function textinput2Keydown(evt){
 
     console.log("text2");
-    tempEvent.x = 20;
-    tempEvent.y = 20;
+    CLIENTVAR.tempEvent.x = 20;
+    CLIENTVAR.tempEvent.y = 20;
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
 
 
@@ -279,8 +330,8 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 
 //        displayInputPanel(eventObject);
 
-        tempEvent.x = evt.pageX;
-        tempEvent.y = evt.pageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
+        CLIENTVAR.tempEvent.x = evt.pageX;
+        CLIENTVAR.tempEvent.y = evt.pageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
 
         $("#textinput1").css({"top": evt.pageY,"left":evt.pageX}).keydown(keyDownCheck);
         $("#permissionSelect").css({"top":evt.pageY,"left":evt.pageX +200});
@@ -372,7 +423,7 @@ function keyDownCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통�
 
     if(evt.keyCode == 13){ // 엔터인 경우
 
-        eventGenerate(evt);
+        eventGenerate(evt.target.id, evt.target.value);
         endup();
     }
 
@@ -402,11 +453,11 @@ function hidePanel(){
 function emoticonDOMClick(evt){
 // 각 이모티콘 객체에 대한 이벤트 핸들러
     console.log("DOMClick");
-    eventGenerate(evt);
+    eventGenerate(evt.target.id, evt.target.value);
 }
 
 
-function eventGenerate(evt){ // video interaction event generation
+function eventGenerate(eventArgType, eventArgContent){ // video interaction event generation
 
     console.log("on event");
     var eventObject = {
@@ -416,40 +467,40 @@ function eventGenerate(evt){ // video interaction event generation
         eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
         eventOccuredAbsoluteTime : (new Date().getTime()), // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 2, // 얼마나 지속되는지
-        eventPosX : tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
-        eventPosY : tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
+        eventPosX : CLIENTVAR.tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
+        eventPosY : CLIENTVAR.tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
-        eventType : evt.target.id, // event type e.g text, emoticon, image, button action, webcam
-        eventContent : evt.target.value,
+        eventType : eventArgType, // event type e.g text, emoticon, image, button action, webcam
+        eventContent : eventArgContent,
         eventPermission : $("#permissionSelect").val(),
         secUnit : 100* Math.round(CLIENTVAR.popcornobj.currentTime() / CLIENTVAR.popcornobj.duration()),// 몇번째 유닛인지?
-        eaCanvasDisplayObject : {}
+        eaCanvasisplayObject : {}
     };
     $("#textinput1").val("");
     console.log(eventObject.eventPosX+","+ eventObject.eventPosY );
 
-    switch(evt.target.id)
+    switch(eventArgType)
     {
         case "textinput1":
-            eaDisplaySetting(eventObject, evt.target.id);
+            eaDisplaySetting(eventObject, eventArgType);
             break;
 
         case "textinput2":
-            eaDisplaySetting(eventObject, evt.target.id);
+            eaDisplaySetting(eventObject, eventArgType);
             break;
 
 
         case "emoticon0":
-            eaDisplaySetting(eventObject, evt.target.id);
+            eaDisplaySetting(eventObject, eventArgType);
             break;
         case "emoticon1":
-            eaDisplaySetting(eventObject, evt.target.id);
+            eaDisplaySetting(eventObject, eventArgType);
             break;
         case "emoticon2":
-            eaDisplaySetting(eventObject, evt.target.id);
+            eaDisplaySetting(eventObject, eventArgType);
             break;
         case "emoticon3":
-            eaDisplaySetting(eventObject, evt.target.id);
+            eaDisplaySetting(eventObject, eventArgType);
             break;
 
         default :
@@ -487,9 +538,6 @@ function eaDisplaySetting(eventObject, content){
         eaTextContent.x = eventObject.eventPosX;
         eaTextContent.y = eventObject.eventPosY;
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
-
-
-
     }
     else if(content === "emoticon0" ||content === "emoticon1"||content === "emoticon2"||content === "emoticon3") {
 
@@ -727,6 +775,9 @@ function endup(){ // 이벤트 후 처리 부분
 <div class="halfdiv" id="halfchart">
     <svg id="halfpi" class="mypiechart"></svg>
 </div>
+
+<div id="responseSummaryPanel"></div>
+
 
 </body>
 </html>
