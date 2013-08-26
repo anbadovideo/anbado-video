@@ -4,6 +4,7 @@
     var video = document.getElementById('test');
     var cameraOn = document.getElementById('camera-on');
     var canvas = document.getElementById('canvas');
+    var img = document.querySelector('img');
     var context = canvas.getContext('2d');
     var localStream = null;
 
@@ -56,6 +57,15 @@ cameraOn.onclick = function() {
     function(err) { //onError
         console.log(err);
     });
+};
+
+snapshot.onclick = function() {
+    if (!localStream) console.log('test');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    context.drawImage(video, 0, 0);
+    img.src = canvas.toDataURL('image/png');
 };
 
 stop.onclick = function() {
