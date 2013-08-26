@@ -1,5 +1,5 @@
 var CLIENTVAR = {
-    popcornobj: {}, // global access video object. global variable is not recommended
+    popcornobj: {}, // global access video object.
     totalEvent: 0,  // total event number
     totalChat: 0,
     currentEventPosition: 0,
@@ -20,5 +20,6 @@ var CLIENTVAR = {
     eaTextInputButton: {},
     eaEmotionInputArray: {},
     durationTime: 0,
-    tempEvent: {} // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
+    tempEvent: {}, // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
+    inputPanelShow : false // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
 };

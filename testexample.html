@@ -14,14 +14,16 @@
 <link rel="stylesheet" type="text/css" href="basiccss.css">
 <script type="text/javascript" src="clientglobalvar.js"></script>
 
+
 <script type="text/javascript">
+
+
     WEB_SOCKET_DEBUG = true;
 
     var createGuid = function() {
         var s4 = function() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
-
         return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
     };
 
@@ -88,7 +90,7 @@
 
 
 
-var inputPanelShow = false; // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
+
 
 //var socket;
 //jQuery(function() {
@@ -170,7 +172,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
 
-        inti = self.setInterval(function(){timeCheck()},500);
+        inti = self.setInterval(function(){timeCheck()},640);
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
@@ -208,7 +210,7 @@ document.addEventListener( "DOMContentLoaded", function() {
                 CLIENTVAR.stage.update();
             }
             totalCount++;
-            console.log("TOTAL : " + totalCount);
+//            console.log("TOTAL : " + totalCount);
 //            console.log("this time:"+this.currentTime());
         }
 
@@ -295,7 +297,7 @@ function textinput2Keydown(evt){
 
     if(evt.keyCode == 13){ // 엔터인 경우
 
-        eventGenerate(evt);
+        eventGenerate(evt.target.id, evt.target.value);
         endup();
     }
 //
@@ -454,6 +456,7 @@ function emoticonDOMClick(evt){
 // 각 이모티콘 객체에 대한 이벤트 핸들러
     console.log("DOMClick");
     eventGenerate(evt.target.id, evt.target.value);
+
 }
 
 
@@ -574,12 +577,23 @@ function eaDisplaySetting(eventObject, content){
 
 
     CLIENTVAR.eventList.push(eventObject); // 전체 이벤트 목록에 저장
+
+
+
+    var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
+    eaProfileImage.regX = 0;
+    eaProfileImage.regY = 0;
+    eaProfileImage.x = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 500;
+    eaProfileImage.y = 0;
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
+
+    CLIENTVAR.stage_bar.addChild(eaProfileImage);
+    CLIENTVAR.stage_bar.update();
+
     endup();
 }
 
 function endup(){ // 이벤트 후 처리 부분
-
-
 
     CLIENTVAR.stage.update();
     hidePanel();
@@ -606,10 +620,6 @@ function endup(){ // 이벤트 후 처리 부분
 
 
 //   }
-
-
-
-
 </script>
 
 
@@ -701,12 +711,15 @@ function endup(){ // 이벤트 후 처리 부분
 <script src="d3.v3.js"></script>
 <script src="nv.d3.js"></script>
 <script src="timeline.js"></script>
-<!--<script type="text/javascript">-->
+
 
 
 
 </head>
 <body>
+<button id="socket-io-connect">socket.io connect</button>
+<button id="socket-io-disconnect">socket.io disconnect</button>
+<div id="socket-io-log"></div>
 <div>
     <video id="ourvideo" controls="false">
         <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>
