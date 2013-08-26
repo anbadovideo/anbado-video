@@ -5,7 +5,11 @@ body{
     /*overflow: hidden;*/
 }
 
-
+#profileImg{
+    position:absolute;
+    width :30px;
+    height : 30px;
+}
 
 #canvas1{
 	position: absolute;

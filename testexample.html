@@ -336,8 +336,9 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
         CLIENTVAR.tempEvent.y = evt.pageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
 
         $("#textinput1").css({"top": evt.pageY,"left":evt.pageX}).keydown(keyDownCheck);
-        $("#permissionSelect").css({"top":evt.pageY,"left":evt.pageX +200});
+        $("#permissionSelect").css({"top":evt.pageY,"left":evt.pageX + 200});
         $("#emoticonPanel").css({"top":evt.pageY+25,"left":evt.pageX});
+        $("#profileImg").css({"top":evt.pageY,"left":evt.pageX-30});
 
         showPanel();
 
@@ -347,8 +348,6 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
         console.log("on show");
         inputPanelShow = false;
         hidePanel();
-
-
     }
 
     setTimeout(function(){getFocus();},300);
@@ -436,11 +435,11 @@ function keyDownCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통�
 }
 
 function showPanel(){
-
     inputPanelShow = true;
     $("#textinput1").show("scale",100);
     $("#permissionSelect").show("scale",100);
     $("#emoticonPanel").show("scale",100);
+    $("#profileImg").show("scale",100);
 }
 
 function hidePanel(){
@@ -449,6 +448,7 @@ function hidePanel(){
     $("#textinput1").hide("fast");
     $("#permissionSelect").hide("fast");
     $("#emoticonPanel").hide("fast");
+    $("#profileImg").hide("fast");
 }
 
 
@@ -529,15 +529,15 @@ function eaDisplaySetting(eventObject, content){
 
         }
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,255,0,1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,40); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-        eaBackPanel.regX = 0;
-        eaBackPanel.regY = -3;
+        eaBackPanel.graphics.beginFill("rgba(0,255,0,1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,20); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = -10;
+        eaBackPanel.regY = -23;
         eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
 
-        var eaTextContent = new createjs.Text(eventObject.eventContent, "25px helvetica", "#ffffff");
-        eaTextContent.regX = 0;
-        eaTextContent.regY = -3;
+        var eaTextContent = new createjs.Text(eventObject.eventContent, "15px helvetica", "#ffffff");
+        eaTextContent.regX = -10;
+        eaTextContent.regY = -23;
         eaTextContent.x = eventObject.eventPosX;
         eaTextContent.y = eventObject.eventPosY;
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
@@ -583,13 +583,14 @@ function eaDisplaySetting(eventObject, content){
     var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.x = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 500;
+    eaProfileImage.x = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 640;
     eaProfileImage.y = 0;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
 
     CLIENTVAR.stage_bar.addChild(eaProfileImage);
     CLIENTVAR.stage_bar.update();
 
+    console.log(eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration());
     endup();
 }
 
@@ -744,7 +745,7 @@ function endup(){ // 이벤트 후 처리 부분
 
 
 <input id="textinput2" type = "text" value = "interactive"/>
-
+<img id="profileImg" src = "AssetImages/profile1.png"/>
 <div id="emoticonPanel">
     <table id = "emoticonTable">
         <tr>
