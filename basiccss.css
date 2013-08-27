@@ -12,6 +12,21 @@ body{
 
 
   }
+
+#texturl
+{
+    position:absolute;
+    top:600px;
+    left:0;
+
+}
+#sendurl
+{
+    position:absolute;
+    top:600px;
+    left:150px;
+
+}
 #profileImg{
     position:absolute;
     width :30px;

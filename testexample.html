@@ -167,7 +167,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     var totalCount = 0;
    // CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=aja-8sYjNaY" );
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", CLIENTVAR.url );
 
     var inti;
 
@@ -743,6 +743,35 @@ function endup(){ // 이벤트 후 처리 부분
 <script src="nv.d3.js"></script>
 <script src="timeline.js"></script>
 
+<script>
+
+    function geturl()
+    {
+        CLIENTVAR.url=$("#texturl").val();
+        console.log("url:"+CLIENTVAR.url);
+        CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube",CLIENTVAR.url );
+        $("#youtube").css({"top":100,"left":330});
+
+        setTimeout(function(){
+            if(CLIENTVAR.popcornobj!="NaN")
+            {
+                durationtime= CLIENTVAR.popcornobj.duration();
+                make_array(durationtime);
+                console.log(durationtime);
+
+                if(CLIENTVAR.graphshape==1)
+                {stactareachart();}
+                else if(CLIENTVAR.graphshape==2)
+                {line();}
+                else if(CLIENTVAR.graphshape==3)
+                {pichart();}
+                else if(CLIENTVAR.graphshape==4)
+                {halfpichart();}
+            }
+        },5000);
+
+    }
+    </script>
 
 
 
@@ -760,7 +789,8 @@ function endup(){ // 이벤트 후 처리 부분
 
     <div id="youtube" style="width:600px;height:500px;"></div>
 
-
+    <input id="texturl" type = "text" value = "input url">
+    <button id="sendurl" onclick="geturl()">sendurl</button>
 
     <div id="canvascontainer">
         <canvas id="canvas1" width = "640px" height = "430px"></canvas>
