@@ -166,8 +166,10 @@ document.addEventListener( "DOMContentLoaded", function() {
     $(".emoticon_button").css("height", 50); // 이모티콘 이미지 조정
 
     var totalCount = 0;
-//   CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", CLIENTVAR.url );
+
+   // CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=F2CILgO4J0M" );
+
 
     var inti;
 
@@ -282,7 +284,7 @@ function elementCSSSetting(){
     $("#textinput2").css("width", "400");
     $("#canvas1").css({"top":100,"left":330});
     $("#canvas2").css({"top":600,"left":330});
-    $("#youtube").css({"top":100,"left":330});
+    //$("#youtube").css({"top":100,"left":330});
     $("#textinput1").css({"top":100,"left":240});
     $("#permissionSelect").css({"top":100,"left":240});
     $("#visualization").css({"top":700,"left":240});
@@ -747,9 +749,15 @@ function endup(){ // 이벤트 후 처리 부분
 
     function geturl()
     {
+
+        $("#youtube").remove();
+        $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
+
         CLIENTVAR.url=$("#texturl").val();
         console.log("url:"+CLIENTVAR.url);
+
         CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube",CLIENTVAR.url );
+
         $("#youtube").css({"top":100,"left":330});
 
         setTimeout(function(){
@@ -787,8 +795,8 @@ function endup(){ // 이벤트 후 처리 부분
         <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/>-->
     <!--</video>-->
 
-    <div id="youtube" style="width:600px;height:500px;"></div>
-
+    <!--<div id="youtube" style="width:600px;height:500px;"></div>-->
+    <vid></vid>
     <input id="texturl" type = "text" value = "input url">
     <button id="sendurl" onclick="geturl()">sendurl</button>
 

@@ -1,3 +1,4 @@
+console.log("first");
 (function() {
     var start = document.getElementById('record-video');
     var stop = document.getElementById('stop-video');
@@ -7,6 +8,8 @@
     var img = document.querySelector('img');
     var context = canvas.getContext('2d');
     var localStream = null;
+
+    console.log("last");
 
 // animation id 
 var requestId = 0;
