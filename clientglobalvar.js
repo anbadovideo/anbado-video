@@ -27,6 +27,7 @@ var CLIENTVAR = {
     bad: 0,  //bad 의수
     arrayg: [], // good array
     arrayb: [], //bad array
-    graphshape: 1, //graphshape sel
-    inttime: 0   // get time
+    graphshape: 0, //graphshape sel
+    inttime: 0,   // get time
+    url:{}
 };
