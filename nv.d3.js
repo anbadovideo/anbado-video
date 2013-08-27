@@ -12807,7 +12807,7 @@ nv.models.stackedAreaChart = function() {
 
       yAxis
         .scale(y)
-        //.ticks(stacked.offset() == 'wiggle' ? 0 : availableHeight / 36)
+        .ticks(stacked.offset() == 'wiggle' ? 0 : availableHeight / 36)
         //.tickSize(-availableWidth, 0)
         .setTickFormat(stacked.offset() == 'expand' ? d3.format('%') : yAxisTickFormat);
 
