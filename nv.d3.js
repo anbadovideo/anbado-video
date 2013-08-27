@@ -4655,8 +4655,8 @@ nv.models.lineChart = function() {
       if (showXAxis) {
         xAxis
           .scale(x)
-          .ticks( availableWidth / 100 )
-          .tickSize(-availableHeight, 0);
+          //.ticks( availableWidth / 100 )
+          //.tickSize(-availableHeight, 0);
 
         g.select('.nv-x.nv-axis')
             .attr('transform', 'translate(0,' + y.range()[0] + ')');
@@ -4668,7 +4668,7 @@ nv.models.lineChart = function() {
         yAxis
           .scale(y)
           .ticks( availableHeight / 36 )
-          .tickSize( -availableWidth, 0);
+          //.tickSize( -availableWidth, 0);
 
         d3.transition(g.select('.nv-y.nv-axis'))
             .call(yAxis);
