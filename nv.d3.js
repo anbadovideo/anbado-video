@@ -4760,7 +4760,7 @@ nv.models.lineChart = function() {
         time=parseInt(time);
         time= e.pos[0]/(1090/time);
         console.log("kimmijong"+time );
-        popcornobj.pause(time);
+        CLIENTVAR.popcornobj.pause(time);
     });
 
   lines.dispatch.on('elementMouseover.tooltip', function(e) {//mijong
