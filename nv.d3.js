@@ -4760,7 +4760,7 @@ nv.models.lineChart = function() {
         time=parseInt(time);
         time= e.pos[0]/(1090/time);
         console.log("kimmijong"+time );
-        CLIENTVAR.popcornobj.pause(time);
+        popcornobj.pause(time);
     });
 
   lines.dispatch.on('elementMouseover.tooltip', function(e) {//mijong
@@ -12795,8 +12795,8 @@ nv.models.stackedAreaChart = function() {
 
       xAxis
         .scale(x)
-        .ticks( availableWidth / 100 )
-        .tickSize( -availableHeight, 0);
+        //.ticks( availableWidth / 100 )
+        //.tickSize( -availableHeight, 0);
 
       g.select('.nv-x.nv-axis')
           .attr('transform', 'translate(0,' + availableHeight + ')');
@@ -12807,8 +12807,8 @@ nv.models.stackedAreaChart = function() {
 
       yAxis
         .scale(y)
-        .ticks(stacked.offset() == 'wiggle' ? 0 : availableHeight / 36)
-        .tickSize(-availableWidth, 0)
+        //.ticks(stacked.offset() == 'wiggle' ? 0 : availableHeight / 36)
+        //.tickSize(-availableWidth, 0)
         .setTickFormat(stacked.offset() == 'expand' ? d3.format('%') : yAxisTickFormat);
 
       //d3.transition(g.select('.nv-y.nv-axis'))
