@@ -174,7 +174,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
 
-        inti = self.setInterval(function(){timeCheck()},640);
+        inti = self.setInterval(function(){timeCheck()},400);
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
@@ -203,7 +203,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     function timeCheck(){
         for(CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition<CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++){
             var deltaTime = CLIENTVAR.popcornobj.currentTime()-CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
-            if((deltaTime<0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+            if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
                 CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
                 CLIENTVAR.stage.update();
             }else if(deltaTime <= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration ){
@@ -533,15 +533,15 @@ function eaDisplaySetting(eventObject, content){
 
         }
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,255,0,1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,20); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.graphics.beginFill("rgba(0,255,0,1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,20+$("#fontSizeSelect").val()/2); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
         eaBackPanel.regX = -10;
-        eaBackPanel.regY = -23;
+        eaBackPanel.regY = -10;
         eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
 
-        var eaTextContent = new createjs.Text(eventObject.eventContent, "15px helvetica", "#ffffff");
+        var eaTextContent = new createjs.Text(eventObject.eventContent, $("#fontSizeSelect").val()+"px helvetica", "#ffffff");
         eaTextContent.regX = -10;
-        eaTextContent.regY = -23;
+        eaTextContent.regY = -18;
         eaTextContent.x = eventObject.eventPosX;
         eaTextContent.y = eventObject.eventPosY;
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
@@ -577,7 +577,10 @@ function eaDisplaySetting(eventObject, content){
     }
     else {
         CLIENTVAR.stage.addChild(eventObject.eaCanvasDisplayObject);
+        CLIENTVAR.stage.update();
+//        CLIENTVAR.chatRightStage.addChild(eventObject.eaCanvasDisplayObject);
     }
+
 
     CLIENTVAR.eventList.push(eventObject); // 전체 이벤트 목록에 저장
 
@@ -773,6 +776,11 @@ function endup(){ // 이벤트 후 처리 부분
     <option value="me only">Me only</option>
     <option value="my friends">My friends</option>
     <option value="everybody">Everybody</option>
+</select>
+<select id = "fontSizeSelect">
+    <option value="10">20</option>
+    <option value="20" selected="selected">20</option>
+    <option value="30">30</option>
 </select>
 
 
