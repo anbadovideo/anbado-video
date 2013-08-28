@@ -28,6 +28,25 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     var inti;
 
+
+    CLIENTVAR.popcornobj.on("playing", function() {
+
+        durationtime= CLIENTVAR.popcornobj.duration();
+        make_array(durationtime);
+        //make_array(1600);
+
+        console.log(durationtime);
+
+        stactareachart()
+        $('.areadiv').show();
+        $('.linediv').hide();
+        $('.piediv').hide();
+        $('.halfdiv').hide();
+
+
+    });
+
+
     CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
 
@@ -38,15 +57,6 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
 
-//            var tek;
-//            tek=this.currentTime();
-//            tek=parseInt(tek);
-//
-//            if(tek>intvidiotime)
-//            {CLIENTVAR.good=0;CLIENTVAR.bad=0;}
-//
-//            intvidiotime=this.currentTime();
-//            intvidiotime=parseInt(intvidiotime);
 
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
@@ -98,26 +108,26 @@ document.addEventListener( "DOMContentLoaded", function() {
 // console.log($("#textinput1").val());
 //socket io 부분 테스팅
 
-
-    setTimeout(function(){
-        if(CLIENTVAR.popcornobj!="NaN")
-        {
-            durationtime= CLIENTVAR.popcornobj.duration();
-            make_array(durationtime);
-            //make_array(1600);
-
-            console.log(durationtime);
-
-            if(CLIENTVAR.graphshape==1)
-            {stactareachart();}
-            else if(CLIENTVAR.graphshape==2)
-            {line();}
-            else if(CLIENTVAR.graphshape==3)
-            {pichart();}
-            else if(CLIENTVAR.graphshape==4)
-            {halfpichart();}
-        }
-    },5000);
+//
+//    setTimeout(function(){
+//        if(CLIENTVAR.popcornobj!="NaN")
+//        {
+//            durationtime= CLIENTVAR.popcornobj.duration();
+//            make_array(durationtime);
+//            //make_array(1600);
+//
+//            console.log(durationtime);
+//
+//            if(CLIENTVAR.graphshape==1)
+//            {stactareachart();}
+//            else if(CLIENTVAR.graphshape==2)
+//            {line();}
+//            else if(CLIENTVAR.graphshape==3)
+//            {pichart();}
+//            else if(CLIENTVAR.graphshape==4)
+//            {halfpichart();}
+//        }
+//    },5000);
 
 // $("input:text").hide();
 // $("input:submit").hide();
