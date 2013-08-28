@@ -29,7 +29,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     var inti;
 
 
-    CLIENTVAR.popcornobj.on("playing", function() {
+    CLIENTVAR.popcornobj.on("loadeddata", function() {
 
         durationtime= CLIENTVAR.popcornobj.duration();
         make_array(durationtime);
@@ -37,7 +37,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
         console.log(durationtime);
 
-        stactareachart()
+        stactareachart();
         $('.areadiv').show();
         $('.linediv').hide();
         $('.piediv').hide();
