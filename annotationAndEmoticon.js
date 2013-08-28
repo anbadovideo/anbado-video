@@ -26,6 +26,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://youtu.be/uilcaXYnluU" );
     $("#youtube").css({"top":100,"left":330});
 
+
     var inti;
 
 
@@ -54,10 +55,6 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
-
-
-
-
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
@@ -75,7 +72,9 @@ document.addEventListener( "DOMContentLoaded", function() {
                 CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
                 CLIENTVAR.stage.update();
             }
-            else if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+            // elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로
+            if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+
                 CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
                 CLIENTVAR.stage.update();
             }
