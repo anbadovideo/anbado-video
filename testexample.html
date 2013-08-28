@@ -168,11 +168,8 @@ document.addEventListener( "DOMContentLoaded", function() {
     var totalCount = 0;
 
    // CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
-    $("#youtube").remove();
-    $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
-
     CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=F2CILgO4J0M" );
-    $("#youtube").css({"top":100,"left":330});
+
 
     var inti;
 
@@ -287,7 +284,7 @@ function elementCSSSetting(){
     $("#textinput2").css("width", "400");
     $("#canvas1").css({"top":100,"left":330});
     $("#canvas2").css({"top":600,"left":330});
-    $("#youtube").css({"top":100,"left":330});
+    //$("#youtube").css({"top":100,"left":330});
     $("#textinput1").css({"top":100,"left":240});
     $("#permissionSelect").css({"top":100,"left":240});
     $("#visualization").css({"top":700,"left":240});
