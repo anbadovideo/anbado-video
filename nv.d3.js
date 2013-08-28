@@ -4656,7 +4656,7 @@ nv.models.lineChart = function() {
         xAxis
           .scale(x)
           .ticks( availableWidth / 100 )
-          .tickSize(-availableHeight, 0);
+          //.tickSize(-availableHeight, 0);
 
         g.select('.nv-x.nv-axis')
             .attr('transform', 'translate(0,' + y.range()[0] + ')');
@@ -12796,7 +12796,7 @@ nv.models.stackedAreaChart = function() {
       xAxis
         .scale(x)
         .ticks( availableWidth / 100 )
-        .tickSize( -availableHeight, 0);
+        //.tickSize( -availableHeight, 0);
 
       g.select('.nv-x.nv-axis')
           .attr('transform', 'translate(0,' + availableHeight + ')');
