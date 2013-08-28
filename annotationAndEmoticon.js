@@ -23,7 +23,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     $("#youtube").remove();
     $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
 
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=F2CILgO4J0M" );
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://youtu.be/uilcaXYnluU" );
     $("#youtube").css({"top":100,"left":330});
 
     var inti;
@@ -31,7 +31,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
 
-        inti = self.setInterval(function(){timeCheck()},400);
+        inti = self.setInterval(function(){timeCheck()},100);
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
@@ -60,11 +60,13 @@ document.addEventListener( "DOMContentLoaded", function() {
     function timeCheck(){ // 시간대에서 각 이벤트의 듀레이션을 체크함
         for(CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition<CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++){
             var deltaTime = CLIENTVAR.popcornobj.currentTime()-CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
-            if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
-                CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
-                CLIENTVAR.stage.update();
-            }else if(deltaTime <= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration ){
+
+            if(deltaTime <= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration ){
                 CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
+                CLIENTVAR.stage.update();
+            }
+            else if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+                CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
                 CLIENTVAR.stage.update();
             }
             totalCount++;
@@ -132,6 +134,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
 function getFocus(){
+
     $("#textinput1").focus();
 }
 //
@@ -283,6 +286,7 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
 
 function keyUPCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통해서 사용. onkeypress대신 onkeydown을 사용해야 esc 받을 수 있
 {
+//    $("#textinput1").val("");
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
 
     console.log(evt);
@@ -346,6 +350,8 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
     };
 
     $("#textinput1").val("please input");
+
+
 
 
     switch(eventArgType)
@@ -464,7 +470,7 @@ function eaDisplaySetting(eventObject, eventTypeArg){
     var timelineEvent = {}; // 임시 이벤트를 등록하여 마우스 오버/아웃을 해결하
 
 
-    eaProfileImage.addEventListener("mouseover", function() {
+    eaProfileImgOnTimeline.addEventListener("mouseover", function() { // 마우스 오버를 통해 툴팁.
         CLIENTVAR.stage_bar.canvas.title = eventObject.eventContent;
         console.log("in mouseover");
 
@@ -476,18 +482,15 @@ function eaDisplaySetting(eventObject, eventTypeArg){
 
         CLIENTVAR.stage_bar.update();
     });
-    eaProfileImage.addEventListener("mouseout", function() {
+    eaProfileImgOnTimeline.addEventListener("mouseout", function() {
 
         CLIENTVAR.stage_bar.removeChild(timelineEvent.eaCanvasDisplayObject);
 //        console.log(eventObject.eaCanvasDisplayObject);
         CLIENTVAR.stage_bar.update();
     });
 
-    CLIENTVAR.chatRightStage.addChild(eventObject.eaCanvasDisplayObject);
-    CLIENTVAR.chatRightStage.update();
-
-
-
+//    CLIENTVAR.chatRightStage.addChild(eventObject.eaCanvasDisplayObject);
+//    CLIENTVAR.chatRightStage.update();
 
 
     endup();
