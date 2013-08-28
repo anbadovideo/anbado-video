@@ -1,158 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-<title>anbado player example</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
-<script src="http://localhost:8888/socket.io/socket.io.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-<link rel="stylesheet" type="text/css" href="basiccss.css">
-<script type="text/javascript" src="clientglobalvar.js"></script>
-<script type="text/javascript" src = "annotationAndEmoticon.js"></script>
-
-
-
-<script type="text/javascript">
-
-
-    WEB_SOCKET_DEBUG = true;
-
-    var createGuid = function() {
-        var s4 = function() {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        };
-        return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
-    };
-
-    var logger = (function() {
-        var $log_element = $('div#socket-io-log');
-
-        return {
-            log: function(object) {
-                var text = JSON.stringify(object);
-                $log_element.append($('<div></div>').text(text));
-            }
-        };
-    })();
-
-    jQuery(function() {
-        var socket = null;
-
-        $('#socket-io-connect').click(function() {
-            socket = io.connect("http://localhost:8888/socket.io/v1/video");
-
-            socket.on('reconnect', function() {
-                alert("1");
-            });
-
-            socket.on('connect', function() {
-                logger.log('connected');
-
-                // send require packet
-                var param = {
-                    video_id: Math.floor(Math.random() * 10),
-                    user_id: Math.floor(Math.random() * 10),
-                    transaction_id: createGuid()
-                };
-                socket.emit('require', param);
-                logger.log('require packet sended');
-                logger.log(param);
-
-                // disconnect handler
-                socket.on('disconnect', function() {
-                    logger.log('disconnected');
-                    socket = null;
-                });
-
-                // require_response handler
-                socket.on('require_response', function(param) {
-                    logger.log('require response arrived');
-                    logger.log(param);
-                });
-
-                // event_appeared handler
-                socket.on('event_appeared', function(param) {
-                    logger.log('event appeared arrived');
-                    logger.log(param);
-                });
-            });
-        });
-
-        $('#socket-io-disconnect').click(function() {
-            socket.disconnect();
-        });
-    });
-</script>
-<<<<<<< .merge_file_z8q8MC
-<script type="text/javascript">
-
-
-
-
-
-//var socket;
-//jQuery(function() {
-//    socket = io.connect("http://localhost:8888/");
-//
-//    socket.on('connect', function() {
-//        socket.on('return', function(data) {
-//            console.log(data);
-//        });
-//
-//        socket.emit('sample', {hello: 'world!!'});
-//    });
-//});
-// socket.on('connect', function (data) {
-//   console.log(data);
-//   socket.emit('my other event', { my: 'data' });
-//   socket.on('return', function(data) {console.log(data)})
-// });
-
-
-
-
-
-
-/*
-var CLIENTVAR.popcornobj;
-var totalEvent =0; // total event number
-var totalChat = 0;
-var currentEventPosition = 0;
-
-var canvaslayer; // canvas overlay
-
-var canvas_bar;
-var canvas3,canvas4;
-var chatRightStage, chatLeftStage;
-
-
-var stage;
-var stage_bar;
-var time_posision=0;
-
-
-var eventList = new Array();
-
-var emoticonNumber = 4;
-
-var eaTextInputField; // 이 네가지 변수는 local로 전환할 것
-var eaTextInputButton;
-var eaEmoticonInputArray;
-
-var durationtime=0;
- var tempEvent = {}; // 전역 이벤트를 만들어 좌표를 전달. 패턴 수정 필요
-
-*/
-function getFocus(){
-    $("#textinput1").focus();
-}
-//
 document.addEventListener( "DOMContentLoaded", function() {
+
+    var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
+    $('body').append(textInputPanel2);
 
     $("#textinput2").keydown(textinput2Keydown);
     hidePanel();
@@ -170,9 +19,12 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     var totalCount = 0;
 
-   // CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=F2CILgO4J0M" );
+    // CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
+    $("#youtube").remove();
+    $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
 
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=F2CILgO4J0M" );
+    $("#youtube").css({"top":100,"left":330});
 
     var inti;
 
@@ -205,7 +57,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     });
 
 
-    function timeCheck(){
+    function timeCheck(){ // 시간대에서 각 이벤트의 듀레이션을 체크함
         for(CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition<CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++){
             var deltaTime = CLIENTVAR.popcornobj.currentTime()-CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
             if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
@@ -279,6 +131,10 @@ document.addEventListener( "DOMContentLoaded", function() {
 });
 
 
+function getFocus(){
+    $("#textinput1").focus();
+}
+//
 
 function elementCSSSetting(){
 //offset 값으로 나중에 수정 video의 위치
@@ -287,7 +143,7 @@ function elementCSSSetting(){
     $("#textinput2").css("width", "400");
     $("#canvas1").css({"top":100,"left":330});
     $("#canvas2").css({"top":600,"left":330});
-    //$("#youtube").css({"top":100,"left":330});
+    $("#youtube").css({"top":100,"left":330});
     $("#textinput1").css({"top":100,"left":240});
     $("#permissionSelect").css({"top":100,"left":240});
     $("#visualization").css({"top":700,"left":240});
@@ -488,7 +344,8 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         secUnit : 100* Math.round(CLIENTVAR.popcornobj.currentTime() / CLIENTVAR.popcornobj.duration()),// 몇번째 유닛인지?
         eaCanvasisplayObject : {}
     };
-    $("#textinput1").val("");
+
+    $("#textinput1").val("please input");
 
 
     switch(eventArgType)
@@ -523,15 +380,15 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
     endup();
 }
 
-function eaDisplaySetting(eventObject, content){
+function eaDisplaySetting(eventObject, eventTypeArg){
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
-    console.log(content);
+    console.log(eventTypeArg);
 
 
-    if(content === "textinput1" || content === "textinput2"){
+    if(eventTypeArg === "textinput1" || eventTypeArg === "textinput2"){
 
-        if(content === "textinput2"){
+        if(eventTypeArg === "textinput2"){
             eventObject.eventPosX = 100;
             eventObject.eventPosY = 0+ CLIENTVAR.totalChat * 50;
             CLIENTVAR.totalChat++;
@@ -551,9 +408,9 @@ function eaDisplaySetting(eventObject, content){
         eaTextContent.y = eventObject.eventPosY;
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
     }
-    else if(content === "emoticon0" ||content === "emoticon1"||content === "emoticon2"||content === "emoticon3") {
+    else if(eventTypeArg === "emoticon0" ||eventTypeArg === "emoticon1"||eventTypeArg === "emoticon2"||eventTypeArg === "emoticon3") {
 
-        var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + content + ".png"); // make emoticon easeljs object
+        var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + eventTypeArg + ".png"); // make emoticon easeljs object
 
         eaTempEmoticon.regX = 0;
         eaTempEmoticon.regY = 0;
@@ -572,7 +429,7 @@ function eaDisplaySetting(eventObject, content){
 
     eventObject.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
-    if(content === "textinput2"){
+    if(eventTypeArg === "textinput2"){
 
 
         CLIENTVAR.chatLeftStage.addChild(eventObject.eaCanvasDisplayObject);
@@ -580,10 +437,9 @@ function eaDisplaySetting(eventObject, content){
 
 
     }
-    else {
+    else  { // 일반 텍스트 입력 및 이모티콘인 경우 경우
         CLIENTVAR.stage.addChild(eventObject.eaCanvasDisplayObject);
         CLIENTVAR.stage.update();
-//        CLIENTVAR.chatRightStage.addChild(eventObject.eaCanvasDisplayObject);
     }
 
 
@@ -591,38 +447,47 @@ function eaDisplaySetting(eventObject, content){
 
 
 
-    var eaProfileImage = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
-    eaProfileImage.regX = 0;
-    eaProfileImage.regY = 0;
-    eaProfileImage.x = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 640;
-    eaProfileImage.y = 0;
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
+    // 타임라인에 넣을 사진을 넣는다.
+    var eaProfileImgOnTimeline = new createjs.Bitmap("AssetImages/profile1.png"); // profile example
+    eaProfileImgOnTimeline.regX = 0;
+    eaProfileImgOnTimeline.regY = 0;
+    eaProfileImgOnTimeline.x = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 640;
+    eaProfileImgOnTimeline.y = 0;
+    eaProfileImgOnTimeline.scaleX = eaProfileImgOnTimeline.scaleY = eaProfileImgOnTimeline.scale = 0.1;
+
+    CLIENTVAR.stage_bar.addChild(eaProfileImgOnTimeline);
+    CLIENTVAR.stage_bar.update();
 
 
     CLIENTVAR.stage_bar.enableMouseOver(60); // 마우스 오버 설
 
-    var tempEvent = {}; // 임시 이벤트를 등록하여 마우스 오버/아웃을 해결하
+    var timelineEvent = {}; // 임시 이벤트를 등록하여 마우스 오버/아웃을 해결하
+
+
     eaProfileImage.addEventListener("mouseover", function() {
         CLIENTVAR.stage_bar.canvas.title = eventObject.eventContent;
         console.log("in mouseover");
 
-        tempEvent = eventObject;
-        tempEvent.eventPosX = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 640 + 30;
-        tempEvent.eventPosY = 20;
-        eaDisplaySetting(tempEvent, tempEvent.eventType);
-        CLIENTVAR.stage_bar.addChild(tempEvent.eaCanvasDisplayObject);
+        timelineEvent = eventObject;
+        timelineEvent.eventPosX = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 640 + 30;
+        timelineEvent.eventPosY = 20;
+        eaDisplaySetting(timelineEvent, timelineEvent.eventType);
+        CLIENTVAR.stage_bar.addChild(timelineEvent.eaCanvasDisplayObject);
 
         CLIENTVAR.stage_bar.update();
     });
     eaProfileImage.addEventListener("mouseout", function() {
 
-        CLIENTVAR.stage_bar.removeChild(tempEvent.eaCanvasDisplayObject);
+        CLIENTVAR.stage_bar.removeChild(timelineEvent.eaCanvasDisplayObject);
 //        console.log(eventObject.eaCanvasDisplayObject);
         CLIENTVAR.stage_bar.update();
     });
 
-    CLIENTVAR.stage_bar.addChild(eaProfileImage);
-    CLIENTVAR.stage_bar.update();
+    CLIENTVAR.chatRightStage.addChild(eventObject.eaCanvasDisplayObject);
+    CLIENTVAR.chatRightStage.update();
+
+
+
 
 
     endup();
@@ -656,225 +521,3 @@ function endup(){ // 이벤트 후 처리 부분
 
 
 //   }
-</script>
-=======
->>>>>>> .merge_file_1QblJv
-
-
-<link href="nv.d3.css" rel="stylesheet" type="text/css">
-
-<style>
-
-
-        /*#text {*/
-        /*font: 12px sans-serif;*/
-
-        /*position: absolute;*/
-        /*top:900px;*/
-        /*left:0;*/
-
-        /*}*/
-
-    #stackedarea {
-        height: 110px;
-        position: absolute;
-        top:700px;
-        left:0;
-    }
-
-
-        /*line chart */
-
-    svg {
-        display: block;
-    }
-
-    #linechart svg {
-        height: 100px;
-        min-width: 100px;
-        min-height: 100px;
-        position: absolute;
-        top:700px;
-        left:0;
-    }
-
-        /*pichart*/
-    #pichart
-    {
-        position: absolute;
-        top:700px;
-        left:0;
-
-
-    }
-
-        /*half chart*/
-    #halfchart
-    {
-        position: absolute;
-        top:700px;
-        left:0;
-
-    }
-
-    .mypiechart {
-        width: 500px;
-        border: 2px;
-    }
-
-        /*scatter_chart*/
-
-
-    #offsetDiv {
-        margin-left: 100px;
-        margin-top: 100px;
-    }
-
-
-    #scatterchart {
-        margin: 0;
-        position: absolute;
-        top:800px;
-        left:0;
-        width:1500px;
-    }
-
-    #scatterchart svg {
-        height: 1500px;
-        width: 1000px;
-
-    }
-
-</style>
-<script src="d3.v3.js"></script>
-<script src="nv.d3.js"></script>
-<script src="timeline.js"></script>
-
-<script>
-
-    function geturl()
-    {
-
-        $("#youtube").remove();
-        $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
-
-        CLIENTVAR.url=$("#texturl").val();
-        console.log("url:"+CLIENTVAR.url);
-
-        CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube",CLIENTVAR.url );
-
-        $("#youtube").css({"top":100,"left":330});
-
-        setTimeout(function(){
-            if(CLIENTVAR.popcornobj!="NaN")
-            {
-                durationtime= CLIENTVAR.popcornobj.duration();
-                make_array(durationtime);
-                console.log(durationtime);
-
-                if(CLIENTVAR.graphshape==1)
-                {stactareachart();}
-                else if(CLIENTVAR.graphshape==2)
-                {line();}
-                else if(CLIENTVAR.graphshape==3)
-                {pichart();}
-                else if(CLIENTVAR.graphshape==4)
-                {halfpichart();}
-            }
-        },5000);
-
-    }
-    </script>
-
-
-
-</head>
-<body>
-<button id="socket-io-connect">socket.io connect</button>
-<button id="socket-io-disconnect">socket.io disconnect</button>
-<div id="socket-io-log"></div>
-<div>
-    <!--<video id="ourvideo" controls="false">-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv"/>-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/>-->
-    <!--</video>-->
-
-    <!--<div id="youtube" style="width:600px;height:500px;"></div>-->
-    <vid></vid>
-    <input id="texturl" type = "text" value = "input url">
-    <button id="sendurl" onclick="geturl()">sendurl</button>
-
-    <div id="canvascontainer">
-        <canvas id="canvas1" width = "640px" height = "430px"></canvas>
-        <canvas id="canvas2"width = "640px" height = "350px"></canvas>
-        <canvas id="canvasMyChat" width = "320px" height = "500px"></canvas>
-        <canvas id="canvasFriendChat" width = "320px" height = "500px"></canvas>
-    </div>
-
-</div>
-
-<input id="textinput1" type = "text" value = "input">
-<select id = "permissionSelect">
-    <option value="me only">Me only</option>
-    <option value="my friends">My friends</option>
-    <option value="everybody">Everybody</option>
-</select>
-<select id = "fontSizeSelect">
-    <option value="10">20</option>
-    <option value="20" selected="selected">20</option>
-    <option value="30">30</option>
-</select>
-
-
-<!--<input id="textinput2" type = "text" value = "interactive"/>-->
-<img id="profileImg" src = "AssetImages/profile1.png"/>
-<div id="emoticonPanel">
-    <table id = "emoticonTable">
-        <tr>
-            <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
-            <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
-            <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
-            <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
-        </tr>
-    </table>
-</div>
-<input id="happy1" type = "button" onclick="happybutton()" value= "happy" >
-<input id="sad1" type = "button" onclick="sadbutton()" value= "sad" >
-<input id="button1" type="button" value="getfocus" onclick="getFocus();">
-
-
-
-<div>
-    관심사 : <br>
-    <select id="graphSelector" name="graph" onchange="graphselect();">
-        <option value = "1" selected="selected">area graph</option>
-        <option value = "2">line graph</option>
-        <option value = "3">pie graph</option>
-        <option value = "4">halfpie graph</option>
-    </select>
-    <input id="exit" type = "button" onclick="dis();" value= "exit" />
-</div>
-
-<div id="visualization" style="width: 800px; height: 400px;"></div>
-<div class="areadiv">
-    <svg id="stackedarea"></svg>
-</div>
-
-<div class="linediv" id="linechart">
-    <svg style="..."></svg>
-</div>
-
-<div class="piediv" id="pichart">
-    <svg id="pie" class="mypiechart"></svg>
-</div>
-
-<div class="halfdiv" id="halfchart">
-    <svg id="halfpi" class="mypiechart"></svg>
-</div>
-
-<div id="responseSummaryPanel"></div>
-
-
-</body>
-</html>
