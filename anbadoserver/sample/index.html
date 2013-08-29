@@ -36,7 +36,7 @@
         var socket = null;
 
         $('#socket-io-connect').click(function() {
-            socket = io.connect("http://localhost:8888/socket.io/v1/video");
+            socket = io.connect("http://localhost:8888/socket.io/v1/video", {'force new connection': true});
 
             socket.on('reconnect', function() {
                 alert("1");
@@ -76,7 +76,7 @@
         });
 
         $('#socket-io-disconnect').click(function() {
-            socket.disconnect();
+            socket.socket.disconnect();
         });
     });
 </script>
