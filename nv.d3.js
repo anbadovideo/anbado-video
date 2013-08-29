@@ -4517,8 +4517,6 @@ nv.models.lineChart = function() {
         top = e.pos[1] + ( offsetElement.offsetTop || 0),
         x = xAxis.tickFormat()(lines.x()(e.point, e.pointIndex)),
         y = yAxis.tickFormat()(lines.y()(e.point, e.pointIndex)),
-
-        x=parseInt(x/60)+":"+parseInt(x%60),  // kimmijong
         content = tooltip(e.series.key, x, y, e, chart);
 
     nv.tooltip.show([left, top], content, null, null, offsetElement);  //mijong 여기 가 툴팁 저장하는곳
@@ -4761,8 +4759,7 @@ nv.models.lineChart = function() {
         var time=CLIENTVAR.popcornobj.duration();
 
         time=parseInt(time);
-        time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
-        console.log("kimmijong epos"+ time);
+        time=   (time/(parseInt($("#stackedarea").css("width"))-80))*e.pos[0];
 
         CLIENTVAR.popcornobj.pause(time);
     });
