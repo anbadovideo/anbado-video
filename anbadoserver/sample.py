@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
-from gevent import monkey, sleep
+from gevent import (
+    monkey,
+    sleep
+    )
 
 monkey.patch_all()
-
 from socketio import socketio_manage
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin
-
 import os
 import random
 

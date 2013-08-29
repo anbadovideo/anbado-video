@@ -1,11 +1,17 @@
 #!/usr/bin/env python
 
 from datetime import datetime
-
-from sqlalchemy import Table, Column, ForeignKey, Integer, String, Enum, DateTime
+from sqlalchemy import (
+    Table,
+    Column,
+    ForeignKey,
+    Integer,
+    String,
+    Enum,
+    DateTime
+    )
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
-
 from anbadoserver.database import Base
 
 
