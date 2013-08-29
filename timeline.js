@@ -138,12 +138,12 @@ function line()
         {
             values: goood,
             key: "good",
-            color: "#2ca02c"
+            color: "red"
         },
         {
             values: baad,
             key: "bad",
-            color: "red"
+            color: "green"
         }
 
     ];
