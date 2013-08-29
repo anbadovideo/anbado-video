@@ -4759,7 +4759,7 @@ nv.models.lineChart = function() {
         var time=CLIENTVAR.popcornobj.duration();
 
         time=parseInt(time);
-        time=   (time/(parseInt($("#stackedarea").css("width"))-80))*e.pos[0];
+        time=(time/(parseInt($("#stackedarea").css("width"))-80))*e.pos[0];
 
         CLIENTVAR.popcornobj.pause(time);
     });

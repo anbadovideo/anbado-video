@@ -81,11 +81,13 @@ function stactareachart()
     var histcatexplong = [
         {
             "key" : "good" ,
-            "values" : CLIENTVAR.arrayg
+            "values" : CLIENTVAR.arrayg,
+            color: "red"
         },
         {
             "key" : "bad" ,
-            "values" : CLIENTVAR.arrayb
+            "values" : CLIENTVAR.arrayb,
+            color: "green"
         }
 
     ];
