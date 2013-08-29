@@ -78,7 +78,7 @@ function sadbutton()
 function stactareachart()
 {
 
-    var histcatexplong = [
+    var vidiOdata = [
         {
             "key" : "good" ,
             "values" : CLIENTVAR.arrayg,
@@ -111,7 +111,7 @@ function stactareachart()
             .tickFormat(d3.format(',.2f'));
 
         d3.select('#stackedarea')
-            .datum(histcatexplong)
+            .datum(vidiOdata)
             .transition().duration(500).call(chart);
 
         nv.utils.windowResize(chart.update);
