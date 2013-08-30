@@ -4757,9 +4757,10 @@ nv.models.lineChart = function() {
     lines.dispatch.on('elementClick.area', function(e) {
 
         var time=CLIENTVAR.popcornobj.duration();
+
         time=parseInt(time);
-        time= e.pos[0]/(1090/time);
-        console.log("kimmijong"+time );
+        time=(time/(parseInt($("#stackedarea").css("width"))-80))*e.pos[0];
+
         CLIENTVAR.popcornobj.pause(time);
     });
 
@@ -12450,8 +12451,9 @@ nv.models.stackedArea = function() {
   //  dispatch.areaClick(e);
       var time=CLIENTVAR.popcornobj.duration();
       time=parseInt(time);
-      time= e.pos[0]/(1090/time);
-      console.log("kimmijong"+time );
+      time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
+      console.log("kimmijong epos"+ time);
+
       CLIENTVAR.popcornobj.pause(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
@@ -12631,6 +12633,8 @@ nv.models.stackedAreaChart = function() {
         top = e.pos[1] + ( offsetElement.offsetTop || 0),
         x = xAxis.tickFormat()(stacked.x()(e.point, e.pointIndex)),
         y = yAxis.tickFormat()(stacked.y()(e.point, e.pointIndex)),
+
+        x=parseInt(x/60)+":"+parseInt(x%60),  // kimmijong
         content = tooltip(e.series.key, x, y, e, chart);
 
     nv.tooltip.show([left, top+250], content, e.value < 0 ? 'n' : 's', null, offsetElement);

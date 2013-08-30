@@ -78,14 +78,16 @@ function sadbutton()
 function stactareachart()
 {
 
-    var histcatexplong = [
+    var vidiOdata = [
         {
             "key" : "good" ,
-            "values" : CLIENTVAR.arrayg
+            "values" : CLIENTVAR.arrayg,
+            color: "red"
         },
         {
             "key" : "bad" ,
-            "values" : CLIENTVAR.arrayb
+            "values" : CLIENTVAR.arrayb,
+            color: "green"
         }
 
     ];
@@ -109,7 +111,7 @@ function stactareachart()
             .tickFormat(d3.format(',.2f'));
 
         d3.select('#stackedarea')
-            .datum(histcatexplong)
+            .datum(vidiOdata)
             .transition().duration(500).call(chart);
 
         nv.utils.windowResize(chart.update);
@@ -136,12 +138,12 @@ function line()
         {
             values: goood,
             key: "good",
-            color: "#2ca02c"
+            color: "red"
         },
         {
             values: baad,
             key: "bad",
-            color: "red"
+            color: "green"
         }
 
     ];
