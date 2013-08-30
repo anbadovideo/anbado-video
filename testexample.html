@@ -107,7 +107,7 @@
         height: 110px;
         width:700px;
         position: absolute;
-        top:700px;
+        top:840px;
         left:300px;
     }
 
@@ -124,7 +124,7 @@
         min-width: 100px;
         min-height: 100px;
         position: absolute;
-        top:700px;
+        top:800px;
         left:300px;
     }
 
@@ -132,7 +132,7 @@
     #pichart
     {
         position: absolute;
-        top:700px;
+        top:800px;
         left:0;
 
 
@@ -142,7 +142,7 @@
     #halfchart
     {
         position: absolute;
-        top:700px;
+        top:800px;
         left:0;
 
     }
@@ -237,6 +237,14 @@
 <button id="socket-io-connect">socket.io connect</button>
 <button id="socket-io-disconnect">socket.io disconnect</button>
 <div id="socket-io-log"></div>
+
+<select id = "fontSelect">
+    <option value="Ariel">아리엘</option>
+    <option selected value="Dotum">돋움</option>
+    <option value="Times">타임즈</option>
+    <option value="Helvetica">헬베티카</option>
+</select>
+
 <div>
     <!--<video id="ourvideo" controls="false">-->
     <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>-->
@@ -251,7 +259,7 @@
 
     <div id="canvascontainer">
         <canvas id="canvas1" width = "640px" height = "430px"></canvas>
-        <canvas id="canvas2"width = "640px" height = "350px"></canvas>
+        <canvas id="canvas2"width = "640px" height = "50px"></canvas>
         <canvas id="canvasMyChat" width = "320px" height = "500px"></canvas>
         <canvas id="canvasFriendChat" width = "320px" height = "500px"></canvas>
     </div>
@@ -297,23 +305,27 @@
 </div>
 
 <div id="visualization" style="width: 800px; height: 400px;"></div>
-<div class="areadiv">
-    <svg id="stackedarea"></svg>
-</div>
 
-<div class="linediv" id="linechart">
-    <svg style="..."></svg>
-</div>
+<div id = "chartWrapper">
+    <div class="areadiv">
+        <svg id="stackedarea"></svg>
+    </div>
 
-<div class="piediv" id="pichart">
-    <svg id="pie" class="mypiechart"></svg>
-</div>
+    <div class="linediv" id="linechart">
+        <svg style="..."></svg>
+    </div>
 
-<div class="halfdiv" id="halfchart">
-    <svg id="halfpi" class="mypiechart"></svg>
-</div>
+    <div class="piediv" id="pichart">
+        <svg id="pie" class="mypiechart"></svg>
+    </div>
 
+    <div class="halfdiv" id="halfchart">
+        <svg id="halfpi" class="mypiechart"></svg>
+    </div>
+</div>
 <div id="responseSummaryPanel"></div>
+
+
 
 <div id="settingPanel">
 
@@ -335,9 +347,10 @@
 
 </div>
 
-<div class = "thumbnailContainer" id = "thumbnailPanorama" style="position:absolute;top:1000px;width:600px;height:300px;background-color: darkgreen;">
+<div class = "thumbnailContainer" id = "thumbnailPanorama" style="position:absolute;top:800px;width: 800px; height: 400px;">
 
 </div>
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@ function stactareachart()
         {
             "key" : "good" ,
             "values" : CLIENTVAR.arrayg,
-            color: "red"
+            color: "ivory"
         },
         {
             "key" : "bad" ,
