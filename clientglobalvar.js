@@ -29,5 +29,9 @@ var CLIENTVAR = {
     arrayb: [], //bad array
     graphshape: 1, //graphshape sel
     inttime: 0,   // get time
-    url:{} // 현재 플레이어 페이지에서 보이는 URL
+    url:{}, // 현재 플레이어 페이지에서 보이는 URL
+
+    eventTextSeparation : true,  // 이벤트에서 텍스트 숫자가 얼마 이상이면 잘라서 다음 이벤트를 만들어 넘겨줌
+    eventTextLimitation : 20 // 이벤트의 텍스트 입력의 최대값.
+
 };
