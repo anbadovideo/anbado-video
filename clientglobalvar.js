@@ -29,5 +29,5 @@ var CLIENTVAR = {
     arrayb: [], //bad array
     graphshape: 1, //graphshape sel
     inttime: 0,   // get time
-    url:{}
+    url:{} // 현재 플레이어 페이지에서 보이는 URL
 };
