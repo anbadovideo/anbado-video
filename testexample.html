@@ -214,7 +214,21 @@
         },5000);
 
     }
-    </script>
+</script>
+
+
+<!--<script type="text/javascript" src="path_to_js/storyjs-embed.js"></script>-->
+<!--<script>-->
+<!--$(document).ready(function() {-->
+<!--createStoryJS({-->
+<!--type:       'timeline',-->
+<!--width:      '800',-->
+<!--height:     '600',-->
+<!--source:     'timelinejs',-->
+<!--embed_id:   'my-timeline'-->
+<!--});-->
+<!--});-->
+<!--</script>-->
 
 
 
@@ -225,9 +239,9 @@
 <div id="socket-io-log"></div>
 <div>
     <!--<video id="ourvideo" controls="false">-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv"/>-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/>-->
+    <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4"/>-->
+    <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv"/>-->
+    <!--<source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm"/>-->
     <!--</video>-->
 
     <!--<div id="youtube" style="width:600px;height:500px;"></div>-->
@@ -245,11 +259,7 @@
 </div>
 
 <input id="textinput1" type = "text" value = "input">
-<select id = "permissionSelect">
-    <option value="me only">Me only</option>
-    <option value="my friends">My friends</option>
-    <option value="everybody">Everybody</option>
-</select>
+
 <select id = "fontSizeSelect">
     <option value="10">20</option>
     <option value="20" selected="selected">20</option>
@@ -305,6 +315,29 @@
 
 <div id="responseSummaryPanel"></div>
 
+<div id="settingPanel">
+
+    <select name="" id="modakview"> // 친구들 목록만 볼 것인가? 퍼블릭하게 볼 것인가? 내것만 볼 것인가? 끌것인가?
+        <option value = "only my modac"></option>
+        <option value = "friend's modac"></option>
+        <option value = "every modac"></option>
+    </select>
+    <select id = "permissionSelect">
+        <option value="me only">Me only</option>
+        <option value="my friends">My friends</option>
+        <option value="everybody">Everybody</option>
+    </select>
+    <button id = "modac on/off" value = "commentonoff"/>
+    <button id = "camera start" value = "camera on"/>
+    <button id = "snapshot" value = "webcam snapshot"/>
+    <button id = "webcamRecord" value = "webcam record"/>
+
+
+</div>
+
+<div id = "thumbnailPanorama">
+
+</div>
 
 </body>
 </html>
