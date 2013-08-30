@@ -13,6 +13,12 @@ import os
 import random
 
 
+def log(string):
+    import datetime
+
+    print datetime.datetime.now(), string
+
+
 class SampleNamespace(BaseNamespace):
     def on_sample(self, data):
         print('sample event raised! data: ' + str(data))
@@ -34,6 +40,8 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
 
     def on_require(self, param):
         import copy
+
+        log('require event raised')
 
         if len(self.video['timeline_weight']) == 0:
             for i in range(257):
@@ -73,6 +81,8 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
     def on_post_event(self, param):
         import random
 
+        log('post event raised')
+
         data = {
             'transaction_id': param['transaction_id'],
             'success': True,
@@ -82,9 +92,11 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
         self.emit('post_event_response', data)
 
     def view_complete(self, param):
-        pass
+        log('view_complete raised')
 
     def recv_disconnect(self):
+        log('disconnect raised')
+
         self.disconnect(silent=True)
 
 
