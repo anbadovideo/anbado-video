@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from datetime import datetime
+
 from sqlalchemy import (
     Table,
     Column,
@@ -8,11 +9,17 @@ from sqlalchemy import (
     Integer,
     String,
     Enum,
-    DateTime
-    )
+    DateTime,
+    or_,
+    and_)
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
-from anbadoserver.database import Base
+from sqlalchemy.exc import SQLAlchemyError
+
+from anbadoserver.database import (
+    Base,
+    db_session
+    )
 
 
 user_video_association_table = Table(
@@ -38,7 +45,8 @@ class User(Base):
     friends = relationship('User', uselist=True, lazy='dynamic',
                            secondary=user_user_association_table,
                            primaryjoin=(user_id == user_user_association_table.c.user_id),
-                           secondaryjoin=(user_id == user_user_association_table.c.friend_id)
+                           secondaryjoin=(user_id == user_user_association_table.c.friend_id),
+                           viewonly=True
     )
 
     def __init__(self, profile_image):
@@ -46,6 +54,22 @@ class User(Base):
 
     def __repr__(self):
         return '<User {0}> {1}'.format(self.user_id, self.profile_image)
+
+    @classmethod
+    def by_user_id(cls, user_id):
+        try:
+            return db_session.query(User).filter(User.user_id == user_id).first()
+        except SQLAlchemyError:
+            return None
+
+    def save(self):
+        try:
+            db_session.add(self)
+            db_session.commit()
+        except SQLAlchemyError:
+            return False
+
+        return True
 
 
 class Video(Base):
@@ -59,6 +83,7 @@ class Video(Base):
     user = relationship('User', uselist=False)
 
     participants = relationship('User', secondary=user_video_association_table, uselist=True, lazy='dynamic')
+    events = relationship('Event', uselist=True, lazy='dynamic')
 
     def __init__(self, provider, provider_vid, user):
         self.provider = provider
@@ -67,6 +92,38 @@ class Video(Base):
 
     def __repr__(self):
         return '<Video {0}> provider: {1}, vid: {2}'.format(self.video_id, self.provider, self.provider_vid)
+
+    @classmethod
+    def by_video_id(cls, video_id):
+        try:
+            return db_session.query(Video).filter(Video.video_id == video_id).first()
+        except SQLAlchemyError:
+            return None
+
+    def event_permitted_to(self, user):
+        try:
+            # TODO: how to handle inherited permission.
+            return self.events.join(Event.user).filter(
+                or_(
+                    Event.permission == 'public',
+                    and_(
+                        Event.permission == 'protected',
+                        User.friends.any(User.user_id == user.user_id)
+                    )
+                )
+            ).all()
+        except SQLAlchemyError:
+            return []
+
+
+    def save(self):
+        try:
+            db_session.add(self)
+            db_session.commit()
+        except SQLAlchemyError:
+            return False
+
+        return True
 
 
 class Event(Base):
@@ -116,3 +173,19 @@ class Event(Base):
 
     def __repr__(self):
         return '<Event {0}> {1}'.format(self.event_id, self.content)
+
+    @classmethod
+    def by_event_id(cls, event_id):
+        try:
+            return db_session.query(Event).filter(Event.event_id == event_id).first()
+        except SQLAlchemyError:
+            return None
+
+    def save(self):
+        try:
+            db_session.add(self)
+            db_session.commit()
+        except SQLAlchemyError:
+            return False
+
+        return True
