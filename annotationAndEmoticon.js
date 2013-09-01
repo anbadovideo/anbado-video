@@ -78,6 +78,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
+            tooltiptime();
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 

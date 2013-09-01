@@ -12572,15 +12572,19 @@ nv.models.stackedArea = function() {
 
   return chart;
 }
+var con=0;
 
     tooltiptime=function(){
 
+     var timetag=CLIENTVAR.popcornobj.duration();
+       timetag=parseInt(time);
+       timetag=   ((parseInt($("#stackedarea").css("width"))-85)/time);
 
         con=parseInt(CLIENTVAR.popcornobj.currentTime());
-        con=parseInt(con/60)+":"+(con%60);
-
+        //con=parseInt(con/60)+":"+(con%60);
+        con="good"+(CLIENTVAR.arrayg[con][1]-0.5);
         nv.tooltip.cleanup();
-        nv.tooltip.show([400+CLIENTVAR.popcornobj.currentTime(), 600], 100, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
+        nv.tooltip.show([345+CLIENTVAR.popcornobj.currentTime()*timetag, 600], con, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
 
     }
 
