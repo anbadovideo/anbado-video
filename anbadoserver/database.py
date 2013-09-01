@@ -20,4 +20,5 @@ def init_db():
     import anbadoserver.models
 
     sample = anbadoserver.models
+    Base.metadata.drop_all(bind=db_engine)
     Base.metadata.create_all(bind=db_engine)
