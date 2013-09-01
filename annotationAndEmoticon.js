@@ -21,9 +21,32 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     // CLIENTVAR.popcornobj = Popcorn.smart("ourvideo"); // 팝콘 객체 생성
     $("#youtube").remove();
-    $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
+    $("vid").append("   <div id='youtube' style=width:600px;height:500px;top:1000px;/>");
 
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://youtu.be/uilcaXYnluU" );
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=Q_hs0eUx5WQ" );
+
+    var youtubeID = CLIENTVAR.popcornobj.media.src.split('.be/')[1];
+    if(youtubeID === undefined){
+        youtubeID = CLIENTVAR.popcornobj.media.src.split('?v=' +
+            '')[1];
+
+    }
+
+    if(youtubeID !== undefined){
+
+        console.log(youtubeID);
+        var youtubeThumbnailsAddr = [];
+//    youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/0.jpg");
+        youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/1.jpg");
+        youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/2.jpg");
+        youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/3.jpg");
+
+        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[0] + "' style='width: 30%;' />" );
+        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[1] + "' style='width: 30%;' />" );
+        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[2] + "' style='width: 30%;' />" );
+//    $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[3] + "'/>");
+    }
+
     $("#youtube").css({"top":100,"left":330});
 
 
@@ -51,7 +74,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
 
-        inti = self.setInterval(function(){timeCheck()},100);
+        inti = self.setInterval(function(){timeCheck()},10);
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
@@ -72,8 +95,8 @@ document.addEventListener( "DOMContentLoaded", function() {
                 CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
                 CLIENTVAR.stage.update();
             }
-            // elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로
-            if((deltaTime<=0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+            /* elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로*/
+            if((deltaTime<0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
 
                 CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
                 CLIENTVAR.stage.update();
@@ -156,9 +179,10 @@ function elementCSSSetting(){
     $("#canvas1").css({"top":100,"left":330});
     $("#canvas2").css({"top":600,"left":330});
     $("#youtube").css({"top":100,"left":330});
+    $("#thumbnailPanorama").css({"top":700,"left":330,"z-index":-20});
     $("#textinput1").css({"top":100,"left":240});
     $("#permissionSelect").css({"top":100,"left":240});
-    $("#visualization").css({"top":700,"left":240});
+    $("#visualization").css({"top":1200,"left":240});
 }
 
 
@@ -347,7 +371,7 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         eventOwnerProfilePicture : "profile url",
         eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
         eventOccuredAbsoluteTime : (new Date().getTime()), // 이벤트가 생성된 현재 시간.
-        eventVideoClickDuration : 2, // 얼마나 지속되는지
+        eventVideoClickDuration : 4, // 얼마나 지속되는지
         eventPosX : CLIENTVAR.tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
         eventPosY : CLIENTVAR.tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
@@ -358,8 +382,13 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         eaCanvasisplayObject : {}
     };
 
-    $("#textinput1").val("please input");
+    drawVisualization();
+//
+//    if(eventTextSeparation){
+//
+//    }
 
+//    console.log(eventObject.eventOccuredAbsoluteTime.getFullYear());
 
 
 
@@ -368,12 +397,9 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         case "textinput1":
             eaDisplaySetting(eventObject, eventArgType);
             break;
-
         case "textinput2":
             eaDisplaySetting(eventObject, eventArgType);
             break;
-
-
         case "emoticon0":
             eaDisplaySetting(eventObject, eventArgType);
             break;
@@ -415,8 +441,9 @@ function eaDisplaySetting(eventObject, eventTypeArg){
         eaBackPanel.regY = -10;
         eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
-
-        var eaTextContent = new createjs.Text(eventObject.eventContent, $("#fontSizeSelect").val()+"px helvetica", "#ffffff");
+        var textFont = $("#fontSelect").val();
+        console.log(textFont);
+        var eaTextContent = new createjs.Text(eventObject.eventContent, $("#fontSizeSelect").val()+"px " + textFont.toString(), "#ffffff");
         eaTextContent.regX = -10;
         eaTextContent.regY = -18;
         eaTextContent.x = eventObject.eventPosX;
@@ -459,6 +486,8 @@ function eaDisplaySetting(eventObject, eventTypeArg){
 
 
     CLIENTVAR.eventList.push(eventObject); // 전체 이벤트 목록에 저장
+
+    // 밑의 타임라인에 저장
 
 
 
