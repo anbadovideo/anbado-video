@@ -177,8 +177,8 @@ class Event(Base):
     coord_ty = Column(Integer)
     coord_by = Column(Integer)
 
-    def __init__(self, user, video, appeared, disappeared, content, category, coord,
-                 permission='public', parent=None):
+    def __init__(self, user, video, appeared, disappeared, content, category,
+                 coord=(0, 0, 0, 0), permission='public', parent=None):
         self.user = user
         self.video = video
         self.appeared = appeared
@@ -187,11 +187,15 @@ class Event(Base):
         self.category = category
         self.parent = parent
         self.permission = permission
-        self.coord_lx, self.coord_rx, self.coord_ty, self.coord_by = coord
+        self.coord = coord
 
     @hybrid_property
     def coord(self):
         return self.coord_lx, self.coord_rx, self.coord_ty, self.coord_by
+
+    @coord.setter
+    def coord(self, value):
+        self.coord_lx, self.coord_rx, self.coord_ty, self.coord_by = value
 
     def __repr__(self):
         return '<Event {0}> {1}'.format(self.event_id, self.content)
