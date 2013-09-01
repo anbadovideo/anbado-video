@@ -12577,14 +12577,14 @@ var con=0;
     tooltiptime=function(){
 
      var timetag=CLIENTVAR.popcornobj.duration();
-       timetag=parseInt(time);
-       timetag=   ((parseInt($("#stackedarea").css("width"))-85)/time);
+       timetag=parseInt(timetag);
+       timetag=   ((parseInt($("#stackedarea").css("width"))-85)/timetag);
 
         con=parseInt(CLIENTVAR.popcornobj.currentTime());
         //con=parseInt(con/60)+":"+(con%60);
         con="good"+(CLIENTVAR.arrayg[con][1]-0.5);
         nv.tooltip.cleanup();
-        nv.tooltip.show([345+CLIENTVAR.popcornobj.currentTime()*timetag, 600], con, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
+        nv.tooltip.show([45+parseInt($("#stackedarea").css("left"))+CLIENTVAR.popcornobj.currentTime()*timetag, parseInt($("#stackedarea").css("top"))], con, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
 
     }
 
