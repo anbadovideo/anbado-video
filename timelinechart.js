@@ -27,8 +27,8 @@ function make_array( gettime )
 
     for(var j=0;j<gettime;j++)
     {
-        CLIENTVAR.arrayg[j][0] = j;CLIENTVAR.arrayg[j][1] = 0.0001;
-        CLIENTVAR.arrayb[j][0] = j;CLIENTVAR.arrayb[j][1] = 0.0001;
+        CLIENTVAR.arrayg[j][0] = j;CLIENTVAR.arrayg[j][1] = 0.5;
+        CLIENTVAR.arrayb[j][0] = j;CLIENTVAR.arrayb[j][1] = 0.5;
 
     }
 }
@@ -130,7 +130,7 @@ function line()
     var goood = [],baad=[];
     for (var i = 0; i < CLIENTVAR.arrayg.length; i++) {
         goood.push({x: CLIENTVAR.arrayg[i][0], y: CLIENTVAR.arrayg[i][1]}); //the nulls are to show how defined works
-        baad.push({x: CLIENTVAR.arrayb[i][0], y: CLIENTVAR.arrayb[i][1]-0.0001});
+        baad.push({x: CLIENTVAR.arrayb[i][0], y: CLIENTVAR.arrayb[i][1]-0.5});
     }
 
 

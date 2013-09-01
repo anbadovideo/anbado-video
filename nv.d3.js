@@ -12573,6 +12573,17 @@ nv.models.stackedArea = function() {
   return chart;
 }
 
+    tooltiptime=function(){
+
+
+        con=parseInt(CLIENTVAR.popcornobj.currentTime());
+        con=parseInt(con/60)+":"+(con%60);
+
+        nv.tooltip.cleanup();
+        nv.tooltip.show([400+CLIENTVAR.popcornobj.currentTime(), 600], 100, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
+
+    }
+
 nv.models.stackedAreaChart = function() {
 
   //============================================================
