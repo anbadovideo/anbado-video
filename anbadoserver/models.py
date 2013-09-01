@@ -11,7 +11,8 @@ from sqlalchemy import (
     Enum,
     DateTime,
     or_,
-    and_)
+    and_,
+    func)
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.exc import SQLAlchemyError
@@ -115,6 +116,27 @@ class Video(Base):
         except SQLAlchemyError:
             return []
 
+    @hybrid_property
+    def timeline_weight(self):
+        good_events = db_session.query(
+            func.count(Event.event_id).label('count'), Event.appeared
+        ).filter(Event.category == 'good').group_by(Event.appeared).all()
+        bad_events = db_session.query(
+            func.count(Event.event_id).label('count'), Event.appeared
+        ).filter(Event.category == 'bad').group_by(Event.appeared).all()
+
+        results = {}
+
+        for count, appeared in good_events:
+            results[appeared] = count
+
+        for count, appeared in bad_events:
+            if appeared in results:
+                results[appeared] = results[appeared] - count
+            else:
+                results[appeared] = -count
+
+        return results
 
     def save(self):
         try:
@@ -142,7 +164,7 @@ class Event(Base):
     disappeared = Column(Integer)
 
     content = Column(String(2048, convert_unicode=True))
-    category = Column(Enum('text', 'image', 'movie'))
+    category = Column(Enum('text', 'image', 'movie', 'good', 'bad'))
 
     parent_id = Column(Integer, ForeignKey('events.event_id'))
     parent = relationship('Event', remote_side=[event_id], uselist=False)
