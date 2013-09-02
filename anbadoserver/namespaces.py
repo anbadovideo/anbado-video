@@ -1,22 +1,9 @@
 #!/usr/bin/env python
 
-from gevent import (
-    monkey,
-    sleep
-    )
-
-monkey.patch_all()
-from socketio import socketio_manage
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin
-import os
-import random
-
-
-def log(string):
-    import datetime
-
-    print datetime.datetime.now(), string
+from gevent import sleep
+from anbadoserver import app
 
 
 class SampleNamespace(BaseNamespace):
@@ -39,9 +26,9 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
         pass
 
     def on_require(self, param):
-        import copy
+        import copy, random
 
-        log('require event raised')
+        app.logger.info('require event raised')
 
         if len(self.video['timeline_weight']) == 0:
             for i in range(257):
@@ -81,7 +68,7 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
     def on_post_event(self, param):
         import random
 
-        log('post event raised')
+        app.logger.info('post event raised')
 
         data = {
             'transaction_id': param['transaction_id'],
@@ -92,52 +79,15 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
         self.emit('post_event_response', data)
 
     def view_complete(self, param):
-        log('view_complete raised')
+        app.logger.info('view_complete raised')
 
     def recv_disconnect(self):
-        log('disconnect raised')
+        app.logger.info('disconnect raised')
 
         self.disconnect(silent=True)
 
 
-class Application(object):
-    def __init__(self):
-        self.request = {}
-
-    def not_found(self, start_response):
-        start_response('404 Not Found', [])
-        return ['<h1>Not Found</h1>']
-
-    def __call__(self, environ, start_response):
-        path = environ['PATH_INFO'].strip('/')
-        content_type = ''
-
-        if not path:
-            path = 'sample/index.html'
-
-        print(path)
-
-        if path.endswith('.js'):
-            content_type = 'text/javascript'
-        elif path.endswith('.swf'):
-            content_type = 'application/x-shockwave-flash'
-        elif path.endswith('.html'):
-            content_type = 'text/html'
-        elif path.startswith('socket.io'):
-            path = path.strip('socket.io')
-            namespace_def = {
-                '/socket.io/v1/sample': SampleNamespace,
-                '/socket.io/v1/video': SampleVideoNamespace
-            }
-
-            socketio_manage(environ, namespace_def, self.request)
-            return
-
-        try:
-            path = os.path.join(os.path.dirname(__file__), path)
-            data = open(path).read()
-        except Exception:
-            return self.not_found(start_response)
-
-        start_response('200 OK', [('Content-Type', content_type)])
-        return [data]
+namespace_def = {
+    '/sample/video': SampleVideoNamespace,
+    '/sample': SampleNamespace
+}

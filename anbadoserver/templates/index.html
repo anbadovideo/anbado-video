@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>socket.io test</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/static/socket.io/socket.io.js"></script>
 </head>
 <body>
 <button id="socket-io-connect">socket.io connect</button>
@@ -36,7 +36,7 @@
         var socket = null;
 
         $('#socket-io-connect').click(function() {
-            socket = io.connect("http://localhost:8888/socket.io/v1/video", {'force new connection': true});
+            socket = io.connect("/sample/video", {'force new connection': true});
 
             socket.on('reconnect', function() {
                 alert("1");

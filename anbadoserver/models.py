@@ -13,41 +13,37 @@ from sqlalchemy import (
     or_,
     and_,
     func)
-from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.exc import SQLAlchemyError
 
-from anbadoserver.database import (
-    Base,
-    db_session
-    )
+from anbadoserver import db
 
 
 user_video_association_table = Table(
-    'user_video_association_table', Base.metadata,
+    'user_video_association_table', db.metadata,
     Column('user_id', Integer, ForeignKey('users.user_id')),
     Column('video_id', Integer, ForeignKey('videos.video_id'))
 )
 
 user_user_association_table = Table(
-    'user_user_association_table', Base.metadata,
+    'user_user_association_table', db.metadata,
     Column('user_id', Integer, ForeignKey('users.user_id'), primary_key=True),
     Column('friend_id', Integer, ForeignKey('users.user_id'), primary_key=True)
 )
 
 
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key=True)
     profile_image = Column(String(2048, convert_unicode=True))
-    videos = relationship('Video', uselist=True, lazy='dynamic')
-    events = relationship('Event', uselist=True, lazy='dynamic')
-    friends = relationship('User', uselist=True, lazy='dynamic',
-                           secondary=user_user_association_table,
-                           primaryjoin=(user_id == user_user_association_table.c.user_id),
-                           secondaryjoin=(user_id == user_user_association_table.c.friend_id),
-                           viewonly=True
+    videos = db.relationship('Video', uselist=True, lazy='dynamic')
+    events = db.relationship('Event', uselist=True, lazy='dynamic')
+    friends = db.relationship('User', uselist=True, lazy='dynamic',
+                              secondary=user_user_association_table,
+                              primaryjoin=(user_id == user_user_association_table.c.user_id),
+                              secondaryjoin=(user_id == user_user_association_table.c.friend_id),
+                              viewonly=True
     )
 
     def __init__(self, profile_image):
@@ -59,21 +55,21 @@ class User(Base):
     @classmethod
     def by_user_id(cls, user_id):
         try:
-            return db_session.query(User).filter(User.user_id == user_id).first()
+            return db.session.query(User).filter(User.user_id == user_id).first()
         except SQLAlchemyError:
             return None
 
     def save(self):
         try:
-            db_session.add(self)
-            db_session.commit()
+            db.session.add(self)
+            db.session.commit()
         except SQLAlchemyError:
             return False
 
         return True
 
 
-class Video(Base):
+class Video(db.Model):
     __tablename__ = 'videos'
 
     video_id = Column(Integer, primary_key=True)
@@ -81,10 +77,10 @@ class Video(Base):
     provider_vid = Column(String(2048, convert_unicode=True))
 
     user_id = Column(Integer, ForeignKey('users.user_id'))
-    user = relationship('User', uselist=False)
+    user = db.relationship('User', uselist=False)
 
-    participants = relationship('User', secondary=user_video_association_table, uselist=True, lazy='dynamic')
-    events = relationship('Event', uselist=True, lazy='dynamic')
+    participants = db.relationship('User', secondary=user_video_association_table, uselist=True, lazy='dynamic')
+    events = db.relationship('Event', uselist=True, lazy='dynamic')
 
     def __init__(self, provider, provider_vid, user):
         self.provider = provider
@@ -97,7 +93,7 @@ class Video(Base):
     @classmethod
     def by_video_id(cls, video_id):
         try:
-            return db_session.query(Video).filter(Video.video_id == video_id).first()
+            return db.session.query(Video).filter(Video.video_id == video_id).first()
         except SQLAlchemyError:
             return None
 
@@ -118,10 +114,10 @@ class Video(Base):
 
     @hybrid_property
     def timeline_weight(self):
-        good_events = db_session.query(
+        good_events = db.session.query(
             func.count(Event.event_id).label('count'), Event.appeared
         ).filter(Event.category == 'good').group_by(Event.appeared).all()
-        bad_events = db_session.query(
+        bad_events = db.session.query(
             func.count(Event.event_id).label('count'), Event.appeared
         ).filter(Event.category == 'bad').group_by(Event.appeared).all()
 
@@ -140,24 +136,24 @@ class Video(Base):
 
     def save(self):
         try:
-            db_session.add(self)
-            db_session.commit()
+            db.session.add(self)
+            db.session.commit()
         except SQLAlchemyError:
             return False
 
         return True
 
 
-class Event(Base):
+class Event(db.Model):
     __tablename__ = 'events'
 
     event_id = Column(Integer, primary_key=True)
 
     user_id = Column(Integer, ForeignKey('users.user_id'))
-    user = relationship('User', uselist=False)
+    user = db.relationship('User', uselist=False)
 
     video_id = Column(Integer, ForeignKey('videos.video_id'))
-    video = relationship('Video', uselist=False)
+    video = db.relationship('Video', uselist=False)
 
     registered = Column(DateTime, default=datetime.now())
     appeared = Column(Integer)
@@ -167,8 +163,8 @@ class Event(Base):
     category = Column(Enum('text', 'image', 'movie', 'good', 'bad'))
 
     parent_id = Column(Integer, ForeignKey('events.event_id'))
-    parent = relationship('Event', remote_side=[event_id], uselist=False)
-    children = relationship('Event', uselist=True, lazy='dynamic')
+    parent = db.relationship('Event', remote_side=[event_id], uselist=False)
+    children = db.relationship('Event', uselist=True, lazy='dynamic')
 
     permission = Column(Enum('inherited', 'private', 'public', 'protected'))
 
@@ -203,14 +199,14 @@ class Event(Base):
     @classmethod
     def by_event_id(cls, event_id):
         try:
-            return db_session.query(Event).filter(Event.event_id == event_id).first()
+            return db.session.query(Event).filter(Event.event_id == event_id).first()
         except SQLAlchemyError:
             return None
 
     def save(self):
         try:
-            db_session.add(self)
-            db_session.commit()
+            db.session.add(self)
+            db.session.commit()
         except SQLAlchemyError:
             return False
 

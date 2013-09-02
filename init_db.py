@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
-from anbadoserver.database import init_db
+from anbadoserver import init_db
 
 init_db()
