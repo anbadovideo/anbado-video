@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin
