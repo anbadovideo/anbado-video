@@ -4,13 +4,6 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    Table,
-    Column,
-    ForeignKey,
-    Integer,
-    String,
-    Enum,
-    DateTime,
     or_,
     and_,
     func)
@@ -20,24 +13,24 @@ from sqlalchemy.exc import SQLAlchemyError
 from anbadoserver import db
 
 
-user_video_association_table = Table(
+user_video_association_table = db.Table(
     'user_video_association_table', db.metadata,
-    Column('user_id', Integer, ForeignKey('users.user_id')),
-    Column('video_id', Integer, ForeignKey('videos.video_id'))
+    db.Column('user_id', db.Integer, db.ForeignKey('users.user_id')),
+    db.Column('video_id', db.Integer, db.ForeignKey('videos.video_id'))
 )
 
-user_user_association_table = Table(
+user_user_association_table = db.Table(
     'user_user_association_table', db.metadata,
-    Column('user_id', Integer, ForeignKey('users.user_id'), primary_key=True),
-    Column('friend_id', Integer, ForeignKey('users.user_id'), primary_key=True)
+    db.Column('user_id', db.Integer, db.ForeignKey('users.user_id'), primary_key=True),
+    db.Column('friend_id', db.Integer, db.ForeignKey('users.user_id'), primary_key=True)
 )
 
 
 class User(db.Model):
     __tablename__ = 'users'
 
-    user_id = Column(Integer, primary_key=True)
-    profile_image = Column(String(2048, convert_unicode=True))
+    user_id = db.Column(db.Integer, primary_key=True)
+    profile_image = db.Column(db.String(2048, convert_unicode=True))
     videos = db.relationship('Video', uselist=True, lazy='dynamic')
     events = db.relationship('Event', uselist=True, lazy='dynamic')
     friends = db.relationship('User', uselist=True, lazy='dynamic',
@@ -73,11 +66,13 @@ class User(db.Model):
 class Video(db.Model):
     __tablename__ = 'videos'
 
-    video_id = Column(Integer, primary_key=True)
-    provider = Column(Enum('youtube', 'vimeo', 'anbado'))
-    provider_vid = Column(String(2048, convert_unicode=True))
+    video_id = db.Column(db.Integer, primary_key=True)
+    provider = db.Column(db.Enum('youtube', 'vimeo', 'anbado'))
+    provider_vid = db.Column(db.String(2048, convert_unicode=True))
 
-    user_id = Column(Integer, ForeignKey('users.user_id'))
+    title = db.Column(db.String(2048, convert_unicode=True))
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     user = db.relationship('User', uselist=False)
 
     participants = db.relationship('User', secondary=user_video_association_table, uselist=True, lazy='dynamic')
@@ -148,31 +143,31 @@ class Video(db.Model):
 class Event(db.Model):
     __tablename__ = 'events'
 
-    event_id = Column(Integer, primary_key=True)
+    event_id = db.Column(db.Integer, primary_key=True)
 
-    user_id = Column(Integer, ForeignKey('users.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     user = db.relationship('User', uselist=False)
 
-    video_id = Column(Integer, ForeignKey('videos.video_id'))
+    video_id = db.Column(db.Integer, db.ForeignKey('videos.video_id'))
     video = db.relationship('Video', uselist=False)
 
-    registered = Column(DateTime, default=datetime.now())
-    appeared = Column(Integer)
-    disappeared = Column(Integer)
+    registered = db.Column(db.DateTime, default=datetime.now())
+    appeared = db.Column(db.Integer)
+    disappeared = db.Column(db.Integer)
 
-    content = Column(String(2048, convert_unicode=True))
-    category = Column(Enum('text', 'image', 'movie', 'good', 'bad'))
+    content = db.Column(db.String(2048, convert_unicode=True))
+    category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad'))
 
-    parent_id = Column(Integer, ForeignKey('events.event_id'))
+    parent_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
     parent = db.relationship('Event', remote_side=[event_id], uselist=False)
     children = db.relationship('Event', uselist=True, lazy='dynamic')
 
-    permission = Column(Enum('inherited', 'private', 'public', 'protected'))
+    permission = db.Column(db.Enum('inherited', 'private', 'public', 'protected'))
 
-    coord_lx = Column(Integer)
-    coord_rx = Column(Integer)
-    coord_ty = Column(Integer)
-    coord_by = Column(Integer)
+    coord_lx = db.Column(db.Integer)
+    coord_rx = db.Column(db.Integer)
+    coord_ty = db.Column(db.Integer)
+    coord_by = db.Column(db.Integer)
 
     def __init__(self, user, video, appeared, disappeared, content, category,
                  coord=(0, 0, 0, 0), permission='public', parent=None):
