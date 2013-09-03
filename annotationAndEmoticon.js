@@ -1,3 +1,41 @@
+var timeline;
+var data = [
+    {
+        'start': new Date(2010,7,23),
+        'content': 'Conversation<br><img src="img/comments-icon.png" style="width:32px; height:32px;">'
+    },
+    {
+        'start': new Date(2010,7,23,23,0,0),
+        'content': 'Mail from boss<br><img src="img/mail-icon.png" style="width:32px; height:32px;">'
+    },
+    {
+        'start': new Date(2010,7,24,16,0,0),
+        'content': 'Report'
+    },
+    {
+        'start': new Date(2010,7,26),
+        'end': new Date(2010,8,2),
+        'content': 'Traject A'
+    },
+    {
+        'start': new Date(2010,7,28),
+        'content': 'Memo<br><img src="img/notes-edit-icon.png" style="width:48px; height:48px;">'
+    },
+    {
+        'start': new Date(2010,7,29),
+        'content': 'Phone call<br><img src="img/Hardware-Mobile-Phone-icon.png" style="width:32px; height:32px;">'
+    },
+    {
+        'start': new Date(2010,7,31),
+        'end': new Date(2010,8,3),
+        'content': 'Traject B'
+    },
+    {
+        'start': new Date(2010,8,4,12,0,0),
+        'content': 'Report<br><img src="img/attachment-icon.png" style="width:32px; height:32px;">'
+    }
+];
+
 document.addEventListener( "DOMContentLoaded", function() {
 
     var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
@@ -41,9 +79,9 @@ document.addEventListener( "DOMContentLoaded", function() {
         youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/2.jpg");
         youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/3.jpg");
 
-        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[0] + "' style='width: 30%;' />" );
-        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[1] + "' style='width: 30%;' />" );
-        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[2] + "' style='width: 30%;' />" );
+//        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[0] + "' style='width: 30%;' />" );
+//        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[1] + "' style='width: 30%;' />" );
+//        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[2] + "' style='width: 30%;' />" );
 //    $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[3] + "'/>");
     }
 
@@ -73,6 +111,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     CLIENTVAR.popcornobj.on("playing", function() {
         console.log("Playing!");
+        $("#canvas1").show();
 
         inti = self.setInterval(function(){timeCheck()},10);
 
@@ -85,6 +124,9 @@ document.addEventListener( "DOMContentLoaded", function() {
     });
     CLIENTVAR.popcornobj.on("seeking", function(){
         timeCheck();
+    });
+    CLIENTVAR.popcornobj.on("ended", function(){
+        $("#canvas1").hide();
     });
 
 
@@ -363,6 +405,43 @@ function emoticonDOMClick(evt){
 }
 
 
+// Called when the Visualization API is loaded.
+function drawTimelineVisualization() {
+
+    console.log("in draw");
+    // Create a JSON data table
+
+
+    // specify options
+    var options = {
+
+        'width':  '100%',
+        'height': '300px',
+        'editable': true,   // enable dragging and editing events
+        'style': 'box'
+    };
+
+    // Instantiate our timeline object.
+    timeline = new links.Timeline(document.getElementById('mytimeline'));
+
+    function onRangeChanged(properties) {
+        document.getElementById('info').innerHTML += 'rangechanged ' +
+            properties.start + ' - ' + properties.end + '<br>';
+    }
+
+    // attach an event listener using the links events handler
+    links.events.addListener(timeline, 'rangechanged', onRangeChanged);
+
+    // Draw our timeline with the created data and options
+    timeline.draw(data, options);
+    console.log("on timeline");
+}
+
+
+
+
+
+
 function eventGenerate(eventArgType, eventArgContent){ // video interaction event generation
 
     console.log("CONTENT : " + eventArgContent);
@@ -371,7 +450,7 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         eventOwnerName : "owner",
         eventOwnerProfilePicture : "profile url",
         eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
-        eventOccuredAbsoluteTime : (new Date().getTime()), // 이벤트가 생성된 현재 시간.
+        eventOccuredAbsoluteTime : (new Date()), // 이벤트가 생성된 현재 시간.
         eventVideoClickDuration : 4, // 얼마나 지속되는지
         eventPosX : CLIENTVAR.tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
         eventPosY : CLIENTVAR.tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
@@ -383,7 +462,23 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         eaCanvasisplayObject : {}
     };
 
-    drawVisualization();
+//    eventObject.getFullYear(),this.getMonth()+1,this.getDate(),this.getHours(),this.getMinutes(),this.getSeconds()
+    console.log(eventObject.eventOccuredAbsoluteTime);
+
+    console.log(data);
+    data.push({
+        'start': new Date(),
+        'content': eventObject.eventContent + '<br><img src=AssetImages/profile1.png" style="width:32px; height:32px;">'
+    });
+    drawTimelineVisualization();
+
+
+
+
+
+    // Called when the Visualization API is loaded.
+
+
 //
 //    if(eventTextSeparation){
 //

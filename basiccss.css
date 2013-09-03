@@ -12,13 +12,7 @@ body{
     z-index:2147483647;
 }
 
-#timelineWrapper{
-    position: absolute;
-    top : 920px;
-    width: 100%;
 
-
-}
 
 #fontSelect{
 
@@ -53,12 +47,15 @@ body{
     top:0;
     left:0;
 }
+#mytimeline{
+    position: relative;
+    top : 600px;
+}
 
 #texturl
 {
     position:absolute;
-    top:600px;
-    left:0;
+
 
 }
 #sendurl
