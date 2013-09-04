@@ -71,6 +71,7 @@ class Video(db.Model):
     provider_vid = db.Column(db.String(2048, convert_unicode=True))
 
     title = db.Column(db.String(2048, convert_unicode=True))
+    length = db.Column(db.Integer, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     user = db.relationship('User', uselist=False)
@@ -78,9 +79,11 @@ class Video(db.Model):
     participants = db.relationship('User', secondary=user_video_association_table, uselist=True, lazy='dynamic')
     events = db.relationship('Event', uselist=True, lazy='dynamic')
 
-    def __init__(self, provider, provider_vid, user):
+    def __init__(self, provider, provider_vid, title, length, user):
         self.provider = provider
         self.provider_vid = provider_vid
+        self.title = title
+        self.length = length
         self.user = user
 
     def __repr__(self):
@@ -109,7 +112,7 @@ class Video(db.Model):
             return []
 
     @hybrid_property
-    def timeline_weight(self):
+    def timeline_chart(self):
         good_events = db.session.query(
             func.count(Event.event_id).label('count'), Event.appeared
         ).filter(Event.category == 'good').group_by(Event.appeared).all()
@@ -165,8 +168,8 @@ class Event(db.Model):
     permission = db.Column(db.Enum('inherited', 'private', 'public', 'protected'))
 
     coord_lx = db.Column(db.Integer)
-    coord_rx = db.Column(db.Integer)
     coord_ty = db.Column(db.Integer)
+    coord_rx = db.Column(db.Integer)
     coord_by = db.Column(db.Integer)
 
     def __init__(self, user, video, appeared, disappeared, content, category,
@@ -183,11 +186,11 @@ class Event(db.Model):
 
     @hybrid_property
     def coord(self):
-        return self.coord_lx, self.coord_rx, self.coord_ty, self.coord_by
+        return self.coord_lx, self.coord_ty, self.coord_rx, self.coord_by
 
     @coord.setter
     def coord(self, value):
-        self.coord_lx, self.coord_rx, self.coord_ty, self.coord_by = value
+        self.coord_lx, self.coord_ty, self.coord_rx, self.coord_by = value
 
     def __repr__(self):
         return '<Event {0}> {1}'.format(self.event_id, self.content)
