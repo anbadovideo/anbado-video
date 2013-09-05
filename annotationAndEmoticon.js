@@ -1,42 +1,22 @@
 var timeline;
+
+
 var data = [
     {
-        'start': new Date(2010,7,23),
+        'start': new Date(2013,9,7),
         'content': 'Conversation<br><img src="img/comments-icon.png" style="width:32px; height:32px;">'
     },
     {
-        'start': new Date(2010,7,23,23,0,0),
-        'content': 'Mail from boss<br><img src="img/mail-icon.png" style="width:32px; height:32px;">'
-    },
-    {
-        'start': new Date(2010,7,24,16,0,0),
-        'content': 'Report'
-    },
-    {
-        'start': new Date(2010,7,26),
-        'end': new Date(2010,8,2),
-        'content': 'Traject A'
-    },
-    {
-        'start': new Date(2010,7,28),
-        'content': 'Memo<br><img src="img/notes-edit-icon.png" style="width:48px; height:48px;">'
-    },
-    {
-        'start': new Date(2010,7,29),
-        'content': 'Phone call<br><img src="img/Hardware-Mobile-Phone-icon.png" style="width:32px; height:32px;">'
-    },
-    {
-        'start': new Date(2010,7,31),
-        'end': new Date(2010,8,3),
-        'content': 'Traject B'
-    },
-    {
-        'start': new Date(2010,8,4,12,0,0),
-        'content': 'Report<br><img src="img/attachment-icon.png" style="width:32px; height:32px;">'
+        'start': new Date(2013,9,7),
+        'end' : new Date(2013,9,8),
+        'content': 'Report<br><img src="AssetImages/profile1.png" style="width:48px; height:48px;"/>'
     }
 ];
 
 document.addEventListener( "DOMContentLoaded", function() {
+
+
+
 
     var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
     $('body').append(textInputPanel2);
@@ -61,7 +41,10 @@ document.addEventListener( "DOMContentLoaded", function() {
     $("#youtube").remove();
     $("vid").append("   <div id='youtube' style=width:600px;height:500px;top:1000px;/>");
 
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=Q_hs0eUx5WQ" );
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=LWULB9Aoopc" );
+
+    CLIENTVAR.pageGenerationTime = new Date(); // 페이지 생성타임을 저장하고 이를 기준시로 사용함.
+    drawTimelineVisualization();
 
     var youtubeID = CLIENTVAR.popcornobj.media.src.split('.be/')[1];
     if(youtubeID === undefined){
@@ -69,6 +52,7 @@ document.addEventListener( "DOMContentLoaded", function() {
             '')[1];
 
     }
+
 
     if(youtubeID !== undefined){
 
@@ -87,9 +71,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     $("#youtube").css({"top":100,"left":330});
 
-
     var inti;
-
 
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
@@ -104,13 +86,12 @@ document.addEventListener( "DOMContentLoaded", function() {
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').hide();
-
-
     });
 
 
     CLIENTVAR.popcornobj.on("playing", function() {
-        console.log("Playing!");
+
+        console.log(this.media.src);
         $("#canvas1").show();
 
         inti = self.setInterval(function(){timeCheck()},10);
@@ -411,30 +392,42 @@ function drawTimelineVisualization() {
     console.log("in draw");
     // Create a JSON data table
 
-
     // specify options
     var options = {
 
-        'width':  '100%',
+        'width': '100%',
         'height': '300px',
-        'editable': true,   // enable dragging and editing events
-        'style': 'box'
+        'editable': false,   // enable dragging and editing events
+        'style': 'box',
+        'start': new Date(2013,9,7),
+//        'end': new Date(2013,9,9),
+        'scale': "SCALE.DAYS",
+        'step' : 3,
+//        'zoomable' : false,
+
+//        'stackEvents' : 'true',
+        'min' : new Date(2013,9,6),
+        'max' : new Date(2013,9,9)
+//        'showMajorLabels' : true,
+//        'showMinorLabels' : true
     };
+    console.log(options.max);
+    console.log(options.min);
+    console.log(options);
 
     // Instantiate our timeline object.
     timeline = new links.Timeline(document.getElementById('mytimeline'));
 
     function onRangeChanged(properties) {
-        document.getElementById('info').innerHTML += 'rangechanged ' +
-            properties.start + ' - ' + properties.end + '<br>';
+
     }
 
     // attach an event listener using the links events handler
-    links.events.addListener(timeline, 'rangechanged', onRangeChanged);
+//    links.events.addListener(timeline, 'rangechanged', onRangeChanged);
 
     // Draw our timeline with the created data and options
     timeline.draw(data, options);
-    console.log("on timeline");
+
 }
 
 
@@ -449,8 +442,8 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         eventID : CLIENTVAR.totalEvent,
         eventOwnerName : "owner",
         eventOwnerProfilePicture : "profile url",
-        eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로
-        eventOccuredAbsoluteTime : (new Date()), // 이벤트가 생성된 현재 시간.
+        eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로. 상대 시간
+        eventOccuredAbsoluteTime : (new Date()), // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
         eventVideoClickDuration : 4, // 얼마나 지속되는지
         eventPosX : CLIENTVAR.tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
         eventPosY : CLIENTVAR.tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
@@ -465,11 +458,12 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
 //    eventObject.getFullYear(),this.getMonth()+1,this.getDate(),this.getHours(),this.getMinutes(),this.getSeconds()
     console.log(eventObject.eventOccuredAbsoluteTime);
 
-    console.log(data);
+//
     data.push({
-        'start': new Date(),
-        'content': eventObject.eventContent + '<br><img src=AssetImages/profile1.png" style="width:32px; height:32px;">'
+        'start': new Date(2013,9,8),
+        'content': eventObject.eventContent + '<br><img src="AssetImages/profile1.png" style="width:32px; height:32px;">'
     });
+    console.log(data);
     drawTimelineVisualization();
 
 
@@ -584,7 +578,6 @@ function eaDisplaySetting(eventObject, eventTypeArg){
     CLIENTVAR.eventList.push(eventObject); // 전체 이벤트 목록에 저장
 
     // 밑의 타임라인에 저장
-
 
 
     // 타임라인에 넣을 사진을 넣는다.

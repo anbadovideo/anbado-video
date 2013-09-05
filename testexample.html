@@ -5,7 +5,8 @@
 <title>anbado player example</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+<!--<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>-->
+<script type="text/javascript" src = "popcorn-complete_rel0.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
 <script src="http://localhost:8888/socket.io/socket.io.js"></script>
@@ -15,59 +16,14 @@
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
+
+<script type="text/javascript" src="timeline.js"></script>
+<link rel="stylesheet" type="text/css" href="timeline.css">
+
 <script type="text/javascript" src="clientglobalvar.js"></script>
 <script type="text/javascript" src = "annotationAndEmoticon.js"></script>
 
 
-<script type="text/javascript" src="timeline.js"></script>
-<link rel="stylesheet" type="text/css" href="timeline.css">
-<script type="text/javascript">
-    var timeline;
-
-    google.load("visualization", "1");
-
-    // Set callback to run when API is loaded
-    google.setOnLoadCallback(drawVisualization);
-
-    var data = {};
-    // Called when the Visualization API is loaded.
-    function drawVisualization() {
-        // Create and populate a data table.
-        data = new google.visualization.DataTable();
-        data.addColumn('datetime', 'start');
-        data.addColumn('datetime', 'end');
-        data.addColumn('string', 'content');
-
-        data.addRows([
-
-            [new Date(2010,7,23), , 'Conversation<br>' +
-                    '<img src="img/comments-icon.png" style="width:32px; height:32px;">'],
-            [new Date(2010,7,23,23,12,12), , 'Mail from boss<br>' +
-                    '<img src="img/mail-icon.png" style="width:32px; height:32px;">'],
-            [new Date(2010,7,24,16,0,0), , 'Report'],
-            [new Date(2010,7,26), new Date(2010,8,2), 'Traject A'],
-            [new Date(2010,7,28), ,'<img src="img/notes-edit-icon.png" style="width:48px; height:48px;">' + '<br>MemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemo MemoMemoMemoMemo'],
-            [new Date(2010,7,29), , 'Phone call<br>' +
-                    '<img src="img/Hardware-Mobile-Phone-icon.png" style="width:32px; height:32px;">'],
-            [new Date(2010,7,31), new Date(2010,8,3), 'Traject B'],
-            [new Date(2010,8,4,12,0,0), , 'Report<br>' +
-                    '<img src="img/attachment-icon.png" style="width:32px; height:32px;">']
-        ]);
-
-        // specify options
-        var options = {
-            "width":  "100%",
-            "height": "300px",
-            "style": "box"
-        };
-
-        // Instantiate our timeline object.
-        timeline = new links.Timeline(document.getElementById('mytimeline'));
-
-        // Draw our timeline with the created data and options
-        timeline.draw(data, options);
-    }
-</script>
 
 
 
@@ -273,23 +229,10 @@
 </script>
 
 
-<!--<script type="text/javascript" src="path_to_js/storyjs-embed.js"></script>-->
-<!--<script>-->
-<!--$(document).ready(function() {-->
-<!--createStoryJS({-->
-<!--type:       'timeline',-->
-<!--width:      '800',-->
-<!--height:     '600',-->
-<!--source:     'timelinejs',-->
-<!--embed_id:   'my-timeline'-->
-<!--});-->
-<!--});-->
-<!--</script>-->
-
-
 
 </head>
 <body>
+
 <button id="socket-io-connect">socket.io connect</button>
 <button id="socket-io-disconnect">socket.io disconnect</button>
 <div id="socket-io-log"></div>
@@ -314,7 +257,7 @@
     <button id="sendurl" onclick="geturl()">sendurl</button>
 
     <div id="canvascontainer">
-        <canvas id="canvas1" width = "640px" height = "430px"></canvas>
+        <canvas id="canvas1" width = "640px" height = "320px"></canvas>
         <canvas id="canvas2"width = "640px" height = "50px"></canvas>
         <canvas id="canvasMyChat" width = "320px" height = "500px"></canvas>
         <canvas id="canvasFriendChat" width = "320px" height = "500px"></canvas>
@@ -329,6 +272,8 @@
     <option value="20" selected="selected">20</option>
     <option value="30">30</option>
 </select>
+
+
 
 
 <!--<input id="textinput2" type = "text" value = "interactive"/>-->
@@ -412,6 +357,8 @@
 <div id = "timelineWrapper">
 <div id="mytimeline"></div>
 </div>
+
+
 
 
 </body>
