@@ -1,14 +1,13 @@
 var timeline;
 
-
 var data = [
     {
-        'start': new Date(2013,9,7),
+        'start': new Date(2013,8,7),
         'content': 'Conversation<br><img src="img/comments-icon.png" style="width:32px; height:32px;">'
     },
     {
-        'start': new Date(2013,9,7),
-        'end' : new Date(2013,9,8),
+        'start': new Date(2013,8,7),
+        'end' : new Date(2013,8,8),
         'content': 'Report<br><img src="AssetImages/profile1.png" style="width:48px; height:48px;"/>'
     }
 ];
@@ -41,7 +40,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     $("#youtube").remove();
     $("vid").append("   <div id='youtube' style=width:600px;height:500px;top:1000px;/>");
 
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=LWULB9Aoopc" );
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/embed/87kezJTpyMI?hd=1&iv_load_policy=3" );
 
     CLIENTVAR.pageGenerationTime = new Date(); // 페이지 생성타임을 저장하고 이를 기준시로 사용함.
     drawTimelineVisualization();
@@ -119,6 +118,7 @@ document.addEventListener( "DOMContentLoaded", function() {
                 CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
                 CLIENTVAR.stage.update();
             }
+
             /* elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로*/
             if((deltaTime<0)||(deltaTime>=CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eventVideoClickDuration)||(CLIENTVAR.popcornobj.currentTime()===CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
 
@@ -399,16 +399,16 @@ function drawTimelineVisualization() {
         'height': '300px',
         'editable': false,   // enable dragging and editing events
         'style': 'box',
-        'start': new Date(2013,9,7),
-//        'end': new Date(2013,9,9),
-        'scale': "SCALE.DAYS",
-        'step' : 3,
+        'start': new Date(CLIENTVAR.pageGenerationTime.getTime()),
+        'end': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000), // TODO: duration값으로 변환하기
+//        'scale': links.Timeline.StepDate.SCALE.SECOND,
+//        'step' : 1000,
 //        'zoomable' : false,
+        'showCurrentTime' : false,
 
 //        'stackEvents' : 'true',
-        'min' : new Date(2013,9,6),
-        'max' : new Date(2013,9,9)
-//        'showMajorLabels' : true,
+        'min' : new Date(CLIENTVAR.pageGenerationTime.getTime()),
+        'max' : new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000)
 //        'showMinorLabels' : true
     };
     console.log(options.max);
@@ -460,7 +460,7 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
 
 //
     data.push({
-        'start': new Date(2013,9,8),
+        'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
         'content': eventObject.eventContent + '<br><img src="AssetImages/profile1.png" style="width:32px; height:32px;">'
     });
     console.log(data);
@@ -605,11 +605,11 @@ function eaDisplaySetting(eventObject, eventTypeArg){
         timelineEvent.eventPosX = eventObject.eventVideoClickTime/CLIENTVAR.popcornobj.duration() * 640 + 30;
         timelineEvent.eventPosY = 20;
         eaDisplaySetting(timelineEvent, timelineEvent.eventType);
-        CLIENTVAR.stage_bar.addChild(timelineEvent.eaCanvasDisplayObject);
+        CLIENTVAR.stage_bar.addChild(timelineEvent.eaCanvasDisplayObject); // 툴팁을 올림
 
         CLIENTVAR.stage_bar.update();
     });
-    eaProfileImgOnTimeline.addEventListener("mouseout", function() {
+    eaProfileImgOnTimeline.addEventListener("mouseout", function() { // 마우스가 빠져나가는 경우에 삭제
 
         CLIENTVAR.stage_bar.removeChild(timelineEvent.eaCanvasDisplayObject);
 //        console.log(eventObject.eaCanvasDisplayObject);
