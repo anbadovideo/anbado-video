@@ -64,15 +64,40 @@ function drawVisualization() {
 
 function happybutton()
 {
+        if(CLIENTVAR.timeset===1)
+        {
+            setTimeout(function()
+            {
+            CLIENTVAR.timeset=2;
+            },5000);
+        CLIENTVAR.timeset=0;
+        }
+        else if(CLIENTVAR.timeset===2)
+        {
+                  CLIENTVAR.good++;
+            drawVisualization();
+            CLIENTVAR.timeset=1;
+        }
 
-    CLIENTVAR.good++;
-    drawVisualization();
 }
 
 function sadbutton()
 {
-    CLIENTVAR.bad++;
-    drawVisualization();
+        if(CLIENTVAR.timeset===1)
+        {
+            setTimeout(function()
+            {
+            CLIENTVAR.timeset=2;
+            },5000);
+        CLIENTVAR.timeset=0;
+        }
+        else if(CLIENTVAR.timeset===2)
+        {
+                  CLIENTVAR.bad++;
+            drawVisualization();
+            CLIENTVAR.timeset=1;
+        }
+   
 }
 
 function stactareachart()
