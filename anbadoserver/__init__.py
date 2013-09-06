@@ -12,6 +12,7 @@ monkey.patch_all()
 app = Flask(__name__)
 app.debug = config.DEBUG
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_URI
+app.config['SQLALCHEMY_ECHO'] = app.debug
 db = SQLAlchemy(app)
 
 
