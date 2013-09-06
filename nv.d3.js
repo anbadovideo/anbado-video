@@ -12454,7 +12454,7 @@ nv.models.stackedArea = function() {
       time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
       console.log("kimmijong epos"+ time);
 
-      CLIENTVAR.popcornobj.pause(time);
+      CLIENTVAR.popcornobj.play(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
