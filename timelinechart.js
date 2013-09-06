@@ -64,25 +64,34 @@ function drawVisualization() {
 
 function happybutton()
 {
+     
+         if(CLIENTVAR.timeset===2)
+        {      console.log("gray");
+                  CLIENTVAR.good++;
+            drawVisualization();
+            CLIENTVAR.timeset=1;
+
         if(CLIENTVAR.timeset===1)
         {
             setTimeout(function()
             {
+                console.log("red");
             CLIENTVAR.timeset=2;
             },5000);
         CLIENTVAR.timeset=0;
         }
-        else if(CLIENTVAR.timeset===2)
-        {
-                  CLIENTVAR.good++;
-            drawVisualization();
-            CLIENTVAR.timeset=1;
         }
 
 }
 
 function sadbutton()
 {
+  
+         if(CLIENTVAR.timeset===2)
+        {
+                  CLIENTVAR.bad++;
+            drawVisualization();
+            CLIENTVAR.timeset=1;
         if(CLIENTVAR.timeset===1)
         {
             setTimeout(function()
@@ -91,11 +100,6 @@ function sadbutton()
             },5000);
         CLIENTVAR.timeset=0;
         }
-        else if(CLIENTVAR.timeset===2)
-        {
-                  CLIENTVAR.bad++;
-            drawVisualization();
-            CLIENTVAR.timeset=1;
         }
    
 }
