@@ -37,7 +37,6 @@ class User(db.Model):
                               secondary=user_user_association_table,
                               primaryjoin=(user_id == user_user_association_table.c.user_id),
                               secondaryjoin=(user_id == user_user_association_table.c.friend_id),
-                              viewonly=True
     )
 
     def __init__(self, profile_image):
@@ -53,10 +52,11 @@ class User(db.Model):
         except SQLAlchemyError:
             return None
 
-    def save(self):
+    def save(self, commit=True):
         try:
             db.session.add(self)
-            db.session.commit()
+            if commit:
+                db.session.commit()
         except SQLAlchemyError:
             return False
 
@@ -65,6 +65,7 @@ class User(db.Model):
 
 class Video(db.Model):
     __tablename__ = 'videos'
+    __json_blacklists__ = ('user', 'event_permitted_to')
 
     video_id = db.Column(db.Integer, primary_key=True)
     provider = db.Column(db.Enum('youtube', 'vimeo', 'anbado'))
@@ -133,10 +134,11 @@ class Video(db.Model):
 
         return results
 
-    def save(self):
+    def save(self, commit=True):
         try:
             db.session.add(self)
-            db.session.commit()
+            if commit:
+                db.session.commit()
         except SQLAlchemyError:
             return False
 
@@ -202,10 +204,11 @@ class Event(db.Model):
         except SQLAlchemyError:
             return None
 
-    def save(self):
+    def save(self, commit=True):
         try:
             db.session.add(self)
-            db.session.commit()
+            if commit:
+                db.session.commit()
         except SQLAlchemyError:
             return False
 
