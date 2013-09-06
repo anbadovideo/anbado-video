@@ -67,6 +67,7 @@ function happybutton()
      
          if(CLIENTVAR.timeset===2)
         {      console.log("gray");
+$("#happy1").css({"background":'gray'});
                   CLIENTVAR.good++;
             drawVisualization();
             CLIENTVAR.timeset=1;
@@ -76,6 +77,7 @@ function happybutton()
             setTimeout(function()
             {
                 console.log("red");
+    $("#happy1").css({"background":'crimson'});
             CLIENTVAR.timeset=2;
             },5000);
         CLIENTVAR.timeset=0;
