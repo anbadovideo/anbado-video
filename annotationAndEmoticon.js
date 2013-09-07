@@ -15,8 +15,6 @@ var data = [
 document.addEventListener( "DOMContentLoaded", function() {
 
 
-
-
     var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
     $('body').append(textInputPanel2);
 
@@ -85,6 +83,7 @@ document.addEventListener( "DOMContentLoaded", function() {
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     });
 
 

@@ -103,91 +103,6 @@
 
 <link href="nv.d3.css" rel="stylesheet" type="text/css">
 
-<style>
-
-
-        /*#text {*/
-        /*font: 12px sans-serif;*/
-
-        /*position: absolute;*/
-        /*top:900px;*/
-        /*left:0;*/
-
-        /*}*/
-
-    #stackedarea {
-        height: 110px;
-        width:700px;
-        position: absolute;
-        top:840px;
-        left:300px;
-    }
-
-
-        /*line chart */
-
-    svg {
-        display: block;
-    }
-
-    #linechart svg {
-        height: 100px;
-        width: 700px;
-        min-width: 100px;
-        min-height: 100px;
-        position: absolute;
-        top:800px;
-        left:300px;
-    }
-
-        /*pichart*/
-    #pichart
-    {
-        position: absolute;
-        top:800px;
-        left:0;
-
-
-    }
-
-        /*half chart*/
-    #halfchart
-    {
-        position: absolute;
-        top:800px;
-        left:0;
-
-    }
-
-    .mypiechart {
-        width: 500px;
-        border: 2px;
-    }
-
-        /*scatter_chart*/
-
-
-    #offsetDiv {
-        margin-left: 100px;
-        margin-top: 100px;
-    }
-
-
-    #scatterchart {
-        margin: 0;
-        position: absolute;
-        top:800px;
-        left:0;
-        width:1500px;
-    }
-
-    #scatterchart svg {
-        height: 1500px;
-        width: 1000px;
-
-    }
-
-</style>
 
 <!--TODO: 타임라인 요약 패널 스타일임. 밖으로 빼야함-->
 <style type="text/css">
@@ -371,6 +286,7 @@
         <option value = "2">line graph</option>
         <option value = "3">pie graph</option>
         <option value = "4">halfpie graph</option>
+        <option value = "5">bar chart</option>
     </select>
     <input id="exit" type = "button" onclick="dis();" value= "exit" />
 </div>

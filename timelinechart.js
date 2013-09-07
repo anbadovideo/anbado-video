@@ -57,6 +57,8 @@ function drawVisualization() {
     {pichart();}
     else if(CLIENTVAR.graphshape==4)
     {halfpichart();}
+    else if(CLIENTVAR.graphshape==5)
+    {barchart();}
 }
 
 
@@ -324,6 +326,10 @@ function halfpichart()
 
 }
 
+function barchart()
+{
+    alert("hello");
+}
 
 
 function graphselect()
@@ -339,6 +345,7 @@ function graphselect()
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     }
     else if(graphTemp === "2") //line graph
     {CLIENTVAR.graphshape=2;
@@ -347,6 +354,7 @@ function graphselect()
         $('.linediv').show();
         $('.piediv').hide();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     }
     else if(graphTemp === "3")
     {CLIENTVAR.graphshape=3;
@@ -355,6 +363,7 @@ function graphselect()
         $('.linediv').hide();
         $('.piediv').show();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     }
     else if(graphTemp === "4")
     {CLIENTVAR.graphshape=4;
@@ -363,6 +372,16 @@ function graphselect()
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').show();
+        $('.bardiv').hide();
+    }
+        else if(graphTemp === "5")
+    {CLIENTVAR.graphshape=5;
+        halfpichart()
+        $('.areadiv').hide();
+        $('.linediv').hide();
+        $('.piediv').hide();
+        $('.halfdiv').hide();
+        $('.bardiv').show();
     }
 
 }
