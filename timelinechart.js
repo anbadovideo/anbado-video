@@ -57,6 +57,8 @@ function drawVisualization() {
     {pichart();}
     else if(CLIENTVAR.graphshape==4)
     {halfpichart();}
+    else if(CLIENTVAR.graphshape==5)
+    {barchart();}
 }
 
 
@@ -64,15 +66,46 @@ function drawVisualization() {
 
 function happybutton()
 {
+     
+         if(CLIENTVAR.timeset===2)
+        {      console.log("gray");
+$("#happy1").css({"background":'gray'});
+                  CLIENTVAR.good++;
+            drawVisualization();
+            CLIENTVAR.timeset=1;
 
-    CLIENTVAR.good++;
-    drawVisualization();
+        if(CLIENTVAR.timeset===1)
+        {
+            setTimeout(function()
+            {
+                console.log("red");
+    $("#happy1").css({"background":'crimson'});
+            CLIENTVAR.timeset=2;
+            },5000);
+        CLIENTVAR.timeset=0;
+        }
+        }
+
 }
 
 function sadbutton()
 {
-    CLIENTVAR.bad++;
-    drawVisualization();
+  
+         if(CLIENTVAR.timeset===2)
+        {
+                  CLIENTVAR.bad++;
+            drawVisualization();
+            CLIENTVAR.timeset=1;
+        if(CLIENTVAR.timeset===1)
+        {
+            setTimeout(function()
+            {
+            CLIENTVAR.timeset=2;
+            },5000);
+        CLIENTVAR.timeset=0;
+        }
+        }
+   
 }
 
 function stactareachart()
@@ -293,6 +326,55 @@ function halfpichart()
 
 }
 
+function barchart()
+{
+
+
+var testdata = [
+  {
+    "key" : "Quantity" ,
+    "bar": true,
+    "values" :CLIENTVAR.arrayg }
+].map(function(series) {
+  series.values = series.values.map(function(d) { return {x: d[0], y: d[1] } });
+  return series;
+});
+
+
+var chart;
+
+nv.addGraph(function() {
+    chart = nv.models.linePlusBarChart()
+        .margin({top: 30, right: 60, bottom: 50, left: 70})
+        .x(function(d,i) { return i })
+        .color(d3.scale.category10().range());
+
+    chart.xAxis.tickFormat(function(d) {
+      var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+      return dx ? d3.time.format('%x')(new Date(dx)) : '';
+      })
+      .showMaxMin(false);
+
+    chart.y1Axis
+        .tickFormat(d3.format(',f'));
+
+    chart.y2Axis
+        .tickFormat(function(d) { return '$' + d3.format(',.2f')(d) });
+
+    chart.bars.forceY([0]).padData(false);
+    //chart.lines.forceY([0]);
+
+    d3.select('#barchart svg')
+        .datum(testdata)
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+    return chart;
+});
+}
 
 
 function graphselect()
@@ -308,6 +390,7 @@ function graphselect()
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     }
     else if(graphTemp === "2") //line graph
     {CLIENTVAR.graphshape=2;
@@ -316,6 +399,7 @@ function graphselect()
         $('.linediv').show();
         $('.piediv').hide();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     }
     else if(graphTemp === "3")
     {CLIENTVAR.graphshape=3;
@@ -324,14 +408,25 @@ function graphselect()
         $('.linediv').hide();
         $('.piediv').show();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     }
     else if(graphTemp === "4")
     {CLIENTVAR.graphshape=4;
-        halfpichart()
+        halfpichart();
         $('.areadiv').hide();
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').show();
+        $('.bardiv').hide();
+    }
+        else if(graphTemp === "5")
+    {CLIENTVAR.graphshape=5;
+        barchart();
+        $('.areadiv').hide();
+        $('.linediv').hide();
+        $('.piediv').hide();
+        $('.halfdiv').hide();
+        $('.bardiv').show();
     }
 
 }

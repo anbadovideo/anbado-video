@@ -216,3 +216,94 @@ input{
     background : lightgoldenrodyellow;
 
 }
+
+        /*#text {*/
+        /*font: 12px sans-serif;*/
+
+        /*position: absolute;*/
+        /*top:900px;*/
+        /*left:0;*/
+
+        /*}*/
+
+    #stackedarea {
+        height: 110px;
+        width:700px;
+        position: absolute;
+        top:840px;
+        left:300px;
+    }
+
+
+        /*line chart */
+
+    svg {
+        display: block;
+    }
+
+    #linechart svg {
+        height: 100px;
+        width: 700px;
+        min-width: 100px;
+        min-height: 100px;
+        position: absolute;
+        top:840px;
+        left:300px;
+    }
+
+        /*pichart*/
+    #pichart
+    {
+        position: absolute;
+        top:800px;
+        left:0;
+
+
+    }
+
+        /*half chart*/
+    #halfchart
+    {
+        position: absolute;
+        top:800px;
+        left:0;
+
+    }
+
+    .mypiechart {
+        width: 500px;
+        border: 2px;
+    }
+
+        /*scatter_chart*/
+
+
+    #offsetDiv {
+        margin-left: 100px;
+        margin-top: 100px;
+    }
+
+
+    #scatterchart {
+        margin: 0;
+        position: absolute;
+        top:800px;
+        left:0;
+        width:1500px;
+    }
+
+    #scatterchart svg {
+        height: 1500px;
+        width: 1000px;
+
+    }
+#barchart svg {
+        position: absolute;
+        top:800px;
+        left:300px;
+        height: 150px;
+        width:700px;
+        margin: 10px;
+        min-width: 100px;
+        min-height: 100px;
+}

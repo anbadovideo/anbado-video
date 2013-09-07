@@ -82,6 +82,7 @@ document.addEventListener( "DOMContentLoaded", function() {
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').hide();
+        $('.bardiv').hide();
     });
 
 
@@ -249,21 +250,7 @@ function saveCoord(evt){
     CLIENTVAR.tempEvent.y = evt.stageY;
     console.log("is it :" + CLIENTVAR.isItCommentReply);
 
-
-    setTimeout(function(){
-    if(CLIENTVAR.isItCommentReply === true){
-        console.log("D");
-        commentReply(CLIENTVAR.tempEvent);
-    }
-    else{
-        displayInputPanel(CLIENTVAR.tempEvent);
-    }
-    },200);
-
-}
-
-
-function displayInputPanel(tempEvent){ // on first screen, display text input panel, submit button, emoticon panel
+function displayInputPanel(evt){ // on first screen, display text input panel, submit button, emoticon panel
 
     // alert(eventObject);
     console.log("in displayinputpaenl");
@@ -436,7 +423,6 @@ function drawTimelineVisualization() {
 //        'step' : 1000,
 //        'zoomable' : false,
         'showCurrentTime' : false,
-
 
 //        'stackEvents' : 'true',
         'min' : new Date(CLIENTVAR.pageGenerationTime.getTime()),

@@ -39,8 +39,8 @@ var CLIENTVAR = {
     eventTextSeparation : true,  // 이벤트에서 텍스트 숫자가 얼마 이상이면 잘라서 다음 이벤트를 만들어 넘겨줌
     eventTextLimitation : 20, // 이벤트의 텍스트 입력의 최대값.
 
-
-    pageGenerationTime : {}, // 페이지가 생성된 시간을 저장하고 이를 통해 타임라인을 형성할 수 있도록 함
+    timeset : 2, //버튼 쿨타임 타임 set
+    pageGenerationTime : {} // 페이지가 생성된 시간을 저장하고 이를 통해 타임라인을 형성할 수 있도록 함
 
     isItCommentReply : false
 };

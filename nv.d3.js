@@ -12454,7 +12454,7 @@ nv.models.stackedArea = function() {
       time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
       console.log("kimmijong epos"+ time);
 
-      CLIENTVAR.popcornobj.pause(time);
+      CLIENTVAR.popcornobj.play(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
@@ -12573,16 +12573,19 @@ nv.models.stackedArea = function() {
   return chart;
 }
 var con=0;
-
+var alltime=0;
     tooltiptime=function(){
 
      var timetag=CLIENTVAR.popcornobj.duration();
+     alltime=CLIENTVAR.popcornobj.duration();
        timetag=parseInt(timetag);
        timetag=   ((parseInt($("#stackedarea").css("width"))-85)/timetag);
 
+        alltime=parseInt(alltime);
         con=parseInt(CLIENTVAR.popcornobj.currentTime());
-        //con=parseInt(con/60)+":"+(con%60);
-        con="good"+(CLIENTVAR.arrayg[con][1]-0.5);
+        alltime=parseInt(alltime/60)+":"+(alltime%60)
+        con=parseInt(con/60)+":"+(con%60)+" / "+alltime;
+        //con="good"+(CLIENTVAR.arrayg[con][1]-0.5);
         nv.tooltip.cleanup();
         nv.tooltip.show([45+parseInt($("#stackedarea").css("left"))+CLIENTVAR.popcornobj.currentTime()*timetag, parseInt($("#stackedarea").css("top"))], con, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
 
