@@ -250,7 +250,12 @@ function saveCoord(evt){
     CLIENTVAR.tempEvent.y = evt.stageY;
     console.log("is it :" + CLIENTVAR.isItCommentReply);
 
-function displayInputPanel(evt){ // on first screen, display text input panel, submit button, emoticon panel
+    if(CLIENTVAR.isItCommentReply === false){
+        displayInputPanel(CLIENTVAR.tempEvent);
+    }
+}
+
+function displayInputPanel(tempEvent){ // on first screen, display text input panel, submit button, emoticon panel
 
     // alert(eventObject);
     console.log("in displayinputpaenl");
@@ -666,9 +671,6 @@ function endup(){ // 이벤트 후 처리 부분
 
     CLIENTVAR.stage.update();
     hidePanel();
-
-
-
 
     setTimeout(function(){getFocus();},100);// TODO: getFocus 함수 손보기. 타임아웃 방식보다 더 안정적인 방식을 적용할 것.
 }
