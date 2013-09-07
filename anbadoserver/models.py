@@ -160,6 +160,7 @@ class Event(db.Model):
     appeared = db.Column(db.Integer)
     disappeared = db.Column(db.Integer)
 
+    #comment
     content = db.Column(db.String(2048, convert_unicode=True))
     category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad'))
 
