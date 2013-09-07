@@ -297,9 +297,11 @@ input{
 
     }
 #barchart svg {
-  height: 150px;
-  margin: 10px;
-  min-width: 100px;
-  min-height: 100px;
+        position: absolute;
+        top:800px;
+        left:300px;
+        height: 150px;
+        margin: 10px;
+        min-width: 100px;
+        min-height: 100px;
 }
-    
