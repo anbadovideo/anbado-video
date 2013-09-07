@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from gevent import sleep
+
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin
-from gevent import sleep
 from anbadoserver import app
 
 
@@ -88,7 +89,12 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
         self.disconnect(silent=True)
 
 
+class SocketIONamespace(BaseNamespace, RoomsMixin):
+    pass
+
+
 namespace_def = {
     '/sample/video': SampleVideoNamespace,
-    '/sample': SampleNamespace
+    '/sample': SampleNamespace,
+    '': SocketIONamespace
 }

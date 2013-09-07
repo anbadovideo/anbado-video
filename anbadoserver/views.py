@@ -9,8 +9,8 @@ from flask import (
     )
 
 from anbadoserver import app
-from anbadoserver.namespaces import namespace_def
-from anbadoserver.api import (
+from anbadoserver.api.realtime import namespace_def
+from anbadoserver.api.http import (
     UserAPI,
     VideoAPI,
     FriendshipAPI
