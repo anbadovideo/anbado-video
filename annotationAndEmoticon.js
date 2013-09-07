@@ -14,9 +14,6 @@ var data = [
 
 document.addEventListener( "DOMContentLoaded", function() {
 
-
-
-
     var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
     $('body').append(textInputPanel2);
 
@@ -139,9 +136,24 @@ document.addEventListener( "DOMContentLoaded", function() {
         //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
     }
     CLIENTVAR.canvaslayer = document.getElementById("canvas1");
-    CLIENTVAR.canvaslayer.onclick = displayInputPanel;
+//    CLIENTVAR.canvaslayer.onclick = displayInputPanel; // 캔버스 온클릭의 경우 스테이지에서의 고저차가 무시되어버린다는 문제점이 발생한다. 원래 이를 캔버스 이벤트로 둔것은 인풋 패널을 위치시킬 때 easel 객체가 너무 많이 생성되었기 때문이었다. (그래서 인풋 패널을 놓기 위해 이렇게 생성) 하지만 stage의 위아래가 구분안되는 문제가 있어, stage이벤트로 가야한다(대댓글의 문제에서 특히)
+
 
     CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
+//    CLIENTVAR.stage.onMouseDown = saveCoord;
+//    CLIENTVAR.stage.addEventListener("click", displayInputPanel);
+
+    CLIENTVAR.stageMousePanelWrapper = new createjs.Shape();
+
+    CLIENTVAR.stageMousePanelWrapper.hitArea = new createjs.Shape(new createjs.Graphics().beginFill("rgba(255,0,0,1)").drawRect(0,0, CLIENTVAR.canvaslayer.width,CLIENTVAR.canvaslayer.height)); // 투명 레이어에 덮어씌우기 위해 히트 아레아 추가
+    CLIENTVAR.stageMousePanelWrapper.regX = 0;
+    CLIENTVAR.stageMousePanelWrapper.regY = 0;
+    CLIENTVAR.stageMousePanelWrapper.addEventListener("click", saveCoord);
+    CLIENTVAR.stage.addChild(CLIENTVAR.stageMousePanelWrapper); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+    CLIENTVAR.stage.update();
+
+
+
     CLIENTVAR.canvas_bar = document.getElementById("canvas2");
     CLIENTVAR.stage_bar = new createjs.Stage(CLIENTVAR.canvas_bar); // 하단 차트 표시할 부분
 
@@ -232,11 +244,30 @@ function textinput2Keydown(evt){
 
 }
 
+function saveCoord(evt){
+    CLIENTVAR.tempEvent.x = evt.stageX;
+    CLIENTVAR.tempEvent.y = evt.stageY;
+    console.log("is it :" + CLIENTVAR.isItCommentReply);
 
-function displayInputPanel(evt){ // on first screen, display text input panel, submit button, emoticon panel
+
+    setTimeout(function(){
+    if(CLIENTVAR.isItCommentReply === true){
+        console.log("D");
+        commentReply(CLIENTVAR.tempEvent);
+    }
+    else{
+        displayInputPanel(CLIENTVAR.tempEvent);
+    }
+    },200);
+
+}
+
+
+function displayInputPanel(tempEvent){ // on first screen, display text input panel, submit button, emoticon panel
 
     // alert(eventObject);
-    // alert(eventObject.eventContent);
+    console.log("in displayinputpaenl");
+    console.log(tempEvent.target);
 
     // $("input:text").show();
     // $("input:submit").show();
@@ -250,19 +281,20 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
      $("#textinput1").css("height", "15px");
      */
 
+
     if(inputPanelShow === false){
         inputPanelShow = true; // 클릭이 되었음을 표시
         console.log("on hide");
 
 //        displayInputPanel(eventObject);
 
-        CLIENTVAR.tempEvent.x = evt.pageX;
-        CLIENTVAR.tempEvent.y = evt.pageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
+//        CLIENTVAR.tempEvent.x = evt.stageX;
+//        CLIENTVAR.tempEvent.y = evt.stageY; // 전역을 이용하여 좌표 전달. 개선해야할 패턴이다.
 
-        $("#textinput1").css({"top": evt.pageY,"left":evt.pageX})
-        $("#permissionSelect").css({"top":evt.pageY,"left":evt.pageX + 200});
-        $("#emoticonPanel").css({"top":evt.pageY+25,"left":evt.pageX});
-        $("#profileImg").css({"top":evt.pageY,"left":evt.pageX-30});
+        $("#textinput1").css({"top": tempEvent.y + CLIENTVAR.canvaslayer.offsetTop,"left":tempEvent.x + CLIENTVAR.canvaslayer.offsetLeft})
+        $("#permissionSelect").css({"top":tempEvent.y + CLIENTVAR.canvaslayer.offsetTop,"left":tempEvent.x + CLIENTVAR.canvaslayer.offsetLeft + 200});
+        $("#emoticonPanel").css({"top":tempEvent.y + CLIENTVAR.canvaslayer.offsetTop+25,"left":tempEvent.x + CLIENTVAR.canvaslayer.offsetLeft});
+        $("#profileImg").css({"top":tempEvent.y + CLIENTVAR.canvaslayer.offsetTop+25,"left":tempEvent.x + CLIENTVAR.canvaslayer.offsetLeft-30});
 
         showPanel();
 
@@ -341,8 +373,8 @@ function displayInputPanel(evt){ // on first screen, display text input panel, s
     // console.log("eaemoticon" + eaEmoticonInput.getAttritute());
 }
 
-function keyUPCheck(evt) // DOM의 이벤트를 easeljs의 htmlElement를 통해서 사용. onkeypress대신 onkeydown을 사용해야 esc 받을 수 있
-{
+function keyUPCheck(evt){ // DOM의 이벤트를 easeljs의 htmlElement를 통해서 사용. onkeypress대신 onkeydown을 사용해야 esc 받을 수 있
+
 //    $("#textinput1").val("");
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
 
@@ -385,7 +417,6 @@ function emoticonDOMClick(evt){
 
 }
 
-
 // Called when the Visualization API is loaded.
 function drawTimelineVisualization() {
 
@@ -396,20 +427,22 @@ function drawTimelineVisualization() {
     var options = {
 
         'width': '100%',
-        'height': '300px',
+        'height': '400px',
         'editable': false,   // enable dragging and editing events
         'style': 'box',
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime()),
-        'end': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000), // TODO: duration값으로 변환하기
+        'end': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000), // 밀리세컨드 단위이므로 1000을 곱함
 //        'scale': links.Timeline.StepDate.SCALE.SECOND,
 //        'step' : 1000,
 //        'zoomable' : false,
         'showCurrentTime' : false,
 
+
 //        'stackEvents' : 'true',
         'min' : new Date(CLIENTVAR.pageGenerationTime.getTime()),
-        'max' : new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000)
-//        'showMinorLabels' : true
+        'max' : new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000), // 밀리세컨드 단위이므로 1000을 곱함
+        'showMinorLabels' : false,
+        'showMajorLabels' : false
     };
     console.log(options.max);
     console.log(options.min);
@@ -417,10 +450,6 @@ function drawTimelineVisualization() {
 
     // Instantiate our timeline object.
     timeline = new links.Timeline(document.getElementById('mytimeline'));
-
-    function onRangeChanged(properties) {
-
-    }
 
     // attach an event listener using the links events handler
 //    links.events.addListener(timeline, 'rangechanged', onRangeChanged);
@@ -430,23 +459,19 @@ function drawTimelineVisualization() {
 
 }
 
-
-
-
-
-
 function eventGenerate(eventArgType, eventArgContent){ // video interaction event generation
 
     console.log("CONTENT : " + eventArgContent);
     var eventObject = {
         eventID : CLIENTVAR.totalEvent,
+        parentEvent : {}, // 이미 달린 반응에 클릭해서 남기는 경우 그에 대한 부모 이벤트 아이디를 저장함
         eventOwnerName : "owner",
         eventOwnerProfilePicture : "profile url",
         eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로. 상대 시간
         eventOccuredAbsoluteTime : (new Date()), // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
         eventVideoClickDuration : 4, // 얼마나 지속되는지
-        eventPosX : CLIENTVAR.tempEvent.x  - CLIENTVAR.canvaslayer.offsetLeft,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
-        eventPosY : CLIENTVAR.tempEvent.y  - CLIENTVAR.canvaslayer.offsetTop,
+        eventPosX : CLIENTVAR.tempEvent.x ,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
+        eventPosY : CLIENTVAR.tempEvent.y ,
         timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
         eventType : eventArgType, // event type e.g text, emoticon, image, button action, webcam
         eventContent : eventArgContent,
@@ -461,18 +486,11 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
 //
     data.push({
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-        'content': eventObject.eventContent + '<br><img src="AssetImages/profile1.png" style="width:32px; height:32px;">'
+        'content': '<img src="AssetImages/profile1.png" style="width:32px; height:32px;">'+eventObject.eventContent
     });
     console.log(data);
     drawTimelineVisualization();
-
-
-
-
-
     // Called when the Visualization API is loaded.
-
-
 //
 //    if(eventTextSeparation){
 //
@@ -511,11 +529,43 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
     endup();
 }
 
+
+var commentReply = function(eventObject){ // stage mousedown event 가 발생하므로, 여기서 바로 패널을 옮김
+
+    //TODO: diplayInput 패널 함수에 조건을 통해 이 함수를 합쳐야함. 조건체크를 해야하기 때문
+
+
+    isItCommentReply = true;
+    console.log("this is " + eventObject);
+
+    var eaBackPanel = new createjs.Shape();
+    eaBackPanel.graphics.beginFill("rgba(0,255,100,0.2)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 200 ,600); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+    eaBackPanel.regX = 80;
+    eaBackPanel.regY = 20;
+    CLIENTVAR.stage.addChildAt(eaBackPanel, CLIENTVAR.stage.children.length-2); // 댓글 연관관계를 위해 패널을 확보함
+
+
+    CLIENTVAR.tempEvent.x = eventObject.eventPosX + 20;
+    CLIENTVAR.tempEvent.y = eventObject.eventPosY + 60;
+
+
+    $("#textinput1").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +30 + CLIENTVAR.canvaslayer.offsetLeft });
+    $("#permissionSelect").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +130 + CLIENTVAR.canvaslayer.offsetLeft });
+    $("#emoticonPanel").css({"top":eventObject.eventPosY + 65 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +30 + CLIENTVAR.canvaslayer.offsetLeft });
+    $("#profileImg").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +0 + CLIENTVAR.canvaslayer.offsetLeft });
+    showPanel(); // 댓글 패널의 위치를 재조정하고 띄워줌
+    isItCommentReply = false;
+}
+
 function eaDisplaySetting(eventObject, eventTypeArg){
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
-    console.log(eventTypeArg);
 
+    eventObject.eaCanvasDisplayObject.addEventListener("click", function(){
+        commentReply(eventObject);
+    });
+
+    console.log(eventTypeArg);
 
     if(eventTypeArg === "textinput1" || eventTypeArg === "textinput2"){
 
@@ -541,7 +591,6 @@ function eaDisplaySetting(eventObject, eventTypeArg){
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
     }
     else if(eventTypeArg === "emoticon0" ||eventTypeArg === "emoticon1"||eventTypeArg === "emoticon2"||eventTypeArg === "emoticon3") {
-
         var eaTempEmoticon = new createjs.Bitmap("AssetImages/" + eventTypeArg + ".png"); // make emoticon easeljs object
 
         eaTempEmoticon.regX = 0;
@@ -558,6 +607,8 @@ function eaDisplaySetting(eventObject, eventTypeArg){
     eaProfileImage.x = eventObject.eventPosX - 55;
     eaProfileImage.y = eventObject.eventPosY;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
+
+
 
     eventObject.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
@@ -619,6 +670,7 @@ function eaDisplaySetting(eventObject, eventTypeArg){
 //    CLIENTVAR.chatRightStage.addChild(eventObject.eaCanvasDisplayObject);
 //    CLIENTVAR.chatRightStage.update();
 
+    CLIENTVAR.totalEvent++; // 이벤트 아이디를 증가시
 
     endup();
 }
@@ -629,10 +681,10 @@ function endup(){ // 이벤트 후 처리 부분
     CLIENTVAR.stage.update();
     hidePanel();
 
-    CLIENTVAR.totalEvent++;
 
 
-    setTimeout(function(){getFocus();},100);
+
+    setTimeout(function(){getFocus();},100);// TODO: getFocus 함수 손보기. 타임아웃 방식보다 더 안정적인 방식을 적용할 것.
 }
 
 //     if(CLIENTVAR.popcornobj.currentTime()==CLIENTVAR.popcornobj.duration())// check video end

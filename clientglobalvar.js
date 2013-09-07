@@ -12,6 +12,9 @@ var CLIENTVAR = {
         leftPanel: {}
     },
     stage: {},
+
+    stageMousePanelWrapper :{}, // stage이벤트가 발생하여 z-index를 높혀도 클릭이 안되는 문제점을 해결하기 위해 다시 랩핑을 함. TODO: 레이어를 다시 씌우지 않고 해결할 수 있는 방법을 확인할 것
+
     stage_bar: {},
     time_position: 0,
     eventList: [],
@@ -37,6 +40,7 @@ var CLIENTVAR = {
     eventTextLimitation : 20, // 이벤트의 텍스트 입력의 최대값.
 
 
-    pageGenerationTime : {} // 페이지가 생성된 시간을 저장하고 이를 통해 타임라인을 형성할 수 있도록 함
+    pageGenerationTime : {}, // 페이지가 생성된 시간을 저장하고 이를 통해 타임라인을 형성할 수 있도록 함
 
+    isItCommentReply : false
 };
