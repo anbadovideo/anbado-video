@@ -83,7 +83,7 @@ document.addEventListener( "DOMContentLoaded", function() {
         $('.linediv').hide();
         $('.piediv').hide();
         $('.halfdiv').hide();
-        $('#bardiv').hide();
+        $('.bardiv').hide();
     });
 
 
