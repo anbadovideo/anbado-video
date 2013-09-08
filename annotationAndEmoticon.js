@@ -533,7 +533,7 @@ var commentReply = function(eventObject){ // stage mousedown event 가 발생하
     eaBackPanel.graphics.beginFill("rgba(0,255,100,0.2)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 200 ,600); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
     eaBackPanel.regX = 80;
     eaBackPanel.regY = 20;
-    CLIENTVAR.stage.addChildAt(eaBackPanel, CLIENTVAR.stage.children.length-2); // 댓글 연관관계를 위해 패널을 확보함
+    CLIENTVAR.stage.addChildAt(eaBackPanel, 1); // 댓글 연관관계를 표현하기 위해 패널을 확보함. 1번 위치에 추가하는 이유는 0번 위치에 가장 밑에 깔리는 투명 레이어가 존재하고 있기 때문
 
 
     CLIENTVAR.tempEvent.x = eventObject.eventPosX + 20;
