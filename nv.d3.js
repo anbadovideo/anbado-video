@@ -12587,7 +12587,7 @@ var alltime=0;
         con=parseInt(con/60)+":"+(con%60)+" / "+alltime;
         //con="good"+(CLIENTVAR.arrayg[con][1]-0.5);
         nv.tooltip.cleanup();
-        nv.tooltip.show([45+parseInt($("#stackedarea").css("left"))+CLIENTVAR.popcornobj.currentTime()*timetag, parseInt($("#stackedarea").css("top"))], con, 'n', null, 0);//kimmijong 툴팁 시간별로 나타내기
+        nv.tooltip.show([45+parseInt($("#stackedarea").css("left"))+CLIENTVAR.popcornobj.currentTime()*timetag, parseInt($("#stackedarea").css("top"))], con, '', null, 0);//kimmijong 툴팁 시간별로 나타내기ewsn 아무것도 안넣으면 보상 안됨 
 
     }
 
