@@ -96,7 +96,7 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
     def on_exit(self, params):
         pass
 
-    def on_after_entering_on_event(self, params):
+    def on_event(self, params):
         pass
 
 
