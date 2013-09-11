@@ -545,25 +545,67 @@ var commentReply = function(eventObject){ // stage mousedown event 가 발생하
 //    isItCommentReply = false;
 
 
+// 선 그리기 위한 컴포넌트들
+    var shape = new createjs.Shape();
+    shape.regX = 20;
+    shape.regY = -20;
+    var graphics = shape.graphics;
+    var color = createjs.Graphics.getHSL(
+        Math.cos((32)*0.01) * 180,
+        100,
+        50,
+        1.0);
+    graphics.setStrokeStyle(10,"round").beginStroke(color);
+    CLIENTVAR.stage.addChildAt(shape,1);
+
+
     console.log(eventObject.parentEventID);
     if(eventObject.parentEventID === -1){ // 혼자 있던 이벤트를 클릭한 경우. 이 경우 eventObject는 클릭된 이벤트 정보가 넘어온다.
         console.log("in minus one");
         CLIENTVAR.tempEvent.parentEventID = eventObject.eventID; // 대댓글 연결이 시작되지 않은 상태에서는 클릭된 원본 아이디의 위치를 기억함
         CLIENTVAR.tempEvent.x = eventObject.eventPosX + 40;
 
-        CLIENTVAR.tempEvent.y = eventObject.eventPosY + 60*(eventObject.childrenIDarray.length+1);
+        CLIENTVAR.tempEvent.y = eventObject.eventPosY + 66*(eventObject.childrenIDarray.length+1);
 //        eventObject.childrenIDarray.push(eventObject.eventID); // 하위 이벤트들의 아이디를 기록함
+
+
+        shape.graphics.moveTo(eventObject.childrenIDarray.length === 0  ? eventObject.eventPosX: eventObject.eventPosX+40,eventObject.eventPosY + 66*(eventObject.childrenIDarray.length))
+            .lineTo(eventObject.eventPosX + 40,eventObject.eventPosY + 66*(eventObject.childrenIDarray.length+1));
     }
     else{
         console.log("else case"); // 최상위 객체 이외의 연관 객체 중 하나를 선택한 경우
         CLIENTVAR.tempEvent.parentEventID = eventObject.parentEventID; // 이미 댓글이 달려있는 경우에는 그것을 고려하여 최상위 이벤트를 기록함
         CLIENTVAR.tempEvent.x = eventObject.eventPosX;
 
-        CLIENTVAR.tempEvent.y = CLIENTVAR.eventList[eventObject.parentEventID].eventPosY + 60*(CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray.length+1);
+        CLIENTVAR.tempEvent.y = CLIENTVAR.eventList[eventObject.parentEventID].eventPosY + 66*(CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray.length+1);
         console.log(CLIENTVAR.eventList[eventObject.parentEventID]);
         console.log(CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray);
 
+
+        // easeljs 를 통해 선을 그림
+        for(var temp = 0; temp < CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray.length; temp++){
+            console.log("in for");
+
+            // set up our drawing properties:
+
+            shape.graphics.moveTo(CLIENTVAR.eventList[eventObject.parentEventID].eventPosX,CLIENTVAR.eventList[eventObject.parentEventID].eventPosY)
+                .lineTo(CLIENTVAR.eventList[CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray[temp]].eventPosX,CLIENTVAR.eventList[CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray[temp]].eventPosY);
+//            // start the line at the last position:
+//            graphics.moveTo(CLIENTVAR.eventList[eventObject.parentEventID].eventPosX,CLIENTVAR.eventList[eventObject.parentEventID].eventPosY);
+//
+//            // calculate the new position in the shape's local coordinate space:
+////        lastPt = shape.globalToLocal(_mouseX,_mouseY);
+//
+//            // draw the line, and close the path:
+//            graphics.lineTo(eventList[CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray[temp]].eventPosX,eventList[CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray[temp]].eventPosY);
+
+
+        }
+
+
     }
+
+
 
     displayInputPanel(CLIENTVAR.tempEvent);
 
@@ -680,6 +722,7 @@ function eaDisplaySetting(eventObject, eventTypeArg){ // 객체를 캔버스에 
 
         CLIENTVAR.stage_bar.update();
     });
+
     eaProfileImgOnTimeline.addEventListener("mouseout", function() { // 마우스가 빠져나가는 경우에 삭제
 
         CLIENTVAR.stage_bar.removeChild(timelineEvent.eaCanvasDisplayObject);
