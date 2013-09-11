@@ -52,7 +52,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     if(youtubeID !== undefined){
 
-        console.log(youtubeID);
+
         var youtubeThumbnailsAddr = [];
 //    youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/0.jpg");
         youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/1.jpg");
@@ -75,7 +75,7 @@ document.addEventListener( "DOMContentLoaded", function() {
         make_array(durationtime);
         //make_array(1600);
 
-        console.log(durationtime);
+
 
         stactareachart();
         $('.areadiv').show();
@@ -146,14 +146,12 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     CLIENTVAR.stageMousePanelWrapper = new createjs.Shape();
 
-    CLIENTVAR.stageMousePanelWrapper.hitArea = new createjs.Shape(new createjs.Graphics().beginFill("rgba(255,0,0,1)").drawRect(0,0, CLIENTVAR.canvaslayer.width,CLIENTVAR.canvaslayer.height)); // 투명 레이어에 덮어씌우기 위해 히트 아레아 추가
+    CLIENTVAR.stageMousePanelWrapper.hitArea = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,1)").drawRect(0,0, CLIENTVAR.canvaslayer.width,CLIENTVAR.canvaslayer.height)); // 투명 레이어에 덮어씌우기 위해 히트 아레아 추가
     CLIENTVAR.stageMousePanelWrapper.regX = 0;
     CLIENTVAR.stageMousePanelWrapper.regY = 0;
     CLIENTVAR.stageMousePanelWrapper.addEventListener("click", saveCoord);
     CLIENTVAR.stage.addChild(CLIENTVAR.stageMousePanelWrapper); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
     CLIENTVAR.stage.update();
-
-
 
     CLIENTVAR.canvas_bar = document.getElementById("canvas2");
     CLIENTVAR.stage_bar = new createjs.Stage(CLIENTVAR.canvas_bar); // 하단 차트 표시할 부분
@@ -226,7 +224,7 @@ function elementCSSSetting(){
 
 function textinput2Keydown(evt){
 
-    console.log("text2");
+
     CLIENTVAR.tempEvent.x = 20;
     CLIENTVAR.tempEvent.y = 20;
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
@@ -246,20 +244,22 @@ function textinput2Keydown(evt){
 }
 
 function saveCoord(evt){
-    CLIENTVAR.tempEvent.x = evt.stageX;
+    CLIENTVAR.tempEvent.parentEventID = -1;// 새로운 객체의 경우에는 부모 이벤트를 촉하해주어야 한다.
+    CLIENTVAR.tempEvent.x = evt.stageX; // 전역변수를 써서 좌표 전달 TODO: 전역 변수 사용을 해소할 수 있어야 함
     CLIENTVAR.tempEvent.y = evt.stageY;
-    console.log("is it :" + CLIENTVAR.isItCommentReply);
 
-    if(CLIENTVAR.isItCommentReply === false){
         displayInputPanel(CLIENTVAR.tempEvent);
-    }
+
 }
 
 function displayInputPanel(tempEvent){ // on first screen, display text input panel, submit button, emoticon panel
 
+
+
+
     // alert(eventObject);
     console.log("in displayinputpaenl");
-    console.log(tempEvent.target);
+
 
     // $("input:text").show();
     // $("input:submit").show();
@@ -276,7 +276,7 @@ function displayInputPanel(tempEvent){ // on first screen, display text input pa
 
     if(inputPanelShow === false){
         inputPanelShow = true; // 클릭이 되었음을 표시
-        console.log("on hide");
+
 
 //        displayInputPanel(eventObject);
 
@@ -293,7 +293,7 @@ function displayInputPanel(tempEvent){ // on first screen, display text input pa
 
     }
     else if(inputPanelShow === true){ // 클릭이 되어 있는 경우
-        console.log("on show");
+
         inputPanelShow = false;
         hidePanel();
     }
@@ -309,10 +309,10 @@ function displayInputPanel(tempEvent){ // on first screen, display text input pa
     var emo3 = document.getElementById("emoticon3");
     emo3.addEventListener("click", emoticonDOMClick);
 
-    console.log(emo0);
+
 
 //
-//    CLIENTVAR.eaTextInputField = new createjs.DOMElement("textinput1");
+//    CLIENTVAR.eaTextInputField = new createjs.DOMElement("textinput1"); // 캔버스의 입력 객체를 저장햇던 부분. 지금은 DOM을 통해 인풋 인터페이스가 표시됨
 //    eaTextInputButton = new createjs.DOMElement("permissionSelect");
 //
 //    eaEmoticonInputArray = new Array();
@@ -370,16 +370,16 @@ function keyUPCheck(evt){ // DOM의 이벤트를 easeljs의 htmlElement를 통�
 //    $("#textinput1").val("");
     $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
 
-    console.log(evt);
+
     if(evt.keyCode === 13 || evt.charCode === 13){ // 엔터인 경우
-        console.log("VALUE : "+ evt.target.value);
+
         eventGenerate(evt.target.id, evt.target.value);
 //        evt.stopImmediatePropagation();
         endup();
     }
 
     if(evt.keyCode === 27 || evt.charCode === 27){ // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
-        console.log("escape");
+
         hidePanel();
     }
 }
@@ -404,7 +404,7 @@ function hidePanel(){
 
 function emoticonDOMClick(evt){
 // 각 이모티콘 객체에 대한 이벤트 핸들러
-    console.log("DOMClick");
+
     eventGenerate(evt.target.id, evt.target.value);
 
 }
@@ -435,9 +435,7 @@ function drawTimelineVisualization() {
         'showMinorLabels' : false,
         'showMajorLabels' : false
     };
-    console.log(options.max);
-    console.log(options.min);
-    console.log(options);
+
 
     // Instantiate our timeline object.
     timeline = new links.Timeline(document.getElementById('mytimeline'));
@@ -452,10 +450,10 @@ function drawTimelineVisualization() {
 
 function eventGenerate(eventArgType, eventArgContent){ // video interaction event generation
 
-    console.log("CONTENT : " + eventArgContent);
+
     var eventObject = {
         eventID : CLIENTVAR.totalEvent,
-        parentEvent : {}, // 이미 달린 반응에 클릭해서 남기는 경우 그에 대한 부모 이벤트 아이디를 저장함
+
         eventOwnerName : "owner",
         eventOwnerProfilePicture : "profile url",
         eventVideoClickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로. 상대 시간
@@ -468,18 +466,23 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
         eventContent : eventArgContent,
         eventPermission : $("#permissionSelect").val(),
         secUnit : 100* Math.round(CLIENTVAR.popcornobj.currentTime() / CLIENTVAR.popcornobj.duration()),// 몇번째 유닛인지?
-        eaCanvasisplayObject : {}
+        eaCanvasisplayObject : {}, // easeljs 객체를 추가해주기 위해서 컨테이너를 하위 속성으로 가지고 있음.
+
+        itHasParent : false, // 이것이 최상위 이벤트인가? 밑에 댓글이 달려있는가? 부모 이벤트가 없다면 최상위 이벤트(이거나 독립 이벤트)로 간주
+        parentEvent : {}, // 이미 달린 반응에 클릭해서 남기는 경우 그에 대한 부모 이벤트 아이디를 저장함 TODO: 저장할 필요가 있나? 이미 아이디를 가지는데 객체를 저장할 필요는 없지 않을까?
+        parentEventID: CLIENTVAR.tempEvent.parentEventID === undefined ? -1 : CLIENTVAR.tempEvent.parentEventID , // 0 인 경우에 단독이고, 부모 이벤트 아이디가 있는 경우
+        childrenIDarray:[] // 자식들이 생기게 되면 이를 표현해줌. 객체 배열을 가지지 말고 eventList에서 참조할 수 있도록 아이디만 가지고 가도록
     };
 
 //    eventObject.getFullYear(),this.getMonth()+1,this.getDate(),this.getHours(),this.getMinutes(),this.getSeconds()
-    console.log(eventObject.eventOccuredAbsoluteTime);
+
 
 //
     data.push({
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
         'content': '<img src="AssetImages/profile1.png" style="width:32px; height:32px;">'+eventObject.eventContent
     });
-    console.log(data);
+
     drawTimelineVisualization();
     // Called when the Visualization API is loaded.
 //
@@ -524,37 +527,57 @@ function eventGenerate(eventArgType, eventArgContent){ // video interaction even
 var commentReply = function(eventObject){ // stage mousedown event 가 발생하므로, 여기서 바로 패널을 옮김
 
     //TODO: diplayInput 패널 함수에 조건을 통해 이 함수를 합쳐야함. 조건체크를 해야하기 때문
-
-
     isItCommentReply = true;
     console.log("this is " + eventObject);
 
-    var eaBackPanel = new createjs.Shape();
-    eaBackPanel.graphics.beginFill("rgba(0,255,100,0.2)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 200 ,600); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-    eaBackPanel.regX = 80;
-    eaBackPanel.regY = 20;
-    CLIENTVAR.stage.addChildAt(eaBackPanel, 1); // 댓글 연관관계를 표현하기 위해 패널을 확보함. 1번 위치에 추가하는 이유는 0번 위치에 가장 밑에 깔리는 투명 레이어가 존재하고 있기 때문
+//    var eaCommentReplyPanel = new createjs.Shape(); // 연관관계 시각화를 위한 패널 생성
+//    eaCommentReplyPanel.graphics.beginFill("rgba(0,255,100,0.2)").drawRect(eventObject.eventPosX,eventObject.eventPosY, 200 ,600); //
+//    eaCommentReplyPanel.regX = 80;
+//    eaCommentReplyPanel.regY = 20;
+//    CLIENTVAR.stage.addChildAt(eaCommentReplyPanel, 1); // 댓글 연관관계를 표현하기 위해 패널을 확보함. 1번 위치에 추가하는 이유는 0번 위치에 가장 밑에 깔리는 투명 레이어가 존재하고 있기 때문
+//    // 패널 방식은 아무래도 좋은 방식이 아닌것 같다. 화면을 가리는 문제가 심각
+
+//    $("#textinput1").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +30 + CLIENTVAR.canvaslayer.offsetLeft });
+//    $("#permissionSelect").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +130 + CLIENTVAR.canvaslayer.offsetLeft });
+//    $("#emoticonPanel").css({"top":eventObject.eventPosY + 65 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +30 + CLIENTVAR.canvaslayer.offsetLeft });
+//    $("#profileImg").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +0 + CLIENTVAR.canvaslayer.offsetLeft });
+//    showPanel(); // 댓글 패널의 위치를 재조정하고 띄워줌
+//    isItCommentReply = false;
 
 
-    CLIENTVAR.tempEvent.x = eventObject.eventPosX + 20;
-    CLIENTVAR.tempEvent.y = eventObject.eventPosY + 60;
+    console.log(eventObject.parentEventID);
+    if(eventObject.parentEventID === -1){ // 혼자 있던 이벤트를 클릭한 경우. 이 경우 eventObject는 클릭된 이벤트 정보가 넘어온다.
+        console.log("in minus one");
+        CLIENTVAR.tempEvent.parentEventID = eventObject.eventID; // 대댓글 연결이 시작되지 않은 상태에서는 클릭된 원본 아이디의 위치를 기억함
+        CLIENTVAR.tempEvent.x = eventObject.eventPosX + 40;
 
+        CLIENTVAR.tempEvent.y = eventObject.eventPosY + 60*(eventObject.childrenIDarray.length+1);
+//        eventObject.childrenIDarray.push(eventObject.eventID); // 하위 이벤트들의 아이디를 기록함
+    }
+    else{
+        console.log("else case"); // 최상위 객체 이외의 연관 객체 중 하나를 선택한 경우
+        CLIENTVAR.tempEvent.parentEventID = eventObject.parentEventID; // 이미 댓글이 달려있는 경우에는 그것을 고려하여 최상위 이벤트를 기록함
+        CLIENTVAR.tempEvent.x = eventObject.eventPosX;
 
-    $("#textinput1").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +30 + CLIENTVAR.canvaslayer.offsetLeft });
-    $("#permissionSelect").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +130 + CLIENTVAR.canvaslayer.offsetLeft });
-    $("#emoticonPanel").css({"top":eventObject.eventPosY + 65 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +30 + CLIENTVAR.canvaslayer.offsetLeft });
-    $("#profileImg").css({"top":eventObject.eventPosY + 30 + CLIENTVAR.canvaslayer.offsetTop, "left":eventObject.eventPosX +0 + CLIENTVAR.canvaslayer.offsetLeft });
-    showPanel(); // 댓글 패널의 위치를 재조정하고 띄워줌
-    isItCommentReply = false;
+        CLIENTVAR.tempEvent.y = CLIENTVAR.eventList[eventObject.parentEventID].eventPosY + 60*(CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray.length+1);
+        console.log(CLIENTVAR.eventList[eventObject.parentEventID]);
+        console.log(CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray);
+
+    }
+
+    displayInputPanel(CLIENTVAR.tempEvent);
+
 }
 
-function eaDisplaySetting(eventObject, eventTypeArg){
+function eaDisplaySetting(eventObject, eventTypeArg){ // 객체를 캔버스에 저장하고 이벤트를 리스트에 넣게 되는 단계 (이것은 그리는 단계에서는 그러하고, 서버에서 받아오는 단계에서는 미리 저장한다
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
 
     eventObject.eaCanvasDisplayObject.addEventListener("click", function(){
         commentReply(eventObject);
-    });
+//        saveCoord(eventObject);
+    });// 현재 이벤트를 클릭했을 경우 이에 대한 대댓글 기능이 제공됨
+
 
     console.log(eventTypeArg);
 
@@ -567,7 +590,7 @@ function eaDisplaySetting(eventObject, eventTypeArg){
 
         }
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,255,0,1)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,20+$("#fontSizeSelect").val()/2); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.graphics.beginFill("rgba(0,255,0,0.3)").drawRect(eventObject.eventPosX,eventObject.eventPosY, eventObject.eventContent.length*21,20+$("#fontSizeSelect").val()/2); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
         eaBackPanel.regX = -10;
         eaBackPanel.regY = -10;
         eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
@@ -617,6 +640,12 @@ function eaDisplaySetting(eventObject, eventTypeArg){
     }
 
 
+    console.log("parent ID mark : " + eventObject.parentEventID);
+
+    if(eventObject.parentEventID !== -1){ // 최상위 객체인지 확인하고 그게 아닌 경우에 이벤트에 관계 목록을 추가한다.
+
+        CLIENTVAR.eventList[eventObject.parentEventID].childrenIDarray.push(eventObject.eventID); // 하위 이벤트들의 아이디를 기록함 최상위 부모 노드에 기록함
+    }
     CLIENTVAR.eventList.push(eventObject); // 전체 이벤트 목록에 저장
 
     // 밑의 타임라인에 저장
@@ -634,7 +663,7 @@ function eaDisplaySetting(eventObject, eventTypeArg){
     CLIENTVAR.stage_bar.update();
 
 
-    CLIENTVAR.stage_bar.enableMouseOver(60); // 마우스 오버 설
+    CLIENTVAR.stage_bar.enableMouseOver(60); // 마우스 오버 설정
 
     var timelineEvent = {}; // 임시 이벤트를 등록하여 마우스 오버/아웃을 해결하
 
