@@ -90,7 +90,17 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
 
 
 class SocketIONamespace(BaseNamespace, RoomsMixin):
-    pass
+    def on_enter(self, params):
+        self.join(str(params['video_id']))
+        self.video_id = str(params['video_id'])
+        self.emit('enter_complete', None)
+
+    def on_exit(self, params):
+        self.leave(self.video_id)
+
+    def on_event(self, params):
+        self.emit_to_room(self.video_id, 'event', params)
+        self.emit('event_complete', None)
 
 
 namespace_def = {
