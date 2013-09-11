@@ -170,13 +170,13 @@ class Event(db.Model):
 
     permission = db.Column(db.Enum('inherited', 'private', 'public', 'protected'))
 
-    coord_lx = db.Column(db.Integer)
-    coord_ty = db.Column(db.Integer)
-    coord_rx = db.Column(db.Integer)
-    coord_by = db.Column(db.Integer)
+    coord_x = db.Column(db.Integer)
+    coord_y = db.Column(db.Integer)
+    width = db.Column(db.Integer)
+    height = db.Column(db.Integer)
 
     def __init__(self, user, video, appeared, disappeared, content, category,
-                 coord=(0, 0, 0, 0), permission='public', parent=None):
+                 coord=(0, 0), size=(0, 0), permission='public', parent=None):
         self.user = user
         self.video = video
         self.appeared = appeared
@@ -186,14 +186,23 @@ class Event(db.Model):
         self.parent = parent
         self.permission = permission
         self.coord = coord
+        self.size = size
 
     @hybrid_property
     def coord(self):
-        return self.coord_lx, self.coord_ty, self.coord_rx, self.coord_by
+        return self.coord_x, self.coord_y
 
     @coord.setter
     def coord(self, value):
-        self.coord_lx, self.coord_ty, self.coord_rx, self.coord_by = value
+        self.coord_x, self.coord_y = value
+
+    @hybrid_property
+    def size(self):
+        return self.width, self.height
+
+    @size.setter
+    def size(self, value):
+        self.width, self.height = value
 
     def __repr__(self):
         return '<Event {0}> {1}'.format(self.event_id, self.content)
