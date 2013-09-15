@@ -32,6 +32,10 @@ def handle_socketio(path):
 def view_sample():
     return render_template('index.html')
 
+@app.route('/sample/api-test')
+def view_api_test_sample():
+    return render_template('api-test.html')
+
 
 user_view = UserAPI.as_view('user_api')
 video_view = VideoAPI.as_view('video_api')

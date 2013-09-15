@@ -89,18 +89,22 @@ class SampleVideoNamespace(BaseNamespace, RoomsMixin):
         self.disconnect(silent=True)
 
 
+def get_room_name(video_id):
+    return str(video_id)
+
 class SocketIONamespace(BaseNamespace, RoomsMixin):
     def on_enter(self, params):
-        self.join(str(params['video_id']))
-        self.video_id = str(params['video_id'])
+        self.join(get_room_name(params['video_id']))
+        self.video_id = get_room_name(params['video_id'])
         self.emit('enter_complete', None)
 
     def on_exit(self, params):
         self.leave(self.video_id)
+        self.emit('exit_complete', None)
 
     def on_event(self, params):
         self.emit_to_room(self.video_id, 'event', params)
-        self.emit('event_complete', None)
+        self.emit('event_complete', {'transaction_id': params['transaction_id']})
 
 
 namespace_def = {
