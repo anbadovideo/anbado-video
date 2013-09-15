@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>anbado player example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+<script src="http://localhost:8888/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link rel="stylesheet" type="text/css" href="basiccss.css">
+<script type="text/javascript" src="clientglobalvar.js"></script>
+
+<script type="text/javascript" src = "annotationAndEmoticon.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+    WEB_SOCKET_DEBUG = true;
+
+    var createGuid = function() {
+        var s4 = function() {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        };
+        return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+    };
+
+    var logger = (function() {
+        var $log_element = $('div#socket-io-log');
+
+        return {
+            log: function(object) {
+                var text = JSON.stringify(object);
+                $log_element.append($('<div></div>').text(text));
+            }
+        };
+    })();
+
+    jQuery(function() {
+        var socket = null;
+
+        $('#socket-io-connect').click(function() {
+            socket = io.connect("http://localhost:8888/socket.io/v1/video");
+
+            socket.on('reconnect', function() {
+                alert("1");
+            });
+
+            socket.on('connect', function() {
+                logger.log('connected');
+
+                // send require packet
+                var param = {
+                    video_id: Math.floor(Math.random() * 10),
+                    user_id: Math.floor(Math.random() * 10),
+                    transaction_id: createGuid()
+                };
+                socket.emit('require', param);
+                logger.log('require packet sended');
+                logger.log(param);
+
+                // disconnect handler
+                socket.on('disconnect', function() {
+                    logger.log('disconnected');
+                    socket = null;
+                });
+
+                // require_response handler
+                socket.on('require_response', function(param) {
+                    logger.log('require response arrived');
+                    logger.log(param);
+                });
+
+                // event_appeared handler
+                socket.on('event_appeared', function(param) {
+                    logger.log('event appeared arrived');
+                    logger.log(param);
+                });
+            });
+        });
+
+        $('#socket-io-disconnect').click(function() {
+            socket.disconnect();
+        });
+    });
+</script>
+
+<link href="nv.d3.css" rel="stylesheet" type="text/css">
+
+<style>
+
+
+        /*#text {*/
+        /*font: 12px sans-serif;*/
+
+        /*position: absolute;*/
+        /*top:900px;*/
+        /*left:0;*/
+
+        /*}*/
+
+    #stackedarea {
+        height: 110px;
+        width:700px;
+        position: absolute;
+        top:600px;
+        left:300px;
+    }
+
+
+        /*line chart */
+
+    svg {
+        display: block;
+    }
+
+    #linechart svg {
+        height: 100px;
+        width: 700px;
+        min-width: 100px;
+        min-height: 100px;
+        position: absolute;
+        top:700px;
+        left:300px;
+    }
+
+        /*pichart*/
+    #pichart
+    {
+        position: absolute;
+        top:700px;
+        left:0;
+
+
+    }
+
+        /*half chart*/
+    #halfchart
+    {
+        position: absolute;
+        top:700px;
+        left:0;
+
+    }
+
+    .mypiechart {
+        width: 500px;
+        border: 2px;
+    }
+
+        /*scatter_chart*/
+
+
+    #offsetDiv {
+        margin-left: 100px;
+        margin-top: 100px;
+    }
+
+
+    #scatterchart {
+        margin: 0;
+        position: absolute;
+        top:800px;
+        left:0;
+        width:1500px;
+    }
+
+    #scatterchart svg {
+        height: 1500px;
+        width: 1000px;
+
+    }
+
+</style>
+<script src="d3.v3.js"></script>
+<script src="nv.d3.js"></script>
+<script src="timeline.js"></script>
+
+
+
+<script>
+
+    function geturl()
+    {
+
+        $("#youtube").remove();
+        $("vid").append("   <div id='youtube' style=width:600px;height:500px;/>");
+
+        CLIENTVAR.url=$("#texturl").val();
+        console.log("url:"+CLIENTVAR.url);
+
+        CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube",CLIENTVAR.url );
+
+        $("#youtube").css({"top":100,"left":330});
+
+        setTimeout(function(){
+            if(CLIENTVAR.popcornobj!="NaN")
+            {
+                durationtime= CLIENTVAR.popcornobj.duration();
+                make_array(durationtime);
+                console.log(durationtime);
+
+                if(CLIENTVAR.graphshape==1)
+                {stactareachart();}
+                else if(CLIENTVAR.graphshape==2)
+                {line();}
+                else if(CLIENTVAR.graphshape==3)
+                {pichart();}
+                else if(CLIENTVAR.graphshape==4)
+                {halfpichart();}
+            }
+        },5000);
+
+    }
+    </script>
+
+
+
+</head>
+<body>
+<button id="socket-io-connect">socket.io connect</button>
+<button id="socket-io-disconnect">socket.io disconnect</button>
+<div id="socket-io-log"></div>
+
+
+
+<div id="videotag">
+
+
+    <vidtag>
+<!--         <video style="width:340px;height:280px" id = "test" controls> </video>   -->    
+        <!-- <canvas id="canvas" style="display:none"> </canvas> -->
+    </vidtag>
+
+<!--     <button id="camera-on" > camera on </button>
+    <button id="record-video"> start </button>
+    <button id="stop-video"> stop </button>
+ -->
+    <button id="camera-on" onclick="onCam()"> camera on </button>
+    <button id="record-video"onclick="startRecord()" > start </button>
+    <button id="stop-video"onclick="stopRecord()"> stop </button>
+    <button id="hahahaha" onclick="testfunc()"> makedom </button>
+    <button id="increse1"onclick="num1()">increse num</button>
+    <button id="increse0"onclick="num0()">num0</button>
+    <button id="dummy"onclick="dummy()">dummy</button>
+<!--      // <script src="whammy.js"></script>       
+     // <script src="index.js"></script> -->
+</div>
+
+
+
+<div>
+
+    <vid></vid>
+    <input id="texturl" type = "text" value = "input url">
+    <button id="sendurl" onclick="geturl()">sendurl</button>
+
+    <div id="canvascontainer">
+        <canvas id="canvas1" width = "640px" height = "430px"></canvas>
+        <canvas id="canvas2"width = "640px" height = "350px"></canvas>
+        <canvas id="canvasMyChat" width = "320px" height = "500px"></canvas>
+        <canvas id="canvasFriendChat" width = "320px" height = "500px"></canvas>
+    </div>
+
+</div>
+
+<input id="textinput1" type = "text" value = "input">
+<select id = "permissionSelect">
+    <option value="me only">Me only</option>
+    <option value="my friends">My friends</option>
+    <option value="everybody">Everybody</option>
+</select>
+<select id = "fontSizeSelect">
+    <option value="10">20</option>
+    <option value="20" selected="selected">20</option>
+    <option value="30">30</option>
+</select>
+
+
+<!--<input id="textinput2" type = "text" value = "interactive"/>-->
+<img id="profileImg" src = "AssetImages/profile1.png"/>
+<div id="emoticonPanel">
+    <table id = "emoticonTable">
+        <tr>
+            <td align="center"><input id="emoticon0" type="image" src="AssetImages/emoticon0.png" name="button" value="Joy" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon1" type="image" src="AssetImages/emoticon1.png" name="button" value="Hope" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon2" type="image" src="AssetImages/emoticon2.png" name="button" value="Proud" class="emoticon_button"/> </td>
+            <td align="center"><input id="emoticon3" type="image" src="AssetImages/emoticon3.png" name="button" value="Boring" class="emoticon_button"/> </td>
+        </tr>
+    </table>
+</div>
+
+
+<input id="happy1" type = "button" onclick="happybutton()" value= "happy"></input>
+<input id="sad1" type = "button" onclick="sadbutton()" value= "sad" ></input>
+<input id="button1" type="button" value="getfocus" onclick="getFocus();"></input>
+
+
+
+<div>
+    관심사 : <br>
+    <select id="graphSelector" name="graph" onchange="graphselect();">
+        <option value = "1" selected="selected">area graph</option>
+        <option value = "2">line graph</option>
+        <option value = "3">pie graph</option>
+        <option value = "4">halfpie graph</option>
+    </select>
+    <input id="exit" type = "button" onclick="dis();" value= "exit" />
+</div>
+
+<div id="visualization" style="width: 800px; height: 400px;"></div>
+<div class="areadiv">
+    <svg id="stackedarea"></svg>
+</div>
+
+<div class="linediv" id="linechart">
+    <svg style="..."></svg>
+</div>
+
+<div class="piediv" id="pichart">
+    <svg id="pie" class="mypiechart"></svg>
+</div>
+
+<div class="halfdiv" id="halfchart">
+    <svg id="halfpi" class="mypiechart"></svg>
+</div>
+<script src="whammy.js"></script> 
+<script type="text/javascript" src="index2.js"></script>
+
+
+</body>
+</html>
