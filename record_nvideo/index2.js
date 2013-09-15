@@ -22,7 +22,7 @@ var compile =[];
 // animation id 
 var requestId = 0;
 // whammy is webm encoder.
-var whammy = new Whammy.Video(20);
+var whammy = new Whammy.Video(15);
 var camRecordsta=0;//0=none, 1=record 2=offset
 var camRecordStartTime=[]; 
 var camRecordEndTime=[]; 
