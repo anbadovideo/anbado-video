@@ -58,7 +58,7 @@ jQuery.extend(true, anbado, (function() {
      * socket.io 서버와 연결을 종료하고, transaction_id를 초기화한다.
      */
     var disconnect = function() {
-        socket.diconnect();
+        socket.disconnect();
         transaction_id = 0;
     };
 
@@ -155,7 +155,6 @@ jQuery.extend(true, anbado, (function() {
      * @param {function} eventHandler
      */
     var onEvent = function(eventHandler) {
-        // TODO: add given handler to event handler list.
         socket.removeListener('event');
         socket.removeListener('enter');
         socket.removeListener('connect');
@@ -168,7 +167,6 @@ jQuery.extend(true, anbado, (function() {
      * @param {function} eventHandler
      */
     var onPostComplete = function(eventHandler) {
-        // TODO: add given handler to event handler list.
         socket.removeListener('event');
         socket.removeListener('enter');
         socket.removeListener('connect');
