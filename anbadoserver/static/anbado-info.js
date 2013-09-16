@@ -91,6 +91,7 @@ jQuery.extend(true, anbado, (function() {
         socket.removeListener('exit_complete');
         socket.on('exit_complete', function() {
             socket.removeListener('event');
+            socket.removeListener('event_complete');
             socket.removeListener('enter');
             socket.removeListener('connect');
 
@@ -156,9 +157,7 @@ jQuery.extend(true, anbado, (function() {
      */
     var onEvent = function(eventHandler) {
         socket.removeListener('event');
-        socket.removeListener('enter');
-        socket.removeListener('connect');
-        eventHandler();
+        socket.on('event', eventHandler);
     };
 
     /**
@@ -167,10 +166,8 @@ jQuery.extend(true, anbado, (function() {
      * @param {function} eventHandler
      */
     var onPostComplete = function(eventHandler) {
-        socket.removeListener('event');
-        socket.removeListener('enter');
-        socket.removeListener('connect');
-        eventHandler();
+        socket.removeListener('event_complete');
+        socket.on('event_complete', eventHandler);
     };
 
     return {
