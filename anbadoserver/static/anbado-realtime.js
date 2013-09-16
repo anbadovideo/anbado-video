@@ -3,7 +3,7 @@ var anbado = {} || anbado;
 /**
  * TODO: add description about this namespace.
  *
- * @namespace anbado.info
+ * @namespace anbado.realtime
  */
 jQuery.extend(true, anbado, (function() {
     /**
@@ -171,7 +171,7 @@ jQuery.extend(true, anbado, (function() {
     };
 
     return {
-        info: {
+        realtime: {
             postEvent: postEvent,
             enterVideo: enterVideo,
             exitVideo: exitVideo,
