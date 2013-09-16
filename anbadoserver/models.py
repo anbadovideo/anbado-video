@@ -13,12 +13,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from anbadoserver import db
 
 
-user_video_association_table = db.Table(
-    'user_video_association_table', db.metadata,
-    db.Column('user_id', db.Integer, db.ForeignKey('users.user_id')),
-    db.Column('video_id', db.Integer, db.ForeignKey('videos.video_id'))
-)
-
 user_user_association_table = db.Table(
     'user_user_association_table', db.metadata,
     db.Column('user_id', db.Integer, db.ForeignKey('users.user_id'), primary_key=True),
@@ -77,7 +71,6 @@ class Video(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     user = db.relationship('User', uselist=False)
 
-    participants = db.relationship('User', secondary=user_video_association_table, uselist=True, lazy='dynamic')
     events = db.relationship('Event', uselist=True, lazy='dynamic')
 
     def __init__(self, provider, provider_vid, title, length, user):
@@ -133,6 +126,10 @@ class Video(db.Model):
                 results[appeared] = -count
 
         return results
+
+    @hybrid_property
+    def participants(self):
+        return db.session.query(User).filter(User.events.any(Event.video_id == self.video_id))
 
     def save(self, commit=True):
         try:
