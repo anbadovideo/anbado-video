@@ -100,6 +100,15 @@ class VideoAPI(MethodView):
         return jsonify(success=True)
 
 
+class ParticipantsAPI(MethodView):
+    def get(self, video_id):
+        video = Video.by_video_id(video_id)
+        if video is None:
+            abort(404)
+
+        return jsonify(participants=video.participants.all())
+
+
 class FriendshipAPI(MethodView):
     def get(self, user_id):
         user = User.by_user_id(user_id)
