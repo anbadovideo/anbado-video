@@ -40,7 +40,7 @@ jQuery.extend(true, anbado, (function() {
      * @returns {jQuery.Deferred.promise}
      */
     var connect = function() {
-        var deferred = jQuery.deferred();
+        var deferred = jQuery.Deferred();
 
         socket = io.connect('/', {
             'force new connection': true,
@@ -59,6 +59,7 @@ jQuery.extend(true, anbado, (function() {
      */
     var disconnect = function() {
         socket.disconnect();
+        socket = null;
         transaction_id = 0;
     };
 
@@ -176,7 +177,8 @@ jQuery.extend(true, anbado, (function() {
             enterVideo: enterVideo,
             exitVideo: exitVideo,
             onEvent: onEvent,
-            onPostComplete: onPostComplete
+            onPostComplete: onPostComplete,
+            isConnected: isConnected
         }
     };
 })());
