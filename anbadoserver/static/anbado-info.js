@@ -21,6 +21,20 @@ jQuery.extend(true, anbado, (function() {
     var transaction_id = 0;
 
     /**
+     * tryCount : 접속 실패시에 카운트 한다.
+     *
+     * @type {number}
+     */
+    var tryCount = 0;
+
+    /**
+     * maxTryCount : 접속 시도의 최대 카운트.
+     *
+     * @type {number}
+     */
+    var maxTryCount = 3;
+
+    /**
      * socket.io 서버에 연결한다.
      *
      * @returns {jQuery.Deferred.promise}
@@ -44,7 +58,7 @@ jQuery.extend(true, anbado, (function() {
      * socket.io 서버와 연결을 종료하고, transaction_id를 초기화한다.
      */
     var disconnect = function() {
-        socket.disconnect();
+        socket.diconnect();
         transaction_id = 0;
     };
 
@@ -65,7 +79,7 @@ jQuery.extend(true, anbado, (function() {
      * @returns {boolean} 현재 연결된 상태면 true, 연결이 되어 있지 않다면 false를 돌려준다.
      */
     var isConnected = function() {
-        if (socket == null)
+        if (socket === null)
             return false;
 
         return socket.socket.connected;
@@ -87,15 +101,6 @@ jQuery.extend(true, anbado, (function() {
         return deferred.promise();
     };
 
-    /**
-     * socket.io 서버로 부터 이벤트가 도착했을 때 호출되는 내부 핸들러 메소드
-     * 이 메소드에서 사용자가 등록한 이벤트 핸들러를 호출한다.
-     *
-     * @param {json} event
-     */
-    var onEventReceived = function(event) {
-        // TODO: call event handler registered.
-    };
 
     /**
      * socket.io 서버에 현재 클라이언트에서 videoID를 갖는 비디오를 시청함을 통지한다.
@@ -103,13 +108,17 @@ jQuery.extend(true, anbado, (function() {
      * @param videoID 시청할 비디오의 ID
      */
     var enterVideo = function(videoID) {
+
         jQuery.when(connect())
             .fail(function() {
-                // TODO: need to handle if connection fails.
+                if (tryCount > maxTryCount) {
+                    tryCount = 0;
+                    return;
+                }
+                tryCount++;
+                enterVideo();
             }).done(function() {
                 socket.emit('enter', { video_id: videoID });
-                socket.removeListener('event');
-                socket.on('event', onEventReceived);
             });
     };
 
@@ -119,7 +128,12 @@ jQuery.extend(true, anbado, (function() {
     var exitVideo = function() {
         jQuery.when(sendExitPacket())
             .fail(function() {
-                // TODO: need to handle if send packet fails.
+                if (tryCount > maxTryCount) {
+                    tryCount = 0;
+                    return;
+                }
+                tryCount++;
+                exitVideo();
             }).done(function() {
                 disconnect();
             });
@@ -142,6 +156,10 @@ jQuery.extend(true, anbado, (function() {
      */
     var onEvent = function(eventHandler) {
         // TODO: add given handler to event handler list.
+        socket.removeListener('event');
+        socket.removeListener('enter');
+        socket.removeListener('connect');
+        eventHandler();
     };
 
     /**
@@ -151,6 +169,10 @@ jQuery.extend(true, anbado, (function() {
      */
     var onPostComplete = function(eventHandler) {
         // TODO: add given handler to event handler list.
+        socket.removeListener('event');
+        socket.removeListener('enter');
+        socket.removeListener('connect');
+        eventHandler();
     };
 
     return {
