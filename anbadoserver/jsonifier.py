@@ -3,6 +3,7 @@
 import datetime
 from flask import Response
 from flask.ext.sqlalchemy import BaseQuery
+from sqlalchemy.orm import Query
 from anbadoserver import db
 
 try:
@@ -28,8 +29,8 @@ class JSONEncoder(json.JSONEncoder):
             for field in [x for x in dir(obj) if
                           not x.startswith(('_', 'by_')) and x != 'metadata' and x not in blacklists]:
 
-                # for Lazy Loading in SQLAlchemy
-                if isinstance(getattr(obj, field), (BaseQuery, type)):
+                # for Lazy Loading and dynamic hybrid property in SQLAlchemy
+                if isinstance(getattr(obj, field), (BaseQuery, type, Query)):
                     continue
 
                 # data dump
