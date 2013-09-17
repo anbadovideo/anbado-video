@@ -14,6 +14,8 @@ var data = [
 
 document.addEventListener( "DOMContentLoaded", function() {
 
+
+
     var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
     $('body').append(textInputPanel2);
 
@@ -72,12 +74,8 @@ document.addEventListener( "DOMContentLoaded", function() {
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
         durationtime= CLIENTVAR.popcornobj.duration();
-        make_array(durationtime);
-        //make_array(1600);
+        anbado.timeline.initialize(durationtime);
 
-
-
-        stactareachart();
         $('.areadiv').show();
         $('.linediv').hide();
         $('.piediv').hide();
@@ -88,6 +86,8 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     CLIENTVAR.popcornobj.on("playing", function() {
 
+        var stackedAreaObject = $('#stackedarea');
+
         console.log(this.media.src);
         $("#canvas1").show();
 
@@ -95,7 +95,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
-            tooltiptime();
+            anbado.timeline.tooltip(stackedAreaObject);
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
