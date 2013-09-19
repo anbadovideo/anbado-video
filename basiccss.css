@@ -307,3 +307,10 @@ input{
         min-width: 100px;
         min-height: 100px;
 }
+
+#videotag
+{
+    position: absolute;
+    top:600px;
+    left:1000px;
+}

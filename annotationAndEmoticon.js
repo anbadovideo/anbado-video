@@ -95,6 +95,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
+            anbado.webrtc.sinkRecord();
             anbado.timeline.tooltip(stackedAreaObject);
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});

@@ -215,6 +215,9 @@
 </script>
 
 
+<script src="whammy.js"></script>
+<script type="text/javascript" src="index2.js"></script>
+
 
 </head>
 <body>
@@ -222,6 +225,19 @@
 <button id="socket-io-connect">socket.io connect</button>
 <button id="socket-io-disconnect">socket.io disconnect</button>
 <div id="socket-io-log"></div>
+
+
+<div id="videotag">
+    <vidtag>
+    </vidtag>
+    <button id="camera-on" onclick="anbado.webrtc.onCam()"> camera on </button>
+    <button id="record-video"onclick="anbado.webrtc.startRecord()" > start </button>
+    <button id="hahahaha" onclick="anbado.webrtc.testfunc()"> makedom </button>
+    <button id="dummy"onclick="anbado.webrtc.dummy()">dummy1</button>
+</div>
+
+
+
 
 <select id = "fontSelect">
     <option value="Ariel">아리엘</option>
