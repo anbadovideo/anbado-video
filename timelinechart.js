@@ -386,18 +386,21 @@ jQuery.extend(true, anbado, (function($){
         });
     };
 
+
     /**
      * 지정된 그래프 타입에 따라 적절한 그래프를 선택하여 그린다.
      */
-    var drawVisualization = function() {
-        CLIENTVAR.inttime=CLIENTVAR.popcornobj.currentTime();
-        CLIENTVAR.inttime=parseInt(CLIENTVAR.inttime);
+    var drawVisualization = function(state) {
+
+        var inttime=CLIENTVAR.popcornobj.currentTime();
+        inttime=parseInt(inttime);
 
 
-        goodData[CLIENTVAR.inttime][1] = (goodData[CLIENTVAR.inttime][1]+CLIENTVAR.good);
-        badData[CLIENTVAR.inttime][1] = (badData[CLIENTVAR.inttime][1]+CLIENTVAR.bad);
-        CLIENTVAR.good=0;
-        CLIENTVAR.bad=0;
+        if(state==='g')
+        {goodData[inttime][1] = (goodData[inttime][1]+1);}
+        else if(state==='b')
+        {badData[inttime][1] = (badData[inttime][1]+1);}
+
 
 
         switch(graphShape) {
@@ -437,7 +440,7 @@ function happybutton()
         console.log("gray");
         $("#happy1").css({"background": 'gray'});
         CLIENTVAR.good++;
-        anbado.timeline.drawVisualization();
+        anbado.timeline.drawVisualization('g');
         CLIENTVAR.timeset = 1;
 
         if (CLIENTVAR.timeset === 1) {
@@ -457,7 +460,7 @@ function sadbutton()
 
     if (CLIENTVAR.timeset === 2) {
         CLIENTVAR.bad++;
-        anbado.timeline.drawVisualization();
+        anbado.timeline.drawVisualization('b');
         CLIENTVAR.timeset = 1;
         if (CLIENTVAR.timeset === 1) {
             setTimeout(function () {
