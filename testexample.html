@@ -197,16 +197,16 @@
             if(CLIENTVAR.popcornobj!="NaN")
             {
                 durationtime= CLIENTVAR.popcornobj.duration();
-                make_array(durationtime);
+                anbado.timeline.initialize(durationtime);
                 console.log(durationtime);
 
-                if(CLIENTVAR.graphshape==1)
+                if($("#graphSelector").val()===1)
                 {stactareachart();}
-                else if(CLIENTVAR.graphshape==2)
+                else if($("#graphSelector").val()==2)
                 {line();}
-                else if(CLIENTVAR.graphshape==3)
+                else if($("#graphSelector").val()==3)
                 {pichart();}
-                else if(CLIENTVAR.graphshape==4)
+                else if($("#graphSelector").val()==4)
                 {halfpichart();}
             }
         },5000);
