@@ -74,6 +74,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
+        anbado.webrtc.webrtcSeting(5,15);// 안바도 time,frame 순서로 셋팅해준다.
         anbado.webrtc.getVideoObj(CLIENTVAR.popcornobj);
 
         durationtime= CLIENTVAR.popcornobj.duration();
@@ -88,6 +89,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
     CLIENTVAR.popcornobj.on("playing", function() {
+
 
         var stackedAreaObject = $('#stackedarea');
 

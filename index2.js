@@ -55,7 +55,7 @@ jQuery.extend(true,anbado,(function($){
      * whammu에서 객체를 불러옴 15 프레임 늘리면 녹화된 영상이 빠르게 나옴
      * @type {Whammy.Video}
      */
-    var whammy = new Whammy.Video(15);
+    var whammy = 0;//new Whammy.Video(15);
     /**
      * 카메라 녹화 상태
      * 1= test 2= 녹화중 3= 녹화 끝내고 감시
@@ -90,6 +90,17 @@ jQuery.extend(true,anbado,(function($){
     var lastsavedvid=0;
 
 var vidObj=0;
+
+
+    var recordingTime=0;
+
+    var webrtcSeting=function(time,frame)
+    {
+        recordingTime=time;
+        whammy = new Whammy.Video(frame);
+
+    }
+
 
     var getVideoObj=function(Obj)
     {
@@ -273,7 +284,7 @@ var vidObj=0;
             console.log("videotag current time:"+videoarray[videoTagnum].currentTime);
         }
         if(camRecordsta===2){
-            if( (vidObj.currentTime()-camRecordStartTime[videoTagnum])>=10)
+            if( (vidObj.currentTime()-camRecordStartTime[videoTagnum])>=recordingTime)
             {stopRecord();num1();}
         }
         if(camRecordsta===3)
@@ -317,7 +328,8 @@ var vidObj=0;
             onCam:onCam,
             startRecord:startRecord,
             sinkRecord:sinkRecord,
-            testfunc:testfunc
+            testfunc:testfunc,
+            webrtcSeting:webrtcSeting
         }
 }
 
