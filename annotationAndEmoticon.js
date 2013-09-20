@@ -80,6 +80,9 @@ document.addEventListener( "DOMContentLoaded", function() {
         durationtime= CLIENTVAR.popcornobj.duration();
         anbado.timeline.initialize(durationtime);
 
+
+        anbado.timeline.setGraphShape(1);
+        anbado.timeline.drawVisualization();
         $('.areadiv').show();
         $('.linediv').hide();
         $('.piediv').hide();

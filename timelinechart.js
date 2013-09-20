@@ -223,8 +223,8 @@ jQuery.extend(true, anbado, (function($){
         var goodpi = 0, badpi = 0;
 
         for (var k = 0; k < goodData.length; k++) {
-            goodpi = goodpi + (goodData[k][1] - 0.0001);
-            badpi = badpi + (badData[k][1] - 0.0001);
+            goodpi = goodpi + (goodData[k][1] - 0.5);
+            badpi = badpi + (badData[k][1] - 0.5);
         }
         console.log("pichrt:" + goodData[CLIENTVAR.inttime][1]);
 
@@ -281,8 +281,8 @@ jQuery.extend(true, anbado, (function($){
         var goodpi = 0, badpi = 0;
 
         for (var k = 0; k < goodData.length; k++) {
-            goodpi = goodpi + (goodData[k][1] - 0.0001);
-            badpi = badpi + (badData[k][1] - 0.0001);
+            goodpi = goodpi + (goodData[k][1] - 0.5);
+            badpi = badpi + (badData[k][1] - 0.5);
         }
 
         var testdata = [
@@ -412,18 +412,23 @@ jQuery.extend(true, anbado, (function($){
 
         switch(graphShape) {
             case 1:
+                $("#chartWrapper").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
                 drawStackedAreaChart();
                 break;
             case 2:
+                $("#chartWrapper").append("<div class='linediv' id='linechart'><svg style='...'></svg></div>");
                 drawLineChart();
                 break;
             case 3:
+                $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
                 drawPieChart();
                 break;
             case 4:
+                $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
                 drawHalfPieChart();
                 break;
             case 5:
+                $("#chartWrapper").append("  <div class='bardiv' id='barchart'><svg > </svg></div>");
                 drawBarChart();
                 break;
         }
