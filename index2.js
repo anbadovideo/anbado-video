@@ -94,7 +94,7 @@ var vidObj=0;
     var getVideoObj=function(Obj)
     {
         vidObj=Obj
-        console.log("getvideo object");
+        console.log("getvideo object"+vidObj.duration());
     }
 
     /**

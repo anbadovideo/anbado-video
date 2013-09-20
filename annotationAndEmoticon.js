@@ -78,7 +78,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
         durationtime= CLIENTVAR.popcornobj.duration();
         anbado.timeline.initialize(durationtime);
-        console.log("loaded dta");
+
         $('.areadiv').show();
         $('.linediv').hide();
         $('.piediv').hide();
