@@ -119,6 +119,9 @@ jQuery.extend(true, anbado, (function($){
             }
 
         ];
+
+
+
         var colors = d3.scale.category20();
         var keyColor = function (d, i) {
             return colors(d.key)
@@ -437,23 +440,23 @@ jQuery.extend(true, anbado, (function($){
 })(jQuery));
 
 
+var timeset=2;
 function happybutton()
 {
 
-    if (CLIENTVAR.timeset === 2) {
+    if (timeset === 2) {
         console.log("gray");
         $("#happy1").css({"background": 'gray'});
-        CLIENTVAR.good++;
         anbado.timeline.drawVisualization('g');
-        CLIENTVAR.timeset = 1;
+        timeset = 1;
 
-        if (CLIENTVAR.timeset === 1) {
+        if (timeset === 1) {
             setTimeout(function () {
                 console.log("red");
                 $("#happy1").css({"background": 'crimson'});
-                CLIENTVAR.timeset = 2;
+               timeset = 2;
             }, 5000);
-            CLIENTVAR.timeset = 0;
+            timeset = 0;
         }
     }
 
@@ -462,15 +465,14 @@ function happybutton()
 function sadbutton()
 {
 
-    if (CLIENTVAR.timeset === 2) {
-        CLIENTVAR.bad++;
+    if (timeset === 2) {
         anbado.timeline.drawVisualization('b');
-        CLIENTVAR.timeset = 1;
-        if (CLIENTVAR.timeset === 1) {
+        timeset = 1;
+        if (timeset === 1) {
             setTimeout(function () {
-                CLIENTVAR.timeset = 2;
+                timeset = 2;
             }, 5000);
-            CLIENTVAR.timeset = 0;
+            timeset = 0;
         }
     }
 
