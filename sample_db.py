@@ -19,12 +19,12 @@ user3 = User('https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/581713_5791
 user3.save()
 
 # Chiwan - Yonghui Friend connection
-user1.friends.append(user3)
-user3.friends.append(user1)
+user1._friends.append(user3)
+user3._friends.append(user1)
 
 # Jin-Soo - Yonghui Friend connection
-user2.friends.append(user3)
-user3.friends.append(user2)
+user2._friends.append(user3)
+user3._friends.append(user2)
 
 user1.save()
 user2.save()

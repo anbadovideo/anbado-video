@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 from flask import (
     request,
-    abort
+    abort,
+    jsonify
     )
 
 from flask.views import MethodView
@@ -12,7 +13,6 @@ from anbadoserver.models import (
     Video
     )
 from anbadoserver import db
-from anbadoserver.jsonifier import jsonify
 
 
 class UserAPI(MethodView):
@@ -21,7 +21,7 @@ class UserAPI(MethodView):
         if user is None:
             abort(404)
 
-        return jsonify(user=user)
+        return jsonify(user=user.to_json())
 
     def post(self):
         profile_image = request.form.get('profile_image', None)
@@ -57,7 +57,7 @@ class VideoAPI(MethodView):
         if video is None:
             abort(404)
 
-        return jsonify(video=video)
+        return jsonify(video=video.to_json())
 
     def post(self):
         provider = request.form.get('provider', None)
@@ -106,7 +106,7 @@ class ParticipantsAPI(MethodView):
         if video is None:
             abort(404)
 
-        return jsonify(participants=video.participants.all())
+        return jsonify(participants=[x.to_json() for x in video.participants.all()])
 
 
 class FriendshipAPI(MethodView):
@@ -115,7 +115,7 @@ class FriendshipAPI(MethodView):
         if user is None:
             abort(404)
 
-        return jsonify(friends=user.friends.all())
+        return jsonify(friends=[x.to_json() for x in user.friends.all()])
 
     def post(self, userA_id, userB_id):
         userA = User.by_user_id(userA_id)

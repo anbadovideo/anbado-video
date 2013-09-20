@@ -11,6 +11,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.exc import SQLAlchemyError
 
 from anbadoserver import db
+from anbadoserver.mixin import JsonifiedModel
 
 
 user_user_association_table = db.Table(
@@ -20,14 +21,14 @@ user_user_association_table = db.Table(
 )
 
 
-class User(db.Model):
+class User(db.Model, JsonifiedModel):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True)
     profile_image = db.Column(db.String(2048, convert_unicode=True))
-    videos = db.relationship('Video', uselist=True, lazy='dynamic')
-    events = db.relationship('Event', uselist=True, lazy='dynamic')
-    friends = db.relationship('User', uselist=True, lazy='dynamic',
+    _videos = db.relationship('Video', uselist=True, lazy='dynamic')
+    _events = db.relationship('Event', uselist=True, lazy='dynamic')
+    _friends = db.relationship('User', uselist=True, lazy='dynamic',
                               secondary=user_user_association_table,
                               primaryjoin=(user_id == user_user_association_table.c.user_id),
                               secondaryjoin=(user_id == user_user_association_table.c.friend_id),
@@ -57,9 +58,8 @@ class User(db.Model):
         return True
 
 
-class Video(db.Model):
+class Video(db.Model, JsonifiedModel):
     __tablename__ = 'videos'
-    __json_blacklists__ = ('user', 'event_permitted_to')
 
     video_id = db.Column(db.Integer, primary_key=True)
     provider = db.Column(db.Enum('youtube', 'vimeo', 'anbado'))
@@ -69,16 +69,16 @@ class Video(db.Model):
     length = db.Column(db.Integer, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    user = db.relationship('User', uselist=False)
+    _user = db.relationship('User', uselist=False)
 
-    events = db.relationship('Event', uselist=True, lazy='dynamic')
+    _events = db.relationship('Event', uselist=True, lazy='dynamic')
 
     def __init__(self, provider, provider_vid, title, length, user):
         self.provider = provider
         self.provider_vid = provider_vid
         self.title = title
         self.length = length
-        self.user = user
+        self._user = user
 
     def __repr__(self):
         return '<Video {0}> provider: {1}, vid: {2}'.format(self.video_id, self.provider, self.provider_vid)
@@ -91,14 +91,19 @@ class Video(db.Model):
             return None
 
     def event_permitted_to(self, user):
+        if user is None:
+            user_id = -1
+        else:
+            user_id = user.user_id
+
         try:
             # TODO: how to handle inherited permission.
-            return self.events.join(Event.user).filter(
+            return self._events.join(Event._user).filter(
                 or_(
                     Event.permission == 'public',
                     and_(
                         Event.permission == 'protected',
-                        User.friends.any(User.user_id == user.user_id)
+                        User._friends.any(User.user_id == user_id)
                     )
                 )
             ).all()
@@ -129,7 +134,7 @@ class Video(db.Model):
 
     @hybrid_property
     def participants(self):
-        return db.session.query(User).filter(User.events.any(Event.video_id == self.video_id))
+        return db.session.query(User).filter(User._events.any(Event.video_id == self.video_id))
 
     def save(self, commit=True):
         try:
@@ -142,16 +147,16 @@ class Video(db.Model):
         return True
 
 
-class Event(db.Model):
+class Event(db.Model, JsonifiedModel):
     __tablename__ = 'events'
 
     event_id = db.Column(db.Integer, primary_key=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    user = db.relationship('User', uselist=False)
+    _user = db.relationship('User', uselist=False)
 
     video_id = db.Column(db.Integer, db.ForeignKey('videos.video_id'))
-    video = db.relationship('Video', uselist=False)
+    _video = db.relationship('Video', uselist=False)
 
     registered = db.Column(db.DateTime, default=datetime.now())
     appeared = db.Column(db.Integer)
@@ -162,44 +167,44 @@ class Event(db.Model):
     category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad'))
 
     parent_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
-    parent = db.relationship('Event', remote_side=[event_id], uselist=False)
-    children = db.relationship('Event', uselist=True, lazy='dynamic')
+    _parent = db.relationship('Event', remote_side=[event_id], uselist=False)
+    _children = db.relationship('Event', uselist=True, lazy='dynamic')
 
     permission = db.Column(db.Enum('inherited', 'private', 'public', 'protected'))
 
-    coord_x = db.Column(db.Integer)
-    coord_y = db.Column(db.Integer)
-    width = db.Column(db.Integer)
-    height = db.Column(db.Integer)
+    _coord_x = db.Column(db.Integer)
+    _coord_y = db.Column(db.Integer)
+    _width = db.Column(db.Integer)
+    _height = db.Column(db.Integer)
 
     def __init__(self, user, video, appeared, disappeared, content, category,
                  coord=(0, 0), size=(0, 0), permission='public', parent=None):
-        self.user = user
-        self.video = video
+        self._user = user
+        self._video = video
         self.appeared = appeared
         self.disappeared = disappeared
         self.content = content
         self.category = category
-        self.parent = parent
+        self._parent = parent
         self.permission = permission
         self.coord = coord
         self.size = size
 
     @hybrid_property
     def coord(self):
-        return self.coord_x, self.coord_y
+        return self._coord_x, self._coord_y
 
     @coord.setter
     def coord(self, value):
-        self.coord_x, self.coord_y = value
+        self._coord_x, self._coord_y = value
 
     @hybrid_property
     def size(self):
-        return self.width, self.height
+        return self._width, self._height
 
     @size.setter
     def size(self, value):
-        self.width, self.height = value
+        self._width, self._height = value
 
     def __repr__(self):
         return '<Event {0}> {1}'.format(self.event_id, self.content)
