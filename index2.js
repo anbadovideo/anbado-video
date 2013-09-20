@@ -89,12 +89,12 @@ jQuery.extend(true,anbado,(function($){
      */
     var lastsavedvid=0;
 
+var vidObj=0;
 
-
-    var dummy=function()
+    var getVideoObj=function(Obj)
     {
-        alert("hello");
-
+        vidObj=Obj
+        console.log("vidobj"+vidObj.duration());
     }
 
     /**
@@ -122,7 +122,8 @@ jQuery.extend(true,anbado,(function($){
 
             animation(Date.now());
         }
-        camRecordStartTime[videoTagnum]=CLIENTVAR.popcornobj.currentTime();
+        //camRecordStartTime[videoTagnum]=CLIENTVAR.popcornobj.currentTime();
+        camRecordStartTime[videoTagnum]=vidObj.currentTime();
     };
 
     /**
@@ -186,9 +187,6 @@ jQuery.extend(true,anbado,(function($){
         camRecordsta=3;
 
 
-        //camRecordEndTime[videoTagnum]=CLIENTVAR.popcornobj.currentTime();
-
-
     };
 
     /**
@@ -208,15 +206,15 @@ jQuery.extend(true,anbado,(function($){
 
         if(n===0)
         {
-            if(videoarray[lastsavedvid].paused&&!(CLIENTVAR.popcornobj.paused()))
+            if(videoarray[lastsavedvid].paused&&!(vidObj.paused()))
             {
-                videoarray[lastsavedvid].currentTime=(CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[0]);
+                videoarray[lastsavedvid].currentTime=(vidObj.currentTime()-camRecordStartTime[0]);
                 videoarray[lastsavedvid].play();
             }
 
-            else if(CLIENTVAR.popcornobj.paused())
+            else if(vidObj.paused())
             {
-                videoarray[lastsavedvid].currentTime=(CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[0]);
+                videoarray[lastsavedvid].currentTime=(vidObj.currentTime()-camRecordStartTime[0]);
                 videoarray[lastsavedvid].pause();
             }
 
@@ -226,14 +224,14 @@ jQuery.extend(true,anbado,(function($){
 
         else if(n>0)
         {
-            if(videoarray[lastsavedvid].paused&&!(CLIENTVAR.popcornobj.paused()))//녹화정지그리고 동영상 플레이시
+            if(videoarray[lastsavedvid].paused&&!(vidObj.paused()))//녹화정지그리고 동영상 플레이시
             {
-                videoarray[lastsavedvid].currentTime=(CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[n])+videoarray[n-1].duration;
+                videoarray[lastsavedvid].currentTime=(vidObj.currentTime()-camRecordStartTime[n])+videoarray[n-1].duration;
                 videoarray[lastsavedvid].play();
             }
-            else if(CLIENTVAR.popcornobj.paused())// 동영상 정지시
+            else if(vidObj.paused())// 동영상 정지시
             {
-                videoarray[lastsavedvid].currentTime=(CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[n])+videoarray[n-1].duration;
+                videoarray[lastsavedvid].currentTime=(vidObj.currentTime()-camRecordStartTime[n])+videoarray[n-1].duration;
                 videoarray[lastsavedvid].pause();
             }
 
@@ -275,7 +273,7 @@ jQuery.extend(true,anbado,(function($){
             console.log("videotag current time:"+videoarray[videoTagnum].currentTime);
         }
         if(camRecordsta===2){
-            if( (CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[videoTagnum])>=10)
+            if( (vidObj.currentTime()-camRecordStartTime[videoTagnum])>=10)
             {stopRecord();num1();}
         }
         if(camRecordsta===3)
@@ -286,14 +284,14 @@ jQuery.extend(true,anbado,(function($){
 
                 if(i===0)
                 {
-                    if((CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[i])>0&&(CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[i])<=videoarray[i].duration)
+                    if((vidObj.currentTime()-camRecordStartTime[i])>0&&(vidObj.currentTime()-camRecordStartTime[i])<=videoarray[i].duration)
                     {tagNumber=i;console.log("time"+i);}// 애가 동영상과 처음 녹화시간을 비교해서 타임 인터벌 상태 알려
                 }
 
                 else if(i>0)
                 {
                     //compiledTime[i]=videoarray[i-1].duration
-                    if((CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[i])>0&&(CLIENTVAR.popcornobj.currentTime()-camRecordStartTime[i])<=(videoarray[i].duration-videoarray[i-1].duration))
+                    if((vidObj.currentTime()-camRecordStartTime[i])>0&&(vidObj.currentTime()-camRecordStartTime[i])<=(videoarray[i].duration-videoarray[i-1].duration))
                     {tagNumber=i;console.log("time"+i);}
                 }
 
@@ -315,7 +313,7 @@ jQuery.extend(true,anbado,(function($){
 
     return {
         webrtc : {
-            dummy:dummy,
+            getVideoObj:getVideoObj,
             onCam:onCam,
             startRecord:startRecord,
             sinkRecord:sinkRecord,

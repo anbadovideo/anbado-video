@@ -41,6 +41,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 
     CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/embed/87kezJTpyMI?hd=1&iv_load_policy=3" );
 
+
     CLIENTVAR.pageGenerationTime = new Date(); // 페이지 생성타임을 저장하고 이를 기준시로 사용함.
     drawTimelineVisualization();
 
@@ -72,6 +73,8 @@ document.addEventListener( "DOMContentLoaded", function() {
     var inti;
 
     CLIENTVAR.popcornobj.on("loadeddata", function() {
+
+        anbado.webrtc.getVideoObj(CLIENTVAR.popcornobj);
 
         durationtime= CLIENTVAR.popcornobj.duration();
         anbado.timeline.initialize(durationtime);
