@@ -10,7 +10,7 @@
             // enterVideo 버튼을 클릭했을 때
             $('button#enterVideo').click(function() {
                 // socket.io 서버에 접속하고 비디오 시청을 알린다.
-                anbado.realtime.enterVideo(1);
+                anbado.realtime.enterVideo(1, 1);
 
                 // socket.io 서버에서 이벤트가 도착했을 때
                 anbado.realtime.onEvent(function(event) {

@@ -108,9 +108,9 @@ jQuery.extend(true, anbado, (function() {
      * socket.io 서버에 현재 클라이언트에서 videoID를 갖는 비디오를 시청함을 통지한다.
      *
      * @param videoID 시청할 비디오의 ID
+     * @param userID 시청하는 사용자의 ID (익명 사용자의 경우 -1)
      */
-    var enterVideo = function(videoID) {
-
+    var enterVideo = function(videoID, userID) {
         jQuery.when(connect())
             .fail(function() {
                 if (tryCount > maxTryCount) {
@@ -120,7 +120,7 @@ jQuery.extend(true, anbado, (function() {
                 tryCount++;
                 enterVideo();
             }).done(function() {
-                socket.emit('enter', { video_id: videoID });
+                socket.emit('enter', { video_id: videoID, user_id: userID });
             });
     };
 
