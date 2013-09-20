@@ -52,6 +52,10 @@ jQuery.extend(true, anbado, (function($){
      * @param time 동영상의 길이
      */
     var makeTimelineDataArray = function(time) {
+
+         goodData = [];
+         badData = [];
+
         time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
         console.log("array time: " + time);
 

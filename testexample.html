@@ -191,25 +191,40 @@
 
         CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube",CLIENTVAR.url );
 
+
         $("#youtube").css({"top":100,"left":330});
 
-        setTimeout(function(){
-            if(CLIENTVAR.popcornobj!="NaN")
-            {
-                durationtime= CLIENTVAR.popcornobj.duration();
-                anbado.timeline.initialize(durationtime);
-                console.log(durationtime);
+        CLIENTVAR.popcornobj.on("loadeddata", function() {
 
-                if($("#graphSelector").val()===1)
-                {stactareachart();}
-                else if($("#graphSelector").val()==2)
-                {line();}
-                else if($("#graphSelector").val()==3)
-                {pichart();}
-                else if($("#graphSelector").val()==4)
-                {halfpichart();}
-            }
-        },5000);
+            anbado.webrtc.getVideoObj(CLIENTVAR.popcornobj);
+
+            durationtime= CLIENTVAR.popcornobj.duration();
+            anbado.timeline.initialize(durationtime);
+            console.log("loaded dta"+durationtime);
+            $('.areadiv').show();
+            $('.linediv').hide();
+            $('.piediv').hide();
+            $('.halfdiv').hide();
+            $('.bardiv').hide();
+        });
+//        setTimeout(function(){
+//            if(CLIENTVAR.popcornobj!="NaN")
+//            {
+//                anbado.webrtc.getVideoObj(CLIENTVAR.popcornobj);
+//                durationtime= CLIENTVAR.popcornobj.duration();
+//                anbado.timeline.initialize(durationtime);
+//                console.log(durationtime);
+//
+//                if($("#graphSelector").val()===1)
+//                {stactareachart();}
+//                else if($("#graphSelector").val()==2)
+//                {line();}
+//                else if($("#graphSelector").val()==3)
+//                {pichart();}
+//                else if($("#graphSelector").val()==4)
+//                {halfpichart();}
+//            }
+//        },5000);
 
     }
 </script>
