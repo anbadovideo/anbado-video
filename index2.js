@@ -89,11 +89,26 @@ jQuery.extend(true,anbado,(function($){
      */
     var lastsavedvid=0;
 
-var vidObj=0;
+
+    /**
+     * 기본 동영상의 객체를 받아온다.
+     * @type {number}
+     */
+    var vidObj=0;
 
 
+    /**
+     * 초기 셋팅에 필요한 하나의 녹화 시간
+     * @type {number}
+     */
     var recordingTime=0;
 
+
+    /**
+     * 녹화 셋팅
+     * @param time 녹화하는 시간 설정
+     * @param frame 녹화된 영상의 프레임 설정
+     */
     var webrtcSeting=function(time,frame)
     {
         recordingTime=time;
@@ -101,10 +116,16 @@ var vidObj=0;
 
     }
 
+    /**
+     * 동영상의 객체를 받아옴 (일단 1개는 되는데 n개의 동영상에는 더욱 분석필요 )
+     * @param Obj 받아오는 객체
+     */
+
 
     var getVideoObj=function(Obj)
     {
-        vidObj=Obj
+        vidObj=Obj;
+        //TODO: 새로운 객체를 받아올시 에 동영상 싱크에 문제 생김 , 녹화된 동영상은 어디에 저장?
         console.log("getvideo object"+vidObj.duration());
     }
 
@@ -133,7 +154,6 @@ var vidObj=0;
 
             animation(Date.now());
         }
-        //camRecordStartTime[videoTagnum]=CLIENTVAR.popcornobj.currentTime();
         camRecordStartTime[videoTagnum]=vidObj.currentTime();
     };
 
@@ -274,6 +294,10 @@ var vidObj=0;
         tagNumber='s';
 
     }
+
+   /**
+    * 녹화된 동영상과 기본 동영상을 계속 비교하면서 time sink
+    */
 
 
     var sinkRecord=function()//단순히 basic video와 videotag를 sink 시켜주는 부분

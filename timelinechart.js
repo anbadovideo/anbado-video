@@ -219,6 +219,9 @@ jQuery.extend(true, anbado, (function($){
         });
     };
 
+    /**
+     * pie chart 를 그린다. 
+     */
     var drawPieChart = function() {
         var goodpi = 0, badpi = 0;
 
@@ -338,6 +341,9 @@ jQuery.extend(true, anbado, (function($){
         });
     };
 
+    /**
+     * bar chart 를 그린다.
+     */
     var drawBarChart = function() {
         var testdata = [
             {
