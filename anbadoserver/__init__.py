@@ -4,15 +4,14 @@
 from gevent import monkey
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from anbadoserver import config
 
 
 monkey.patch_all()
 
 app = Flask(__name__)
-app.debug = config.DEBUG
-app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_URI
-app.config['SQLALCHEMY_ECHO'] = app.debug
+app.config.from_object('anbadoserver.config')
+app.config['SQLALCHEMY_DATABASE_URI'] = app.config['DATABASE_URI']
+app.config['SQLALCHEMY_ECHO'] = app.config['DEBUG']
 db = SQLAlchemy(app)
 
 
