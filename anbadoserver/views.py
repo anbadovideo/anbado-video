@@ -37,6 +37,9 @@ def view_sample():
 def view_api_test_sample():
     return render_template('api-test.html')
 
+@app.route('/sample/blob-test')
+def view_blog_socket_test():
+    return render_template('socket-blob-test.html')
 
 user_view = UserAPI.as_view('user_api')
 video_view = VideoAPI.as_view('video_api')
