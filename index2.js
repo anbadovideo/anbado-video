@@ -13,6 +13,7 @@ jQuery.extend(true,anbado,(function($){
      *  n개의 녹화된 비디오 저장
      * @type {Array}
      */
+
     var videoarray=[];
     /**
      * 녹화된 비디오의 넘버링

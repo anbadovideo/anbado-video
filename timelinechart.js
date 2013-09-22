@@ -36,14 +36,32 @@ jQuery.extend(true, anbado, (function($){
      */
     var badData = [];
 
+
+    var currentTime=0;
+    var durationTime=0;
+
+    var getCurrentTime= function(inputTime)
+    {
+        currentTime=inputTime;
+
+    }
+
+
+
     /**
      * 타임라인 그래프를 초기화 한다.
      *
      * @param time 동영상의 길이
      */
     var initialize = function(time) {
+        $("#chartWrapper").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
+        $("#chartWrapper").append("<div class='linediv' id='linechart'><svg style='...'></svg></div>");
+        $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
+        $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
+        $("#chartWrapper").append("  <div class='bardiv' id='barchart'><svg > </svg></div>");
         makeTimelineDataArray(time);
         drawStackedAreaChart();
+        durationTime=time;
     };
 
     /**
@@ -80,17 +98,17 @@ jQuery.extend(true, anbado, (function($){
 
         // TODO: CLIENTVAR를 사용하지 않도록 popcornobj에 대한 대책 필요
 
-        var time=CLIENTVAR.popcornobj.duration();
+        var time=durationTime;
 
         time=parseInt(time);
         time=((parseInt($svgObject.css("width"))-85)/time);
 
-        con=parseInt(CLIENTVAR.popcornobj.currentTime());
+        con=parseInt(currentTime);
         //con=parseInt(con/60)+":"+(con%60);
         con="good"+(goodData[con][1]-0.5);
 
         nv.tooltip.cleanup();
-        nv.tooltip.show([offset+CLIENTVAR.popcornobj.currentTime()*time, 600], con, 'n', null, 0);
+        nv.tooltip.show([offset+currentTime*time, 600], con, 'n', null, 0);
     };
 
     /**
@@ -220,7 +238,7 @@ jQuery.extend(true, anbado, (function($){
     };
 
     /**
-     * pie chart 를 그린다. 
+     * pie chart 를 그린다.
      */
     var drawPieChart = function() {
         var goodpi = 0, badpi = 0;
@@ -405,7 +423,7 @@ jQuery.extend(true, anbado, (function($){
      */
     var drawVisualization = function(state) {
 
-        var inttime=CLIENTVAR.popcornobj.currentTime();
+        var inttime=currentTime;
         inttime=parseInt(inttime);
 
 
@@ -418,23 +436,43 @@ jQuery.extend(true, anbado, (function($){
 
         switch(graphShape) {
             case 1:
-                $("#chartWrapper").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
+                $('.areadiv').show();
+                $('.linediv').hide();
+                $('.piediv').hide();
+                $('.halfdiv').hide();
+                $('.bardiv').hide();
                 drawStackedAreaChart();
                 break;
             case 2:
-                $("#chartWrapper").append("<div class='linediv' id='linechart'><svg style='...'></svg></div>");
+                $('.areadiv').hide();
+                $('.linediv').show();
+                $('.piediv').hide();
+                $('.halfdiv').hide();
+                $('.bardiv').hide();
                 drawLineChart();
                 break;
             case 3:
-                $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
+                $('.areadiv').hide();
+                $('.linediv').hide();
+                $('.piediv').show();
+                $('.halfdiv').hide();
+                $('.bardiv').hide();
                 drawPieChart();
                 break;
             case 4:
-                $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
+                $('.areadiv').hide();
+                $('.linediv').hide();
+                $('.piediv').hide();
+                $('.halfdiv').show();
+                $('.bardiv').hide();
                 drawHalfPieChart();
                 break;
             case 5:
-                $("#chartWrapper").append("  <div class='bardiv' id='barchart'><svg > </svg></div>");
+                $('.areadiv').hide();
+                $('.linediv').hide();
+                $('.piediv').hide();
+                $('.halfdiv').hide();
+                $('.bardiv').show();
                 drawBarChart();
                 break;
         }
@@ -445,7 +483,8 @@ jQuery.extend(true, anbado, (function($){
             initialize: initialize,
             drawVisualization: drawVisualization,
             tooltip: tooltip,
-            setGraphShape: setGraphShape
+            setGraphShape: setGraphShape,
+            getCurrentTime:getCurrentTime
         }
     }
 })(jQuery));
@@ -498,51 +537,26 @@ function graphselect()
     {
         anbado.timeline.setGraphShape(1);
         anbado.timeline.drawVisualization();
-        $('.areadiv').show();
-        $('.linediv').hide();
-        $('.piediv').hide();
-        $('.halfdiv').hide();
-        $('.bardiv').hide();
     }
     else if (graphTemp === "2") //line graph
     {
         anbado.timeline.setGraphShape(2);
         anbado.timeline.drawVisualization();
-        $('.areadiv').hide();
-        $('.linediv').show();
-        $('.piediv').hide();
-        $('.halfdiv').hide();
-        $('.bardiv').hide();
     }
     else if (graphTemp === "3") {
 
         anbado.timeline.setGraphShape(3);
         anbado.timeline.drawVisualization();
-        $('.areadiv').hide();
-        $('.linediv').hide();
-        $('.piediv').show();
-        $('.halfdiv').hide();
-        $('.bardiv').hide();
     }
     else if (graphTemp === "4") {
 
         anbado.timeline.setGraphShape(4);
         anbado.timeline.drawVisualization();
-        $('.areadiv').hide();
-        $('.linediv').hide();
-        $('.piediv').hide();
-        $('.halfdiv').show();
-        $('.bardiv').hide();
     }
     else if (graphTemp === "5") {
 
         anbado.timeline.setGraphShape(5);
         anbado.timeline.drawVisualization();
-        $('.areadiv').hide();
-        $('.linediv').hide();
-        $('.piediv').hide();
-        $('.halfdiv').hide();
-        $('.bardiv').show();
     }
 
 }

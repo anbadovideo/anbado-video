@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>anbado player example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>-->
+<script type="text/javascript" src = "popcorn-complete_rel0.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link rel="stylesheet" type="text/css" href="basiccss.css">
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script type="text/javascript" src="d3.v3.js"></script>
+<script type="text/javascript" src="nv.d3.js"></script>
+<script type="text/javascript" src="timelinechart.js"></script>
+
+<link href="nv.d3.css" rel="stylesheet" type="text/css">
+
+
+<script type="text/javascript">
+
+    function test()
+    {
+        var popcornobj1= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=YulljONH8Fs" );
+
+        popcornobj1.on("loadeddata", function() {
+
+            var durationtime= popcornobj1.duration();
+
+            anbado.timeline.initialize(durationtime);
+            anbado.timeline.setGraphShape(1);
+            anbado.timeline.drawVisualization();
+
+        });
+
+
+        popcornobj1.on("playing", function() {
+
+
+            var stackedAreaObject = $('#stackedarea');
+
+            popcornobj1.on("timeupdate", function(){
+                anbado.timeline.getCurrentTime(popcornobj1.currentTime());
+                anbado.timeline.tooltip(stackedAreaObject);
+
+
+            });
+        });
+
+    }
+
+
+    function button1()
+    {
+        anbado.timeline.drawVisualization('g');
+    };
+
+
+    function button2()
+    {
+        anbado.timeline.drawVisualization('b');
+    };
+
+
+</script>
+
+
+</head>
+<body onload="test()">
+
+
+<div id='youtube' style=width:600px;height:500px;top:1000px;/>
+
+
+<input id="happy1" type = "button" onclick="button1()" value= "happy" >
+<input id="sad1" type = "button" onclick="button2()" value= "sad" >
+
+
+
+<div>
+    <select id="graphSelector" name="graph" onchange="graphselect();">
+        <option value = "1" selected="selected">area graph</option>
+        <option value = "2">line graph</option>
+        <option value = "3">pie graph</option>
+        <option value = "4">halfpie graph</option>
+        <option value = "5">bar chart</option>
+    </select>
+    <input id="exit" type = "button" onclick="dis();" value= "exit" />
+</div>
+
+
+<div id = "chartWrapper">
+
+
+</div>
+
+
+
+</body>
+</html>

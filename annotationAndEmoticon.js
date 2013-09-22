@@ -15,7 +15,6 @@ var data = [
 document.addEventListener( "DOMContentLoaded", function() {
 
 
-
     var textInputPanel2 =$("<input id='textinput2' type = 'text' value = 'interactive'/>");
     $('body').append(textInputPanel2);
 
@@ -39,7 +38,7 @@ document.addEventListener( "DOMContentLoaded", function() {
     $("#youtube").remove();
     $("vid").append("   <div id='youtube' style=width:600px;height:500px;top:1000px;/>");
 
-    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/embed/87kezJTpyMI?hd=1&iv_load_policy=3" );
+    CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=YulljONH8Fs" );
 
 
     CLIENTVAR.pageGenerationTime = new Date(); // 페이지 생성타임을 저장하고 이를 기준시로 사용함.
@@ -83,11 +82,6 @@ document.addEventListener( "DOMContentLoaded", function() {
 
         anbado.timeline.setGraphShape(1);
         anbado.timeline.drawVisualization();
-        $('.areadiv').show();
-        $('.linediv').hide();
-        $('.piediv').hide();
-        $('.halfdiv').hide();
-        $('.bardiv').hide();
     });
 
 
@@ -103,6 +97,8 @@ document.addEventListener( "DOMContentLoaded", function() {
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
+
+            anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
             anbado.webrtc.sinkRecord();
             anbado.timeline.tooltip(stackedAreaObject);
         });
