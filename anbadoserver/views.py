@@ -33,13 +33,18 @@ def handle_socketio(path):
 def view_sample():
     return render_template('index.html')
 
-@app.route('/sample/api-test')
-def view_api_test_sample():
-    return render_template('api-test.html')
+@app.route('/sample/api-test/reatime')
+def view_realtime_api_test_sample():
+    return render_template('realtime-api-test.html')
+
+@app.route('/sample/api-test/rest')
+def vide_rest_api_test_sample():
+    return render_template(('rest-api-test.html'))
 
 @app.route('/sample/blob-test')
 def view_blog_socket_test():
     return render_template('socket-blob-test.html')
+
 
 user_view = UserAPI.as_view('user_api')
 video_view = VideoAPI.as_view('video_api')
