@@ -96,19 +96,19 @@ jQuery.extend(true, anbado, (function($){
         var con;
         var $svgObject = $(svgObject);
 
+        var top=parseInt($svgObject.css("top"));
         // TODO: CLIENTVAR를 사용하지 않도록 popcornobj에 대한 대책 필요
 
         var time=durationTime;
 
         time=parseInt(time);
         time=((parseInt($svgObject.css("width"))-85)/time);
-
         con=parseInt(currentTime);
         //con=parseInt(con/60)+":"+(con%60);
         con="good"+(goodData[con][1]-0.5);
 
         nv.tooltip.cleanup();
-        nv.tooltip.show([offset+currentTime*time, 600], con, 'n', null, 0);
+        nv.tooltip.show([offset+currentTime*time, top+100], con, 'n', null, 0);
     };
 
     /**

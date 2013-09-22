@@ -224,7 +224,7 @@ jQuery.extend(true,anbado,(function($){
     /**
      * 새로운  dom(video와 cnavas )을 아이디를 받아서 생성
      */
-    var testfunc=function(){
+    var makeVidDom=function(){
 
         $("vidtag").append("<video style='width:340px;height:280px' id = " + tempID + " controls/>");
         $("vidtag").append("<canvas id="+cnavasID+" style='display:none'/>");
@@ -353,7 +353,7 @@ jQuery.extend(true,anbado,(function($){
             onCam:onCam,
             startRecord:startRecord,
             sinkRecord:sinkRecord,
-            testfunc:testfunc,
+            makeVidDom:makeVidDom,
             webrtcSeting:webrtcSeting
         }
 }

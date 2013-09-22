@@ -52,6 +52,17 @@
             });
         });
 
+        scatter.dispatch.on('elementClick.area', function(e) {
+            //  dispatch.areaClick(e);
+            console.log("hello");
+//            var time=popcornobj1.duration();
+//            time=parseInt(time);
+//            time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
+//            console.log("kimmijong epos"+ time);
+//
+//            popcornobj1.play(time);
+        })
+
     }
 
 
@@ -74,7 +85,7 @@
 <body onload="test()">
 
 
-<div id='youtube' style=width:600px;height:500px;top:1000px;/>
+<div id='youtube' style=width:600px;height:500px;top:100px;/>
 
 
 <input id="happy1" type = "button" onclick="button1()" value= "happy" >
@@ -98,6 +109,7 @@
 
 
 </div>
+
 
 
 
