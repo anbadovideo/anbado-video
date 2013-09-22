@@ -1,4 +1,4 @@
-var anbado = {} || anbado;
+var anbado = anbado || {};
 
 jQuery.extend(true, anbado, (function(){
 

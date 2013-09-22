@@ -1,4 +1,4 @@
-var anbado = {} || anbado;
+var anbado = anbado || {};
 
 /**
  * TODO: add description about this namespace.
