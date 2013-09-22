@@ -36,7 +36,6 @@ jQuery.extend(true, anbado, (function($){
      */
     var badData = [];
 
-
     var currentTime=0;
     var durationTime=0;
 
@@ -83,6 +82,7 @@ jQuery.extend(true, anbado, (function($){
             // goodData[i][1] = 데이터 (갯수)
             goodData[i] = [i, 0.5];
             badData[i] = [i, 0.5];
+
         }
     };
 
@@ -128,7 +128,7 @@ jQuery.extend(true, anbado, (function($){
             {
                 "key": "good",
                 "values": goodData,
-                color: "ivory"
+                color: "red"
             },
             {
                 "key": "bad",
@@ -384,11 +384,11 @@ jQuery.extend(true, anbado, (function($){
                 })
                 .color(d3.scale.category10().range());
 
-            chart.xAxis.tickFormat(function (d) {
-                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
-                return dx ? d3.time.format('%x')(new Date(dx)) : '';
-            })
-                .showMaxMin(false);
+//            chart.xAxis.tickFormat(function (d) {
+//                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+//                return dx ? d3.time.format('%x')(new Date(dx)) : '';
+//            })
+//                .showMaxMin(false);
 
             chart.y1Axis
                 .tickFormat(d3.format(',f'));
