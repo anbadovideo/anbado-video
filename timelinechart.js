@@ -73,6 +73,7 @@ jQuery.extend(true, anbado, (function($){
          goodData = [];
          badData = [];
 
+
         time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
         console.log("array time: " + time);
 
@@ -108,7 +109,7 @@ jQuery.extend(true, anbado, (function($){
         con="good"+(goodData[con][1]-0.5);
 
         nv.tooltip.cleanup();
-        nv.tooltip.show([offset+currentTime*time, top+100], con, 'n', null, 0);
+        nv.tooltip.show([offset+currentTime*time, top+150], con, '', null, 0);
     };
 
     /**
