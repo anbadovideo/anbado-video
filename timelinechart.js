@@ -247,8 +247,6 @@ jQuery.extend(true, anbado, (function($){
             goodpi = goodpi + (goodData[k][1] - 0.5);
             badpi = badpi + (badData[k][1] - 0.5);
         }
-        console.log("pichrt:" + goodData[CLIENTVAR.inttime][1]);
-
 
         var testdata = [
             {
