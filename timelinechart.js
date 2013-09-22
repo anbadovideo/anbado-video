@@ -8,7 +8,7 @@
 
 var anbado = window.anbado || {};
 
-jQuery.extend(true, anbado, (function($){
+var anbadoDummy=(function($){
 
     /**
      * 타임라인 그래프의 종류를 나타낸다.
@@ -70,8 +70,8 @@ jQuery.extend(true, anbado, (function($){
      */
     var makeTimelineDataArray = function(time) {
 
-         goodData = [];
-         badData = [];
+        goodData = [];
+        badData = [];
 
 
         time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
@@ -486,7 +486,11 @@ jQuery.extend(true, anbado, (function($){
             getCurrentTime:getCurrentTime
         }
     }
-})(jQuery));
+});
+
+
+
+jQuery.extend(true, anbado,anbadoDummy(jQuery));
 
 
 var timeset=2;
