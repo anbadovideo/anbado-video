@@ -15,6 +15,7 @@
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
+    <script type="text/javascript" src="clientglobalvar.js"></script>
 <script type="text/javascript" src="d3.v3.js"></script>
 <script type="text/javascript" src="nv.d3.js"></script>
 <script type="text/javascript" src="timelinechart.js"></script>
@@ -26,26 +27,29 @@
 
     function test()
     {
-        var popcornobj1= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=YulljONH8Fs" );
+        CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=YulljONH8Fs" );
 
-        popcornobj1.on("loadeddata", function() {
+        CLIENTVAR.popcornobj.on("loadeddata", function() {
 
-            var durationtime= popcornobj1.duration();
+            var durationtime= CLIENTVAR.popcornobj.duration();
+
 
             anbado.timeline.initialize(durationtime);
             anbado.timeline.setGraphShape(1);
             anbado.timeline.drawVisualization();
+            $('#stackedarea').css("top","700px");
 
         });
 
 
-        popcornobj1.on("playing", function() {
+        CLIENTVAR.popcornobj.on("playing", function() {
+
 
 
             var stackedAreaObject = $('#stackedarea');
 
-            popcornobj1.on("timeupdate", function(){
-                anbado.timeline.getCurrentTime(popcornobj1.currentTime());
+            CLIENTVAR.popcornobj.on("timeupdate", function(){
+                anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
                 anbado.timeline.tooltip(stackedAreaObject);
 
 
@@ -74,7 +78,7 @@
 <body onload="test()">
 
 
-<div id='youtube' style=width:600px;height:500px;top:100px;/>
+<div id='youtube' style=width:600px;height:500px;top:50px;left:300px;></div>
 
 
 <input id="happy1" type = "button" onclick="button1()" value= "happy" >

@@ -12447,16 +12447,16 @@ nv.models.stackedArea = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-//  scatter.dispatch.on('elementClick.area', function(e) {
-//  //  dispatch.areaClick(e);
-//      console.log("hello");
-//      var time=popcornobj1.duration();
-//      time=parseInt(time);
-//      time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
-//      console.log("kimmijong epos"+ time);
-//
-//      popcornobj1.play(time);
-//  })
+  scatter.dispatch.on('elementClick.area', function(e) {
+  //  dispatch.areaClick(e);
+      console.log("hello");
+      var time=CLIENTVAR.popcornobj.duration();
+      time=parseInt(time);
+      time=   (time/(parseInt($("#stackedarea").css("width"))-85))*e.pos[0];
+      console.log("kimmijong epos"+ time);
+
+      CLIENTVAR.popcornobj.play(time);
+  })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
         dispatch.tooltipShow(e);
