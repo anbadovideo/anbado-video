@@ -6,6 +6,9 @@ var anbado = anbado || {};
  * @namespace anbado.realtime
  */
 jQuery.extend(true, anbado, (function() {
+
+    var prefixURL = '';
+
     /**
      * 실제 socket.io 연결 객체
      *
@@ -42,7 +45,7 @@ jQuery.extend(true, anbado, (function() {
     var connect = function() {
         var deferred = jQuery.Deferred();
 
-        socket = io.connect('/', {
+        socket = io.connect(prefixURL + '/', {
             'force new connection': true,
             reconnect: false
         });
@@ -171,8 +174,17 @@ jQuery.extend(true, anbado, (function() {
         socket.on('event_complete', eventHandler);
     };
 
+    /**
+     * 솔루션 서버의 주소를 설정합니다.
+     * @param url 솔루션 서버의 주소
+     */
+    var setPrefixURL = function(url) {
+        prefixURL = url;
+    }
+
     return {
         realtime: {
+            setPrefixURL: setPrefixURL,
             postEvent: postEvent,
             enterVideo: enterVideo,
             exitVideo: exitVideo,
