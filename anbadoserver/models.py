@@ -29,9 +29,9 @@ class User(db.Model, JsonifiedModel):
     _videos = db.relationship('Video', uselist=True, lazy='dynamic')
     _events = db.relationship('Event', uselist=True, lazy='dynamic')
     _friends = db.relationship('User', uselist=True, lazy='dynamic',
-                              secondary=user_user_association_table,
-                              primaryjoin=(user_id == user_user_association_table.c.user_id),
-                              secondaryjoin=(user_id == user_user_association_table.c.friend_id),
+                               secondary=user_user_association_table,
+                               primaryjoin=(user_id == user_user_association_table.c.user_id),
+                               secondaryjoin=(user_id == user_user_association_table.c.friend_id),
     )
 
     def __init__(self, profile_image):
@@ -97,16 +97,26 @@ class Video(db.Model, JsonifiedModel):
             user_id = user.user_id
 
         try:
-            # TODO: how to handle inherited permission.
-            return self._events.join(Event._user).filter(
+            results = self._events.join(Event._user).filter(
                 or_(
                     Event.permission == 'public',
                     and_(
                         Event.permission == 'protected',
-                        User._friends.any(User.user_id == user_id)
+                        or_(
+                            User._friends.any(User.user_id == user_id),
+                            Event.user_id == user_id
+                        )
                     )
                 )
             ).all()
+
+            depth2_events = self._events.filter(Event.permission == 'inherited').all()
+            for event in depth2_events:
+                if event.user_id == user.user_id or event._parent.permission == 'public' or (
+                            event._parent.permission == 'protected' and event._parent._user.friends.exists(user)):
+                    results.append(event)
+
+            return results
         except SQLAlchemyError:
             return []
 
