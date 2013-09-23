@@ -12,7 +12,7 @@ from anbadoserver.models import (
     User,
     Video
     )
-from anbadoserver import db
+from anbadoserver import db, frogspawn
 
 
 class UserAPI(MethodView):
@@ -77,6 +77,13 @@ class VideoAPI(MethodView):
         if not video.save():
             abort(500)
 
+        frogspawn.put({
+            'type': 'newVideo',
+            'provider': provider,
+            'provider_vid': provider_vid,
+            'user_id': user_id
+        })
+
         return jsonify(success=True, video_id=video.video_id)
 
     def put(self, video_id):
@@ -130,6 +137,13 @@ class FriendshipAPI(MethodView):
         if userA.save(commit=False) and userB.save(commit=False):
             try:
                 db.session.commit()
+
+                frogspawn.put({
+                    'type': 'postFriendship',
+                    'a_id': userA_id,
+                    'b_id': userB_id
+                })
+
                 return jsonify(success=True)
             except SQLAlchemyError:
                 db.session.rollback()
@@ -150,6 +164,13 @@ class FriendshipAPI(MethodView):
         if userA.save(commit=False) and userB.save(commit=False):
             try:
                 db.session.commit()
+
+                frogspawn.put({
+                    'type': 'deleteFriendship',
+                    'a_id': userA_id,
+                    'b_id': userB_id
+                })
+
                 return jsonify(success=True)
             except SQLAlchemyError:
                 db.session.rollback()

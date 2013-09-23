@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import json
 import redis
+import datetime
 
 
 class Frog(object):
@@ -41,11 +42,13 @@ class RedisFrogspawn(Frogspawn):
         port = app.config.get('FROGSPAWN_REDIS_PORT', 6379)
         db = app.config.get('FROGSPAWN_REDIS_DB', 0)
 
+        self.app = app
         self.channel = app.config.get('FROGSPAWN_REDIS_CHANNEL', 'frogspawn')
         self.pool = redis.ConnectionPool(host=host, port=port, db=db)
         self.redis = redis.Redis(connection_pool=self.pool)
 
     def put(self, msg):
+        msg['occured'] = datetime.datetime.now().strftime(self.app.config.get('FROGSPAWN_DATEFORMAT', '%Y-%m-%d %H:%M:%S'))
         self.redis.publish(self.channel, json.dumps(msg))
 
 

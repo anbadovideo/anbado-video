@@ -4,6 +4,7 @@
 from gevent import monkey
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from anbadoserver.frogspawn import Frog
 
 
 monkey.patch_all()
@@ -13,6 +14,7 @@ app.config.from_object('anbadoserver.config')
 app.config['SQLALCHEMY_DATABASE_URI'] = app.config['DATABASE_URI']
 app.config['SQLALCHEMY_ECHO'] = app.config['DEBUG']
 db = SQLAlchemy(app)
+frogspawn = Frog(app).breed(app.config['FROGSPAWN_TYPE'])
 
 
 def init_db():
