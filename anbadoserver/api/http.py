@@ -13,9 +13,12 @@ from anbadoserver.models import (
     Video
     )
 from anbadoserver import db, frogspawn
+from anbadoserver.decorators import jsonp
 
 
 class UserAPI(MethodView):
+    decorators =[jsonp]
+
     def get(self, user_id):
         user = User.by_user_id(user_id)
         if user is None:
@@ -52,6 +55,8 @@ class UserAPI(MethodView):
 
 
 class VideoAPI(MethodView):
+    decorators =[jsonp]
+
     def get(self, video_id):
         video = Video.by_video_id(video_id)
         if video is None:
@@ -108,6 +113,8 @@ class VideoAPI(MethodView):
 
 
 class ParticipantsAPI(MethodView):
+    decorators =[jsonp]
+
     def get(self, video_id):
         video = Video.by_video_id(video_id)
         if video is None:
@@ -117,6 +124,8 @@ class ParticipantsAPI(MethodView):
 
 
 class FriendshipAPI(MethodView):
+    decorators =[jsonp]
+
     def get(self, user_id):
         user = User.by_user_id(user_id)
         if user is None:

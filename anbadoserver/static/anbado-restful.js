@@ -12,6 +12,7 @@ jQuery.extend(true, anbado, (function() {
         var data = null;
 
         jQuery.ajax(url, {
+            dataType: 'jsonp',
             async: false,
             type: 'GET'
         })
@@ -32,6 +33,7 @@ jQuery.extend(true, anbado, (function() {
         var data = null;
 
         jQuery.ajax(url, {
+            dataType: 'jsonp',
             async: false,
             type: 'GET'
         })
@@ -52,6 +54,7 @@ jQuery.extend(true, anbado, (function() {
         var data = null;
 
         jQuery.ajax(url, {
+            dataType: 'jsonp',
             async: false,
             type: 'GET'
         })
