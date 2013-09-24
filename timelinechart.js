@@ -54,10 +54,14 @@ var anbadoDummy=(function($){
      */
     var initialize = function(time) {
         $("#chartWrapper").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
-        $("#chartWrapper").append("<div class='linediv' id='linechart'><svg style='...'></svg></div>");
+        $("#chartWrapper").append("<div class='linediv' ><svg id='linechart'></svg></div>");
         $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
         $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
-        $("#chartWrapper").append("  <div class='bardiv' id='barchart'><svg > </svg></div>");
+        $("#chartWrapper").append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
+//        $("#chartWrapper").append("<div class='linediv' id='linechart'><svg style='...'></svg></div>");
+//        $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
+//        $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
+//        $("#chartWrapper").append("  <div class='bardiv' id='barchart'><svg > </svg></div>");
         makeTimelineDataArray(time);
         drawStackedAreaChart();
         durationTime=time;
@@ -222,7 +226,7 @@ var anbadoDummy=(function($){
 
             chart.showXAxis(true);
 
-            d3.select('#linechart svg')
+            d3.select('#linechart')
                 //.datum([]) //for testing noData
                 .datum(test)
                 .transition().duration(500)
@@ -378,6 +382,7 @@ var anbadoDummy=(function($){
         var chart;
 
         nv.addGraph(function () {
+
             chart = nv.models.linePlusBarChart()
                 .margin({top: 30, right: 60, bottom: 50, left: 70})
                 .x(function (d, i) {
@@ -391,18 +396,18 @@ var anbadoDummy=(function($){
 //            })
 //                .showMaxMin(false);
 
-            chart.y1Axis
-                .tickFormat(d3.format(',f'));
+//            chart.y1Axis
+//                .tickFormat(d3.format(',f'));
 
-            chart.y2Axis
-                .tickFormat(function (d) {
-                    return '$' + d3.format(',.2f')(d)
-                });
+//            chart.y2Axis
+//                .tickFormat(function (d) {
+//                    return '$' + d3.format(',.2f')(d)
+//                });
 
-            chart.bars.forceY([0]).padData(false);
+            //chart.bars.forceY([0]).padData(false);
             //chart.lines.forceY([0]);
 
-            d3.select('#barchart svg')
+            d3.select('#barchart')
                 .datum(testdata)
                 .transition().duration(500).call(chart);
 
@@ -540,11 +545,13 @@ function graphselect()
     {
         anbado.timeline.setGraphShape(1);
         anbado.timeline.drawVisualization();
+        console.log("top:"+($('#stackedarea').top));
     }
     else if (graphTemp === "2") //line graph
     {
         anbado.timeline.setGraphShape(2);
         anbado.timeline.drawVisualization();
+        console.log("top:"+($('#linechart').top));
     }
     else if (graphTemp === "3") {
 
@@ -560,6 +567,7 @@ function graphselect()
 
         anbado.timeline.setGraphShape(5);
         anbado.timeline.drawVisualization();
+        console.log("top:"+($('#barchart').top));
     }
 
 }

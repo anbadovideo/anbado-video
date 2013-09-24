@@ -241,7 +241,7 @@ input{
         display: block;
     }
 
-    #linechart svg {
+    #linechart  {
         height: 100px;
         width: 700px;
         min-width: 100px;
@@ -297,7 +297,7 @@ input{
         width: 1000px;
 
     }
-#barchart svg {
+#barchart {
         position: absolute;
         top:800px;
         left:300px;
