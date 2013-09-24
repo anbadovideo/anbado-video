@@ -1,16 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import (
-    request,
-    abort,
-    jsonify
-    )
+from flask import request, abort, jsonify
 
 from sqlalchemy.exc import SQLAlchemyError
-from anbadoserver.models import (
-    User,
-    Video
-    )
+from anbadoserver.models import User, Video
 from anbadoserver import app, db, frogspawn
 from anbadoserver.decorators import crossdomain
 

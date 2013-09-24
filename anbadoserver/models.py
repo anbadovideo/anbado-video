@@ -3,10 +3,7 @@
 
 from datetime import datetime
 
-from sqlalchemy import (
-    or_,
-    and_,
-    func)
+from sqlalchemy import or_, and_, func
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.exc import SQLAlchemyError
 

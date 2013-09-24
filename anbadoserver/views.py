@@ -2,13 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from socketio import socketio_manage
-from flask import (
-    request,
-    Response,
-    render_template
-    )
+from flask import request, Response, render_template
 
 from anbadoserver import app
+import anbadoserver.api.http # for load http api
 from anbadoserver.api.realtime import namespace_def
 
 
@@ -41,5 +38,3 @@ def vide_rest_api_test_sample():
 @app.route('/sample/blob-test')
 def view_blob_socket_test():
     return render_template('socket-blob-test.html')
-
-import anbadoserver.api.http
