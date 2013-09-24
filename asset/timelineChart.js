@@ -575,7 +575,7 @@ function graphselect()
     {
         anbado.timeline.setGraphShape(1);
         anbado.timeline.drawVisualization();
-        console.log("top:"+($('#stackedarea').top));
+
     }
     else if (graphTemp === "2") //line graph
     {
