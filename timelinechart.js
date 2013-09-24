@@ -36,6 +36,8 @@ var anbadoDummy=(function($){
      */
     var badData = [];
 
+    var dummData=[];
+
     var currentTime=0;
     var durationTime=0;
 
@@ -86,9 +88,10 @@ var anbadoDummy=(function($){
      */
     var makeTimelineDataArray = function(time) {
 
+
         goodData = [];
         badData = [];
-
+        dummData=[];
 
         time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
         console.log("array time: " + time);
@@ -97,8 +100,9 @@ var anbadoDummy=(function($){
             // TODO: 0.5 값이 적당한지 확인 필요
             // goodData[i][0] = 시간
             // goodData[i][1] = 데이터 (갯수)
-            goodData[i] = [i, 0.5];
-            badData[i] = [i, 0.5];
+            goodData[i] = [i, 0];
+            badData[i] = [i, 0];
+            dummData[i]=[i,0.1];
 
         }
     };
@@ -122,7 +126,7 @@ var anbadoDummy=(function($){
         time=((parseInt($svgObject.css("width"))-85)/time);
         con=parseInt(currentTime);
         //con=parseInt(con/60)+":"+(con%60);
-        con="good"+(goodData[con][1]-0.5);
+        con="good"+(goodData[con][1]);
 
         nv.tooltip.cleanup();
         nv.tooltip.show([offset+currentTime*time, top+150], con, '', null, 0);
@@ -151,6 +155,11 @@ var anbadoDummy=(function($){
                 "key": "bad",
                 "values": badData,
                 color: "green"
+            },
+            {
+                "key": "dummy",
+                "values": dummData,
+                color: "white"
             }
 
         ];
@@ -171,8 +180,8 @@ var anbadoDummy=(function($){
                 .y(function (d) {
                     return d[1];
                 })
-                .color(keyColor);
-            //.clipEdge(true);
+                .color(keyColor)
+            //.clipEdge(false);
 
 // chart.stacked.scatter.clipVoronoi(false);        // x축 날짜로 나타남
 //
@@ -200,15 +209,22 @@ var anbadoDummy=(function($){
     var drawLineChart = function() {
         // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
         var chart;
-        var lineGoodData = [], lineBadData = [];
+        var lineGoodData = [], lineBadData = [],linedummy=[];
         for (var i = 0; i < goodData.length; i++) {
             lineGoodData.push({x: goodData[i][0], y: goodData[i][1]}); //the nulls are to show how defined works
-            lineBadData.push({x: badData[i][0], y: badData[i][1]-0.5});
+            lineBadData.push({x: badData[i][0], y: badData[i][1]});
+            linedummy.push({x: dummData[i][0], y: dummData[i][1]})
         }
 
 
         var test =[
             {
+                values: linedummy,
+                key: "dummy",
+                color: "white"
+            }
+
+            ,{
                 values: lineGoodData,
                 key: "good",
                 color: "red"
@@ -218,6 +234,8 @@ var anbadoDummy=(function($){
                 key: "bad",
                 color: "green"
             }
+
+
 
         ];
 
@@ -261,8 +279,8 @@ var anbadoDummy=(function($){
         var goodpi = 0, badpi = 0;
 
         for (var k = 0; k < goodData.length; k++) {
-            goodpi = goodpi + (goodData[k][1] - 0.5);
-            badpi = badpi + (badData[k][1] - 0.5);
+            goodpi = goodpi + (goodData[k][1]);
+            badpi = badpi + (badData[k][1]);
         }
 
         var testdata = [
@@ -317,8 +335,8 @@ var anbadoDummy=(function($){
         var goodpi = 0, badpi = 0;
 
         for (var k = 0; k < goodData.length; k++) {
-            goodpi = goodpi + (goodData[k][1] - 0.5);
-            badpi = badpi + (badData[k][1] - 0.5);
+            goodpi = goodpi + (goodData[k][1]);
+            badpi = badpi + (badData[k][1]);
         }
 
         var testdata = [

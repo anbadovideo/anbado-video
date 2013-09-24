@@ -4761,7 +4761,7 @@ nv.models.lineChart = function() {
         time=parseInt(time);
         time=(time/(parseInt($("#stackedarea").css("width"))-80))*e.pos[0];
 
-        CLIENTVAR.popcornobj.pause(time);
+        CLIENTVAR.popcornobj.play(time);
     });
 
   lines.dispatch.on('elementMouseover.tooltip', function(e) {//mijong
@@ -12458,8 +12458,9 @@ nv.models.stackedArea = function() {
       CLIENTVAR.popcornobj.play(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
-        e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
-        dispatch.tooltipShow(e);
+//
+//        e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
+//        dispatch.tooltipShow(e);
   });
   scatter.dispatch.on('elementMouseout.tooltip', function(e) {
         dispatch.tooltipHide(e);
