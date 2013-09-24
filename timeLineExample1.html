@@ -11,7 +11,7 @@
 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-<link rel="stylesheet" type="text/css" href="basiccss.css">
+<!--<link rel="stylesheet" type="text/css" href="basiccss.css">-->
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
@@ -37,9 +37,7 @@
             anbado.timeline.initialize(durationtime);
             anbado.timeline.setGraphShape(1);
             anbado.timeline.drawVisualization();
-            $('#stackedarea').css("top","700px");
-            $('#linechart').css("top","700px");
-            $('#barchart').css("top","700px");
+           // $('#stackedarea').css("top","700px");
         });
 
 
@@ -79,15 +77,16 @@
 <body onload="test()">
 
 
-<div id='youtube' style=width:600px;height:500px;top:50px;left:300px;></div>
+<div id='youtube' style="position:absolute;width:600px;height:500px;top:50px;left:300px;">
+    <!--<div id = "chartWrapper"></div>-->
+
+</div>
 
 
-<input id="happy1" type = "button" onclick="button1()" value= "happy" >
-<input id="sad1" type = "button" onclick="button2()" value= "sad" >
 
 
 
-<div>
+<div style="position:absolute;top:700px;left:500px;">
     <select id="graphSelector" name="graph" onchange="graphselect();">
         <option value = "1" selected="selected">area graph</option>
         <option value = "2">line graph</option>
@@ -95,14 +94,16 @@
         <option value = "4">halfpie graph</option>
         <option value = "5">bar chart</option>
     </select>
-    <input id="exit" type = "button" onclick="dis();" value= "exit" />
-</div>
-
-
-<div id = "chartWrapper">
-
+    <input id="happy1" type = "button" onclick="button1()" value= "happy" >
+    <input id="sad1" type = "button" onclick="button2()" value= "sad" >
 
 </div>
+
+
+<!--<div id = "chartWrapper">-->
+
+
+<!--</div>-->
 
 
 

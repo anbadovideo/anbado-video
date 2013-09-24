@@ -53,15 +53,27 @@ var anbadoDummy=(function($){
      * @param time 동영상의 길이
      */
     var initialize = function(time) {
-        $("#chartWrapper").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
-        $("#chartWrapper").append("<div class='linediv' ><svg id='linechart'></svg></div>");
-        $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
-        $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
-        $("#chartWrapper").append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
-//        $("#chartWrapper").append("<div class='linediv' id='linechart'><svg style='...'></svg></div>");
-//        $("#chartWrapper").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
-//        $("#chartWrapper").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
-//        $("#chartWrapper").append("  <div class='bardiv' id='barchart'><svg > </svg></div>");
+        var hei=$("#youtube").css("height");
+        var wid=$("#youtube").css("width");
+
+
+//        $("#youtube").append(" <div id ='chartWrapper'></div>");
+        $("#youtube").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
+        $("#stackedarea").css("top",hei);
+        $("#stackedarea").css("width",wid);
+        $("#youtube").append("<div class='linediv' ><svg id='linechart'></svg></div>");
+        $("#linechart").css("top",hei);
+        $("#linechart").css("width",wid);
+        $("#youtube").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
+        $("#pichart").css("top",hei);
+        $("#pichart").css("left",(parseInt(wid)/3)+"px");
+        $("#youtube").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
+        $("#halfchart").css("top",hei);
+        $("#halfchart").css("left",(parseInt(wid)/3)+"px");
+        $("#youtube").append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
+        $("#barchart").css("top",hei);
+        $("#barchart").css("width",wid);
+
         makeTimelineDataArray(time);
         drawStackedAreaChart();
         durationTime=time;

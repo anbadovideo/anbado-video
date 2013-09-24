@@ -133,7 +133,7 @@ body{
 
 #happy1{
     position: relative;
-    top :550px;
+    top :650px;
     left : 400px;
     width:100px;
     height: 100px;
@@ -150,7 +150,7 @@ body{
 #sad1{
 
     position: relative;
-    top : 550px;
+    top : 650px;
     left : 600px;
     width:100px;
     height: 100px;
@@ -230,8 +230,8 @@ input{
         height: 110px;
         width:700px;
         position: absolute;
-        top:840px;
-        left:300px;
+        top:0px;
+        left:0px;
     }
 
 
@@ -247,16 +247,16 @@ input{
         min-width: 100px;
         min-height: 100px;
         position: absolute;
-        top:840px;
-        left:300px;
+        top:0px;
+        left:0px;
     }
 
         /*pichart*/
     #pichart
     {
         position: absolute;
-        top:800px;
-        left:0;
+        top:0px;
+        left:0px;
 
 
     }
@@ -265,8 +265,8 @@ input{
     #halfchart
     {
         position: absolute;
-        top:800px;
-        left:0;
+        top:0px;
+        left:0px;
 
     }
 
@@ -299,8 +299,8 @@ input{
     }
 #barchart {
         position: absolute;
-        top:800px;
-        left:300px;
+        top:0px;
+        left:0px;
         height: 150px;
         width:700px;
         margin: 10px;
