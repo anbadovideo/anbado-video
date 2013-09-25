@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 eventID : CLIENTVAR.totalEvent,
                 eventStep :3, // 0은 생성상태. 1은 생성 중. 2는 생성완료. 3은 외부 이벤트
 
-                eventOwnerID : evt.user_id,
+                eventOwnerID : evt.user_id-1,
 
                 eventOwnerName : "owner",
                 eventOwnerProfilePicture : data3.participants[evt.user_id-1].profile_image,

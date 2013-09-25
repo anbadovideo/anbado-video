@@ -80,59 +80,189 @@ function eventGenerate(eventObject){ // video interaction event generation
 }
 
 var eventTypeCheck =  function(eventObject){
-    switch(eventObject.eventType)
-    {
-        case "textinput1":
-            eaDisplaySetting(eventObject);
+    if(eventObject.eventStep === 1){
+        switch(eventObject.eventType)
+        {
 
-            data.push({
-                'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+eventObject.eventContent
-            });
+            case "textinput1":
+                eaDisplaySetting(eventObject);
 
-            drawTimelineVisualization();
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+eventObject.eventContent
+                });
 
-            break;
-        case "textinput2":
-            eaDisplaySetting(eventObject);
-            break;
-        case "emoticon0":
-            eaDisplaySetting(eventObject);
-            data.push({
-                'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
-            });
+                anbado.realtime.postEvent({
+                    user_id: 1,
+                    video_id: 1,
+                    appeared: eventObject.eventVideoClickTime,
+                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    content: eventObject.eventContent,
+                    category: 'text',
+                    parent_id: -1,
+                    permission: 'public',
+                    coord: [eventObject.eventPosX, eventObject.eventPosY],
+                    size: [200, 100]
+                });
 
-            drawTimelineVisualization();
-            break;
-        case "emoticon1":
-            eaDisplaySetting(eventObject);
-            data.push({
-                'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
-            });
-            drawTimelineVisualization();
-            break;
-        case "emoticon2":
-            eaDisplaySetting(eventObject);
-            data.push({
-                'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
-            });
-            drawTimelineVisualization();
-            break;
-        case "emoticon3":
-            eaDisplaySetting(eventObject);
-            data.push({
-                'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
-            });
-            drawTimelineVisualization();
-            break;
 
-        default :
-            alert("default");
+                drawTimelineVisualization();
 
+                break;
+            case "textinput2":
+                eaDisplaySetting(eventObject);
+                break;
+            case "emoticon0":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+
+                anbado.realtime.postEvent({
+                    user_id: 1,
+                    video_id: 1,
+                    appeared: eventObject.eventVideoClickTime,
+                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    content: eventObject.eventContent,
+                    category: 'image',
+                    parent_id: -1,
+                    permission: 'public',
+                    coord: [eventObject.eventPosX, eventObject.eventPosY],
+                    size: [200, 100]
+                });
+                drawTimelineVisualization();
+                break;
+            case "emoticon1":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+
+                anbado.realtime.postEvent({
+                    user_id: 1,
+                    video_id: 1,
+                    appeared: eventObject.eventVideoClickTime,
+                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    content: eventObject.eventContent,
+                    category: 'image',
+                    parent_id: -1,
+                    permission: 'public',
+                    coord: [eventObject.eventPosX, eventObject.eventPosY],
+                    size: [200, 100]
+                });
+
+                drawTimelineVisualization();
+                break;
+            case "emoticon2":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+                anbado.realtime.postEvent({
+                    user_id: 1,
+                    video_id: 1,
+                    appeared: eventObject.eventVideoClickTime,
+                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    content: eventObject.eventContent,
+                    category: 'image',
+                    parent_id: -1,
+                    permission: 'public',
+                    coord: [eventObject.eventPosX, eventObject.eventPosY],
+                    size: [200, 100]
+                });
+                drawTimelineVisualization();
+                break;
+            case "emoticon3":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+                anbado.realtime.postEvent({
+                    user_id: 1,
+                    video_id: 1,
+                    appeared: eventObject.eventVideoClickTime,
+                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    content: eventObject.eventContent,
+                    category: 'image',
+                    parent_id: -1,
+                    permission: 'public',
+                    coord: [eventObject.eventPosX, eventObject.eventPosY],
+                    size: [200, 100]
+                });
+                drawTimelineVisualization();
+                break;
+
+            default :
+                alert("default");
+
+        }
+    }
+    if(eventObject.eventStep === 3){
+        switch(eventObject.eventType)
+        {
+            case "textinput1":
+                eaDisplaySetting(eventObject);
+
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+eventObject.eventContent
+                });
+
+
+
+                drawTimelineVisualization();
+
+                break;
+            case "textinput2":
+                eaDisplaySetting(eventObject);
+                break;
+            case "emoticon0":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+
+
+                drawTimelineVisualization();
+                break;
+            case "emoticon1":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+
+
+                drawTimelineVisualization();
+                break;
+            case "emoticon2":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+
+                drawTimelineVisualization();
+                break;
+            case "emoticon3":
+                eaDisplaySetting(eventObject);
+                data.push({
+                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+                    'content': '<img src="' + eventObject.eventOwnerProfilePicture +'" style="width:32px; height:32px;">'+'<img src="'+ eventObject.eventContent + '"style="width:32px; height:32px;">'
+                });
+
+                drawTimelineVisualization();
+                break;
+
+            default :
+                alert("default");
+
+        }
     }
 }
 
