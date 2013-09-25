@@ -2,24 +2,111 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb603764-d073-427f-8f32-a2b828154e4e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.gitingore" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/Init.js" afterPath="$PROJECT_DIR$/asset/Init.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/basiccss.css" afterPath="$PROJECT_DIR$/asset/basiccss.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/clientglobalvar.js" afterPath="$PROJECT_DIR$/asset/clientglobalvar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/makeAnnotationEmoticon.js" afterPath="$PROJECT_DIR$/asset/makeAnnotationEmoticon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player.html" afterPath="$PROJECT_DIR$/player.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/summaryPanel.js" afterPath="$PROJECT_DIR$/asset/summaryPanel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/anbadoplayer.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/Init.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/emoticon0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/emoticon1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/emoticon2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/emoticon3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/emoticon4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/assetImages/profile5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/basiccss.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/clientglobalvar.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/d3.v3.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/eventGenerate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/geturl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/16/delete.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/16/moveleft.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/16/moveright.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/16/new.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/16/zoomin.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/16/zoomout.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/24/delete.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/24/moveleft.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/24/moveright.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/24/new.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/24/zoomin.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/24/zoomout.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/32/delete.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/32/moveleft.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/32/moveright.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/32/new.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/32/zoomin.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/32/zoomout.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_full.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_play.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_setup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_share.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_view.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_view.psd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/bt_volume.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/cluster_bg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/deleteEvent.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/ic_fire.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/buttonbg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/icon_color_arrow.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/menuhoverbg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_black_matte.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_black_tie.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_blitzer.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_cupertino.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_dark_hive.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_dot_luv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_eggplant.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_excite_bike.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_flick.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_hot_sneaks.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_humanity.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_le_frog.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_mint_choco.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_overcast.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_pepper_grinder.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_smoothness.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_south_street.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_start_menu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_sunny.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_swanky_purse.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_trontastic.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_ui_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_ui_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/img/themeswitcher/theme_90_windoze.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/makeAnnotationEmoticon.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/nv.d3.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/nv.d3.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/popcorn-complete_rel0.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/summaryPanel.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/timeCheck.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/timeline.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/timeline.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/asset/timelinechart.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path="anbadoplayer.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1380121288230" ignored="false" />
+    <file path="/Dummy.txt" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1380122621672" ignored="false" />
     <file path="/testexample.html" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1377618383313" ignored="false" />
     <file path="/dummy.xml" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1377504755323" ignored="false" />
     <file path="/basiccss.css" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1377609814427" ignored="false" />
     <file path="/test_stackarea_scatter_vid.html" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1377066363154" ignored="false" />
     <file path="/index.js" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1377527597742" ignored="false" />
-    <file path="/Init.js" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1380121245447" ignored="false" />
+    <file path="$PROJECT_DIR$/../anbado-server/.idea/workspace.xml" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1380122626157" ignored="false" />
+    <file path="/.gitignore" changelist="cb603764-d073-427f-8f32-a2b828154e4e" time="1380122578897" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,121 +120,84 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
+  <component name="DebuggerManager">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="anbadoplayer" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4039146">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="player.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/player.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="23" column="17" selection-start="1110" selection-end="1110" vertical-scroll-proportion="-1.25">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="timelineChart.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/asset/timelineChart.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="62" column="19" selection-start="1073" selection-end="1073" vertical-scroll-proportion="-10.4">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Init.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/asset/Init.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="62" column="33" selection-start="2007" selection-end="2014" vertical-scroll-proportion="-10.48">
-                  <folding>
-                    <marker date="1380121387000" expanded="true" signature="541:583" placeholder="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="makeAnnotationEmoticon.js" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/asset/makeAnnotationEmoticon.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="26" column="66" selection-start="571" selection-end="571" vertical-scroll-proportion="0.4808878">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="clientglobalvar.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/asset/clientglobalvar.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="18" column="10" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <splitter split-orientation="horizontal" split-proportion="0.56423175">
-          <split-first>
-            <leaf>
-              <file leaf-file-name="player.html" pinned="false" current="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/player.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="23" column="44" selection-start="1137" selection-end="1137" vertical-scroll-proportion="-14.375">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="basiccss.css" pinned="false" current="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/asset/basiccss.css">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="summaryPanel.js" pinned="false" current="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/asset/summaryPanel.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="24" column="15" selection-start="315" selection-end="315" vertical-scroll-proportion="0.0">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="eventGenerate.js" pinned="false" current="true" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/asset/eventGenerate.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="24" column="22" selection-start="835" selection-end="835" vertical-scroll-proportion="0.4389313">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf>
-              <file leaf-file-name="basiccss.css" pinned="false" current="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/asset/basiccss.css">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="231" column="0" selection-start="3583" selection-end="3583" vertical-scroll-proportion="0.44783714">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="testexample.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testexample.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="198" column="28" selection-start="5591" selection-end="5591" vertical-scroll-proportion="-0.625">
+              <folding>
+                <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1380119575000" expanded="false" signature="5255:5281" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="0" selection-start="14" selection-end="14" vertical-scroll-proportion="0.0373599">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -170,19 +220,14 @@
         <option value="$PROJECT_DIR$/WebRTC/index.js" />
         <option value="$PROJECT_DIR$/basiccss.css" />
         <option value="$PROJECT_DIR$/testexample.html" />
-        <option value="$PROJECT_DIR$/asset/Init.js" />
-        <option value="$PROJECT_DIR$/asset/basiccss.css" />
-        <option value="$PROJECT_DIR$/player.html" />
-        <option value="$PROJECT_DIR$/asset/summaryPanel.js" />
-        <option value="$PROJECT_DIR$/asset/clientglobalvar.js" />
-        <option value="$PROJECT_DIR$/asset/makeAnnotationEmoticon.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1366" />
+    <option name="y" value="22" />
     <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -191,7 +236,9 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -210,7 +257,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -225,38 +271,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="anbado_solution_player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="anbadoplayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="anbado_solution_player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="asset" />
+              <option name="myItemId" value="anbado-player-solution" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="editor.preferences.appearance" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.HTML" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../anbadoplayer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <PyConsoleSettings />
+    </option>
+    <option name="myDjangoConsoleState">
+      <PyConsoleSettings />
+    </option>
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -273,12 +315,22 @@
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <module name="anbado-server" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
@@ -344,23 +396,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1366" y="0" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="22" width="1920" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32820514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11217949" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32820514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11122826" sideWeight="0.8875" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1125" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08271078" sideWeight="0.88782054" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -427,88 +487,90 @@
       <option name="time" value="1" />
     </breakpoint-manager>
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/testexample.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="10" selection-start="725" selection-end="725" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1380118785000" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1380119575000" expanded="false" signature="5255:5281" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="243" column="19" selection-start="4913" selection-end="4913" vertical-scroll-proportion="0.33213645">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testexample.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="0" selection-start="4904" selection-end="4904" vertical-scroll-proportion="-0.625">
-          <folding>
-            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1380118785000" expanded="false" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asset/timelineChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="19" selection-start="1073" selection-end="1073" vertical-scroll-proportion="-10.4">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asset/summaryPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="15" selection-start="315" selection-end="315" vertical-scroll-proportion="0.0">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/player.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="44" selection-start="1137" selection-end="1137" vertical-scroll-proportion="-14.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asset/clientglobalvar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="10" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asset/Init.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="33" selection-start="2007" selection-end="2014" vertical-scroll-proportion="-10.48">
-          <folding>
-            <marker date="1380121387000" expanded="true" signature="541:583" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asset/makeAnnotationEmoticon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="66" selection-start="571" selection-end="571" vertical-scroll-proportion="0.4808878">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asset/basiccss.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/asset/eventGenerate.js">
+    <entry file="file://$PROJECT_DIR$/testexample.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="22" selection-start="835" selection-end="835" vertical-scroll-proportion="0.4389313">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1380119575000" expanded="false" signature="5255:5281" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testexample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1380119575000" expanded="false" signature="5255:5281" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testexample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="10" selection-start="725" selection-end="725" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1380119575000" expanded="false" signature="5255:5281" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="243" column="19" selection-start="4913" selection-end="4913" vertical-scroll-proportion="0.33213645" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testexample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="198" column="28" selection-start="5591" selection-end="5591" vertical-scroll-proportion="-0.625">
+          <folding>
+            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1380119575000" expanded="false" signature="5255:5281" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="14" selection-end="14" vertical-scroll-proportion="0.0373599">
           <folding />
         </state>
       </provider>
