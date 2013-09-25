@@ -22,7 +22,7 @@ class User(db.Model, JsonifiedModel):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True)
-    profile_image = db.Column(db.String(2048, convert_unicode=True))
+    profile_image = db.Column(db.LargeBinary())
     _videos = db.relationship('Video', uselist=True, lazy='dynamic')
     _events = db.relationship('Event', uselist=True, lazy='dynamic')
     _friends = db.relationship('User', uselist=True, lazy='dynamic',
@@ -170,7 +170,7 @@ class Event(db.Model, JsonifiedModel):
     disappeared = db.Column(db.Integer)
 
     #comment
-    content = db.Column(db.String(2048, convert_unicode=True))
+    content = db.Column(db.LargeBinary())
     category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad'))
 
     parent_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
