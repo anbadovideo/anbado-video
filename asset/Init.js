@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(){
     var data2 = anbado.restful.getVideoInfo(1);
     var data3 = anbado.restful.getParticipants(1);
 
+    anbado.realtime.enterVideo(1,1);
 
 
     console.log(data1);
@@ -162,7 +163,7 @@ function elementCSSSetting(){
 
 
 var showPanel = function(){
-    inputPanelShow = true;
+    CLIENTVAR.inputPanelShow = true;
     $("#textinput1").show();
     $("#permissionSelect").show();
     $("#emoticonPanel").show();
@@ -171,7 +172,7 @@ var showPanel = function(){
 
 var hidePanel = function(){
 
-    inputPanelShow = false;
+    CLIENTVAR.inputPanelShow = false;
     $("#textinput1").hide("fast");
     $("#permissionSelect").hide("fast");
     $("#emoticonPanel").hide("fast");

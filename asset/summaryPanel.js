@@ -28,7 +28,7 @@ function drawTimelineVisualization() {
     // specify options
     var options = {
 
-        'width': '90%',
+        'width': '70%',
         'height': '200px',
         'editable': false,   // enable dragging and editing events
         'style': 'box',

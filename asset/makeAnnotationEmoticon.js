@@ -64,10 +64,8 @@ var anbado = window.anbado || {};
         // alert(eventObject);
         console.log("in displayinputpaenl");
 
+        if(CLIENTVAR.inputPanelShow === false){
 
-
-        if(inputPanelShow === false){
-            inputPanelShow = true; // 클릭이 되었음을 표시
 
             var tempLocation = $("#canvas1").offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
             console.log(eventObject);
@@ -82,9 +80,9 @@ var anbado = window.anbado || {};
 
 
         }
-        else if(inputPanelShow === true){ // 클릭이 되어 있는 경우
+        else if(CLIENTVAR.inputPanelShow === true){ // 클릭이 되어 있는 경우
 
-            inputPanelShow = false;
+
             hidePanel();
         }
 
@@ -105,15 +103,14 @@ var anbado = window.anbado || {};
         });
         var emo2 = document.getElementById("emoticon2");
         emo2.addEventListener("click", function(){
-            eventObject.eventType = emo2.id
+            eventObject.eventType = emo2.id;
             eventObject.eventContent = "asset/assetImages/emoticon2.png";
             eventGenerate(eventObject);
         });
         var emo3 = document.getElementById("emoticon3");
         emo3.addEventListener("click", function(){
             eventObject.eventContent = "asset/assetImages/emoticon3.png";
-            eventObject.eventType = emo3.id
-
+            eventObject.eventType = emo3.id;
             eventGenerate(eventObject);
         });
 
