@@ -19,15 +19,15 @@ document.addEventListener("DOMContentLoaded", function(){
     elementCSSSetting(); // 전체 요소들의 값을 설정
 
 
-
-
     $("#youtube").remove();
 
-    $("#player").append("<div id='youtube' style='top:0px;left:0px;width:640px;height:480px;'/>");
+    $("#player").append("<div id='videoEmbed' style='top:0px;left:0px;width:640px;height:480px;'/>");
     console.log($("#player").offset());
-    $("#youtube").css({left:0, top:0});
-    $("#player").append("<canvas id='canvas1' width = '640px' height = '320px'></canvas>");
-    $("#canvas1").css({position:"absolute", width:$("#youtube").width(),height:$("#youtube").height() -100,"z-index":2});
+    $("#videoEmbed").css({left:0, top:0});
+    $("#player").append("<canvas id='canvas1' width = '"+$("#videoEmbed").width()+"' height = '"+($("#videoEmbed").height()-80)+"'></canvas>");
+    $("#canvas1").css({"position":"absolute","z-index":2});
+    $("#canvas1").css({left:0, top:0});
+
 
 
 
@@ -41,11 +41,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     if(data2.video.provider === "youtube"){
-        CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://www.youtube.com/embed/"+ data2.video.provider_vid +"?hd=1" + "&iv_load_policy=3" );
+        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "http://www.youtube.com/embed/"+ data2.video.provider_vid +"?hd=1" + "&iv_load_policy=3" );
 
     }
-    else{
-        CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://www.youtube.com/embed/87kezJTpyMI?hd=1&iv_load_policy=3" );
+    else if (data2.video.provider === "anbado"){
+        console.log("mp4 type");
+        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "http://localhost:8000/asset/"+ data2.video.provider_vid + ".mp4" );
     }
     CLIENTVAR.popcornobj.on("loadeddata",function(){
         anbado.realtime.enterVideo(1,1);

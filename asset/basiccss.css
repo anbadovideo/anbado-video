@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 body{
-    background: #333;
+    /*background: #333;*/
     background-size: cover;
     font-family: 'Nanum Gothic', sans-serif;
     font-family: Lato, helvetica;
@@ -52,7 +52,7 @@ body{
 }
 #mytimeline{
     position: relative;
-    top : 200px;
+    top : 100px;
 
 }
 
