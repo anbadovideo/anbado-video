@@ -113,23 +113,23 @@ var anbadoDummy=(function($){
      * @param svgObject 툴팁을 그릴 timeline canvas
      */
     var tooltip = function(svgObject) {
-        var offset = 345;
+
         var con;
         var $svgObject = $(svgObject);
 
-        var top=parseInt($svgObject.css("top"));
+        var top=parseInt($svgObject.css("height"));
         // TODO: CLIENTVAR를 사용하지 않도록 popcornobj에 대한 대책 필요
-
+        var offset = parseInt($svgObject.css("left"));
         var time=durationTime;
 
         time=parseInt(time);
-        time=((parseInt($svgObject.css("width"))-85)/time);
+        time=((parseInt($svgObject.css("width")))/time);
         con=parseInt(currentTime);
         //con=parseInt(con/60)+":"+(con%60);
         con="good"+(goodData[con][1]);
 
         nv.tooltip.cleanup();
-        nv.tooltip.show([offset+currentTime*time, top+150], con, '', null, 0);
+        nv.tooltip.show([offset+currentTime*time, top], con, '', null, 0);
     };
 
     /**

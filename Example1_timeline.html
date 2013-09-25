@@ -47,11 +47,15 @@
 
 
 
-            var stackedAreaObject = $('#stackedarea');
+            var stackedAreaObject = $('#youtube');
 
             CLIENTVAR.popcornobj.on("timeupdate", function(){
                 anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
-                anbado.timeline.tooltip(stackedAreaObject);
+
+                if($("#graphSelector").val()==1||$("#graphSelector").val()==2||$("#graphSelector").val()==5)
+                {anbado.timeline.tooltip(stackedAreaObject);}
+                else
+                {nv.tooltip.cleanup();}
 
 
 
