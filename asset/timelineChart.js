@@ -120,6 +120,7 @@ var anbadoDummy=(function($){
         var top=parseInt($svgObject.css("height"));
         // TODO: CLIENTVAR를 사용하지 않도록 popcornobj에 대한 대책 필요
         var offset = parseInt($svgObject.css("left"));
+
         var time=durationTime;
 
         time=parseInt(time);

@@ -2020,8 +2020,8 @@ nv.models.cumulativeLineChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  lines.dispatch.on('elementMouseover.tooltip', function(e) {
-    e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
+  lines.dispatch.on('elementMouseover.tooltip', function(e) {//n
+  e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
     dispatch.tooltipShow(e);
   });
 
@@ -4765,12 +4765,12 @@ nv.models.lineChart = function() {
     });
 
   lines.dispatch.on('elementMouseover.tooltip', function(e) {//mijong
-    e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
-    dispatch.tooltipShow(e);
+    //e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
+    //dispatch.tooltipShow(e);
   });
 
   lines.dispatch.on('elementMouseout.tooltip', function(e) {
-    dispatch.tooltipHide(e);
+    //dispatch.tooltipHide(e);
   });
 
   dispatch.on('tooltipHide', function() {
@@ -5211,21 +5211,21 @@ nv.models.linePlusBarChart = function() {
   //------------------------------------------------------------
 
   lines.dispatch.on('elementMouseover.tooltip', function(e) {
-    e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
-    dispatch.tooltipShow(e);
+    //e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
+    //dispatch.tooltipShow(e);
   });
 
   lines.dispatch.on('elementMouseout.tooltip', function(e) {
-    dispatch.tooltipHide(e);
+    //dispatch.tooltipHide(e);
   });
 
   bars.dispatch.on('elementMouseover.tooltip', function(e) {
-    e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
-    dispatch.tooltipShow(e);
+    //e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
+    //dispatch.tooltipShow(e);
   });
 
   bars.dispatch.on('elementMouseout.tooltip', function(e) {
-    dispatch.tooltipHide(e);
+    //dispatch.tooltipHide(e);
   });
 
   dispatch.on('tooltipHide', function() {
@@ -6444,7 +6444,7 @@ nv.models.linePlusBarWithFocusChart = function() {
     dispatch.tooltipHide(e);
   });
 
-  bars.dispatch.on('elementMouseover.tooltip', function(e) {
+  bars.dispatch.on('elementMouseover.tooltip', function(e) {//n
     e.pos = [e.pos[0] +  margin.left, e.pos[1] + margin.top];
     dispatch.tooltipShow(e);
   });
@@ -12430,6 +12430,7 @@ nv.models.stackedArea = function() {
 
       scatter.dispatch.on('elementMouseover.area', function(e) {
         g.select('.nv-chart-' + id + ' .nv-area-' + e.seriesIndex).classed('hover', true);
+
       });
       scatter.dispatch.on('elementMouseout.area', function(e) {
         g.select('.nv-chart-' + id + ' .nv-area-' + e.seriesIndex).classed('hover', false);
@@ -12458,11 +12459,11 @@ nv.models.stackedArea = function() {
       CLIENTVAR.popcornobj.play(time);
   })
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
-        e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
-        dispatch.tooltipShow(e);
+//        e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
+//        dispatch.tooltipShow(e);
   });
   scatter.dispatch.on('elementMouseout.tooltip', function(e) {
-        dispatch.tooltipHide(e);
+       // dispatch.tooltipHide(e);
   });
 
   //============================================================
