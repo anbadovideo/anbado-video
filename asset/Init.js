@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function(){
     $("#videoEmbed").css({left:0, top:0});
     $("#player").append("<canvas id='canvas1' width = '"+$("#videoEmbed").width()+"' height = '"+($("#videoEmbed").height()-80)+"'></canvas>");
     $("#canvas1").css({"position":"absolute","z-index":2});
-    $("#canvas1").css({left:0, top:0});
-
+//    $("#canvas1").css({left:0, top:0});
+    $("#canvas1").offset($("#videoEmbed").offset());
 
 
 
@@ -117,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function(){
 //    $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[3] + "'/>");
     }
     CLIENTVAR.canvaslayer = document.getElementById("canvas1");
-    console.log("canvas layer : " + CLIENTVAR.canvaslayer.width);
-    console.log("canvas layer : " + document.getElementById("canvas1"));
+//    console.log("canvas layer : " + CLIENTVAR.canvaslayer.width);
+//    console.log("canvas layer : " + document.getElementById("canvas1"));
 //    CLIENTVAR.canvaslayer.onclick = displayInputPanel; // 캔버스 온클릭의 경우 스테이지에서의 고저차가 무시되어버린다는 문제점이 발생한다. 원래 이를 캔버스 이벤트로 둔것은 인풋 패널을 위치시킬 때 easel 객체가 너무 많이 생성되었기 때문이었다. (그래서 인풋 패널을 놓기 위해 이렇게 생성) 하지만 stage의 위아래가 구분안되는 문제가 있어, stage이벤트로 가야한다(대댓글의 문제에서 특히)
 
 

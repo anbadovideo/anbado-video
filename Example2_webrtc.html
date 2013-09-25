@@ -12,8 +12,6 @@
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-
-
     <script src="asset/externalLib/whammy.js"></script>
     <script type="text/javascript" src="asset/anbadoWebRtc.js"></script>
 
@@ -22,7 +20,7 @@
 
         function test()
         {
-            var popcornobj1= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=YulljONH8Fs" );
+            var popcornobj1= Popcorn.smart( "#youtube", "http://localhost:8000/asset/introAnbadoVideo.mp4" );
 
             popcornobj1.on("loadeddata", function() {
                 anbado.webrtc.makeVidDom();

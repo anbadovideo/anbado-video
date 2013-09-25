@@ -12,11 +12,7 @@ var anbado = window.anbado || {};
 var timeline;
 
 var data = [
-
 ]
-
-    var temp;
-
 
 
 // Called when the Visualization API is loaded.
@@ -28,7 +24,7 @@ function drawTimelineVisualization() {
     // specify options
     var options = {
 
-        'width': '70%',
+        'width': '100%',
         'height': '200px',
         'editable': false,   // enable dragging and editing events
         'style': 'box',

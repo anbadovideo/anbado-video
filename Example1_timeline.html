@@ -15,7 +15,7 @@
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-    <script type="text/javascript" src="asset/clientglobalvar.js"></script>
+<script type="text/javascript" src="asset/clientglobalvar.js"></script>
 <script type="text/javascript" src="asset/externalLib/d3.v3.js"></script>
 <script type="text/javascript" src="asset/externalLib/nv.d3.js"></script>
 <script type="text/javascript" src="asset/timelineChart.js"></script>
@@ -27,25 +27,18 @@
 
     function test()
     {
-
-
-        CLIENTVAR.popcornobj= Popcorn.youtube( "#youtube", "http://www.youtube.com/watch?v=YulljONH8Fs" );
+        CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://localhost:8000/asset/introAnbadoVideo.mp4" );
 
         CLIENTVAR.popcornobj.on("loadeddata", function() {
 
             var durationtime= CLIENTVAR.popcornobj.duration();
-
-
             anbado.timeline.initialize(durationtime);
             anbado.timeline.setGraphShape(1);
             anbado.timeline.drawVisualization();
            // $('#stackedarea').css("top","700px");
         });
 
-
         CLIENTVAR.popcornobj.on("playing", function() {
-
-
 
             var stackedAreaObject = $('#youtube');
 
@@ -57,24 +50,20 @@
                 else
                 {nv.tooltip.cleanup();}
 
-
-
             });
         });
-
     }
-
 
     function button1()
     {
         anbado.timeline.drawVisualization('g');
-    };
+    }
 
 
     function button2()
     {
         anbado.timeline.drawVisualization('b');
-    };
+    }
 
 
 
