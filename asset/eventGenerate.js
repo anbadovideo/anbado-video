@@ -197,7 +197,7 @@ var eventTypeCheck =  function(eventObject){
                 break;
 
             default :
-                alert("default");
+                alert(eventObject.eventType);
 
         }
     }
@@ -260,7 +260,8 @@ var eventTypeCheck =  function(eventObject){
                 break;
 
             default :
-                alert("default");
+//                alert(eventObject.eventType);
+                break;
 
         }
     }

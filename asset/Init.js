@@ -53,6 +53,32 @@ document.addEventListener("DOMContentLoaded", function(){
         anbado.realtime.enterVideo(1,1);
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
+            var tempType ="textinput1";
+            if(evt.category == "text"){
+                tempType = "textinput1"
+
+            }
+            else if(evt.category == "image"){
+
+                switch(evt.content){
+                    case "asset/assetImages/emoticon0.png" :
+                        tempType = "emoticon0";
+                        break;
+                    case "asset/assetImages/emoticon1.png" :
+                        tempType = "emoticon1";
+                        break;
+                    case "asset/assetImages/emoticon2.png" :
+                        tempType = "emoticon2";
+                        break;
+                    case "asset/assetImages/emoticon3.png" :
+                        tempType = "emoticon3";
+                        break;
+                    default :
+                        alert(evt.content);
+                        break;
+                }
+
+            }
 
             var eventObject = {  // 전역 이벤트 없이 통과해가며 완성됨
                 eventID : CLIENTVAR.totalEvent,
@@ -70,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 eventPosX : evt.coord[0] ,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
                 eventPosY : evt.coord[1] ,
                 timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
-                eventType : "textinput1", // event type e.g text, emoticon, image, button action, webcam
+                eventType : tempType, // event type e.g text, emoticon, image, button action, webcam
                 eventContent : evt.content, // 이모티콘인 경우에 주소를
                 eventPermission : evt.permission,
                 secUnit : {},// 몇번째 유닛인지?
