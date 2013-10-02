@@ -275,7 +275,12 @@ a:hover, a:visited{
     border-radius: 100px;
 }
 
+#player{
+    position: relative;
+    width : 100%;
+    height : 800px;
 
+}
 
 #player_wrap{
     margin-top: 20px;
