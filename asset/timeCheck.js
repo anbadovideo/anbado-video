@@ -11,11 +11,10 @@ document.addEventListener("DOMContentLoaded", function(){
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
         durationtime = CLIENTVAR.popcornobj.duration();
-        //make_array(durationtime);
-        //make_array(1600);
-        anbado.timeline.initialize(durationtime);
-        anbado.timeline.setGraphShape(1);
-        anbado.timeline.drawVisualization();
+
+//        anbado.timeline.initialize(durationtime);
+//        anbado.timeline.setGraphShape(1);
+//        anbado.timeline.drawVisualization();
 
 
     });
@@ -32,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
 
-            anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
-            anbado.timeline.tooltip(stackedAreaObject)
+//            anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
+//            anbado.timeline.tooltip(stackedAreaObject)
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
