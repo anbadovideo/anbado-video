@@ -20,15 +20,19 @@ document.addEventListener("DOMContentLoaded", function(){
     elementCSSSetting(); // 전체 요소들의 값을 설정
 
 
-    $("#youtube").remove();
+    $("#player1").remove();
 
-    $("#player").append("<div id='videoEmbed' style='top:0px;left:0px;width:640px;height:480px;'/>");
+//    $("#player").append("<video id='videoEmbed' controls ></video>");
+    $("#player").append("<video id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:640px;'></video>");
     console.log($("#player").offset());
-    $("#videoEmbed").css({left:0, top:0});
-    $("#player").append("<canvas id='canvas1' width = '"+$("#videoEmbed").width()+"' height = '"+($("#videoEmbed").height()-80)+"'></canvas>");
-    $("#canvas1").css({"position":"absolute","z-index":2});
-//    $("#canvas1").css({left:0, top:0});
+//    $("#videoEmbed").offset({left:500, top:300});
+    //    $("#videoEmbed").css({left:0, top:0});
+
+    $("#player").append("<canvas id='canvas1' width = '"+$("#videoEmbed").width()+"px' height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
+//    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
+    $("#canvas1").css({"position":"relative","z-index":2});
     $("#canvas1").offset($("#videoEmbed").offset());
+//    $("#canvas1").position({left:0, top:0});
 
 
 
@@ -40,15 +44,19 @@ document.addEventListener("DOMContentLoaded", function(){
 
 //    CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://download.ted.com/talks/DanDennett_2003-480p-pt-br.mp4" );
 
+    var video_id = data2.video.provider_vid
 
     if(data2.video.provider === "youtube"){
-        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "http://www.youtube.com/embed/"+ data2.video.provider_vid +"?hd=1" + "&iv_load_policy=3" );
+        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "http://www.youtube.com/embed/"+ video_id +"?hd=1" + "&iv_load_policy=3" );
 
     }
     else if (data2.video.provider === "anbado"){
-        console.log("mp4 type");
-        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "http://localhost:8000/asset/"+ data2.video.provider_vid + ".mp4" );
+
+        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "asset/"+ data2.video.provider_vid.toString() + ".mp4" );
+
     }
+
+
     CLIENTVAR.popcornobj.on("loadeddata",function(){
         anbado.realtime.enterVideo(1,1);
 

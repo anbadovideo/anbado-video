@@ -3,20 +3,34 @@
  *
  */
 
-var videoObject = function(DOM, videoObject){
+var videoObject = function("#videoEmbed", videoObject){ // DOM은
 
 
+    DOM..append("<video class='videoEmbed' controls style='top:0px;left:0px;width:640px;height:480px;'></video>");
+    console.log($("#player").offset());
+    $(".videoEmbed").css({left:0, top:0});
+    DOM.append("<canvas class='canvas1' width = '"+$("#videoEmbed").width()+"' height = '"+($(".videoEmbed").height()-80)+"'></canvas>");
+    $(".canvas1").css({"position":"absolute","z-index":2});
+//    $("#canvas1").css({left:0, top:0});
+    $(".canvas1").offset($(".videoEmbed").offset());
 
+    this.prototype.setURL = function(URL){
+        this.URL = URL;
+    }
 
+    this.prototype.getURL = function(){
+        return this.URL;
+    }
+    this.prototype.setSize = function(){
+    }
+    this.prototype.eventLoad = function(){
+
+    }
 
 }
 
-videoObject.prototype.setURL = function(URL){
-    this.URL = URL;
-}
+var userModel = function(userID, profileImg){
 
-videoObject.prototype.getURL = function(){
-    return this.URL;
 }
 
 

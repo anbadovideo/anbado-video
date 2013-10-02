@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
-        durationtime= CLIENTVAR.popcornobj.duration();
+        durationtime = CLIENTVAR.popcornobj.duration();
         //make_array(durationtime);
         //make_array(1600);
         anbado.timeline.initialize(durationtime);
