@@ -401,7 +401,9 @@ var anbadoDummy=(function($){
             {
                 "key": "Quantity",
                 "bar": true,
-                "values": goodData }
+                "values": goodData,
+                color:"red"
+            }
         ].map(function (series) {
                 series.values = series.values.map(function (d) {
                     return {x: d[0], y: d[1] }
@@ -427,16 +429,16 @@ var anbadoDummy=(function($){
 //            })
 //                .showMaxMin(false);
 
-//            chart.y1Axis
-//                .tickFormat(d3.format(',f'));
+            chart.y1Axis
+                .tickFormat(d3.format(',f'));
 
-//            chart.y2Axis
-//                .tickFormat(function (d) {
-//                    return '$' + d3.format(',.2f')(d)
-//                });
+            chart.y2Axis
+                .tickFormat(function (d) {
+                    return '$' + d3.format(',.2f')(d)
+                });
 
-            //chart.bars.forceY([0]).padData(false);
-            //chart.lines.forceY([0]);
+//            chart.bars.forceY([0]).padData(false);
+//            chart.lines.forceY([0]);
 
             d3.select('#barchart')
                 .datum(testdata)
