@@ -29,34 +29,53 @@
 
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-    <script type="text/javascript" src="asset/externalLib/timeline.js"></script>
-    <link rel="stylesheet" type="text/css" href="asset/externalLib/timeline.css">
+    <script type="text/javascript" src="timeline.js"></script>
+    <link rel="stylesheet" type="text/css" href="asset/timelineSummary.css">
+
 
     <script type="text/javascript" src="asset/clientglobalvar.js"></script>
 
     <script type="text/javascript" src = "asset/init.js"></script>
+    <script type="text/javascript" src = "asset/geturl.js"></script>
+    <script type="text/javascript" src = "asset/makeAnnotationEmoticon.js"></script>
     <script type="text/javascript" src = "asset/timeCheck.js"></script>
     <script type="text/javascript" src = "asset/summaryPanel.js"></script>
-    <script type="text/javascript" src = "asset/makeAnnotationEmoticon.js"></script>
-    <script type="text/javascript" src = "asset/geturl.js"></script>
+
+
 
     <script type="text/javascript" src = "asset/eventGenerate.js"></script>
 
     <script type="text/javascript" src = "asset/timelinechart.js"></script>
 
     <link href="asset/externalLib/nv.d3.css" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" type="text/css" href="layout.css">
 
 </head>
 <body>
+<div id="wrapper">
+    <div id="container">
+        <div id="top">
+            <div id="logo"></div>
+            <div id="sub_txt">Default Example, anbado video solution</div>
+            <div id="signin_pannel">
+                <button id="top_default" class="active">Default Example</button>
+                <button id="top_signin" onclick="location.href='Example1_timeline.html';">Example1</button>
+                <button id="top_signup" onclick="location.href='Example2_webrtc.html';">Example2</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="middle">
-    <div id="player_wrap" align = "center">
+    <div id="player_wrap">
 
 
-        <div id="player">
+        <div id="player" align = "center">
 
         </div>
+
+        <div id="player_shadow"></div>
 
         <!--<div id="areadiv"></div>-->
 
@@ -124,6 +143,25 @@
     <div id="mytimeline"></div>
 
 </div>
+
+
+
+<div id="main_bottom_wrap">
+    <ul>
+        <li>Help</li>
+        <li>About</li>
+        <li>Blog</li>
+        <li>Jobs</li>
+        <li>Privacy</li>
+        <li>Terms of Use</li>
+    </ul>
+
+    <div id="bottom_company">anbado video team 2013. All Rights Reserved.</div>
+</div>
+
+
+
+
 
 
 

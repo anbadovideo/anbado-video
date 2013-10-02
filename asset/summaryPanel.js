@@ -24,7 +24,7 @@ function drawTimelineVisualization() {
     // specify options
     var options = {
 
-        'width': '100%',
+        'width': '95%',
         'height': 'auto',
         'editable': false,   // enable dragging and editing events
         'style': 'box',
@@ -34,6 +34,7 @@ function drawTimelineVisualization() {
 //        'step' : 1000,
 //        'zoomable' : false,
         'showCurrentTime' : false,
+        'editable' : false,
 
 //        'stackEvents' : 'true',
         'min' : new Date(CLIENTVAR.pageGenerationTime.getTime()),
