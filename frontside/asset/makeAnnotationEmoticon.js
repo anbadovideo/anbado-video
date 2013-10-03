@@ -6,6 +6,7 @@
  */
 
 
+
 var anbado = window.anbado || {};
 
 
@@ -88,6 +89,33 @@ var anbado = window.anbado || {};
 
         setTimeout(function(){getFocus();},300);
 
+
+
+        $("#textinput1").keyup(function(evt){
+
+//    $("#textinput1").val("");
+            $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
+
+
+            if(evt.keyCode === 13 || evt.charCode === 13){ // 엔터인 경우
+
+                eventObject.eventType = evt.target.id;
+                eventObject.eventContent = $("#textinput1").val();
+
+                eventGenerate(eventObject);
+//        evt.stopImmediatePropagation();
+                endup();
+            }
+
+            if(evt.keyCode === 27 || evt.charCode === 27){ // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
+
+                hidePanel();
+            }
+
+
+        }); // 프로퍼게이션을 막기 위해. 그리고 이벤트 리스너의 중복 생성을 막도록 한다.
+
+
         var emo0 = document.getElementById("emoticon0");
         emo0.addEventListener("click", function(){
             eventObject.eventType = emo0.id;
@@ -114,29 +142,6 @@ var anbado = window.anbado || {};
             eventGenerate(eventObject);
         });
 
-        $("#textinput1").keyup(function(evt){
-
-//    $("#textinput1").val("");
-            $("#textinput1").attr("size", $("#textinput1").val().length); // by text length size scailing. key by key
-
-
-            if(evt.keyCode === 13 || evt.charCode === 13){ // 엔터인 경우
-
-                eventObject.eventType = evt.target.id;
-                eventObject.eventContent = $("#textinput1").val();
-
-                eventGenerate(eventObject);
-//        evt.stopImmediatePropagation();
-                endup();
-            }
-
-            if(evt.keyCode === 27 || evt.charCode === 27){ // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
-
-                hidePanel();
-            }
-
-
-        }); // 프로퍼게이션을 막기 위해. 그리고 이벤트 리스너의 중복 생성을 막도록 한다.
 
 
     }

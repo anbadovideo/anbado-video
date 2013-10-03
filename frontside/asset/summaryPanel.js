@@ -32,7 +32,7 @@ function drawTimelineVisualization() {
         'end': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration()*1000), // 밀리세컨드 단위이므로 1000을 곱함
 //        'scale': links.Timeline.StepDate.SCALE.SECOND,
 //        'step' : 1000,
-//        'zoomable' : false,
+        'zoomable' : false,
         'showCurrentTime' : false,
         'editable' : false,
 
