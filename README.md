@@ -1,8 +1,8 @@
-anbado-server
+anbado-video
 =============
 
 ## Introduction
-Anbado Video Solution의 Server 소스 코드입니다.
+Anbado Video Solution의 소스 코드입니다.
 
 ## Requirements
 * gevent==0.13.8
@@ -42,4 +42,4 @@ gevent 설치에 필요한 libevent는 OS 별 패키지 매니저를 통해 설�
 
         run.py
 
-이후 `http://server-ip:8888/sample/api-test`로 접속하면 realtime api가 작동하는 것을 볼 수 있습니다.
+이후 `http://server-ip:8888/example/<example-file-name>`로 접속하면 Anbado Video Solution이 작동하는 예제를 볼 수 있습니다.
