@@ -46,6 +46,10 @@
     <script type="text/javascript" src = "asset/eventGenerate.js"></script>
 
     <script type="text/javascript" src = "asset/timelinechart.js"></script>
+
+    <script>
+        var testObj=new anbadoTimeLine("player");
+    </script>
     <script type="text/javascript" src = "asset/timeCheck.js"></script>
 
     <link href="asset/externalLib/nv.d3.css" rel="stylesheet" type="text/css">
@@ -67,12 +71,24 @@
     </div>
 </div>
 
+<div>
+    <select id="graphSelector" name="graph" onchange="graphselect();">
+        <option value = "1" selected="selected">area graph</option>
+        <option value = "2">line graph</option>
+        <option value = "3">pie graph</option>
+        <option value = "4">halfpie graph</option>
+        <option value = "5">bar chart</option>
+    </select>
+</div>
+<input id="happy" type = "button" onclick="happybutton()" value= "happy" >
+<input id="sad" type = "button" onclick="sadbutton()" value= "sad" >
 
 <div id="middle">
     <div id="player_wrap">
 
 
         <div id="player">
+
 
         </div>
 
@@ -82,9 +98,9 @@
 
     </div>
 
-
-
 </div>
+
+
 <!--<input type="button" class="bt_all_player bt_play" value="play">-->
 <!--<input type="button" class="bt_all_player bt_like" value="like">-->
 

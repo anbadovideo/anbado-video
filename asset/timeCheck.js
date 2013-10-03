@@ -11,17 +11,17 @@ document.addEventListener("DOMContentLoaded", function(){
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
         durationtime = CLIENTVAR.popcornobj.duration();
-        //make_array(durationtime);
-        //make_array(1600);
-        anbado.timeline.initialize(durationtime);
-        anbado.timeline.setGraphShape(1);
-        anbado.timeline.drawVisualization();
+
+        testObj.initialize(durationtime);
+        testObj.setGraphShape(5);
+        testObj.drawVisualization();
 
 
     });
 
 
     CLIENTVAR.popcornobj.on("playing", function() {
+
 
         var stackedAreaObject = $('#stackedarea');
         console.log(this.media.src);
@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
         CLIENTVAR.popcornobj.on("timeupdate", function(){
 
-            anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
-            anbado.timeline.tooltip(stackedAreaObject)
+//            anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
+//            anbado.timeline.tooltip(stackedAreaObject)
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
@@ -76,3 +76,78 @@ document.addEventListener("DOMContentLoaded", function(){
         //console.log("vidiotime:"+this.currentTime()+"inttime:"+intvidiotime );
     }
 });
+
+function graphselect()
+{
+//    var gra=document.selectform;
+    var graphTemp = $("#graphSelector").val();
+
+    if (graphTemp === "1")//area graph
+    {
+        testObj.setGraphShape(1);
+        testObj.drawVisualization();
+
+    }
+    else if (graphTemp === "2") //line graph
+    {
+        testObj.setGraphShape(2);
+        testObj.drawVisualization();
+        console.log("top:"+($('#linechart').top));
+    }
+    else if (graphTemp === "3") {
+
+        testObj.setGraphShape(3);
+        testObj.drawVisualization();
+    }
+    else if (graphTemp === "4") {
+
+        testObj.setGraphShape(4);
+        testObj.drawVisualization();
+    }
+    else if (graphTemp === "5") {
+
+        testObj.setGraphShape(5);
+        testObj.drawVisualization();
+        console.log("top:"+($('#barchart').top));
+    }
+
+}
+var timeset=2;
+function happybutton()
+{
+    testObj.drawVisualization('g');
+
+//    if (timeset === 2) {
+//        console.log("gray");
+//        $("#happy1").css({"background": 'gray'});
+//        testObj.drawVisualization('g');
+//        timeset = 1;
+//
+//        if (timeset === 1) {
+//            setTimeout(function () {
+//                console.log("red");
+//                $("#happy1").css({"background": 'crimson'});
+//                timeset = 2;
+//            }, 5000);
+//            timeset = 0;
+//        }
+//    }
+
+}
+
+function sadbutton()
+{
+    testObj.drawVisualization('b');
+
+//    if (timeset === 2) {
+//        testObj.drawVisualization('b');
+//        timeset = 1;
+//        if (timeset === 1) {
+//            setTimeout(function () {
+//                timeset = 2;
+//            }, 5000);
+//            timeset = 0;
+//        }
+//    }
+
+}

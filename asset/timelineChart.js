@@ -6,10 +6,14 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var anbado = window.anbado || {};
+//var anbado = window.anbado || {};
 
-var anbadoDummy=(function($){
+//var anbadoDummy=(function($){
 
+
+var anbadoTimeLine=function(getId)
+{
+    this.videoId="#"+getId;
     /**
      * 타임라인 그래프의 종류를 나타낸다.
      *
@@ -20,30 +24,31 @@ var anbadoDummy=(function($){
      *
      * @type {number}
      */
-    var graphShape = 1;
+    this.graphShape = 1;
 
     /**
      * Good 버튼을 누른 타임라인 데이터
      *
      * @type {Array}
      */
-    var goodData = [];
+    this.goodData = [];
 
     /**
      * Bad 버튼을 누른 타임라인 데이터
      *
      * @type {Array}
      */
-    var badData = [];
+    this.badData = [];
 
-    var dummData=[];
+    this.dummData=[];
 
-    var currentTime=0;
-    var durationTime=0;
+    this.currentTime=0;
+    this.durationTime=0;
+}
 
-    var getCurrentTime= function(inputTime)
+    anbadoTimeLine.prototype.getCurrentTime= function(inputTime)
     {
-        currentTime=inputTime;
+        this.currentTime=inputTime;
 
     }
 
@@ -54,31 +59,31 @@ var anbadoDummy=(function($){
      *
      * @param time 동영상의 길이
      */
-    var initialize = function(time) {
-        var hei=$("#youtube").css("height");
-        var wid=$("#youtube").css("width");
+    anbadoTimeLine.prototype.initialize = function(time) {
+        var hei=$(this.videoId).css("height");
+        var wid=$(this.videoId).css("width");
 
 
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
-        $("#youtube").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
+        $(this.videoId).append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
         $("#stackedarea").css("top",hei);
         $("#stackedarea").css("width",wid);
-        $("#youtube").append("<div class='linediv' ><svg id='linechart'></svg></div>");
+        $(this.videoId).append("<div class='linediv' ><svg id='linechart'></svg></div>");
         $("#linechart").css("top",hei);
         $("#linechart").css("width",wid);
-        $("#youtube").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
+        $(this.videoId).append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
         $("#pichart").css("top",hei);
         $("#pichart").css("left",(parseInt(wid)/3)+"px");
-        $("#youtube").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
+        $(this.videoId).append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
         $("#halfchart").css("top",hei);
         $("#halfchart").css("left",(parseInt(wid)/3)+"px");
-        $("#youtube").append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
+        $(this.videoId).append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
         $("#barchart").css("top",hei);
         $("#barchart").css("width",wid);
 
-        makeTimelineDataArray(time);
-        drawStackedAreaChart();
-        durationTime=time;
+        this.makeTimelineDataArray(time);
+        this.drawStackedAreaChart();
+        this.durationTime=time;
     };
 
     /**
@@ -86,12 +91,12 @@ var anbadoDummy=(function($){
      *
      * @param time 동영상의 길이
      */
-    var makeTimelineDataArray = function(time) {
+    anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 
 
-        goodData = [];
-        badData = [];
-        dummData=[];
+        this.goodData = [];
+        this.badData = [];
+        this.dummData=[];
 
         time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
         console.log("array time: " + time);
@@ -100,9 +105,9 @@ var anbadoDummy=(function($){
             // TODO: 0.5 값이 적당한지 확인 필요
             // goodData[i][0] = 시간
             // goodData[i][1] = 데이터 (갯수)
-            goodData[i] = [i, 0];
-            badData[i] = [i, 0];
-            dummData[i]=[i,0.1];
+            this.goodData[i] = [i, 0];
+            this.badData[i] = [i, 0];
+            this.dummData[i]=[i,0.1];
 
         }
     };
@@ -112,7 +117,7 @@ var anbadoDummy=(function($){
      *
      * @param svgObject 툴팁을 그릴 timeline canvas
      */
-    var tooltip = function(svgObject) {
+    anbadoTimeLine.prototype.tooltip = function(svgObject) {
 
         var con;
         var $svgObject = $(svgObject);
@@ -121,16 +126,16 @@ var anbadoDummy=(function($){
         // TODO: CLIENTVAR를 사용하지 않도록 popcornobj에 대한 대책 필요
         var offset = parseInt($svgObject.css("left"));
 
-        var time=durationTime;
+        var time=this.durationTime;
 
         time=parseInt(time);
         time=((parseInt($svgObject.css("width")))/time);
-        con=parseInt(currentTime);
+        con=parseInt(this.currentTime);
         //con=parseInt(con/60)+":"+(con%60);
-        con="good"+(goodData[con][1]);
+        con="good"+(this.goodData[con][1]);
 
         nv.tooltip.cleanup();
-        nv.tooltip.show([offset+currentTime*time, top], con, '', null, 0);
+        nv.tooltip.show([offset+this.currentTime*time, top], con, '', null, 0);
     };
 
     /**
@@ -138,28 +143,28 @@ var anbadoDummy=(function($){
      *
      * @param newGraphShape 새로 변경할 그래프 모양
      */
-    var setGraphShape = function(newGraphShape) {
-        graphShape = newGraphShape;
+    anbadoTimeLine.prototype.setGraphShape = function(newGraphShape) {
+        this.graphShape = newGraphShape;
     };
 
     /**
      * Stacked Area Chart를 그린다.
      */
-    var drawStackedAreaChart = function() {
+    anbadoTimeLine.prototype.drawStackedAreaChart = function() {
         var videoData = [
             {
                 "key": "good",
-                "values": goodData,
+                "values": this.goodData,
                 color: "red"
             },
             {
                 "key": "bad",
-                "values": badData,
+                "values": this.badData,
                 color: "green"
             },
             {
                 "key": "dummy",
-                "values": dummData,
+                "values": this.dummData,
                 color: "white"
             }
 
@@ -207,14 +212,14 @@ var anbadoDummy=(function($){
     /**
      * Line Chart를 그린다.
      */
-    var drawLineChart = function() {
+    anbadoTimeLine.prototype.drawLineChart = function() {
         // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
         var chart;
         var lineGoodData = [], lineBadData = [],linedummy=[];
-        for (var i = 0; i < goodData.length; i++) {
-            lineGoodData.push({x: goodData[i][0], y: goodData[i][1]}); //the nulls are to show how defined works
-            lineBadData.push({x: badData[i][0], y: badData[i][1]});
-            linedummy.push({x: dummData[i][0], y: dummData[i][1]})
+        for (var i = 0; i < this.goodData.length; i++) {
+            lineGoodData.push({x: this.goodData[i][0], y: this.goodData[i][1]}); //the nulls are to show how defined works
+            lineBadData.push({x: this.badData[i][0], y: this.badData[i][1]});
+            linedummy.push({x: this.dummData[i][0], y: this.dummData[i][1]})
         }
 
 
@@ -276,12 +281,12 @@ var anbadoDummy=(function($){
     /**
      * pie chart 를 그린다.
      */
-    var drawPieChart = function() {
+    anbadoTimeLine.prototype.drawPieChart = function() {
         var goodpi = 0, badpi = 0;
 
-        for (var k = 0; k < goodData.length; k++) {
-            goodpi = goodpi + (goodData[k][1]);
-            badpi = badpi + (badData[k][1]);
+        for (var k = 0; k < this.goodData.length; k++) {
+            goodpi = goodpi + (this.goodData[k][1]);
+            badpi = badpi + (this.badData[k][1]);
         }
 
         var testdata = [
@@ -332,12 +337,12 @@ var anbadoDummy=(function($){
     /**
      * Half Pie Chart를 그린다.
      */
-    var drawHalfPieChart = function() {
+    anbadoTimeLine.prototype.drawHalfPieChart = function() {
         var goodpi = 0, badpi = 0;
 
-        for (var k = 0; k < goodData.length; k++) {
-            goodpi = goodpi + (goodData[k][1]);
-            badpi = badpi + (badData[k][1]);
+        for (var k = 0; k < this.goodData.length; k++) {
+            goodpi = goodpi + (this.goodData[k][1]);
+            badpi = badpi + (this.badData[k][1]);
         }
 
         var testdata = [
@@ -396,12 +401,12 @@ var anbadoDummy=(function($){
     /**
      * bar chart 를 그린다.
      */
-    var drawBarChart = function() {
+    anbadoTimeLine.prototype.drawBarChart = function() {
         var testdata = [
             {
                 "key": "Quantity",
                 "bar": true,
-                "values": goodData,
+                "values": this.goodData,
                 color:"red"
             }
         ].map(function (series) {
@@ -458,27 +463,27 @@ var anbadoDummy=(function($){
     /**
      * 지정된 그래프 타입에 따라 적절한 그래프를 선택하여 그린다.
      */
-    var drawVisualization = function(state) {
+    anbadoTimeLine.prototype.drawVisualization = function(state) {
 
-        var inttime=currentTime;
+        var inttime=this.currentTime;
         inttime=parseInt(inttime);
 
 
         if(state==='g')
-        {goodData[inttime][1] = (goodData[inttime][1]+1);}
+        {this.goodData[inttime][1] = (this.goodData[inttime][1]+1);}
         else if(state==='b')
-        {badData[inttime][1] = (badData[inttime][1]+1);}
+        {this.badData[inttime][1] = (this.badData[inttime][1]+1);}
 
 
 
-        switch(graphShape) {
+        switch(this.graphShape) {
             case 1:
                 $('.areadiv').show();
                 $('.linediv').hide();
                 $('.piediv').hide();
                 $('.halfdiv').hide();
                 $('.bardiv').hide();
-                drawStackedAreaChart();
+                this.drawStackedAreaChart();
                 break;
             case 2:
                 $('.areadiv').hide();
@@ -486,7 +491,7 @@ var anbadoDummy=(function($){
                 $('.piediv').hide();
                 $('.halfdiv').hide();
                 $('.bardiv').hide();
-                drawLineChart();
+                this.drawLineChart();
                 break;
             case 3:
                 $('.areadiv').hide();
@@ -494,7 +499,7 @@ var anbadoDummy=(function($){
                 $('.piediv').show();
                 $('.halfdiv').hide();
                 $('.bardiv').hide();
-                drawPieChart();
+                this.drawPieChart();
                 break;
             case 4:
                 $('.areadiv').hide();
@@ -502,7 +507,7 @@ var anbadoDummy=(function($){
                 $('.piediv').hide();
                 $('.halfdiv').show();
                 $('.bardiv').hide();
-                drawHalfPieChart();
+                this.drawHalfPieChart();
                 break;
             case 5:
                 $('.areadiv').hide();
@@ -510,97 +515,97 @@ var anbadoDummy=(function($){
                 $('.piediv').hide();
                 $('.halfdiv').hide();
                 $('.bardiv').show();
-                drawBarChart();
+                this.drawBarChart();
                 break;
         }
     };
 
-    return {
-        timeline: {
-            initialize: initialize,
-            drawVisualization: drawVisualization,
-            tooltip: tooltip,
-            setGraphShape: setGraphShape,
-            getCurrentTime:getCurrentTime
-        }
-    }
-});
+//    return {
+//        timeline: {
+//            initialize: initialize,
+//            drawVisualization: drawVisualization,
+//            tooltip: tooltip,
+//            setGraphShape: setGraphShape,
+//            getCurrentTime:getCurrentTime
+//        }
+//    }
+//});
+//
+//
+//
+//jQuery.extend(true, anbado,anbadoDummy(jQuery));
 
 
+//var timeset=2;
+//function happybutton()
+//{
+//
+//    if (timeset === 2) {
+//        console.log("gray");
+//        $("#happy1").css({"background": 'gray'});
+//        anbado.timeline.drawVisualization('g');
+//        timeset = 1;
+//
+//        if (timeset === 1) {
+//            setTimeout(function () {
+//                console.log("red");
+//                $("#happy1").css({"background": 'crimson'});
+//               timeset = 2;
+//            }, 5000);
+//            timeset = 0;
+//        }
+//    }
+//
+//}
+//
+//function sadbutton()
+//{
+//
+//    if (timeset === 2) {
+//        anbado.timeline.drawVisualization('b');
+//        timeset = 1;
+//        if (timeset === 1) {
+//            setTimeout(function () {
+//                timeset = 2;
+//            }, 5000);
+//            timeset = 0;
+//        }
+//    }
+//
+//}
 
-jQuery.extend(true, anbado,anbadoDummy(jQuery));
-
-
-var timeset=2;
-function happybutton()
-{
-
-    if (timeset === 2) {
-        console.log("gray");
-        $("#happy1").css({"background": 'gray'});
-        anbado.timeline.drawVisualization('g');
-        timeset = 1;
-
-        if (timeset === 1) {
-            setTimeout(function () {
-                console.log("red");
-                $("#happy1").css({"background": 'crimson'});
-               timeset = 2;
-            }, 5000);
-            timeset = 0;
-        }
-    }
-
-}
-
-function sadbutton()
-{
-
-    if (timeset === 2) {
-        anbado.timeline.drawVisualization('b');
-        timeset = 1;
-        if (timeset === 1) {
-            setTimeout(function () {
-                timeset = 2;
-            }, 5000);
-            timeset = 0;
-        }
-    }
-
-}
-
-function graphselect()
-{
-//    var gra=document.selectform;
-    var graphTemp = $("#graphSelector").val();
-
-    if (graphTemp === "1")//area graph
-    {
-        anbado.timeline.setGraphShape(1);
-        anbado.timeline.drawVisualization();
-
-    }
-    else if (graphTemp === "2") //line graph
-    {
-        anbado.timeline.setGraphShape(2);
-        anbado.timeline.drawVisualization();
-        console.log("top:"+($('#linechart').top));
-    }
-    else if (graphTemp === "3") {
-
-        anbado.timeline.setGraphShape(3);
-        anbado.timeline.drawVisualization();
-    }
-    else if (graphTemp === "4") {
-
-        anbado.timeline.setGraphShape(4);
-        anbado.timeline.drawVisualization();
-    }
-    else if (graphTemp === "5") {
-
-        anbado.timeline.setGraphShape(5);
-        anbado.timeline.drawVisualization();
-        console.log("top:"+($('#barchart').top));
-    }
-
-}
+//function graphselect()
+//{
+////    var gra=document.selectform;
+//    var graphTemp = $("#graphSelector").val();
+//
+//    if (graphTemp === "1")//area graph
+//    {
+//        anbado.timeline.setGraphShape(1);
+//        anbado.timeline.drawVisualization();
+//
+//    }
+//    else if (graphTemp === "2") //line graph
+//    {
+//        anbado.timeline.setGraphShape(2);
+//        anbado.timeline.drawVisualization();
+//        console.log("top:"+($('#linechart').top));
+//    }
+//    else if (graphTemp === "3") {
+//
+//        anbado.timeline.setGraphShape(3);
+//        anbado.timeline.drawVisualization();
+//    }
+//    else if (graphTemp === "4") {
+//
+//        anbado.timeline.setGraphShape(4);
+//        anbado.timeline.drawVisualization();
+//    }
+//    else if (graphTemp === "5") {
+//
+//        anbado.timeline.setGraphShape(5);
+//        anbado.timeline.drawVisualization();
+//        console.log("top:"+($('#barchart').top));
+//    }
+//
+//}

@@ -25,16 +25,20 @@
 
 <script type="text/javascript">
 
+
+    var testObj=new anbadoTimeLine("youtube");
+
+
     function test()
     {
-        CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "localhost:8000/asset/introAnbadoVideo.mp4" );
+        CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "asset/introAnbadoVideo.mp4" );
 
         CLIENTVAR.popcornobj.on("loadeddata", function() {
 
             var durationtime= CLIENTVAR.popcornobj.duration();
-            anbado.timeline.initialize(durationtime);
-            anbado.timeline.setGraphShape(1);
-            anbado.timeline.drawVisualization();
+            testObj.initialize(durationtime);
+            testObj.setGraphShape(1);
+            testObj.drawVisualization();
            // $('#stackedarea').css("top","700px");
         });
 
@@ -43,10 +47,10 @@
             var stackedAreaObject = $('#youtube');
 
             CLIENTVAR.popcornobj.on("timeupdate", function(){
-                anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
+                testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
 
                 if($("#graphSelector").val()==1||$("#graphSelector").val()==2||$("#graphSelector").val()==5)
-                {anbado.timeline.tooltip(stackedAreaObject);}
+                {testObj.tooltip(stackedAreaObject);}
                 else
                 {nv.tooltip.cleanup();}
 
@@ -56,15 +60,50 @@
 
     function button1()
     {
-        anbado.timeline.drawVisualization('g');
+        testObj.drawVisualization('g');
     }
 
 
     function button2()
     {
-        anbado.timeline.drawVisualization('b');
+        testObj.drawVisualization('b');
     }
 
+    function graphselect()
+    {
+//    var gra=document.selectform;
+        var graphTemp = $("#graphSelector").val();
+
+        if (graphTemp === "1")//area graph
+        {
+            testObj.setGraphShape(1);
+            testObj.drawVisualization();
+
+        }
+        else if (graphTemp === "2") //line graph
+        {
+            testObj.setGraphShape(2);
+            testObj.drawVisualization();
+            console.log("top:"+($('#linechart').top));
+        }
+        else if (graphTemp === "3") {
+
+            testObj.setGraphShape(3);
+            testObj.drawVisualization();
+        }
+        else if (graphTemp === "4") {
+
+            testObj.setGraphShape(4);
+            testObj.drawVisualization();
+        }
+        else if (graphTemp === "5") {
+
+            testObj.setGraphShape(5);
+            testObj.drawVisualization();
+            console.log("top:"+($('#barchart').top));
+        }
+
+    }
 
 
 </script>
