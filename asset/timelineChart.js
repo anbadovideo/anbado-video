@@ -536,43 +536,43 @@ var anbadoTimeLine=function(getId)
 //jQuery.extend(true, anbado,anbadoDummy(jQuery));
 
 
-var timeset=2;
-function happybutton()
-{
-
-    if (timeset === 2) {
-        console.log("gray");
-        $("#happy1").css({"background": 'gray'});
-        anbado.timeline.drawVisualization('g');
-        timeset = 1;
-
-        if (timeset === 1) {
-            setTimeout(function () {
-                console.log("red");
-                $("#happy1").css({"background": 'crimson'});
-               timeset = 2;
-            }, 5000);
-            timeset = 0;
-        }
-    }
-
-}
-
-function sadbutton()
-{
-
-    if (timeset === 2) {
-        anbado.timeline.drawVisualization('b');
-        timeset = 1;
-        if (timeset === 1) {
-            setTimeout(function () {
-                timeset = 2;
-            }, 5000);
-            timeset = 0;
-        }
-    }
-
-}
+//var timeset=2;
+//function happybutton()
+//{
+//
+//    if (timeset === 2) {
+//        console.log("gray");
+//        $("#happy1").css({"background": 'gray'});
+//        anbado.timeline.drawVisualization('g');
+//        timeset = 1;
+//
+//        if (timeset === 1) {
+//            setTimeout(function () {
+//                console.log("red");
+//                $("#happy1").css({"background": 'crimson'});
+//               timeset = 2;
+//            }, 5000);
+//            timeset = 0;
+//        }
+//    }
+//
+//}
+//
+//function sadbutton()
+//{
+//
+//    if (timeset === 2) {
+//        anbado.timeline.drawVisualization('b');
+//        timeset = 1;
+//        if (timeset === 1) {
+//            setTimeout(function () {
+//                timeset = 2;
+//            }, 5000);
+//            timeset = 0;
+//        }
+//    }
+//
+//}
 
 //function graphselect()
 //{
