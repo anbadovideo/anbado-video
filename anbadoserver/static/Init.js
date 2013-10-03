@@ -22,13 +22,11 @@ document.addEventListener("DOMContentLoaded", function(){
     $("#player1").remove();
 
 //    $("#player").append("<video id='videoEmbed' controls ></video>");
-<<<<<<< HEAD
-    $("#player").append("<video id='videoEmbed' controls style='position: absolute;'></video>");
-=======
-    $("#player").append("<video id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:640px;'></video>");
+//    $("#player").append("<video id='videoEmbed' controls style='position: absolute;'></video>");
+
+    $("#player").append("<div id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:640px;'></div>");
 
 
->>>>>>> 9bebbe7775bd5b3c00dd3827eacc2d6f1e32a354
     console.log($("#player").offset());
     $("#videoEmbed").css({"left":25+"%", "top":0});
     $("#videoEmbed").css({"width":1680, "height":400});
