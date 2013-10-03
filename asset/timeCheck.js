@@ -12,15 +12,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
         durationtime = CLIENTVAR.popcornobj.duration();
 
-//        anbado.timeline.initialize(durationtime);
-//        anbado.timeline.setGraphShape(1);
-//        anbado.timeline.drawVisualization();
+        testObj.initialize(durationtime);
+        testObj.setGraphShape(5);
+        testObj.drawVisualization();
 
 
     });
 
 
     CLIENTVAR.popcornobj.on("playing", function() {
+
 
         var stackedAreaObject = $('#stackedarea');
         console.log(this.media.src);

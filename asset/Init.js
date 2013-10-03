@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 //    $("#player").append("<video id='videoEmbed' controls ></video>");
     $("#player").append("<video id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:640px;'></video>");
+
+
     console.log($("#player").offset());
 //    $("#videoEmbed").offset({left:500, top:300});
     //    $("#videoEmbed").css({left:0, top:0});

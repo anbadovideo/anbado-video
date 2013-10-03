@@ -11,8 +11,9 @@
 //var anbadoDummy=(function($){
 
 
-var anbadoTimeLine=function()
+var anbadoTimeLine=function(getId)
 {
+    this.videoId="#"+getId;
     /**
      * 타임라인 그래프의 종류를 나타낸다.
      *
@@ -59,30 +60,30 @@ var anbadoTimeLine=function()
      * @param time 동영상의 길이
      */
     anbadoTimeLine.prototype.initialize = function(time) {
-        var hei=$("#youtube").css("height");
-        var wid=$("#youtube").css("width");
+        var hei=$(this.videoId).css("height");
+        var wid=$(this.videoId).css("width");
 
 
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
-        $("#youtube").append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
+        $(this.videoId).append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
         $("#stackedarea").css("top",hei);
         $("#stackedarea").css("width",wid);
-        $("#youtube").append("<div class='linediv' ><svg id='linechart'></svg></div>");
+        $(this.videoId).append("<div class='linediv' ><svg id='linechart'></svg></div>");
         $("#linechart").css("top",hei);
         $("#linechart").css("width",wid);
-        $("#youtube").append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
+        $(this.videoId).append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
         $("#pichart").css("top",hei);
         $("#pichart").css("left",(parseInt(wid)/3)+"px");
-        $("#youtube").append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
+        $(this.videoId).append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
         $("#halfchart").css("top",hei);
         $("#halfchart").css("left",(parseInt(wid)/3)+"px");
-        $("#youtube").append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
+        $(this.videoId).append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
         $("#barchart").css("top",hei);
         $("#barchart").css("width",wid);
 
         this.makeTimelineDataArray(time);
         this.drawStackedAreaChart();
-        durationTime=time;
+        this.durationTime=time;
     };
 
     /**
@@ -125,7 +126,7 @@ var anbadoTimeLine=function()
         // TODO: CLIENTVAR를 사용하지 않도록 popcornobj에 대한 대책 필요
         var offset = parseInt($svgObject.css("left"));
 
-        var time=durationTime;
+        var time=this.durationTime;
 
         time=parseInt(time);
         time=((parseInt($svgObject.css("width")))/time);
