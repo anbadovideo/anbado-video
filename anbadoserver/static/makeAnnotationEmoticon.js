@@ -25,7 +25,7 @@ function saveCoord(evt) {
 
         eventOwnerID: {},
         eventOwnerName: "owner",
-        eventOwnerProfilePicture: "examples/img/profile0.png",
+        eventOwnerProfilePicture: "/static/examples/img/profile0.png",
         eventVideoClickTime: {}, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
         eventOccuredAbsoluteTime: {}, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
         eventVideoClickDuration: 4, // 얼마나 지속되는지
