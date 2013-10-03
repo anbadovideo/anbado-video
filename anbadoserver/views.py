@@ -20,21 +20,6 @@ def handle_socketio(path):
 
 
 # handlers for test
-@app.route('/sample/')
-def view_sample():
-    return render_template('index.html')
-
-
-@app.route('/sample/api-test/realtime')
-def view_realtime_api_test_sample():
-    return render_template('realtime-api-test.html')
-
-
-@app.route('/sample/api-test/rest')
-def vide_rest_api_test_sample():
-    return render_template(('rest-api-test.html'))
-
-
-@app.route('/sample/blob-test')
-def view_blob_socket_test():
-    return render_template('socket-blob-test.html')
+@app.route('/examples/<path:name>')
+def example(name):
+    return render_template('examples/' + name + '.html')
