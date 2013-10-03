@@ -1,0 +1,6 @@
+*.pyc
+*.pyo
+
+# for IntelliJ IDEA or PyCharm
+*.iml
+.idea/*

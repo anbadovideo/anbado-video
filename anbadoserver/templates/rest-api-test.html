@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anbado Video Rest API Tutorial</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='anbado-restful.js') }}"></script>
+
+    <script type="text/javascript">
+        jQuery(function() {
+            // getVideoInfo 버튼을 눌렀을 때
+            $('button#getVideoInfo').click(function(){
+                // ajax에서 *동기*로 받아온 비디오 데이터를 담아둔다. 1은 1번 비디오라는 뜻.
+                var videoInfo = anbado.restful.getVideoInfo(1);
+                $('#eventLog').append('<p><strong> video infomation arrived : </strong>' + JSON.stringify(videoInfo) + '</p>');
+            });
+
+            // getUserInfo 버튼을 눌렀을 때
+            $('button#getUserInfo').click(function() {
+                // ajax에서 *동기*로 받아온 유저 데이터를 담아둔다. 1은 1번 유저라는 뜻.
+                var userInfo = anbado.restful.getUserInfo(1);
+                $('#eventLog').append('<p><strong> user infomation arrived : </strong>' + JSON.stringify(userInfo) + '</p>');
+            });
+
+            // getParticipants 버튼을 눌렀을 때
+            $('button#getParticipants').click(function() {
+                // ajax에서 *동기*로 받아온 비디오에 참여한 사람 데이터를 담아둔다. 1은 1번 비디오라는 뜻.
+                var participants = anbado.restful.getParticipants(1);
+                $('#eventLog').append('<p><strong> video particpants infomation arrived : </strong>' +
+                        JSON.stringify(participants) + '</p>');
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Anbado Video Rest API Tutorial</h1>
+
+<div>
+    <p>이 문서는 Anbado Video Rest API의 간단한 사용 예제를 보여주는 문서입니다. Anbado Video Rest API를 활용하여 실시간으로 이벤트를 주고 받는 예제를
+        구현했습니다. 기본적으로 한 페이지에 하나의 동영상이 재생된다고 가정하고 API를 구성했습니다.</p>
+
+    <p>올바른 튜토리얼을 진행하기 위해, README.md 문서에 있는 샘플 데이터베이스 구동을 해아합니다.</p>
+</div>
+
+<div>
+    <button id="getVideoInfo">getVideoInfo</button>
+    <button id="getUserInfo">getUserInfo</button>
+    <button id="getParticipants">getVideoParticipants</button>
+</div>
+
+<div id="eventLog"></div>
+
+</body>
+</html>
