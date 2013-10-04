@@ -51,7 +51,8 @@
     <script type="text/javascript" src="{{ url_for('static', filename='timeCheck.js') }}"></script>
 
     <link href="{{ url_for('static', filename='external/d3/nv.d3.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='example/css/layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='examples/css/layout.css') }}">
+
 
 </head>
 <body>
@@ -69,17 +70,17 @@
     </div>
 </div>
 
-<div>
-    <select id="graphSelector" name="graph" onchange="graphselect();">
-        <option value="1" selected="selected">area graph</option>
-        <option value="2">line graph</option>
-        <option value="3">pie graph</option>
-        <option value="4">halfpie graph</option>
-        <option value="5">bar chart</option>
-    </select>
-</div>
-<input id="happy" type="button" onclick="happybutton()" value="happy">
-<input id="sad" type="button" onclick="sadbutton()" value="sad">
+{#<div>#}
+{#    <select id="graphSelector" name="graph" onchange="graphselect();">#}
+{#        <option value="1" selected="selected">area graph</option>#}
+{#        <option value="2">line graph</option>#}
+{#        <option value="3">pie graph</option>#}
+{#        <option value="4">halfpie graph</option>#}
+{#        <option value="5">bar chart</option>#}
+{#    </select>#}
+{#</div>#}
+{#<input id="happy" type="button" onclick="happybutton()" value="happy">#}
+{#<input id="sad" type="button" onclick="sadbutton()" value="sad">#}
 
 <div id="middle">
     <div id="player_wrap">
@@ -89,12 +90,27 @@
 
 
         </div>
+    <div style='position: relative;top:100px;'>
+    <select id="graphSelector" name="graph" onchange="graphselect();">
+        <option value="1" selected="selected">area graph</option>
+        <option value="2">line graph</option>
+        <option value="3">pie graph</option>
+        <option value="4">halfpie graph</option>
+        <option value="5">bar chart</option>
+    </select>
+
+<input id="happy" type="button" onclick="happybutton()" value="happy">
+<input id="sad" type="button" onclick="sadbutton()" value="sad">
+</div>
 
         <div id="player_shadow"></div>
+
 
         <!--<div id="areadiv"></div>-->
 
     </div>
+
+
 
 </div>
 

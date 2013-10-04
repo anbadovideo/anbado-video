@@ -2,7 +2,6 @@
 
 
 
-
 document.addEventListener("DOMContentLoaded", function(){
     var data1 = anbado.restful.getUserInfo(1);
     var data2 = anbado.restful.getVideoInfo(1);
@@ -88,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         tempType = "emoticon3";
                         break;
                     default :
-                        alert(evt.content);
+//                        alert(evt.content);
                         break;
                 }
 
@@ -209,6 +208,7 @@ var showPanel = function(){
     $("#emoticonPanel").show();
     $("#profileImg").show();
 }
+
 
 var hidePanel = function(){
 

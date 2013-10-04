@@ -158,16 +158,18 @@ var eventTypeCheck = function(eventObject) {
                     'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
                 });
                 anbado.realtime.postEvent({
-                    user_id: 1,
-                    video_id: 1,
-                    appeared: eventObject.eventVideoClickTime,
-                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-                    content: eventObject.eventContent,
-                    category: 'image',
-                    parent_id: -1,
-                    permission: 'public',
-                    coord: [eventObject.eventPosX, eventObject.eventPosY],
-                    size: [200, 100]
+                    "user_id": 1,
+                    "video_id": 1,
+                    "appeared": eventObject.eventVideoClickTime,
+                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    "content": eventObject.eventContent,
+                    "category": 'image',
+                    "parent_id": -1,
+                    "permission": 'public',
+                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
+                    "size": [200, 100]
+
+
                 });
                 drawTimelineVisualization();
                 break;
@@ -178,22 +180,24 @@ var eventTypeCheck = function(eventObject) {
                     'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
                 });
                 anbado.realtime.postEvent({
-                    user_id: 1,
-                    video_id: 1,
-                    appeared: eventObject.eventVideoClickTime,
-                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-                    content: eventObject.eventContent,
-                    category: 'image',
-                    parent_id: -1,
-                    permission: 'public',
-                    coord: [eventObject.eventPosX, eventObject.eventPosY],
-                    size: [200, 100]
+                    "user_id": 1,
+                    "video_id": 1,
+                    "appeared": eventObject.eventVideoClickTime,
+                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+                    "content": eventObject.eventContent,
+                    "category": 'image',
+                    "parent_id": -1,
+                    "permission": 'public',
+                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
+                    "size": [200, 100]
                 });
                 drawTimelineVisualization();
                 break;
 
             default :
-                alert(eventObject.eventType);
+                console.log("not in event type");
+                break;
+
 
         }
     }
