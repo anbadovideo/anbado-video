@@ -10,6 +10,8 @@
  * @param videoObject
  */
 
+
+
 var VideoObject = function(videoID, provider, providerVID, chartWeight, option) { // DOM은 target DOM을 이야기하고, 옵션의 경우 사이즈, 화질, 이벤트 개수 등
 
 
@@ -51,7 +53,7 @@ var Event = function(videoObject) {
     };
 };
 
-
+/*
 var EventsRenderer = function(eventList) {
 
 };
@@ -99,8 +101,4 @@ var VideoRenderer = function(DOM, video) {
 var EventsRenderer = function() {
 
 };
-
-
-
-
-
+*/
