@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         CLIENTVAR.popcornobj.on("timeupdate", function() {
 
-//            anbado.timeline.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
+            testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
 //            anbado.timeline.tooltip(stackedAreaObject)
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
