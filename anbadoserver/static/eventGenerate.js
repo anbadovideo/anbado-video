@@ -1,8 +1,9 @@
 /**
- * User: haksudol
+ *
  * Date: 9/22/13
- * Time: 4:53 PM
- * To change this template use File | Settings | File Templates.
+ *
+ * @author haksudol
+ * @since 0.1
  */
 
 
@@ -77,7 +78,7 @@ function eventGenerate(eventObject) { // video interaction event generation
 }
 
 var eventTypeCheck = function(eventObject) {
-    if (eventObject.eventStep === 1) {
+    if (eventObject.eventStep === 1) { // 만들어지고 있는 이벤트
         switch (eventObject.eventType) {
 
             case "textinput1":
@@ -201,7 +202,7 @@ var eventTypeCheck = function(eventObject) {
 
         }
     }
-    if (eventObject.eventStep === 3) {
+    if (eventObject.eventStep === 3) {          // 외부 이미지 입력하는 경우
         switch (eventObject.eventType) {
             case "textinput1":
                 eaDisplaySetting(eventObject);
@@ -337,10 +338,10 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 
     eventObject.eaCanvasDisplayObject = new createjs.Container();
 
-    eventObject.eaCanvasDisplayObject.addEventListener("click", function() {
-        commentReply(eventObject);
-//        saveCoord(eventObject);
-    });// 현재 이벤트를 클릭했을 경우 이에 대한 대댓글 기능이 제공됨
+//    eventObject.eaCanvasDisplayObject.addEventListener("click", function() {
+//        commentReply(eventObject);
+////        saveCoord(eventObject);
+//    });// 현재 이벤트를 클릭했을 경우 이에 대한 대댓글 기능이 제공됨
 
 
     if (eventObject.eventType === "textinput1" || eventObject.eventType === "textinput2") {
@@ -353,7 +354,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
         }
 
         var textFont = 'Nanum Gothic';
-        console.log(textFont);
+
         var eaTextContent = new createjs.Text(eventObject.eventContent, $("#fontSizeSelect").val() + "px " + textFont.toString(), "#ffffff");
         eaTextContent.regX = -10;
         eaTextContent.regY = 0;
@@ -406,7 +407,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
     }
 
 
-    console.log("parent ID mark : " + eventObject.parentEventID);
+//    console.log("parent ID mark : " + eventObject.parentEventID);
 
     if (eventObject.parentEventID !== -1) { // 최상위 객체인지 확인하고 그게 아닌 경우에 이벤트에 관계 목록을 추가한다.
 
@@ -431,7 +432,8 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 function endup() { // 이벤트 후 처리 부분
 
     CLIENTVAR.stage.update();
-    hidePanel();
+
+//    inputPanel.deletePanel();
 
     setTimeout(function() {
         getFocus();
