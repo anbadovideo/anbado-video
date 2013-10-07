@@ -54,12 +54,22 @@ jQuery.extend(true, anbado, (function() {
         return callAjax(prefixURL + '/video/' + videoID + '/participants');
     };
 
+    /**
+     * 주어진 사용자 ID에 대해, 해당 사용자와 친구인 사용자들의 목록을 돌려줍니다.
+     * @param userID 조회할 사용자 ID
+     * @returns {json} 솔루션 서버에 저장된 친구 정보
+     */
+    var getFriends = function(userID) {
+        return callAjax(prefixURL + '/friendship/' + userID);
+    };
+
     return {
         restful: {
             setPrefixURL: setPrefixURL,
             getUserInfo: getUserInfo,
             getVideoInfo: getVideoInfo,
-            getParticipants: getParticipants
+            getParticipants: getParticipants,
+            getFriends: getFriends
         }
     }
 })());

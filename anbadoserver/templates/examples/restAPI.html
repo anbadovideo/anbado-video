@@ -28,6 +28,13 @@
                 $('#eventLog').append('<p><strong> video particpants infomation arrived : </strong>' +
                         JSON.stringify(participants) + '</p>');
             });
+
+            // getFriends 버튼을 눌렀을 때
+            $('button#getFriends').click(function() {
+                // ajax에서 *동기*로 받아온 친구 정보 데이터를 담아둔다. 1은 1번 유저의 친구들이라는 뜻.
+                var friends = anbado.restful.getFriends(1);
+                $('#eventLog').append('<p><strong> friends information arrived: </strong>' + JSON.stringify(friends) + '</p>');
+            });
         });
     </script>
 </head>
@@ -45,6 +52,7 @@
     <button id="getVideoInfo">getVideoInfo</button>
     <button id="getUserInfo">getUserInfo</button>
     <button id="getParticipants">getVideoParticipants</button>
+    <button id="getFriends">getFriends</button>
 </div>
 
 <div id="eventLog"></div>
