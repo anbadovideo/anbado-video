@@ -8964,7 +8964,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
         autoPlay = ( /autoplay=1/.test( query ) );
 
         params = query.split( /[\&\?]/g );
-        playerVars = { wmode: "transparent", rel: 0};
+        playerVars = { wmode: "transparent", rel: 0, controls:'1'};
 
         for( var i = 0; i < params.length; i++ ) {
           queryStringItem = params[ i ].split( "=" );

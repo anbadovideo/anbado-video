@@ -2,7 +2,14 @@
 
 var inputPanel;
 
+
 document.addEventListener("DOMContentLoaded", function(){
+
+    /**
+     * restful api를 이용하여 현재의 사용자 정보, 비디오 정보, 이 비디오에 참여한 사람들을 받아옴
+     *
+     * @type {json}
+     */
     var data1 = anbado.restful.getUserInfo(1);
     var data2 = anbado.restful.getVideoInfo(1);
     var data3 = anbado.restful.getParticipants(1);
@@ -24,12 +31,12 @@ document.addEventListener("DOMContentLoaded", function(){
 //    $("#player").append("<video id='videoEmbed' controls style='position: absolute;'></video>");
 
 
-    $("#player").append("<div id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:640px;'></div>");
+    $("#player").append("<div id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:1040px;'></div>");
 
 
     console.log($("#player").offset());
     $("#videoEmbed").css({"left":25+"%", "top":0});
-    $("#videoEmbed").css({"width":880, "height":900});
+    $("#videoEmbed").css({"width":880, "height":500});
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
@@ -204,7 +211,7 @@ function elementCSSSetting(){
 //    $("#thumbnailPanorama").css({"top":700,"left":330,"z-index":-20});
 //    $("#textinput1").css({"top":100,"left":240});
 //    $("#permissionSelect").css({"top":100,"left":240});
-    $("#visualization").css({"top":1200,"left":240});
+//    $("#visualization").css({"top":1200,"left":240});
 }
 
 
