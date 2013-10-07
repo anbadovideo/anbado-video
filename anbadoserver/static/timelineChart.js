@@ -43,6 +43,7 @@ var anbadoTimeLine = function(getId) {
 
     this.currentTime = 0;
     this.durationTime = 0;
+    this.dummy=0;
 }
 
 anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
@@ -57,30 +58,43 @@ anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
  * @param time 동영상의 길이
  */
 anbadoTimeLine.prototype.initialize = function(time) {
-    var hei = $(this.videoId).css("height");
-    var wid = $(this.videoId).css("width");
+    var height = $(this.videoId).css("height");
+    var width = $(this.videoId).css("width");
 
 
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
-    $(this.videoId).append("<div class='areadiv'><svg id='stackedarea'></svg></div>");
-    $("#stackedarea").css("top", hei);
-    $("#stackedarea").css("width", wid);
-    $(this.videoId).append("<div class='linediv' ><svg id='linechart'></svg></div>");
-    $("#linechart").css("top", hei);
-    $("#linechart").css("width", wid);
-    $(this.videoId).append("<div class='piediv' id='pichart'><svg id='pie' class='mypiechart'></svg></div>");
-    $("#pichart").css("top", hei);
-    $("#pichart").css("left", (parseInt(wid) / 3) + "px");
-    $(this.videoId).append("<div class='halfdiv' id='halfchart'><svg id='halfpi' class='mypiechart'></svg></div>");
-    $("#halfchart").css("top", hei);
-    $("#halfchart").css("left", (parseInt(wid) / 3) + "px");
-    $(this.videoId).append("  <div class='bardiv' ><svg id='barchart'> </svg></div>");
-    $("#barchart").css("top", hei);
-    $("#barchart").css("width", wid);
+    $(this.videoId).append('<div class="areadiv"><svg id="stackedarea"></svg></div>');
+    $('#stackedarea').css("top", height);
+    $('#stackedarea').css('width', width);
+    $(this.videoId).append('<div class="linediv" ><svg id="linechart"></svg></div>');
+    $('#linechart').css('top', height);
+    $('#linechart').css('width', width);
+    $(this.videoId).append('<div class="piediv" id="pichart"><svg id="pie" class="mypiechart"></svg></div>');
+    $('#pichart').css('top', height);
+    $('#pichart').css('left', (parseInt(width) / 3) + 'px');
+    $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
+    $('#halfchart').css('top', height);
+    $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
+    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> </svg></div>');
+    $('#barchart').css('top', height);
+    $('#barchart').css('width', width);
 
-    this.makeTimelineDataArray(time);
+
+
+       if(time>=100)
+       {
+        this.dummy=time/100;
+        this.makeTimelineDataArray(100);
+        }
+        else if(time<100)
+       {
+           this.dummy=1;
+           this.makeTimelineDataArray(time);
+       }
+
     this.drawStackedAreaChart();
     this.durationTime = time;
+
 };
 
 /**
@@ -470,6 +484,10 @@ anbadoTimeLine.prototype.drawVisualization = function(state) {
     var inttime = this.currentTime;
     inttime = parseInt(inttime);
 
+
+        inttime=inttime/this.dummy;
+        inttime=parseInt(inttime);
+        console.log("time"+inttime);
 
     if (state === 'g') {
         this.goodData[inttime][1] = (this.goodData[inttime][1] + 1);
