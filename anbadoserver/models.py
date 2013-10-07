@@ -170,7 +170,7 @@ class Event(db.Model, JsonifiedModel):
     disappeared = db.Column(db.Integer)
 
     #comment
-    content = db.Column(db.LargeBinary())
+    _content = db.Column(db.LargeBinary())
     category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad'))
 
     parent_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
@@ -196,6 +196,17 @@ class Event(db.Model, JsonifiedModel):
         self.permission = permission
         self.coord = coord
         self.size = size
+
+    @hybrid_property
+    def content(self):
+        return self._content.decode('utf-8')
+
+    @content.setter
+    def content(self, value):
+        if isinstance(value, unicode):
+            self._content = value.encode('utf-8')
+        else:
+            self._content = value
 
     @hybrid_property
     def coord(self):
