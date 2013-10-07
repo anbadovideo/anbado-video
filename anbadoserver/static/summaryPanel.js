@@ -30,17 +30,18 @@ function drawTimelineVisualization() {
     var options = {
 
         'width': '95%',
-        'height': '800px',
+        'height': '600px',
         'editable': false,   // enable dragging and editing events
         'style': 'box',
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime()),
         'end': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration() * 1000), // 밀리세컨드 단위이므로 1000을 곱함
 //        'scale': links.Timeline.StepDate.SCALE.SECOND,
 //        'step' : 1000,
-        'zoomable': false,
+        'zoomable': true,
         'showCurrentTime': false,
         'showCustomTime' : true,
-        'editable': false,
+
+
 
 //        'stackEvents' : 'true',
         'min': new Date(CLIENTVAR.pageGenerationTime.getTime()),

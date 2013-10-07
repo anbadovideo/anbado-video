@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         CLIENTVAR.popcornobj.on("timeupdate", function() {
 
             timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
-
+            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 10000), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 10000))
 
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
 //            anbado.timeline.tooltip(stackedAreaObject)

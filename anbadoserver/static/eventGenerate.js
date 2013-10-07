@@ -386,9 +386,9 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
     var eaProfileImage = new createjs.Bitmap(eventObject.eventOwnerProfilePicture); // profile example
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.x = eventObject.eventPosX - 25;
-    eaProfileImage.y = eventObject.eventPosY;
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
+    eaProfileImage.x = eventObject.eventPosX - 50;
+    eaProfileImage.y = eventObject.eventPosY - 17;
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
 
     eventObject.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
