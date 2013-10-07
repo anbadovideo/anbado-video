@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+/**
+ *
+ * @param evt easeljs의 스테이지에서 발생한 마우스 이벤트
+ */
+
 function saveCoord(evt) {
 
     console.log("evt " + evt);
@@ -52,6 +57,12 @@ function saveCoord(evt) {
 
 
 }
+
+/**
+ * 화면에 인풋 패널을 그려주는 랜더러 역할
+ *
+ * @param eventObject 생성중인 이벤트 오브젝트
+ */
 
 
 function displayInputPanel(eventObject) { // on first screen, display text input panel, submit button, emoticon panel
@@ -104,7 +115,11 @@ function displayInputPanel(eventObject) { // on first screen, display text input
         });
 
 
-
+        /**
+         * 각각의 이모티콘 버튼. 클릭하면 이벤트를 생성하도록 한다.
+         *
+         * @type {HTMLElement} 이모티콘을 입력받는다.
+         */
 
         var emo0 = document.getElementById('emoticon0');
         emo0.addEventListener("click", function() {

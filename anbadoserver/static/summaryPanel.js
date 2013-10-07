@@ -15,6 +15,12 @@ var data = [
 
 
 // Called when the Visualization API is loaded.
+
+/**
+ * 플레이어 페이지 밑의 드로잉 페이지를 그리는 함수. 전반적인 설정값을 결정한다.
+ *
+ */
+
 function drawTimelineVisualization() {
 
     console.log("in draw");
@@ -24,7 +30,7 @@ function drawTimelineVisualization() {
     var options = {
 
         'width': '95%',
-        'height': 'auto',
+        'height': '800px',
         'editable': false,   // enable dragging and editing events
         'style': 'box',
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime()),
