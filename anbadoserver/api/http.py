@@ -130,7 +130,7 @@ def friendship_get(user_id):
     if user is None:
         abort(404)
 
-    return jsonify(friends=[x.to_json() for x in user.friends.all()])
+    return jsonify(friends=[x.to_json() for x in user._friends.all()])
 
 
 @app.route('/friendship/<int:userA_id>/<int:userB_id>', methods=('POST', ))
@@ -142,8 +142,8 @@ def friendship_post(userA_id, userB_id):
     if (userA is None) or (userB is None):
         abort(404)
 
-    userA.friends.append(userB)
-    userB.friends.append(userA)
+    userA._friends.append(userB)
+    userB._friends.append(userA)
 
     if userA.save(commit=False) and userB.save(commit=False):
         try:
@@ -172,8 +172,8 @@ def friendship_delete(userA_id, userB_id):
     if (userA is None) or (userB is None):
         abort(404)
 
-    userA.friends.remove(userB)
-    userB.friends.remove(userA)
+    userA._friends.remove(userB)
+    userB._friends.remove(userA)
 
     if userA.save(commit=False) and userB.save(commit=False):
         try:
