@@ -238,8 +238,8 @@ input {
     height: 110px;
     width: 700px;
     position: absolute;
-    top: 840px;
-    left: 300px;
+    top: 0px;
+    left: 0px;
 }
 
 /*line chart */
@@ -254,8 +254,8 @@ svg {
     min-width: 100px;
     min-height: 100px;
     position: absolute;
-    top: 840px;
-    left: 300px;
+    top: 0px;
+    left: 0px;
 }
 
 /*pichart*/
