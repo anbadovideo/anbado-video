@@ -32,7 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 10);
 
 
+
         CLIENTVAR.popcornobj.on("timeupdate", function() {
+
+            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
+
 
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
 //            anbado.timeline.tooltip(stackedAreaObject)

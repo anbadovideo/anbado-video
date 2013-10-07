@@ -31,7 +31,7 @@ user2.save()
 user3.save()
 
 # sample video
-video = Video('youtube', 'AVXW6ImzXtc', u'아이유 (IU) 라이브로 짧게 커버한 곡들', 684, user1)
+video = Video('youtube', 'c3gI9ms8Fdc', u'THE TRUMAN SHOW (1998) - Official Movie Trailer', 684, user1)
 video.save()
 
 # sample event 1

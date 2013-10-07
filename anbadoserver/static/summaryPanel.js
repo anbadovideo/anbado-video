@@ -39,6 +39,7 @@ function drawTimelineVisualization() {
 //        'step' : 1000,
         'zoomable': false,
         'showCurrentTime': false,
+        'showCustomTime' : true,
         'editable': false,
 
 //        'stackEvents' : 'true',
