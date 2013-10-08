@@ -52,8 +52,8 @@ event3.save()
 event4 = Event(user1, video, 20, 25, u'아이유짱!', 'good')
 event4.save()
 
-event5 = Event(user1, video, 31, 25, u'아이유짱!', 'good')
+event5 = Event(user1, video, 31, 45, u'아이유짱!', 'good')
 event5.save()
 
-event6 = Event(user1, video, 31, 25, u'아이유짱!', 'good')
+event6 = Event(user1, video, 31, 45, u'아이유짱!', 'good')
 event6.save()

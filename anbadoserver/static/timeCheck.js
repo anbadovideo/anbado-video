@@ -122,6 +122,21 @@ var timeset = 2;
 function happybutton() {
     testObj.drawVisualization('g');
 
+    anbado.realtime.postEvent({
+        user_id: 1,
+        video_id: 1,
+        appeared: CLIENTVAR.popcornobj.currentTime(),
+        disappeared: 35,
+
+        category: 'good',
+        content:'good',
+        permission:'public',
+        coord: [100, 100],
+        size: [200, 100]
+    });
+
+
+
 //    if (timeset === 2) {
 //        console.log("gray");
 //        $("#happy1").css({"background": 'gray'});
