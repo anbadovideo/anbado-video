@@ -125,7 +125,7 @@ function happybutton() {
     anbado.realtime.postEvent({
         user_id: 1,
         video_id: 1,
-        appeared: CLIENTVAR.popcornobj.currentTime(),
+        appeared: parseInt(CLIENTVAR.popcornobj.currentTime()),
         disappeared: 35,
 
         category: 'good',

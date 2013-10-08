@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function(){
         anbado.realtime.enterVideo(1,1);
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
-            var tempType ="textinput1";
+            var tempType = "";
             console.log("evt category is " + evt.category);
             if(evt.category == "text"){
                 tempType = "textinput1"

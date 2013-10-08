@@ -75,7 +75,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     $('#halfchart').css('top', height);
     $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> </svg></div>');
+    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect x="50" y="20" width="150" height="150" style="fill:blue;fill-opacity:0.1;" /> </svg></div>');
     $('#barchart').css('top', height);
     $('#barchart').css('width', width);
 
