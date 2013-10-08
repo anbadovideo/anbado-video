@@ -24,7 +24,14 @@ function saveCoord(evt) {
 
     console.log("evt " + evt);
 
+    /**
+     *
+     *
+     * @type {{eventID: {}, eventStep: number, eventOwnerID: {}, eventOwnerName: string, eventOwnerProfilePicture: string, eventVideoClickTime: {}, eventOccuredAbsoluteTime: {}, eventVideoClickDuration: number, eventPosX: {}, eventPosY: {}, timelineOffset: {}, eventType: {}, eventContent: {}, eventPermission: {}, secUnit: {}, eaCanvasisplayObject: {}, itHasParent: boolean, parentEvent: {}, parentEventID: number, childrenIDarray: Array}}
+     */
+
     var eventObject = {  // 전역 이벤트 없이 통과해가며 완성됨
+
         eventID: {},
         eventStep: 0, // 0은 생성상태. 1은 생성 중. 2는 생성완료
 
@@ -65,6 +72,11 @@ function saveCoord(evt) {
  */
 
 
+/**
+ * 인풋 패널을 표시하고, 입력 이벤트가 발생하면 이벤트를 생성하도록 한다.
+ *
+ * @param eventObject
+ */
 function displayInputPanel(eventObject) { // on first screen, display text input panel, submit button, emoticon panel
 
 

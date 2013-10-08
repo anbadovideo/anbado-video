@@ -109,14 +109,28 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
     this.badData = [];
     this.dummData = [];
 
+    var data2 = anbado.restful.getVideoInfo(1);
+
+    var weightValue =  data2.video.timeline_chart;
+
     time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
     console.log("array time: " + time);
 
+
+//    for (var tempCounter = 0; tempCounter < testObj.durationTime; tempCounter++){
+//        console.log(tempCounter);
+//        testObj.goodData[tempCounter] = [tempCounter,2];
+//
+//    }
+
     for (var i = 0; i < time; i++) {
+
+        console.log(weightValue[i]);
+
         // TODO: 0.5 값이 적당한지 확인 필요
         // goodData[i][0] = 시간
         // goodData[i][1] = 데이터 (갯수)
-        this.goodData[i] = [i, 0];
+        this.goodData[i] = [i, weightValue[i]];
         this.badData[i] = [i, 0];
         this.dummData[i] = [i, 0.1];
 
@@ -476,10 +490,12 @@ anbadoTimeLine.prototype.drawBarChart = function() {
 };
 
 
+
 /**
  * 지정된 그래프 타입에 따라 적절한 그래프를 선택하여 그린다.
+ * @param type good 인지 bad 인지에 따라 구분함
  */
-anbadoTimeLine.prototype.drawVisualization = function(state) {
+anbadoTimeLine.prototype.drawVisualization = function(type) {
 
     var inttime = this.currentTime;
     inttime = parseInt(inttime);
@@ -489,10 +505,10 @@ anbadoTimeLine.prototype.drawVisualization = function(state) {
         inttime=parseInt(inttime);
         console.log("time"+inttime);
 
-    if (state === 'g') {
+    if (type === 'g') {
         this.goodData[inttime][1] = (this.goodData[inttime][1] + 1);
     }
-    else if (state === 'b') {
+    else if (type === 'b') {
         this.badData[inttime][1] = (this.badData[inttime][1] + 1);
     }
 

@@ -2,22 +2,25 @@
 
 var inputPanel;
 
+var data1 = anbado.restful.getUserInfo(1);
+var data2 = anbado.restful.getVideoInfo(1);
+var data3 = anbado.restful.getParticipants(1);
 
 document.addEventListener("DOMContentLoaded", function(){
+
+
 
     /**
      * restful api를 이용하여 현재의 사용자 정보, 비디오 정보, 이 비디오에 참여한 사람들을 받아옴
      *
      * @type {json}
      */
-    var data1 = anbado.restful.getUserInfo(1);
-    var data2 = anbado.restful.getVideoInfo(1);
-    var data3 = anbado.restful.getParticipants(1);
+
 
     anbado.realtime.enterVideo(1,1);
 
     console.log(data1);
-    console.log(data2.video.provider);
+    console.log(data2);
     console.log(data3);
 
 //    hidePanel(); // 입력 패널은 DOM객체이므로 이를 보이지 않도록 한다. TODO: 동적 생성으로 하여 이 부분이 필요하지 않도록 하기

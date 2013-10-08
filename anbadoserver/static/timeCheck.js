@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+
         CLIENTVAR.popcornobj.on("timeupdate", function() {
 
             timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));

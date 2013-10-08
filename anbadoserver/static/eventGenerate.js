@@ -387,7 +387,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
     eaProfileImage.x = eventObject.eventPosX - 50;
-    eaProfileImage.y = eventObject.eventPosY - 17;
+    eaProfileImage.y = eventObject.eventPosY - 20;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
 
 
