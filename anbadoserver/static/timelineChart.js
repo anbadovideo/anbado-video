@@ -81,12 +81,12 @@ anbadoTimeLine.prototype.initialize = function(time) {
 
 
 
-       if(time>=100)
+       if(false)
        {
         this.dummy=time/100;
         this.makeTimelineDataArray(100);
         }
-        else if(time<100)
+        else if(true)
        {
            this.dummy=1;
            this.makeTimelineDataArray(time);
@@ -125,7 +125,10 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 
     for (var i = 0; i < time; i++) {
 
-        console.log(weightValue[i]);
+
+        if(weightValue[i]===undefined){
+            weightValue[i]=0;
+        }
 
         // TODO: 0.5 값이 적당한지 확인 필요
         // goodData[i][0] = 시간
@@ -501,9 +504,9 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
     inttime = parseInt(inttime);
 
 
-        inttime=inttime/this.dummy;
-        inttime=parseInt(inttime);
-        console.log("time"+inttime);
+//        inttime=inttime/this.dummy;
+//        inttime=parseInt(inttime);
+//        console.log("time"+inttime);
 
     if (type === 'g') {
         this.goodData[inttime][1] = (this.goodData[inttime][1] + 1);
