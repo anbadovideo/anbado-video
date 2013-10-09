@@ -3,6 +3,7 @@
  */
 
 
+
 document.addEventListener("DOMContentLoaded", function() {
 
     var inti;
@@ -22,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             var ba = document.getElementsByClassName("nv-linePlusBar");
     ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
-    rect = document.getElementById("rect1");
-    rect.setAttribute('height',70);
-     rect.setAttribute('x',70);
-     rect.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+
+    testObj.coverId.setAttribute('height',70);
+     testObj.coverId.setAttribute('x',70);
+     testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
 
         },100)
 
@@ -46,16 +47,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 10);
 
 
-
-
+        var k=parseInt($(testObj.videoId).css('width'))-130;
+        var ti=(k/testObj.durationTime);
 
         CLIENTVAR.popcornobj.on("timeupdate", function() {
+
+            var coverTime=parseInt(ti*testObj.currentTime);
+
+     testObj.coverId.setAttribute('x',70+coverTime);
+     testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130-coverTime);
 
 
             timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
             timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 10000), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 10000))
 
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
+            //testObj.tooltip();
 //            anbado.timeline.tooltip(stackedAreaObject)
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});

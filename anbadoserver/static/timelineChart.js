@@ -41,6 +41,8 @@ var anbadoTimeLine = function(getId) {
 
     this.dummData = [];
 
+    this.coverId=0;
+
     this.currentTime = 0;
     this.durationTime = 0;
     this.dummy=0;
@@ -80,9 +82,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     $('#barchart').css('top', height);
     $('#barchart').css('width', width);
 
-
-
-
+   this.coverId= document.getElementById("rect1");
 
        if(false)
        {
@@ -144,6 +144,9 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 
     }
 };
+
+
+
 
 /**
  * 주어지는 timeline canvas위에 툴팁을 그린다.
