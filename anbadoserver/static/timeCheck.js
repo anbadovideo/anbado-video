@@ -17,6 +17,20 @@ document.addEventListener("DOMContentLoaded", function() {
         testObj.drawVisualization();
 
 
+        setTimeout(function()
+        {
+
+            var ba = document.getElementsByClassName("nv-linePlusBar");
+    ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
+    rect = document.getElementById("rect1");
+    rect.setAttribute('height',70);
+     rect.setAttribute('x',70);
+     rect.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+
+        },100)
+
+
+
     });
 
 
@@ -36,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         CLIENTVAR.popcornobj.on("timeupdate", function() {
+
 
             timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
             timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 10000), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 10000))
