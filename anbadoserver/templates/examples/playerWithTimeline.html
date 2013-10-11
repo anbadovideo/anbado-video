@@ -53,9 +53,24 @@
     <link href="{{ url_for('static', filename='external/d3/nv.d3.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='examples/css/layout.css') }}">
 
+    <script>
+
+        function hello1(evt){
+           // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
+        var currentTime =(evt.clientX-398);
+        var timeLineWidth=testObj.backcoverId.width.baseVal.value;
+
+        var perTime = CLIENTVAR.popcornobj.duration();
+            perTime=(perTime/timeLineWidth);
+
+        CLIENTVAR.popcornobj.play(perTime*currentTime);
+        }
+        </script>
 
 </head>
 <body>
+
+
 <div id="wrapper">
     <div id="container">
         <div id="top">
@@ -170,10 +185,9 @@
 {##}
 {#</div>#}
 
-<div id="summary">
     <div id="mytimeline"></div>
 
-</div>
+
 
 
 <div id="main_bottom_wrap">

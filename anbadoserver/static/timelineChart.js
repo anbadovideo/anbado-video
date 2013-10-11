@@ -42,6 +42,7 @@ var anbadoTimeLine = function(getId) {
     this.dummData = [];
 
     this.coverId=0;
+    this.backcoverId=0;
 
     this.currentTime = 0;
     this.durationTime = 0;
@@ -77,13 +78,13 @@ anbadoTimeLine.prototype.initialize = function(time) {
     $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     $('#halfchart').css('top', height);
     $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect id="rect1" x="50" y="20" width="150" height="150" style="fill:gray;fill-opacity:0.5;" /> </svg></div>');
+    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect onclick="hello1(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onclick="hello1(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
 
     $('#barchart').css('top', height);
     $('#barchart').css('width', width);
 
    this.coverId= document.getElementById("rect1");
-
+    this.backcoverId= document.getElementById("rect2");
        if(false)
        {
         this.dummy=time/100;
