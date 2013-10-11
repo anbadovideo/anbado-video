@@ -336,6 +336,7 @@ var commentReply = function(eventObject) { // stage mousedown event 가 발생�
 function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 이벤트를 리스트에 넣게 되는 단계 (이것은 그리는 단계에서는 그러하고, 서버에서 받아오는 단계에서는 미리 저장한다
 
 
+    var textFont = 'Nanum Gothic';
     eventObject.eaCanvasDisplayObject = new createjs.Container();
 
 //    eventObject.eaCanvasDisplayObject.addEventListener("click", function() {
@@ -344,7 +345,27 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 //    });// 현재 이벤트를 클릭했을 경우 이에 대한 대댓글 기능이 제공됨
 
 
-    if (eventObject.eventType === "textinput1" || eventObject.eventType === "textinput2") {
+//
+//
+//
+//    var eaBackNamePanel = new createjs.Shape();
+//    eaBackNamePanel.graphics.beginFill('rgba(100,25,33,0.5)').drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, eaTextName.getMeasuredWidth() + 30, eaTextName.getMeasuredHeight() + 3, 43); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+//    eaBackNamePanel.regX = -2;
+//    eaBackNamePanel.regY = 27;
+//
+//    eventObject.eaCanvasDisplayObject.addChild(eaBackNamePanel);
+
+
+    var eaTextName = new createjs.Text('날아올라라황금독수리', "bold 13px " + textFont.toString(), "#0099ff");
+    eaTextName.regX = -10;
+    eaTextName.regY = 23;
+    eaTextName.x = eventObject.eventPosX;
+    eaTextName.y = eventObject.eventPosY;
+
+
+
+
+    if (eventObject.eventType === 'textinput1' || eventObject.eventType === 'textinput2') {
 
         if (eventObject.eventTypeArg === "textinput2") {
             eventObject.eventPosX = 100;
@@ -353,22 +374,25 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 
         }
 
-        var textFont = 'Nanum Gothic';
+
 
         var eaTextContent = new createjs.Text(eventObject.eventContent, $("#fontSizeSelect").val() + "px " + textFont.toString(), "#ffffff");
         eaTextContent.regX = -10;
-        eaTextContent.regY = 0;
+        eaTextContent.regY = 5;
         eaTextContent.x = eventObject.eventPosX;
         eaTextContent.y = eventObject.eventPosY;
 
-
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, eaTextContent.getMeasuredWidth() + 30, eaTextContent.getMeasuredHeight() + 3, 43); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-        eaBackPanel.regX = -2;
-        eaBackPanel.regY = 0;
+        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, (eaTextContent.getMeasuredWidth()>eaTextName.getMeasuredWidth() ? eaTextContent.getMeasuredWidth() : eaTextName.getMeasuredWidth()) + 80, eaTextContent.getMeasuredHeight() + 30, 43); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = 27;
+        eaBackPanel.regY = 27;
+
+
 
         // 백패널 추가후 텍스트 올림
         eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+        eventObject.eaCanvasDisplayObject.addChild(eaTextName);
+
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
     }
     else if (eventObject.eventType === "emoticon0" || eventObject.eventType === "emoticon1" || eventObject.eventType === "emoticon2" || eventObject.eventType === "emoticon3") {
@@ -380,15 +404,23 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
         eaTempEmoticon.x = eventObject.eventPosX;
         eaTempEmoticon.y = eventObject.eventPosY;
         eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
+
+        var eaBackPanel = new createjs.Shape();
+        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, eaTextName.getMeasuredWidth() + 70, 80, 43); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = 27;
+        eaBackPanel.regY = 27;
+
+        eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+        eventObject.eaCanvasDisplayObject.addChild(eaTextName);
         eventObject.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
 
     var eaProfileImage = new createjs.Bitmap(eventObject.eventOwnerProfilePicture); // profile example
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.x = eventObject.eventPosX - 50;
+    eaProfileImage.x = eventObject.eventPosX - 20;
     eaProfileImage.y = eventObject.eventPosY - 20;
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.2;
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
 
 
     eventObject.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함

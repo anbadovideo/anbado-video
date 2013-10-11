@@ -30,20 +30,24 @@ document.addEventListener("DOMContentLoaded", function(){
 
     $("#player1").remove();
 
-//    $("#player").append("<video id='videoEmbed' controls ></video>");
+//    $("#player").append("<video id='videoEmbed' controls ></video>");    // 요걸로 하면 정렬됨
 //    $("#player").append("<video id='videoEmbed' controls style='position: absolute;'></video>");
 
 
-    $("#player").append("<div id='videoEmbed' controls style='position: relative;top:0px;left:0px;width:1080px;height:1040px;'></div>");
+
+//    $("#player").append("<div id='videoEmbed' controls style='position: absolute;top:0px;left:0px;width:1080px;height:1040px;'></div>"); // 정렬 안됨 ㅠㅠ
+
+    $("#player").append('<div id="videoEmbed"></div>');
 
 
-    console.log($("#player").offset());
-    $("#videoEmbed").css({"left":25+"%", "top":0});
-    $("#videoEmbed").css({"width":880, "height":500});
+
+//    console.log("player offset is " + $("#player").offset());
+//    $("#videoEmbed").css({"left":0, "top":0});
+    $("#videoEmbed").css({"width":640, "height":480});
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
-    $("#player").append("<canvas id='canvas1' width = '"+$("#videoEmbed").width()+"px' height = '"+($("#videoEmbed").height()-100)+"px'></canvas>");
+    $("#player").append('<canvas id="canvas1" width = "'+$("#videoEmbed").width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative"></canvas>');
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
 
     $("#canvas1").css({"position":"absolute", "z-index":2});
