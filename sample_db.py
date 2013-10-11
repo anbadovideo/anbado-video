@@ -39,6 +39,12 @@ user4.save()
 video = Video('youtube', 'YulljONH8Fs', u'안바도 비디오(anbado video) 소개 영상', 684, user1)
 video.save()
 
+
+
+video2 = Video('youtube', '9bZkp7q19f0', u'안바도 비디오(anbado video) 소개 영상', 684, user1)
+video2.save()
+
+
 # sample event 1
 event1 = Event(user1, video, 20, 25, u'아이유짱!', 'text', (20, 40))
 event1.save()

@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
         {
 
             var ba = document.getElementsByClassName("nv-linePlusBar");
-    ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
+            ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
 
-    testObj.coverId.setAttribute('height',70);
-     testObj.coverId.setAttribute('x',70);
-     testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+            testObj.coverId.setAttribute('height',70);
+            testObj.coverId.setAttribute('x',70);
+            testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
 
         },100)
 
@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             var coverTime=parseInt(ti*testObj.currentTime);
 
-     testObj.coverId.setAttribute('x',70+coverTime);
-     testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130-coverTime);
+            testObj.coverId.setAttribute('x',70+coverTime);
+            testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130-coverTime);
 
 
             timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));

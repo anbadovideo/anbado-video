@@ -3,7 +3,7 @@
 var inputPanel;
 
 var data1 = anbado.restful.getUserInfo(1);
-var data2 = anbado.restful.getVideoInfo(1);
+var data2 = anbado.restful.getVideoInfo(2);
 var data3 = anbado.restful.getParticipants(1);
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-//    $("#player").append("<div id='videoEmbed' controls style='position: absolute;top:0px;left:0px;width:1080px;height:1040px;'></div>"); // 정렬 안됨 ㅠㅠ
+    $("#player").append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
 
-    $("#player").append('<div id="videoEmbed"></div>');
+//    $("#player").append('<div id="videoEmbed"></div>');
 
 
 
@@ -47,10 +47,10 @@ document.addEventListener("DOMContentLoaded", function(){
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
-    $("#player").append('<canvas id="canvas1" width = "'+$("#videoEmbed").width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative"></canvas>');
+    $("#player").append('<canvas id="canvas1" width = "'+$("#videoEmbed").width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative, z-index:2; margin-left:auto;margin-right:auto;"></canvas>');
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
 
-    $("#canvas1").css({"position":"absolute", "z-index":2});
+    $("#canvas1").css({});
     $("#canvas1").offset($("#videoEmbed").offset());
 //    $("#canvas1").position({left:0, top:0});
 
@@ -252,11 +252,8 @@ var InputPanel = function(){
 
 //    CLIENTVAR.inputPanelShow = true;
 
-        this.text.show();
-        this.emoticon.show();
-
-        this.text.css("left",400);
-        this.emoticon.css("left",300);
+        this.text.show("drop",500);
+        this.emoticon.show("drop",500);
 
 
         this.text.css({"top": eventObject.eventPosY + this.tempLocation.top + "px", "left": eventObject.eventPosX + this.tempLocation.left + "px"})
@@ -274,8 +271,11 @@ var InputPanel = function(){
     this.deletePanel = function(){
 //        this.textinput1.remove();
 //        this.emoticonPanel.remove();
-                             $("#textinput1").remove();
-                             $("#emoticonPanel").remove();
+
+        this.text.hide("drop",400);
+        this.emoticon.hide("drop",400);
+        this.text.remove();
+        this.emoticon.remove();
         CLIENTVAR.inputPanelShow = false;
     }
 
