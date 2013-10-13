@@ -56,13 +56,23 @@
     <script>
 
         function hello1(evt){
+
+            //console.log(evt);
+            var offsetLeft=$('#rect2').offset().left;
+            //console.log(offsetLeft);
+
            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
-        var currentTime =(evt.clientX-398);
+
+
+        var currentTime =(evt.clientX-offsetLeft);
         var timeLineWidth=testObj.backcoverId.width.baseVal.value;
 
         var perTime = CLIENTVAR.popcornobj.duration();
             perTime=(perTime/timeLineWidth);
 
+
+            console.log('time :'+perTime*currentTime);
+        CLIENTVAR.popcornobj.play();
         CLIENTVAR.popcornobj.play(perTime*currentTime);
         }
         </script>
