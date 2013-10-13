@@ -52,7 +52,7 @@ event1.save()
 event2 = Event(user2, video, 0, 0, u'역시 아이유가 짱이지 ㅇㅇ', 'text', (20, 23), parent=event1)
 event2.save()
 
-event3 = Event(user1, video, 50, 155, u'Wow!!', 'text', (150, 250), permission='protected')
+event3 = Event(user1, video, 50, 55, u'Wow!!', 'text', (150, 250), permission='protected')
 event3.save()
 
 event4 = Event(user1, video, 20, 25, u'아이유짱!', 'good')

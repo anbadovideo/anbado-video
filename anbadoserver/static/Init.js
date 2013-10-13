@@ -252,8 +252,8 @@ var InputPanel = function(){
 
 //    CLIENTVAR.inputPanelShow = true;
 
-        this.text.show("drop",500);
-        this.emoticon.show("drop",500);
+        this.text.show();
+        this.emoticon.show();
 
 
         this.text.css({"top": eventObject.eventPosY + this.tempLocation.top + "px", "left": eventObject.eventPosX + this.tempLocation.left + "px"})
@@ -272,8 +272,8 @@ var InputPanel = function(){
 //        this.textinput1.remove();
 //        this.emoticonPanel.remove();
 
-        this.text.hide("drop",400);
-        this.emoticon.hide("drop",400);
+//        this.text.hide();
+//        this.emoticon.hide();
         this.text.remove();
         this.emoticon.remove();
         CLIENTVAR.inputPanelShow = false;

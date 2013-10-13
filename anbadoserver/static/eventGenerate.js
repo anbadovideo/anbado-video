@@ -205,7 +205,7 @@ var eventTypeCheck = function(eventObject) {
     if (eventObject.eventStep === 3) {          // 외부 이미지 입력하는 경우
         switch (eventObject.eventType) {
             case "textinput1":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
 
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
@@ -217,10 +217,10 @@ var eventTypeCheck = function(eventObject) {
 
                 break;
             case "textinput2":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
                 break;
             case "emoticon0":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
                     'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
@@ -230,7 +230,7 @@ var eventTypeCheck = function(eventObject) {
                 drawTimelineVisualization();
                 break;
             case "emoticon1":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
                     'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
@@ -240,7 +240,7 @@ var eventTypeCheck = function(eventObject) {
                 drawTimelineVisualization();
                 break;
             case "emoticon2":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
                     'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
@@ -249,7 +249,7 @@ var eventTypeCheck = function(eventObject) {
                 drawTimelineVisualization();
                 break;
             case "emoticon3":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
                     'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
