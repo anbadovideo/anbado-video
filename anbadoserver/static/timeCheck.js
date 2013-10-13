@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.coverId.setAttribute('height',70);
             testObj.coverId.setAttribute('x',70);
             testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+            testObj.backcoverId.setAttribute('height',70);
+            testObj.backcoverId.setAttribute('x',70);
+            testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+
+
 
         },100)
 

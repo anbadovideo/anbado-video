@@ -53,9 +53,34 @@
     <link href="{{ url_for('static', filename='external/d3/nv.d3.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='examples/css/layout.css') }}">
 
+    <script>
+
+        function hello1(evt){
+
+            //console.log(evt);
+            var offsetLeft=$('#rect2').offset().left;
+            //console.log(offsetLeft);
+
+           // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
+
+
+        var currentTime =(evt.clientX-offsetLeft);
+        var timeLineWidth=testObj.backcoverId.width.baseVal.value;
+
+        var perTime = CLIENTVAR.popcornobj.duration();
+            perTime=(perTime/timeLineWidth);
+
+
+            console.log('time :'+perTime*currentTime);
+        CLIENTVAR.popcornobj.play();
+        CLIENTVAR.popcornobj.play(perTime*currentTime);
+        }
+        </script>
 
 </head>
 <body>
+
+
 <div id="wrapper">
     <div id="container">
         <div id="top">
@@ -101,7 +126,8 @@
 <input id="happy" type="button" onclick="happybutton()" value="happy"/>
 <input id="sad" type="button" onclick="sadbutton()" value="sad"/>
 
-<input id="btnPlay" type="button" onclick = "CLIENTVAR.popcornobj.play()"/>
+<input id="btnPlay" type="button" onclick = "CLIENTVAR.popcornobj.play()">play</input>
+<input id="btnStop" type="button" onclick = "CLIENTVAR.popcornobj.pause()">pause</input>
 
 </div>
 
@@ -173,9 +199,7 @@
 {##}
 {#</div>#}
 
-
     <div id="mytimeline"></div>
-
 
 <div id="main_bottom_wrap">
     <ul>
