@@ -11,6 +11,8 @@
 //var anbadoDummy=(function($){
 
 
+
+
 var anbadoTimeLine = function(getId) {
     this.videoId = "#" + getId;
     /**
@@ -49,10 +51,56 @@ var anbadoTimeLine = function(getId) {
     this.dummy=0;
 }
 
+
+
+
+// anbadoTimeLine.prototype.timeLineCover = function(evt)
+//{
+//
+//            var offsetLeft=$('#rect2').offset().left;
+//
+//
+//        var currentTime =(evt.clientX-offsetLeft);
+//        //var timeLineWidth=this.backcoverId.width.baseVal.value;
+//
+//        var perTime = CLIENTVAR.popcornobj.duration();
+//            perTime=(perTime/timeLineWidth);
+//
+//
+//            console.log('time :'+perTime*currentTime);
+//        CLIENTVAR.popcornobj.play();
+//        CLIENTVAR.popcornobj.play(perTime*currentTime);
+//
+//
+//}
+//
+
+
 anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
     this.currentTime = inputTime;
 
 }
+
+//
+//anbadoTimeLine.prototype.timeLineCover = function(evt)
+//{
+//
+//            var offsetLeft=$('#rect2').offset().left;
+//
+//
+//        var currentTime =(evt.clientX-offsetLeft);
+//        var timeLineWidth=this.backcoverId.width.baseVal.value;
+//
+//        var perTime = CLIENTVAR.popcornobj.duration();
+//            perTime=(perTime/timeLineWidth);
+//
+//
+//            console.log('time :'+perTime*currentTime);
+//        CLIENTVAR.popcornobj.play();
+//        CLIENTVAR.popcornobj.play(perTime*currentTime);
+//
+//
+//}
 
 
 /**
@@ -63,6 +111,8 @@ anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
 anbadoTimeLine.prototype.initialize = function(time) {
     var height = $(this.videoId).css("height");
     var width = $(this.videoId).css("width");
+
+
 
 
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
@@ -78,7 +128,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     $('#halfchart').css('top', height);
     $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect onclick="hello1(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onclick="hello1(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
+    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect onclick="timeLineCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onclick="timeLineCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
 
     $('#barchart').css('top', height);
     $('#barchart').css('width', width);

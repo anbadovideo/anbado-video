@@ -6221,10 +6221,10 @@ nv.models.linePlusBarWithFocusChart = function() {
       g.select('.nv-context .nv-y1.nv-axis')
           .style('opacity', dataBars.length ? 1 : 0)
           .attr('transform', 'translate(0,' + x2.range()[0] + ')');
-          
+
       d3.transition(g.select('.nv-context .nv-y1.nv-axis'))
           .call(y3Axis);
-          
+
 
       y4Axis
         .scale(y4)

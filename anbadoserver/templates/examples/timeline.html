@@ -5,7 +5,9 @@
     <title>anbado player example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-
+       <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='anbadoRealtime.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='anbadoRestful.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='Init.js') }}"></script>
     <!--<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>-->
     <script type="text/javascript" src="{{ url_for('static', filename='external/popcorn-complete-modified.js') }}"></script>
@@ -107,6 +109,8 @@
 
 
     </script>
+
+
 
 
 </head>
