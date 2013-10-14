@@ -76,6 +76,11 @@
         CLIENTVAR.popcornobj.play(perTime*currentTime);
         }
         </script>
+    <script type ="text/javascript">
+        $(function(){
+            $("#volumeslider").slider();
+        });
+    </script>
 
 </head>
 <body>
@@ -126,8 +131,11 @@
 <input id="happy" type="button" onclick="happybutton()" value="happy"/>
 <input id="sad" type="button" onclick="sadbutton()" value="sad"/>
 
-<input id="btnPlay" type="button" onclick = "CLIENTVAR.popcornobj.play()">play</input>
-<input id="btnStop" type="button" onclick = "CLIENTVAR.popcornobj.pause()">pause</input>
+<input id="btnPlay" type="button" size="53" onclick = "CLIENTVAR.popcornobj.play()" value="play"/>
+<input id="btnStop" type="button" size="53" onclick = "CLIENTVAR.popcornobj.pause()" value = "pause"/>
+<input id="btnCanvasOn" type="button" size="53" onclick = "$('#canvas1').show()" value = "canvas on"/>
+<input id="btnCanvasOff" type="button" size="53" onclick = "$('#canvas1').hide()" value = "canvas off"/>
+
 
 </div>
 
@@ -141,7 +149,7 @@
 
 
 </div>
-
+<div id ="volumeslider"></div>
 
 <!--<input type="button" class="bt_all_player bt_play" value="play">-->
 <!--<input type="button" class="bt_all_player bt_like" value="like">-->
