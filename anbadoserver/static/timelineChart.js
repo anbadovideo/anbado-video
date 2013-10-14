@@ -496,7 +496,7 @@ anbadoTimeLine.prototype.drawHalfPieChart = function() {
 anbadoTimeLine.prototype.drawBarChart = function() {
     var testdata = [
         {
-            "key": "Quantity",
+            "key": "anbado",
             "bar": true,
             "values": this.goodData,
             color: "red"
@@ -520,11 +520,10 @@ anbadoTimeLine.prototype.drawBarChart = function() {
             })
             .color(d3.scale.category10().range());
 
-//            chart.xAxis.tickFormat(function (d) {
-//                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
-//                return dx ? d3.time.format('%x')(new Date(dx)) : '';
-//            })
-//                .showMaxMin(false);
+            chart.xAxis.tickFormat(function (d) {
+                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+                return dx ? d3.time.format('%X')(new Date(dx)) : '';
+            }).showMaxMin(false);
 
         chart.y1Axis
             .tickFormat(d3.format(',f'));
