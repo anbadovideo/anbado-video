@@ -217,7 +217,7 @@ var eventTypeCheck = function(eventObject) {
 
                 break;
             case "textinput2":
-                eaDisplaySetting(eventObject);
+//                eaDisplaySetting(eventObject);
                 break;
             case "emoticon0":
                 eaDisplaySetting(eventObject);
@@ -435,7 +435,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
     }
     else { // 일반 텍스트 입력 및 이모티콘인 경우 경우
         CLIENTVAR.stage.addChild(eventObject.eaCanvasDisplayObject);
-        CLIENTVAR.stage.update();
+//        CLIENTVAR.stage.update();
     }
 
 
@@ -463,13 +463,13 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 
 function endup() { // 이벤트 후 처리 부분
 
-    CLIENTVAR.stage.update();
+//    CLIENTVAR.stage.update();
 
 //    inputPanel.deletePanel();
 
-    setTimeout(function() {
-        getFocus();
-    }, 100);// TODO: getFocus 함수 손보기. 타임아웃 방식보다 더 안정적인 방식을 적용할 것.
+//    setTimeout(function() {
+//        getFocus();
+//    }, 100);// TODO: getFocus 함수 손보기. 타임아웃 방식보다 더 안정적인 방식을 적용할 것.
 }
 
 

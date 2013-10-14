@@ -45,11 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var stackedAreaObject = $('#stackedarea');
         console.log(this.media.src);
-        $("#canvas1").show();
+//        $("#canvas1").show();
 
         inti = self.setInterval(function() {
             timeCheck()
         }, 10);
+
+
 
 
         var k=parseInt($(testObj.videoId).css('width'))-130;
@@ -63,12 +65,14 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130-coverTime);
 
 
-            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
-            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 10000), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 10000))
-
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
             //testObj.tooltip();
 //            anbado.timeline.tooltip(stackedAreaObject)
+
+
+            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
+            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 10000), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 10000))
+
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 

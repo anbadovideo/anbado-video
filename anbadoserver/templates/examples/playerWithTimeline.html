@@ -77,6 +77,11 @@
         CLIENTVAR.popcornobj.play(perTime*currentTime);
         }
         </script>
+    <script type ="text/javascript">
+        $(function(){
+            $("#volumeslider").slider();
+        });
+    </script>
 
 </head>
 <body>
@@ -124,8 +129,15 @@
         <option value="5">bar chart</option>
     </select>
 
-<input id="happy" type="button" onclick="happybutton()" value="happy">
-<input id="sad" type="button" onclick="sadbutton()" value="sad">
+<input id="happy" type="button" onclick="happybutton()" value="happy"/>
+<input id="sad" type="button" onclick="sadbutton()" value="sad"/>
+
+<input id="btnPlay" type="button" size="53" onclick = "CLIENTVAR.popcornobj.play()" value="play"/>
+<input id="btnStop" type="button" size="53" onclick = "CLIENTVAR.popcornobj.pause()" value = "pause"/>
+<input id="btnCanvasOn" type="button" size="53" onclick = "$('#canvas1').show()" value = "canvas on"/>
+<input id="btnCanvasOff" type="button" size="53" onclick = "$('#canvas1').hide()" value = "canvas off"/>
+
+
 </div>
 
         <div id="player_shadow"></div>
@@ -138,7 +150,7 @@
 
 
 </div>
-
+<div id ="volumeslider"></div>
 
 <!--<input type="button" class="bt_all_player bt_play" value="play">-->
 <!--<input type="button" class="bt_all_player bt_like" value="like">-->
@@ -197,9 +209,6 @@
 {#</div>#}
 
     <div id="mytimeline"></div>
-
-
-
 
 <div id="main_bottom_wrap">
     <ul>
