@@ -189,7 +189,7 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
         // TODO: 0.5 값이 적당한지 확인 필요
         // goodData[i][0] = 시간
         // goodData[i][1] = 데이터 (갯수)
-        this.goodData[i] = [i, weightValue[i]];
+        this.goodData[i] = [i*1000, weightValue[i]];
         this.badData[i] = [i, 0];
         this.dummData[i] = [i, 0.1];
 
@@ -520,11 +520,12 @@ anbadoTimeLine.prototype.drawBarChart = function() {
             })
             .color(d3.scale.category10().range());
 
-//            chart.xAxis.tickFormat(function (d) {
-//                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
-//                return dx ? d3.time.format('%x')(new Date(dx)) : '';
-//            })
-//                .showMaxMin(false);
+            chart.xAxis.tickFormat(function (d) {
+                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+   
+                return dx ? d3.time.format('%M'+':'+'%S')(new Date(dx)) : '';
+            })
+                .showMaxMin(false);
 
         chart.y1Axis
             .tickFormat(d3.format(',f'));

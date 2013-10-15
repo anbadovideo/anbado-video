@@ -240,7 +240,7 @@ input {
 #stackedarea {
     height: 110px;
     width: 700px;
-    position: relative;
+    position: absolute;
     top: 0px;
     left: 0px;
 }
@@ -256,23 +256,23 @@ svg {
     width: 700px;
     min-width: 100px;
     min-height: 100px;
-    position: relative;
+    position: absolute;
     top: 0px;
     left: 0px;
 }
 
 /*pichart*/
 #pichart {
-    position: relative;
-    top: 800px;
+    position: absolute;
+    top: 0px;
     left: 0;
 
 }
 
 /*half chart*/
 #halfchart {
-    position: relative;
-    top: 800px;
+    position: absolute;
+    top: 0px;
     left: 0;
 
 }
