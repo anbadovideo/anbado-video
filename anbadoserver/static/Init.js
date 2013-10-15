@@ -1,4 +1,4 @@
-// TODO : 유저 프로파일 리스트 만들어 놓기
+// TODO : 유저 프로파일 리스트 만들어 놓기. Participants
 
 var inputPanel;
 
@@ -25,33 +25,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
 //    hidePanel(); // 입력 패널은 DOM객체이므로 이를 보이지 않도록 한다. TODO: 동적 생성으로 하여 이 부분이 필요하지 않도록 하기
 
-    elementCSSSetting(); // 전체 요소들의 값을 설정
-
 
     $("#player1").remove();
+
+    videoPositioning('#player');
 
 //    $("#player").append("<video id='videoEmbed' controls ></video>");    // 요걸로 하면 정렬됨
 //    $("#player").append("<video id='videoEmbed' controls style='position: absolute;'></video>");
 
 
-
-    $("#player").append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
-
-//    $("#player").append('<div id="videoEmbed"></div>');
-
-
-
-//    console.log("player offset is " + $("#player").offset());
-//    $("#videoEmbed").css({"left":0, "top":0});
-    $("#videoEmbed").css({"width":640, "height":480});
-//    $("#videoEmbed").offset({left:500, top:300});
-
-
-    $("#player").append('<canvas id="canvas1" width = "'+$("#videoEmbed").width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative, z-index:2; margin-left:auto;margin-right:auto;"></canvas>');
-//    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
-
-    $("#canvas1").css({});
-    $("#canvas1").offset($("#videoEmbed").offset());
 //    $("#canvas1").position({left:0, top:0});
 
 
@@ -65,15 +47,17 @@ document.addEventListener("DOMContentLoaded", function(){
 //    CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://download.ted.com/talks/DanDennett_2003-480p-pt-br.mp4" );
 
     var video_id = data2.video.provider_vid
+    var provider = data2.video.provider;
 
-    if(data2.video.provider === "youtube"){
-        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "http://www.youtube.com/embed/"+ video_id +"?hd=1" + "&iv_load_policy=3" );
-
+    if(provider === 'youtube'){
+        CLIENTVAR.popcornobj= Popcorn.youtube( "#videoEmbed", "http://www.youtube.com/embed/"+ video_id +"?hd=1" + "&iv_load_policy=3" );
     }
-    else if (data2.video.provider === "anbado"){
+    else if(provider === 'vimeo'){
+        CLIENTVAR.popcornobj= Popcorn.vimeo( "#videoEmbed", "vimeo.com/"+ video_id);
+    }
 
+    else if (provider === 'anbado'){
         CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "asset/"+ data2.video.provider_vid.toString() + ".mp4" );
-
     }
 
 
@@ -204,22 +188,30 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-
-function elementCSSSetting(){
-//offset 값으로 나중에 수정 video의 위치
+var videoPositioning = function(targetDOM){
 
 
 
+    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
 
-//    $("#textinput2").css("width", "400");
-//    $("#canvas1").css({$("#youtube").offset()});
-//    $("#canvas2").css({"top":600,"left":330});
-//    $("#youtube").css({"top":100,"left":330});
-//    $("#thumbnailPanorama").css({"top":700,"left":330,"z-index":-20});
-//    $("#textinput1").css({"top":100,"left":240});
-//    $("#permissionSelect").css({"top":100,"left":240});
-//    $("#visualization").css({"top":1200,"left":240});
+//    $("#player").append('<div id="videoEmbed"></div>');
+
+
+
+//    console.log("player offset is " + $("#player").offset());
+//    $("#videoEmbed").css({"left":0, "top":0});
+    $("#videoEmbed").css({"width":640, "height":480});
+//    $("#videoEmbed").offset({left:500, top:300});
+
+
+    $(targetDOM).append('<canvas id="canvas1" width = "'+$('#videoEmbed').width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative; z-index:auto; margin-left:auto; margin-right:auto;">'+'</canvas>');
+//    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
+
+//    $("#canvas1").css({});
+    $("#canvas1").offset($("#videoEmbed").offset());
+
 }
+
 
 
 var InputPanel = function(){

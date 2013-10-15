@@ -31,7 +31,7 @@ function drawTimelineVisualization() {
 
         'width': '95%',
         'height': '150px',
-        'editable': false,   // enable dragging and editing events
+        'editable': true,   // enable dragging and editing events
         'style': 'box',
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime()),
         'end': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration() * 1000), // 밀리세컨드 단위이므로 1000을 곱함
@@ -44,7 +44,7 @@ function drawTimelineVisualization() {
 
 
 //        'stackEvents' : 'true',
-        'min': new Date(CLIENTVAR.pageGenerationTime.getTime()),
+        'min': new Date(CLIENTVAR.pageGenerationTime.getTime() - 1000*CLIENTVAR.popcornobj.duration()/10),
         'max': new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.duration() * 1000), // 밀리세컨드 단위이므로 1000을 곱함
         'showMinorLabels': false,
         'showMajorLabels': false

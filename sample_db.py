@@ -44,6 +44,9 @@ video.save()
 video2 = Video('youtube', '9bZkp7q19f0', u'안바도 비디오(anbado video) 소개 영상', 684, user1)
 video2.save()
 
+video3 = Video('vimeo', '27246366', u'Move', 500, user1)
+video3.save()
+
 
 # sample event 1
 event1 = Event(user1, video, 20, 25, u'아이유짱!', 'text', (20, 40))

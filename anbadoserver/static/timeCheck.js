@@ -30,26 +30,25 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.backcoverId.setAttribute('height',70);
             testObj.backcoverId.setAttribute('x',70);
             testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
-
-
-
         },100)
-
-
-
     });
 
 
     CLIENTVAR.popcornobj.on("playing", function() {
 
 
+
         var stackedAreaObject = $('#stackedarea');
-        console.log(this.media.src);
+
 //        $("#canvas1").show();
 
         inti = self.setInterval(function() {
+            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
+            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10))
+
+            console.log(this);
             timeCheck()
-        }, 10);
+        }, 20);
 
 
 
@@ -58,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var ti=(k/testObj.durationTime);
 
         CLIENTVAR.popcornobj.on("timeupdate", function() {
+            console.log(this.media.src);
 
             var coverTime=parseInt(ti*testObj.currentTime);
 
@@ -67,21 +67,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
             //testObj.tooltip();
-//            anbado.timeline.tooltip(stackedAreaObject)
+//          anbado.timeline.tooltip(stackedAreaObject)
 
 
-            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
-            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 10000), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 10000))
+
 
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
+
     });
-    CLIENTVAR.popcornobj.on("seeking", function() {
+    CLIENTVAR.popcornobj.on('pause',function(){
+        inti = window.clearInterval(inti);
+    });
+
+    CLIENTVAR.popcornobj.on('seeking', function() {
         timeCheck();
     });
 
-    CLIENTVAR.popcornobj.on("ended", function() {
+    CLIENTVAR.popcornobj.on('ended', function() {
         $("#canvas1").hide();
     });
 
