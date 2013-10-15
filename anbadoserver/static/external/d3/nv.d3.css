@@ -165,12 +165,12 @@ svg .title {
 .nvd3 .nv-axis path {
   fill: none;
   stroke: #000;
-  stroke-opacity: .75;
+  stroke-opacity: 0;
   shape-rendering: crispEdges;
 }
 
 .nvd3 .nv-axis path.domain {
-  stroke-opacity: .75;
+  stroke-opacity: 0;
 }
 
 .nvd3 .nv-axis.nv-x path.domain {
@@ -185,7 +185,7 @@ svg .title {
 
 .nvd3 .nv-axis .zero line,
 /*this selector may not be necessary*/ .nvd3 .nv-axis line.zero {
-  stroke-opacity: .75;
+  stroke-opacity: 0;
 }
 
 .nvd3 .nv-axis .nv-axisMaxMin text {

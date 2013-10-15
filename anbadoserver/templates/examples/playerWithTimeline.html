@@ -62,21 +62,21 @@
             var offsetWidth=document.getElementById("rect2");
             //console.log(offsetLeft);
 
-           // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
+            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
 
 
-        var currentTime =(evt.clientX-offsetLeft);
-        var timeLineWidth=offsetWidth.width.baseVal.value;
+            var currentTime =(evt.clientX-offsetLeft);
+            var timeLineWidth=offsetWidth.width.baseVal.value;
 
-        var perTime = CLIENTVAR.popcornobj.duration();
+            var perTime = CLIENTVAR.popcornobj.duration();
             perTime=(perTime/timeLineWidth);
 
 
             console.log('time :'+perTime*currentTime);
-        CLIENTVAR.popcornobj.play();
-        CLIENTVAR.popcornobj.play(perTime*currentTime);
+            CLIENTVAR.popcornobj.play();
+            CLIENTVAR.popcornobj.play(perTime*currentTime);
         }
-        </script>
+    </script>
     <script type ="text/javascript">
         $(function(){
             $("#volumeslider").slider();
@@ -120,17 +120,17 @@
         <div id="player" style="text-align: center;">
 
         </div>
-    <div style='position: relative;top:100px;'>
-    <select id="graphSelector" name="graph" onchange="graphselect();">
-        <option value="1" selected="selected">area graph</option>
-        <option value="2">line graph</option>
-        <option value="3">pie graph</option>
-        <option value="4">halfpie graph</option>
-        <option value="5">bar chart</option>
-    </select>
+        <div style='position: relative;top:100px;'>
+            <select id="graphSelector" name="graph" onchange="graphselect();">
+                <option value="1" selected="selected">area graph</option>
+                <option value="2">line graph</option>
+                <option value="3">pie graph</option>
+                <option value="4">halfpie graph</option>
+                <option value="5">bar chart</option>
+            </select>
 
-<input id="happy" type="button" onclick="happybutton()" value="happy"/>
-<input id="sad" type="button" onclick="sadbutton()" value="sad"/>
+            <input id="happy" type="button" onclick="happybutton()" value="happy"/>
+            <input id="sad" type="button" onclick="sadbutton()" value="sad"/>
 
 <input id="btnPlay" type="button" size="53" onclick = "CLIENTVAR.popcornobj.play()" value="play"/>
 <input id="btnStop" type="button" size="53" onclick = "CLIENTVAR.popcornobj.pause()" value = "pause"/>

@@ -5106,7 +5106,6 @@ nv.models.linePlusBarChart = function() {
       //------------------------------------------------------------
       // Setup Axes
 
-
       xAxis
         .scale(x)
         .ticks( availableWidth / 100 )
