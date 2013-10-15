@@ -204,7 +204,7 @@ var videoPositioning = function(targetDOM){
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
-    $(targetDOM).append('<canvas id="canvas1" width = "'+$('#videoEmbed').width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative; z-index:auto; margin-left:auto; margin-right:auto;">'+'</canvas>');
+    $(targetDOM).append('<canvas id="canvas1" width = "'+$('#videoEmbed').width()+'px" height = "'+($('#videoEmbed').height()-100)+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
 
 //    $("#canvas1").css({});

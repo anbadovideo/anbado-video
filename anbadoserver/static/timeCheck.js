@@ -6,7 +6,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    var inti;
+    var inti;    // 타임체크 함수를 위한 카운터
     var totalCount = 0; // 이벤트들이 제대로 숫자가 생성되었는지를 확인하기 위한 부분임
 
     CLIENTVAR.popcornobj.on("loadeddata", function() {
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         setTimeout(function()
         {
-
             var ba = document.getElementsByClassName("nv-linePlusBar");
             ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
 
@@ -34,9 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    CLIENTVAR.popcornobj.on("playing", function() {
-
-
+    CLIENTVAR.popcornobj.on('play', function() {
 
         var stackedAreaObject = $('#stackedarea');
 
@@ -50,13 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
             timeCheck()
         }, 20);
 
-
-
-
         var k=parseInt($(testObj.videoId).css('width'))-130;
         var ti=(k/testObj.durationTime);
 
-        CLIENTVAR.popcornobj.on("timeupdate", function() {
+        CLIENTVAR.popcornobj.on('timeupdate', function() {
             console.log(this.media.src);
 
             var coverTime=parseInt(ti*testObj.currentTime);
@@ -64,13 +58,9 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.coverId.setAttribute('x',70+coverTime);
             testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130-coverTime);
 
-
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
             //testObj.tooltip();
 //          anbado.timeline.tooltip(stackedAreaObject)
-
-
-
 
         });
         // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
