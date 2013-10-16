@@ -55,27 +55,29 @@
 
     <script>
 
-        function timeLineCover(evt){
+{#        function timeLineCover(evt){#}
+{##}
+{#            //console.log(evt);#}
+{#            var offsetLeft=$('#rect2').offset().left;#}
+{#            var offsetWidth=document.getElementById("rect2");#}
+{#            //console.log(offsetLeft);#}
+{##}
+{#            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함#}
+{##}
+{##}
+{#            var currentTime =(evt.clientX-offsetLeft);#}
+{#            var timeLineWidth=offsetWidth.width.baseVal.value;#}
+{##}
+{#            var perTime = CLIENTVAR.popcornobj.duration();#}
+{#            perTime=(perTime/timeLineWidth);#}
+{##}
+{##}
+{#            console.log('time :'+perTime*currentTime);#}
+{#            CLIENTVAR.popcornobj.play();#}
+{#            CLIENTVAR.popcornobj.play(perTime*currentTime);#}
+{#        }#}
 
-            //console.log(evt);
-            var offsetLeft=$('#rect2').offset().left;
-            var offsetWidth=document.getElementById("rect2");
-            //console.log(offsetLeft);
 
-            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
-
-
-            var currentTime =(evt.clientX-offsetLeft);
-            var timeLineWidth=offsetWidth.width.baseVal.value;
-
-            var perTime = CLIENTVAR.popcornobj.duration();
-            perTime=(perTime/timeLineWidth);
-
-
-            console.log('time :'+perTime*currentTime);
-            CLIENTVAR.popcornobj.play();
-            CLIENTVAR.popcornobj.play(perTime*currentTime);
-        }
     </script>
     <script type ="text/javascript">
         $(function(){

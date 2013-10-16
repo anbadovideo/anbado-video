@@ -12,6 +12,49 @@
 
 
 
+      function timeLineCover(evt){
+
+            //console.log(evt);
+            var offsetLeft=$('#rect2').offset().left;
+            var offsetWidth=document.getElementById("rect2");
+            //console.log(offsetLeft);
+
+            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
+
+
+            var currentTime =(evt.clientX-offsetLeft);
+            var timeLineWidth=offsetWidth.width.baseVal.value;
+
+            var perTime = CLIENTVAR.popcornobj.duration();
+            perTime=(perTime/timeLineWidth);
+
+
+            console.log('time :'+perTime*currentTime);
+            CLIENTVAR.popcornobj.play();
+            CLIENTVAR.popcornobj.play(perTime*currentTime);
+        }
+
+    function mooseOnCover(evt)
+    {
+        var offsetLeft=$('#rect2').offset().left;
+         var offsetWidth=document.getElementById("rect2");
+            //console.log(offsetLeft);
+
+            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
+
+
+            var currentTime =(evt.clientX-offsetLeft);
+            var timeLineWidth=offsetWidth.width.baseVal.value;
+
+            var perTime = CLIENTVAR.popcornobj.duration();
+            perTime=(perTime/timeLineWidth);
+
+
+            console.log('time :'+perTime*currentTime);
+
+
+    }
+
 
 var anbadoTimeLine = function(getId) {
     this.videoId = "#" + getId;
@@ -114,7 +157,6 @@ anbadoTimeLine.prototype.initialize = function(time) {
 
 
 
-
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
     $(this.videoId).append('<div class="areadiv"><svg id="stackedarea"></svg></div>');
     $('#stackedarea').css("top", height);
@@ -128,7 +170,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     $('#halfchart').css('top', height);
     $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect onclick="timeLineCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onclick="timeLineCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
+    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
 
     $('#barchart').css('top', height);
     $('#barchart').css('width', width);
