@@ -3,7 +3,7 @@
 var inputPanel;
 
 var data1 = anbado.restful.getUserInfo(1);
-var data2 = anbado.restful.getVideoInfo(2);
+var data2 = anbado.restful.getVideoInfo(1);
 var data3 = anbado.restful.getParticipants(1);
 
 document.addEventListener("DOMContentLoaded", function(){

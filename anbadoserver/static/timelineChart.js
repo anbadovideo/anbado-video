@@ -48,12 +48,20 @@
 
             var perTime = CLIENTVAR.popcornobj.duration();
             perTime=(perTime/timeLineWidth);
-
+testObj.positionId.setAttribute('r',5);
   testObj.positionId.setAttribute('cx',currentTime+60);
              console.log('evt:'+currentTime);
 
 
     }
+
+
+function mouseOutCover(evt)
+{
+
+testObj.positionId.setAttribute('r',0);
+
+}
 
 
 var anbadoTimeLine = function(getId) {
@@ -171,7 +179,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     $('#halfchart').css('top', height);
     $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <circle id="circle1"></circle><rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
+    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <circle id="circle1"></circle><rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
 
     $('#barchart').css('top', height);
     $('#barchart').css('width', width);
