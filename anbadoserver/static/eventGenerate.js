@@ -109,7 +109,7 @@ var eventTypeCheck = function(eventObject) {
             case "textinput2":
                 eaDisplaySetting(eventObject);
                 break;
-            case "emoticon0":
+            case "image":
                 eaDisplaySetting(eventObject);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
@@ -130,70 +130,70 @@ var eventTypeCheck = function(eventObject) {
                 });
                 drawTimelineVisualization();
                 break;
-            case "emoticon1":
-                eaDisplaySetting(eventObject);
-                data.push({
-                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-                });
-
-                anbado.realtime.postEvent({
-                    user_id: 1,
-                    video_id: 1,
-                    appeared: eventObject.eventVideoClickTime,
-                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-                    content: eventObject.eventContent,
-                    category: 'image',
-                    parent_id: -1,
-                    permission: 'public',
-                    coord: [eventObject.eventPosX, eventObject.eventPosY],
-                    size: [200, 100]
-                });
-
-                drawTimelineVisualization();
-                break;
-            case "emoticon2":
-                eaDisplaySetting(eventObject);
-                data.push({
-                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-                });
-                anbado.realtime.postEvent({
-                    "user_id": 1,
-                    "video_id": 1,
-                    "appeared": eventObject.eventVideoClickTime,
-                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-                    "content": eventObject.eventContent,
-                    "category": 'image',
-                    "parent_id": -1,
-                    "permission": 'public',
-                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
-                    "size": [200, 100]
-
-
-                });
-                drawTimelineVisualization();
-                break;
-            case "emoticon3":
-                eaDisplaySetting(eventObject);
-                data.push({
-                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-                });
-                anbado.realtime.postEvent({
-                    "user_id": 1,
-                    "video_id": 1,
-                    "appeared": eventObject.eventVideoClickTime,
-                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-                    "content": eventObject.eventContent,
-                    "category": 'image',
-                    "parent_id": -1,
-                    "permission": 'public',
-                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
-                    "size": [200, 100]
-                });
-                drawTimelineVisualization();
-                break;
+//            case "emoticon1":
+//                eaDisplaySetting(eventObject);
+//                data.push({
+//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
+//                });
+//
+//                anbado.realtime.postEvent({
+//                    user_id: 1,
+//                    video_id: 1,
+//                    appeared: eventObject.eventVideoClickTime,
+//                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+//                    content: eventObject.eventContent,
+//                    category: 'image',
+//                    parent_id: -1,
+//                    permission: 'public',
+//                    coord: [eventObject.eventPosX, eventObject.eventPosY],
+//                    size: [200, 100]
+//                });
+//
+//                drawTimelineVisualization();
+//                break;
+//            case "emoticon2":
+//                eaDisplaySetting(eventObject);
+//                data.push({
+//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
+//                });
+//                anbado.realtime.postEvent({
+//                    "user_id": 1,
+//                    "video_id": 1,
+//                    "appeared": eventObject.eventVideoClickTime,
+//                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+//                    "content": eventObject.eventContent,
+//                    "category": 'image',
+//                    "parent_id": -1,
+//                    "permission": 'public',
+//                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
+//                    "size": [200, 100]
+//
+//
+//                });
+//                drawTimelineVisualization();
+//                break;
+//            case "emoticon3":
+//                eaDisplaySetting(eventObject);
+//                data.push({
+//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
+//                });
+//                anbado.realtime.postEvent({
+//                    "user_id": 1,
+//                    "video_id": 1,
+//                    "appeared": eventObject.eventVideoClickTime,
+//                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
+//                    "content": eventObject.eventContent,
+//                    "category": 'image',
+//                    "parent_id": -1,
+//                    "permission": 'public',
+//                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
+//                    "size": [200, 100]
+//                });
+//                drawTimelineVisualization();
+//                break;
 
             default :
                 console.log("not in event type");
@@ -219,7 +219,7 @@ var eventTypeCheck = function(eventObject) {
             case "textinput2":
 //                eaDisplaySetting(eventObject);
                 break;
-            case "emoticon0":
+            case 'image':
                 eaDisplaySetting(eventObject);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
@@ -229,34 +229,34 @@ var eventTypeCheck = function(eventObject) {
 
                 drawTimelineVisualization();
                 break;
-            case "emoticon1":
-                eaDisplaySetting(eventObject);
-                data.push({
-                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-                });
-
-
-                drawTimelineVisualization();
-                break;
-            case "emoticon2":
-                eaDisplaySetting(eventObject);
-                data.push({
-                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-                });
-
-                drawTimelineVisualization();
-                break;
-            case "emoticon3":
-                eaDisplaySetting(eventObject);
-                data.push({
-                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-                });
-
-                drawTimelineVisualization();
-                break;
+//            case "emoticon1":
+//                eaDisplaySetting(eventObject);
+//                data.push({
+//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
+//                });
+//
+//
+//                drawTimelineVisualization();
+//                break;
+//            case "emoticon2":
+//                eaDisplaySetting(eventObject);
+//                data.push({
+//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
+//                });
+//
+//                drawTimelineVisualization();
+//                break;
+//            case "emoticon3":
+//                eaDisplaySetting(eventObject);
+//                data.push({
+//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
+//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
+//                });
+//
+//                drawTimelineVisualization();
+//                break;
 
             default :
 //                alert(eventObject.eventType);
@@ -395,7 +395,8 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 
         eventObject.eaCanvasDisplayObject.addChild(eaTextContent);
     }
-    else if (eventObject.eventType === "emoticon0" || eventObject.eventType === "emoticon1" || eventObject.eventType === "emoticon2" || eventObject.eventType === "emoticon3") {
+    else if (eventObject.eventType === 'image') {
+//    else if (eventObject.eventType === "emoticon0"  || eventObject.eventType === "emoticon1" || eventObject.eventType === "emoticon2" || eventObject.eventType === "emoticon3") {
         // TODO: edit if statement using indexOf method.
         var eaTempEmoticon = new createjs.Bitmap(eventObject.eventContent); // make emoticon easeljs object
 
@@ -422,16 +423,22 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
     eaProfileImage.y = eventObject.eventPosY - 20;
     eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
 
+    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds().width);
+
+
+    var eaProfileOutside = new createjs.Shape();
+    eaProfileOutside.graphics.beginFill("#000").drawCircle(eaProfileImage.getTransformedBounds().width/2,eaProfileImage.getTransformedBounds().height/2,eaProfileImage.getTransformedBounds().width/2);
+    eaProfileImage.mask = eaProfileOutside;
+
+
+
 
     eventObject.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
 
     if (eventObject.eventTypeArg === "textinput2") {
 
-
         CLIENTVAR.chatLeftStage.addChild(eventObject.eaCanvasDisplayObject);
         CLIENTVAR.chatLeftStage.update();
-
-
     }
     else { // 일반 텍스트 입력 및 이모티콘인 경우 경우
         CLIENTVAR.stage.addChild(eventObject.eaCanvasDisplayObject);
