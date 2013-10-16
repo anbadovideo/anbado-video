@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function() {
             var ba = document.getElementsByClassName("nv-linePlusBar");
             ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
 
+
+            testObj.positionId.setAttribute('r',5);
+            testObj.positionId.setAttribute('cy',15);
+            testObj.positionId.setAttribute('cx',60);
+            testObj.positionId.setAttribute('fill','red');
             testObj.coverId.setAttribute('height',70);
             testObj.coverId.setAttribute('x',70);
             testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
