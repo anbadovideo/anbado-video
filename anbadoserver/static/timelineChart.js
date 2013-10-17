@@ -37,20 +37,25 @@
     function mooseOnCover(evt)
     {
         var offsetLeft=$('#rect2').offset().left;
-         var offsetWidth=document.getElementById("rect2");
-            //console.log(offsetLeft);
 
-            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
+        var offsetWidth=document.getElementById("rect2");
+        var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
 
 
             var currentTime =(evt.clientX-offsetLeft);
+
+            var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
+
             var timeLineWidth=offsetWidth.width.baseVal.value;
 
             var perTime = CLIENTVAR.popcornobj.duration();
             perTime=(perTime/timeLineWidth);
 testObj.positionId.setAttribute('r',5);
-  testObj.positionId.setAttribute('cx',currentTime+60);
-             console.log('evt:'+currentTime);
+
+  testObj.positionId.setAttribute('cy',90-($(barName)[0].height.baseVal.value));
+  testObj.positionId.setAttribute('cx',currentTime+70);
+            // console.log('evt:'+evt.clientX);
+ console.log('evt:'+parseInt(currentTime/offsetBarWidth));
 
 
     }
