@@ -130,70 +130,7 @@ var eventTypeCheck = function(eventObject) {
                 });
                 drawTimelineVisualization();
                 break;
-//            case "emoticon1":
-//                eaDisplaySetting(eventObject);
-//                data.push({
-//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-//                });
-//
-//                anbado.realtime.postEvent({
-//                    user_id: 1,
-//                    video_id: 1,
-//                    appeared: eventObject.eventVideoClickTime,
-//                    disappeared: eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-//                    content: eventObject.eventContent,
-//                    category: 'image',
-//                    parent_id: -1,
-//                    permission: 'public',
-//                    coord: [eventObject.eventPosX, eventObject.eventPosY],
-//                    size: [200, 100]
-//                });
-//
-//                drawTimelineVisualization();
-//                break;
-//            case "emoticon2":
-//                eaDisplaySetting(eventObject);
-//                data.push({
-//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-//                });
-//                anbado.realtime.postEvent({
-//                    "user_id": 1,
-//                    "video_id": 1,
-//                    "appeared": eventObject.eventVideoClickTime,
-//                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-//                    "content": eventObject.eventContent,
-//                    "category": 'image',
-//                    "parent_id": -1,
-//                    "permission": 'public',
-//                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
-//                    "size": [200, 100]
-//
-//
-//                });
-//                drawTimelineVisualization();
-//                break;
-//            case "emoticon3":
-//                eaDisplaySetting(eventObject);
-//                data.push({
-//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-//                });
-//                anbado.realtime.postEvent({
-//                    "user_id": 1,
-//                    "video_id": 1,
-//                    "appeared": eventObject.eventVideoClickTime,
-//                    "disappeared": eventObject.eventVideoClickTime + eventObject.eventVideoClickDuration,
-//                    "content": eventObject.eventContent,
-//                    "category": 'image',
-//                    "parent_id": -1,
-//                    "permission": 'public',
-//                    "coord": [eventObject.eventPosX, eventObject.eventPosY],
-//                    "size": [200, 100]
-//                });
-//                drawTimelineVisualization();
-//                break;
+
 
             default :
                 console.log("not in event type");
@@ -229,34 +166,6 @@ var eventTypeCheck = function(eventObject) {
 
                 drawTimelineVisualization();
                 break;
-//            case "emoticon1":
-//                eaDisplaySetting(eventObject);
-//                data.push({
-//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-//                });
-//
-//
-//                drawTimelineVisualization();
-//                break;
-//            case "emoticon2":
-//                eaDisplaySetting(eventObject);
-//                data.push({
-//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-//                });
-//
-//                drawTimelineVisualization();
-//                break;
-//            case "emoticon3":
-//                eaDisplaySetting(eventObject);
-//                data.push({
-//                    'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + eventObject.eventVideoClickTime * 1000),
-//                    'content': '<img src="' + eventObject.eventOwnerProfilePicture + '" style="width:32px; height:32px;">' + '<img src="' + eventObject.eventContent + '"style="width:32px; height:32px;">'
-//                });
-//
-//                drawTimelineVisualization();
-//                break;
 
             default :
 //                alert(eventObject.eventType);
@@ -332,6 +241,7 @@ var commentReply = function(eventObject) { // stage mousedown event 가 발생�
     displayInputPanel(CLIENTVAR.tempEvent);
 
 }
+
 
 function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 이벤트를 리스트에 넣게 되는 단계 (이것은 그리는 단계에서는 그러하고, 서버에서 받아오는 단계에서는 미리 저장한다
 
@@ -415,21 +325,42 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
         eventObject.eaCanvasDisplayObject.addChild(eaTextName);
         eventObject.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
+    var img = new Image();
+//    img.onload = layout;
+    img.src = eventObject.eventOwnerProfilePicture;
 
-    var eaProfileImage = new createjs.Bitmap(eventObject.eventOwnerProfilePicture); // profile example
+
+
+    var eaProfileImage = new createjs.Shape();
+
+
+    eaProfileImage.graphics.beginBitmapFill(img).drawCircle(img.width/2, img.height/2, img.width/2 -1); // profile example
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
     eaProfileImage.x = eventObject.eventPosX - 20;
     eaProfileImage.y = eventObject.eventPosY - 20;
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.1;
 
-    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds().width);
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.15;
+    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS " + eaProfileImage.getTransformedBounds());
 
-
-    var eaProfileOutside = new createjs.Shape();
-    eaProfileOutside.graphics.beginFill("#000").drawCircle(eaProfileImage.getTransformedBounds().width/2,eaProfileImage.getTransformedBounds().height/2,eaProfileImage.getTransformedBounds().width/2);
-    eaProfileImage.mask = eaProfileOutside;
-
+//
+//    var eaProfileImage = new createjs.Bitmap(eventObject.eventOwnerProfilePicture); // profile example
+//    eaProfileImage.regX = 0;
+//    eaProfileImage.regY = 0;
+//    eaProfileImage.x = eventObject.eventPosX - 20;
+//    eaProfileImage.y = eventObject.eventPosY - 20;
+//    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
+//
+//    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds());
+//    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage);
+//
+//    var positionBounds = eaProfileImage.getTransformedBounds();
+//
+//
+//    var eaProfileOutside = new createjs.Shape();
+//    eaProfileOutside.graphics.beginFill("#000").beginStroke("rgba(255,255,255,1)").drawCircle(positionBounds.x + positionBounds.width/2,positionBounds.y + positionBounds.height/2,positionBounds.width/2 - 1).endStroke();
+//    eaProfileImage.mask = eaProfileOutside;
+//
 
 
 
