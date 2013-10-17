@@ -22,6 +22,7 @@ class User(db.Model, JsonifiedModel):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80, convert_unicode=True))
     profile_image = db.Column(db.LargeBinary())
     _videos = db.relationship('Video', uselist=True, lazy='dynamic')
     _events = db.relationship('Event', uselist=True, lazy='dynamic')
@@ -31,11 +32,12 @@ class User(db.Model, JsonifiedModel):
                                secondaryjoin=(user_id == user_user_association_table.c.friend_id),
     )
 
-    def __init__(self, profile_image):
+    def __init__(self, name, profile_image):
+        self.name = name
         self.profile_image = profile_image
 
     def __repr__(self):
-        return '<User {0}> {1}'.format(self.user_id, self.profile_image)
+        return '<User {0}> {1} {2}'.format(self.user_id, self.name, self.profile_image)
 
     @classmethod
     def by_user_id(cls, user_id):

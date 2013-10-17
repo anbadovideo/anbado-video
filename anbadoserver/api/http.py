@@ -25,7 +25,11 @@ def user_post():
     if profile_image is None:
         abort(400)
 
-    user = User(profile_image)
+    name = request.form.get('name', None)
+    if name is None:
+        abort(400)
+
+    user = User(name, profile_image)
     if not user.save():
         abort(500)
 
