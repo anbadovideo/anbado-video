@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.backcoverId.setAttribute('height',70);
             testObj.backcoverId.setAttribute('x',70);
             testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+            for(var i=0;i<$('.tick.major line').length+1;i++)
+            {
+            $('.tick.major line')[i].y2.baseVal.value=0;
+            $('.tick.major line')[i].x2.baseVal.value=0;
+            }
         },100)
     });
 
