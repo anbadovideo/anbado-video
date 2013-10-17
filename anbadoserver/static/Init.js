@@ -223,7 +223,7 @@ var videoPositioning = function(targetDOM){
 
 
 
-    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;overflow: hidden"></div>');
+    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
 
 //    $("#player").append('<div id="videoEmbed"></div>');
 
