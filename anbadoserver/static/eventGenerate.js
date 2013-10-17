@@ -266,7 +266,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 //    eventObject.eaCanvasDisplayObject.addChild(eaBackNamePanel);
 
 
-    var eaTextName = new createjs.Text('Haksu Lee', 'bold 13px ' + textFont.toString(), '#0099ff');
+    var eaTextName = new createjs.Text(eventObject.eventOwnerName, 'bold 13px ' + textFont.toString(), '#0099ff');
     eaTextName.regX = -10;
     eaTextName.regY = 23;
     eaTextName.x = eventObject.eventPosX;
@@ -293,7 +293,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
         eaTextContent.y = eventObject.eventPosY;
 
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRect(eventObject.eventPosX, eventObject.eventPosY, (eaTextContent.getMeasuredWidth()>eaTextName.getMeasuredWidth() ? eaTextContent.getMeasuredWidth() : eaTextName.getMeasuredWidth()) + 80, eaTextContent.getMeasuredHeight() + 30); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, (eaTextContent.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTextContent.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 60, eaTextContent.getTransformedBounds().height + 34, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
         eaBackPanel.regX = 40;
         eaBackPanel.regY = 27;
 
@@ -312,13 +312,13 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 
         eaTempEmoticon.regX = 0;
         eaTempEmoticon.regY = 0;
-        eaTempEmoticon.x = eventObject.eventPosX;
-        eaTempEmoticon.y = eventObject.eventPosY;
+        eaTempEmoticon.x = eventObject.eventPosX + 14;
+        eaTempEmoticon.y = eventObject.eventPosY - 5;
         eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
 
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, eaTextName.getMeasuredWidth() + 70, 80, 43); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-        eaBackPanel.regX = 27;
+        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, (eaTempEmoticon.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTempEmoticon.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 64, eaTempEmoticon.getTransformedBounds().height + eaTextName.getTransformedBounds().height + 10, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = 40;
         eaBackPanel.regY = 27;
 
         eventObject.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함

@@ -36,7 +36,7 @@ function saveCoord(evt) {
         eventStep: 0, // 0은 생성상태. 1은 생성 중. 2는 생성완료
 
         eventOwnerID: {},
-        eventOwnerName: "owner",
+        eventOwnerName: data1.user.name,
         eventOwnerProfilePicture: data1.user.profile_image,
         eventVideoClickTime: {}, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
         eventOccuredAbsoluteTime: {}, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
@@ -94,6 +94,7 @@ function displayInputPanel(eventObject) { // on first screen, display text input
         var tempLocation = $("#canvas1").offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
         console.log("inputpanel === false" + eventObject);
 
+        var inputPanel = new InputPanel();
         inputPanel.createPanel(eventObject);
 
 

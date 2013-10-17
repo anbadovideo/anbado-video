@@ -1,10 +1,12 @@
 // TODO : 유저 프로파일 리스트 만들어 놓기. Participants
 
-var inputPanel;
+
 
 var data1 = anbado.restful.getUserInfo(1);
 var data2 = anbado.restful.getVideoInfo(4);
 var data3 = anbado.restful.getParticipants(1);
+
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -68,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
             var tempType = "";
-            console.log("evt category is " + evt.category);
+            console.log("evt is " + evt);
             if(evt.category == "text"){
                 tempType = "textinput1"
 
@@ -102,9 +104,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 eventID : CLIENTVAR.totalEvent,
                 eventStep :3, // 0은 생성상태. 1은 생성 중. 2는 생성완료. 3은 외부 이벤트
 
-                eventOwnerID : evt.user_id-1,
+                eventOwnerID : evt.user_id,
 
-                eventOwnerName : "owner",
+                eventOwnerName : anbado.restful.getUserInfo(evt.user_id).user.name,
                 eventOwnerProfilePicture : data3.participants[evt.user_id-1].profile_image,
 
                 eventVideoClickTime : evt.appeared, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
@@ -179,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function(){
     CLIENTVAR.chatLeftStage = new createjs.Stage(CLIENTVAR.canvas3);
     CLIENTVAR.chatRightStage = new createjs.Stage(CLIENTVAR.canvas4);
 
-    inputPanel = new InputPanel();
+
 
 
     var myGraphics = new createjs.Shape();
