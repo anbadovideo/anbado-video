@@ -3,7 +3,7 @@
 var inputPanel;
 
 var data1 = anbado.restful.getUserInfo(1);
-var data2 = anbado.restful.getVideoInfo(1);
+var data2 = anbado.restful.getVideoInfo(4);
 var data3 = anbado.restful.getParticipants(1);
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -183,14 +183,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     var myGraphics = new createjs.Shape();
-    myGraphics.graphics.beginStroke("#F00").beginFill("#FFF").drawRect(0,0,640,480);
+    myGraphics.graphics.beginFill("#28343C").drawRect(0,0,640,480);
 
     CLIENTVAR.stage.addChild(myGraphics);
     CLIENTVAR.stage.update();
 
-    var myGraphics = new createjs.Shape();
+    myGraphics = new createjs.Shape();
     myGraphics.compositeOperation='destination-out';
-    myGraphics.graphics.beginStroke("#F00").beginFill("#00F").arc(300,240, 220, 0, Math.PI*2);
+    myGraphics.graphics.beginStroke("#000").beginFill("#28343C").arc(300,240, 220, 0, Math.PI*2);
+//    myGraphics.graphics.beginStroke("#F00").beginFill("#28343c").drawCircle(300,240, 20);
 
     CLIENTVAR.stage.addChild(myGraphics);
     CLIENTVAR.stage.update();

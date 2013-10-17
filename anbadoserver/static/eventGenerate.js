@@ -266,7 +266,7 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
 //    eventObject.eaCanvasDisplayObject.addChild(eaBackNamePanel);
 
 
-    var eaTextName = new createjs.Text('날아올라라황금독수리', "bold 13px " + textFont.toString(), "#0099ff");
+    var eaTextName = new createjs.Text('Haksu Lee', 'bold 13px ' + textFont.toString(), '#0099ff');
     eaTextName.regX = -10;
     eaTextName.regY = 23;
     eaTextName.x = eventObject.eventPosX;
@@ -293,8 +293,8 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
         eaTextContent.y = eventObject.eventPosY;
 
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(eventObject.eventPosX, eventObject.eventPosY, (eaTextContent.getMeasuredWidth()>eaTextName.getMeasuredWidth() ? eaTextContent.getMeasuredWidth() : eaTextName.getMeasuredWidth()) + 80, eaTextContent.getMeasuredHeight() + 30, 43); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-        eaBackPanel.regX = 27;
+        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRect(eventObject.eventPosX, eventObject.eventPosY, (eaTextContent.getMeasuredWidth()>eaTextName.getMeasuredWidth() ? eaTextContent.getMeasuredWidth() : eaTextName.getMeasuredWidth()) + 80, eaTextContent.getMeasuredHeight() + 30); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = 40;
         eaBackPanel.regY = 27;
 
 
@@ -337,11 +337,11 @@ function eaDisplaySetting(eventObject) { // 객체를 캔버스에 저장하고 
     eaProfileImage.graphics.beginBitmapFill(img).drawCircle(img.width/2, img.height/2, img.width/2 -1); // profile example
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.x = eventObject.eventPosX - 20;
-    eaProfileImage.y = eventObject.eventPosY - 20;
+    eaProfileImage.x = eventObject.eventPosX - 35;
+    eaProfileImage.y = eventObject.eventPosY - 22;
 
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.15;
-    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS " + eaProfileImage.getTransformedBounds());
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.14;
+
 
 //
 //    var eaProfileImage = new createjs.Bitmap(eventObject.eventOwnerProfilePicture); // profile example
