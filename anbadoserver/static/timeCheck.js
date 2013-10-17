@@ -34,11 +34,8 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.backcoverId.setAttribute('height',70);
             testObj.backcoverId.setAttribute('x',70);
             testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
-            for(var i=0;i<$('.tick.major line').length+1;i++)
-            {
-            $('.tick.major line')[i].y2.baseVal.value=0;
-            $('.tick.major line')[i].x2.baseVal.value=0;
-            }
+
+            $('.tick.major line').remove();
         },100)
     });
 
@@ -157,6 +154,7 @@ var timeset = 2;
 function happybutton() {
     testObj.drawVisualization('g');
 
+$('.tick.major line').remove();
     anbado.realtime.postEvent({
         user_id: 1,
         video_id: 1,
@@ -170,7 +168,11 @@ function happybutton() {
         size: [200, 100]
     });
 
-
+//               for(var i=0;i<$('.tick.major line').length+1;i++)
+//            {
+//            $('.tick.major line')[i].y2.baseVal.value=0;
+//            $('.tick.major line')[i].x2.baseVal.value=0;
+//            }
 
 //    if (timeset === 2) {
 //        console.log("gray");
