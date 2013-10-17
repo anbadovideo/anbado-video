@@ -551,6 +551,9 @@ anbadoTimeLine.prototype.drawHalfPieChart = function() {
  * bar chart 를 그린다.
  */
 anbadoTimeLine.prototype.drawBarChart = function() {
+
+//
+
     var testdata = [
         {
             "key": "Quantity",
@@ -621,6 +624,12 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
     inttime = parseInt(inttime);
 
 
+//           for(var i=0;i<$('.tick.major line').length+1;i++)
+//            {
+//            $('.tick.major line')[i].y2.baseVal.value=0;
+//            $('.tick.major line')[i].x2.baseVal.value=0;
+//            }
+
 //        inttime=inttime/this.dummy;
 //        inttime=parseInt(inttime);
 //        console.log("time"+inttime);
@@ -675,6 +684,8 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
             this.drawBarChart();
             break;
     }
+
+
 };
 
 //    return {
