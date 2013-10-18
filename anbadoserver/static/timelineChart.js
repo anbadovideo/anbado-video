@@ -70,6 +70,8 @@ testObj.positionId.setAttribute('r',0);
 
 
 var anbadoTimeLine = function(getId) {
+
+
     this.videoId = "#" + getId;
     /**
      * 타임라인 그래프의 종류를 나타낸다.
@@ -106,6 +108,21 @@ var anbadoTimeLine = function(getId) {
     this.currentTime = 0;
     this.durationTime = 0;
     this.dummy=0;
+
+
+    /**
+     * jquery id 받기
+     */
+
+
+    this.areajQueryId=0;
+    this.linejQueryId=0;
+    this.pijQueryId=0;
+    this.halfjQueryId=0;
+    this.barjQueryId=0;
+
+
+
 }
 
 
@@ -166,28 +183,36 @@ anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
  * @param time 동영상의 길이
  */
 anbadoTimeLine.prototype.initialize = function(time) {
-    var height = $(this.videoId).css("height");
-    var width = $(this.videoId).css("width");
+    var vidjQueryId=$(this.videoId);
+    var height = vidjQueryId.css("height");
+    var width = vidjQueryId.css("width");
 
+    vidjQueryId.append('<div class="areadiv"><svg id="stackedarea"></svg></div>');
+    vidjQueryId.append('<div class="linediv" ><svg id="linechart"></svg></div>');
+    vidjQueryId.append('<div class="piediv" id="pichart"><svg id="pie" class="mypiechart"></svg></div>');
+    vidjQueryId.append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
+    vidjQueryId.append('<div class="bardiv" ><svg id="barchart"> <circle id="circle1"></circle><rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
+
+
+    this.areajQueryId=$('#stackedarea');
+    this.linejQueryId=$('#linechart');
+    this.pijQueryId=$('#pichart');
+    this.halfjQueryId=$('#halfchart');
+    this.barjQueryId= $('#barchart');
 
 
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
-    $(this.videoId).append('<div class="areadiv"><svg id="stackedarea"></svg></div>');
-    $('#stackedarea').css("top", height);
-    $('#stackedarea').css('width', width);
-    $(this.videoId).append('<div class="linediv" ><svg id="linechart"></svg></div>');
-    $('#linechart').css('top', height);
-    $('#linechart').css('width', width);
-    $(this.videoId).append('<div class="piediv" id="pichart"><svg id="pie" class="mypiechart"></svg></div>');
-    $('#pichart').css('top', height);
-    $('#pichart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
-    $('#halfchart').css('top', height);
-    $('#halfchart').css('left', (parseInt(width) / 3) + 'px');
-    $(this.videoId).append('<div class="bardiv" ><svg id="barchart"> <circle id="circle1"></circle><rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
+    this.areajQueryId.css("top", height);
+    this.areajQueryId.css('width', width);
+     this.linejQueryId.css('top', height);
+    this.linejQueryId.css('width', width);
 
-    $('#barchart').css('top', height);
-    $('#barchart').css('width', width);
+    this.pijQueryId.css('top', height);
+    this.pijQueryId.css('left', (parseInt(width) / 3) + 'px');
+     this.halfjQueryId.css('top', height);
+    this.halfjQueryId.css('left', (parseInt(width) / 3) + 'px');
+     this.barjQueryId.css('top', height);
+    this.barjQueryId.css('width', width);
 
    this.coverId= document.getElementById("rect1");
     this.backcoverId= document.getElementById("rect2");
