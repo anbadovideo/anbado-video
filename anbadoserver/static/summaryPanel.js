@@ -1,3 +1,4 @@
+"use strict";
 /**
  * User: haksudol
  * Date: 9/22/13
@@ -11,7 +12,7 @@ var anbado = window.anbado || {};
 var timeline;
 
 var data = [
-]
+];
 
 
 // Called when the Visualization API is loaded.

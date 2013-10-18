@@ -49,7 +49,7 @@ video2.save()
 video3 = Video('vimeo', '27246366', u'Move', 500, user1)
 video3.save()
 
-video4 = Video('youtube', 'Bx_3Kr_6ItA', u'영상 테스트', 400, user1)
+video4 = Video('youtube', 'x9-9aTwBL8E', u'영상 테스트', 400, user1)
 video4.save()
 
 
