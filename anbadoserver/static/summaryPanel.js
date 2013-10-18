@@ -3,7 +3,6 @@
  * User: haksudol
  * Date: 9/22/13
  * Time: 4:20 PM
- * To change this template use File | Settings | File Templates.
  */
 
 var anbado = window.anbado || {};

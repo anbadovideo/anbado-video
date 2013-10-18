@@ -222,6 +222,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
+/**
+ * 화면에 DOM에 비디오를 표시함
+ * @param targetDOM  : 페이지에서 표시할 DOM의 위치. jQuery 타입으로 표시함
+ */
+
 var videoPositioning = function(targetDOM){
 
 

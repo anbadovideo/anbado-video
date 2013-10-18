@@ -70,7 +70,7 @@ function saveCoord(evt) {
 /**
  * 인풋 패널을 표시하고, 입력 이벤트가 발생하면 이벤트를 생성하도록 한다.
  *
- * @param think
+ * @param think : 생각 객체가 전달된다. 클릭해서 입력하는 경우에 호출됨
  */
 function displayInputPanel(think) { // on first screen, display text input panel, submit button, emoticon panel
 
