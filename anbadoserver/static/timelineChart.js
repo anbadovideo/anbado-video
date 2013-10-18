@@ -121,7 +121,11 @@ var anbadoTimeLine = function(getId) {
     this.halfjQueryId=0;
     this.barjQueryId=0;
 
-
+    this.$areaDom=0;
+    this.$lineDom=0;
+    this.$pieDom=0;
+    this.$halfDom=0;
+    this.$barDom=0;
 
 }
 
@@ -192,6 +196,14 @@ anbadoTimeLine.prototype.initialize = function(time) {
     vidjQueryId.append('<div class="piediv" id="pichart"><svg id="pie" class="mypiechart"></svg></div>');
     vidjQueryId.append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     vidjQueryId.append('<div class="bardiv" ><svg id="barchart"> <circle id="circle1"></circle><rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  /><rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:white;fill-opacity:0.1;"  /> </svg></div>');
+
+    this.$areaDom=$('.areadiv');
+    this.$lineDom=$('.linediv');
+    this.$pieDom=$('.piediv');
+    this.$halfDom=$('.halfdiv');
+    this.$barDom=$('.bardiv');
+
+
 
 
     this.areajQueryId=$('#stackedarea');
@@ -669,43 +681,43 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 
     switch (this.graphShape) {
         case 1:
-            $('.areadiv').show();
-            $('.linediv').hide();
-            $('.piediv').hide();
-            $('.halfdiv').hide();
-            $('.bardiv').hide();
+            this.$areaDom.show();
+            this.$lineDom.hide();
+            this.$pieDom.hide();
+            this.$halfDom.hide();
+            this.$barDom.hide();
             this.drawStackedAreaChart();
             break;
         case 2:
-            $('.areadiv').hide();
-            $('.linediv').show();
-            $('.piediv').hide();
-            $('.halfdiv').hide();
-            $('.bardiv').hide();
+            this.$areaDom.hide();
+            this.$lineDom.show();
+            this.$pieDom.hide();
+            this.$halfDom.hide();
+            this.$barDom.hide();
             this.drawLineChart();
             break;
         case 3:
-            $('.areadiv').hide();
-            $('.linediv').hide();
-            $('.piediv').show();
-            $('.halfdiv').hide();
-            $('.bardiv').hide();
+            this.$areaDom.hide();
+            this.$lineDom.hide();
+            this.$pieDom.show();
+            this.$halfDom.hide();
+            this.$barDom.hide();
             this.drawPieChart();
             break;
         case 4:
-            $('.areadiv').hide();
-            $('.linediv').hide();
-            $('.piediv').hide();
-            $('.halfdiv').show();
-            $('.bardiv').hide();
+            this.$areaDom.hide();
+            this.$lineDom.hide();
+            this.$pieDom.hide();
+            this.$halfDom.show();
+            this.$barDom.hide();
             this.drawHalfPieChart();
             break;
         case 5:
-            $('.areadiv').hide();
-            $('.linediv').hide();
-            $('.piediv').hide();
-            $('.halfdiv').hide();
-            $('.bardiv').show();
+            this.$areaDom.hide();
+            this.$lineDom.hide();
+            this.$pieDom.hide();
+            this.$halfDom.hide();
+            this.$barDom.show();
             this.drawBarChart();
             break;
     }
