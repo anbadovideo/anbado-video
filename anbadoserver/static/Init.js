@@ -241,7 +241,7 @@ var videoPositioning = function(targetDOM){
 //    console.log("player offset is " + $("#player").offset());
 //    $("#videoEmbed").css({"left":0, "top":0});
     var jqVideoEmbed =$("#videoEmbed");
-    jqVideoEmbed.css({"width":640, "height":480});
+    jqVideoEmbed.css({"width":1024, "height":700});
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
