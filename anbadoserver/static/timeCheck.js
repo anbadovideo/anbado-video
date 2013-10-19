@@ -89,37 +89,37 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-//    function timeCheck() { // 시간대에서 각 이벤트의 듀레이션을 체크함
-//        for (CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition < CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++) {
-//            var deltaTime = CLIENTVAR.popcornobj.currentTime() - CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].clickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
-//
-//            if (deltaTime <= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].displayDuration) {
-//                CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
-//                CLIENTVAR.stage.update();
-//            }
-//
-//            /* elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로*/
-//            if ((deltaTime < 0) || (deltaTime >= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].displayDuration) || (CLIENTVAR.popcornobj.currentTime() === CLIENTVAR.popcornobj.duration())) {   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
-//
-//                CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
-//                CLIENTVAR.stage.update();
-//            }
-//            totalCount++;
-////            console.log("TOTAL : " + totalCount);
-////            console.log("this time:"+this.currentTime());
-//        }
-//
-//
-//        if (CLIENTVAR.popcornobj.duration() === CLIENTVAR.popcornobj.currentTime()) {
-//            inti = window.clearInterval(inti); // 시간이 같은 경우에 초기화
-//        }
-//
-//        //console.log("videotime:"+this.currentTime()+"inttime:"+intvidiotime );
-//    }
-    function timeCheck(){
+    function timeCheck() { // 시간대에서 각 이벤트의 듀레이션을 체크함
+        for (CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition < CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++) {
+            var deltaTime = CLIENTVAR.popcornobj.currentTime() - CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].clickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
+
+            if (deltaTime <= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].displayDuration) {
+                CLIENTVAR.stage.addChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 보여주기
+                CLIENTVAR.stage.update();
+            }
+
+            /* elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로*/
+            if ((deltaTime < 0) || (deltaTime >= CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].displayDuration) || (CLIENTVAR.popcornobj.currentTime() === CLIENTVAR.popcornobj.duration())) {   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+
+                CLIENTVAR.stage.removeChild(CLIENTVAR.eventList[CLIENTVAR.currentEventPosition].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
+                CLIENTVAR.stage.update();
+            }
+            totalCount++;
+//            console.log("TOTAL : " + totalCount);
+//            console.log("this time:"+this.currentTime());
+        }
 
 
+        if (CLIENTVAR.popcornobj.duration() === CLIENTVAR.popcornobj.currentTime()) {
+            inti = window.clearInterval(inti); // 시간이 같은 경우에 초기화
+        }
+
+        //console.log("videotime:"+this.currentTime()+"inttime:"+intvidiotime );
     }
+//    function timeCheck(){
+//
+//
+//    }
 });
 
 function graphselect() {

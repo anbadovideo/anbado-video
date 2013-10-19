@@ -52,6 +52,9 @@ video3.save()
 video4 = Video('youtube', 'x9-9aTwBL8E', u'영상 테스트', 400, user1)
 video4.save()
 
+video5 = Video('youtube', 'kWuq-cIaGq8', u'영상 테스트 - 클래식 공연', 400, user1)
+video5.save()
+
 
 
 

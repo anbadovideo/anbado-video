@@ -284,8 +284,6 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 
         }
 
-
-
         var eaTextContent = new createjs.Text(think.content, $("#fontSizeSelect").val() + "px " + textFont.toString(), "#ffffff");
         eaTextContent.regX = -10;
         eaTextContent.regY = 5;
