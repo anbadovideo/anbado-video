@@ -34,7 +34,7 @@
 
     <script type="text/javascript" src="{{ url_for('static', filename='clientGlobalVar.js') }}"></script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='Init.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='init.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='getURL.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='makeAnnotationEmoticon.js') }}"></script>
 
@@ -138,6 +138,8 @@
 <input id="btnStop" type="button" size="53" onclick = "CLIENTVAR.popcornobj.pause()" value = "pause"/>
 <input id="btnCanvasOn" type="button" size="53" onclick = "$('#canvas1').show()" value = "canvas on"/>
 <input id="btnCanvasOff" type="button" size="53" onclick = "$('#canvas1').hide()" value = "canvas off"/>
+<input id="btnSummaryOn" type="button" size="53" onclick = "$('#mytimeline').show()" value = "summary on"/>
+<input id="btnSummaryOff" type="button" size="53" onclick = "$('#mytimeline').hide()" value = "summary off"/>
 <input id="btnSize1280X720" type="button" size="53" onclick = "" value = "1280 * 720"/>
 <input id="btnSize1600X900" type="button" size="53" onclick = "" value = "1600 * 900"/>
 
@@ -212,7 +214,7 @@
 {##}
 {#</div>#}
 
-    <div id="mytimeline"></div>
+
 
 <div id="main_bottom_wrap">
     <ul>

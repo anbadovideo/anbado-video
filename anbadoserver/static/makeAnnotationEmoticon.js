@@ -175,10 +175,6 @@ function displayInputPanel(think) { // on first screen, display text input panel
     setTimeout(function() {
         getFocus();
     }, 300);
-
-
-
-
 }
 
 

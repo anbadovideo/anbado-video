@@ -184,32 +184,32 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-    var myGraphics = new createjs.Shape();
-    myGraphics.graphics.beginFill("#28343C").drawRect(0,0,640,480);
-
-    CLIENTVAR.stage.addChild(myGraphics);
-    CLIENTVAR.stage.update();
-
-    myGraphics = new createjs.Shape();
-    myGraphics.compositeOperation='destination-out';
-    myGraphics.graphics.beginStroke("#000").beginFill("#28343C").arc(300,240, 220, 0, Math.PI*2);
-//    myGraphics.graphics.beginStroke("#F00").beginFill("#28343c").drawCircle(300,240, 20);
-
-    CLIENTVAR.stage.addChild(myGraphics);
-    CLIENTVAR.stage.update();
-
-    myGraphics = new createjs.Shape(); // 외부 써클을 위해
-
-
-    pie = 0;
-    setInterval(function(){
-
-        myGraphics.graphics.beginStroke("#F00").setStrokeStyle(12,'round', 'round').arc(300,240, 240, 0, Math.PI*(2)*pie);
-
-        CLIENTVAR.stage.addChildAt(myGraphics,1);
-        CLIENTVAR.stage.update();
-        pie += CLIENTVAR.popcornobj.duration()/(360*360);
-    }, 5000);
+//    var myGraphics = new createjs.Shape();
+//    myGraphics.graphics.beginFill("#28343C").drawRect(0,0,640,480);
+//
+//    CLIENTVAR.stage.addChild(myGraphics);
+//    CLIENTVAR.stage.update();
+//
+//    myGraphics = new createjs.Shape();
+//    myGraphics.compositeOperation='destination-out';
+//    myGraphics.graphics.beginStroke("#000").beginFill("#28343C").arc(300,240, 220, 0, Math.PI*2);
+////    myGraphics.graphics.beginStroke("#F00").beginFill("#28343c").drawCircle(300,240, 20);
+//
+//    CLIENTVAR.stage.addChild(myGraphics);
+//    CLIENTVAR.stage.update();
+//
+//    myGraphics = new createjs.Shape(); // 외부 써클을 위해
+//
+//
+//    pie = 0;
+//    setInterval(function(){
+//
+//        myGraphics.graphics.beginStroke("#F00").setStrokeStyle(12,'round', 'round').arc(300,240, 240, 0, Math.PI*(2)*pie);
+//
+//        CLIENTVAR.stage.addChildAt(myGraphics,1);
+//        CLIENTVAR.stage.update();
+//        pie += CLIENTVAR.popcornobj.currentTime()  * Math.PI/CLIENTVAR.popcornobj.duration();
+//    }, pie += CLIENTVAR.popcornobj.currentTime()  * Math.PI/CLIENTVAR.popcornobj.duration());
 
     CLIENTVAR.stageMousePanelWrapper = new createjs.Shape();
 
@@ -231,7 +231,8 @@ var videoPositioning = function(targetDOM){
 
 
 
-    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
+//    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
+    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:640px;height:480px;margin-left:auto;margin-right:auto;"></div>');
 
 //    $("#player").append('<div id="videoEmbed"></div>');
 
@@ -244,11 +245,19 @@ var videoPositioning = function(targetDOM){
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
-    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+($('#videoEmbed').height())+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+    // OK code
+//    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+//    $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
+
+    // experiment
+    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+    $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
+
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
 
 //    $("#canvas1").css({});
-    $('#canvas1').offset($("#videoEmbed").offset());
+    $('#canvas1').offset($('#videoEmbed').offset());
+    $('#mytimeline').offset($('#videoEmbed').offset());
 
 }
 
