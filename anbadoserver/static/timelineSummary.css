@@ -1,3 +1,4 @@
+
 div.timeline-frame {
     border: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -114,6 +115,12 @@ div.timeline-event-content {
 div.timeline-event-content img {
     width: 32px;
     height: 32px;
+    vertical-align:middle;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+
+
 }
 
 .content_txt {

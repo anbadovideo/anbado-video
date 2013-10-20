@@ -88,6 +88,9 @@ document.addEventListener("DOMContentLoaded", function() {
         $("#canvas1").hide();
     });
 
+    var activeThinkList = [];
+    var thinkTriggerList = []; // 2차원 배열을 통해 각 초에서 생성될 이벤트를 할당함
+
 
     function timeCheck() { // 시간대에서 각 이벤트의 듀레이션을 체크함
         for (CLIENTVAR.currentEventPosition = 0; CLIENTVAR.currentEventPosition < CLIENTVAR.eventList.length; CLIENTVAR.currentEventPosition++) {
@@ -117,7 +120,29 @@ document.addEventListener("DOMContentLoaded", function() {
         //console.log("videotime:"+this.currentTime()+"inttime:"+intvidiotime );
     }
 //    function timeCheck(){
+//        for(var tempCounter = 0; tempCounter < CLIENTVAR.thinkTriggerList[Math.floor(CLIENTVAR.popcornobj.currentTime())].length; tempCounter++){
+//            activeThinkList.push(CLIENTVAR.thinkTriggerList[Math.floor(CLIENTVAR.popcornobj.currentTime())][tempCounter]);
+//            CLIENTVAR.thinkTriggerList[Math.floor(CLIENTVAR.popcornobj.currentTime())].splice(0,1);
 //
+//        }
+//        for(var tempCounter = 0; tempCounter < activeThinkList.length; tempCounter++){
+//            var deltaTime = CLIENTVAR.popcornobj.currentTime() - activeThinkList[tempCounter].clickTime; // 현재시간과 객체가 표시되기로 한 시간을 비교
+//
+//            if (deltaTime <= activeThinkList[tempCounter].displayDuration) {
+//                CLIENTVAR.stage.addChild(activeThinkList[tempCounter].eaCanvasDisplayObject); // 보여주기
+//                CLIENTVAR.stage.update();
+//            }
+//
+//            /* elseif 를 쓰면 잡아내지 못한다. 위에서 델타타임이 이미 보여주기로 설정되므로*/
+//            if ((deltaTime < 0) || deltaTime >= activeThinkList[tempCounter].displayDuration|| (CLIENTVAR.popcornobj.currentTime() === CLIENTVAR.popcornobj.duration())){   // seeking bar가 생성시간 뒤에 있을시, 객체가 보여준 후 일정 시간이 지나면 비디오가 끝나면 디스플레이를 없애준다.
+//                CLIENTVAR.stage.removeChild(activeThinkList[tempCounter].eaCanvasDisplayObject); // 제한 시간이 되면 캔버스에서 표현된 객체를 지움
+//                CLIENTVAR.stage.update();
+//
+//                CLIENTVAR.thinkTriggerList[Math.floor(activeThinkList[tempCounter].clickTime)].push(activeThinkList[tempCounter]);
+//                activeThinkList.splice(0,1);
+//
+//            }
+//        }
 //
 //    }
 });

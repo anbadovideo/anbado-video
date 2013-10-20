@@ -266,8 +266,8 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 //    think.eaCanvasDisplayObject.addChild(eaBackNamePanel);
 
 
-    var eaTextName = new createjs.Text(think.ownerName, 'bold 13px ' + textFont.toString(), '#0099ff');
-    eaTextName.regX = -10;
+    var eaTextName = new createjs.Text(think.ownerName, 'bold 11px ' + textFont.toString(), '#0099ff');
+    eaTextName.regX = -2;
     eaTextName.regY = 23;
     eaTextName.x = think.x;
     eaTextName.y = think.y;
@@ -284,14 +284,15 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 
         }
 
-        var eaTextContent = new createjs.Text(think.content, $("#fontSizeSelect").val() + "px " + textFont.toString(), "#ffffff");
-        eaTextContent.regX = -10;
-        eaTextContent.regY = 5;
+        var eaTextContent = new createjs.Text(think.content, 15 + "px " + textFont.toString(), "#ffffff");
+        eaTextContent.regX = -2;
+        eaTextContent.regY = 10;
         eaTextContent.x = think.x;
         eaTextContent.y = think.y;
+        eaTextContent.shadowColor = "red";
 
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(think.x, think.y, (eaTextContent.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTextContent.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 60, eaTextContent.getTransformedBounds().height + 34, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.graphics.beginFill("rgba(0,0,0,0.3)").drawRoundRect(think.x, think.y, (eaTextContent.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTextContent.getTransformedBounds().width*contextScale : eaTextName.getTransformedBounds().width*contextScale) + 60, eaTextContent.getTransformedBounds().height*contextScale + 23, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
         eaBackPanel.regX = 40;
         eaBackPanel.regY = 27;
 
@@ -310,14 +311,14 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 
         eaTempEmoticon.regX = 0;
         eaTempEmoticon.regY = 0;
-        eaTempEmoticon.x = think.x + 14;
+        eaTempEmoticon.x = think.x + 7;
         eaTempEmoticon.y = think.y - 5;
         eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
 
         var eaBackPanel = new createjs.Shape();
         eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(think.x, think.y, (eaTempEmoticon.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTempEmoticon.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 64, eaTempEmoticon.getTransformedBounds().height + eaTextName.getTransformedBounds().height + 10, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
         eaBackPanel.regX = 40;
-        eaBackPanel.regY = 27;
+        eaBackPanel.regY = 23;
 
         think.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
         think.eaCanvasDisplayObject.addChild(eaTextName);
@@ -338,7 +339,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     eaProfileImage.x = think.x - 35;
     eaProfileImage.y = think.y - 22;
 
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.14;
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.11;
 
 
 //
@@ -382,6 +383,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
         CLIENTVAR.eventList[think.parentID].childrenIDarray.push(think.ID); // 하위 이벤트들의 아이디를 기록함 최상위 부모 노드에 기록함
     }
     CLIENTVAR.eventList.push(think); // 전체 이벤트 목록에 저장
+//    CLIENTVAR.thinkTriggerList[Math.floor(think.clickTime)].push(think);
 
     // 밑의 타임라인에 저장
 
@@ -392,7 +394,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     think.step = 2;
     CLIENTVAR.totalEvent++; // 이벤트 아이디를 증가시
 
-
+    happybutton();
     endup();
 }
 

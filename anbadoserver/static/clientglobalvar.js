@@ -20,6 +20,7 @@ var CLIENTVAR = {
     stage_bar: {},
     time_position: 0,
     eventList: [],
+    thinkTriggerList:[],
     emoticonNumber: 4,
     eaTextInputField: {}, // 이 네가지 변수는 DOM으로, LOCAL로 전환할 것
     eaTextInputButton: {},

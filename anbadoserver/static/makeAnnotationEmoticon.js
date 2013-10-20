@@ -118,10 +118,7 @@ function displayInputPanel(think) { // on first screen, display text input panel
                 inputPanel.deletePanel();
 
             }
-
-
         });
-
 
         /**
          * 각각의 이모티콘 버튼. 클릭하면 이벤트를 생성하도록 한다.
@@ -158,10 +155,6 @@ function displayInputPanel(think) { // on first screen, display text input panel
             thinkGenerate(think);
             inputPanel.deletePanel();
         });
-
-
-
-
     }
     else if (CLIENTVAR.inputPanelShow === true) { // 클릭이 되어 있는 경우
 

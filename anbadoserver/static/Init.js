@@ -1,14 +1,20 @@
 // TODO : 유저 프로파일 리스트 만들어 놓기. Participants
 
 
+var userID = 1;
+var videoID = 1;
 
-var data1 = anbado.restful.getUserInfo(1);
-var data2 = anbado.restful.getVideoInfo(4);
-var data3 = anbado.restful.getParticipants(1);
+var contextScale = 1; // 오버샘플링을 위한 캔버스 스케일 값
+
+var data1 = anbado.restful.getUserInfo(userID);
+var data2 = anbado.restful.getVideoInfo(videoID);
+var data3 = anbado.restful.getParticipants(videoID);
 
 
 
 document.addEventListener("DOMContentLoaded", function(){
+
+
 
 
 
@@ -19,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(){
      */
 
 
-    anbado.realtime.enterVideo(1,1);
+
 
     console.log(data1);
     console.log(data2);
@@ -65,8 +71,16 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
+
+
+
     CLIENTVAR.popcornobj.on("loadeddata",function(){
-        anbado.realtime.enterVideo(1,1);
+        for(var tempCounter = 0; tempCounter <= Math.floor(CLIENTVAR.popcornobj.duration()); tempCounter++){
+            console.log(tempCounter);
+            CLIENTVAR.thinkTriggerList[tempCounter] = []; // 2차원 배열 할당을 위해 할당함. 각 초에서 시작할 이벤트를 모두 기록한다.
+        }
+
+        anbado.realtime.enterVideo(userID,videoID);
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
             var tempType = "";
@@ -99,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 tempType = 'image';
 
             }
+            console.log("evt.userid is " + evt.user_id);
 
             var think = {  // 전역 이벤트 없이 통과해가며 완성됨
                 ID : CLIENTVAR.totalEvent,
@@ -214,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function(){
     CLIENTVAR.stageMousePanelWrapper = new createjs.Shape();
 
     CLIENTVAR.stageMousePanelWrapper.hitArea = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,1)").drawRect(0,0, CLIENTVAR.canvaslayer.width,CLIENTVAR.canvaslayer.height)); // 투명 레이어에 덮어씌우기 위해 히트 아레아 추가
+
     CLIENTVAR.stageMousePanelWrapper.regX = 0;
     CLIENTVAR.stageMousePanelWrapper.regY = 0;
     CLIENTVAR.stageMousePanelWrapper.addEventListener("click", saveCoord);
@@ -250,14 +266,20 @@ var videoPositioning = function(targetDOM){
 //    $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
 
     // experiment
-    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+//    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>'); // OK code for canvas positioning
+    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()*contextScale+'px" height = "'+jqVideoEmbed.height()*contextScale+'px" style="position:relative; width:'+jqVideoEmbed.width()+'px;'+'height:'+jqVideoEmbed.height()+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
     $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
 
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
 
 //    $("#canvas1").css({});
+
+
     $('#canvas1').offset($('#videoEmbed').offset());
     $('#mytimeline').offset($('#videoEmbed').offset());
+
+
+
 
 }
 
@@ -290,7 +312,7 @@ var InputPanel = function(){
 
         var jqCanvas1 = $('#canvas1');
 
-        this.tempLocation = jqCanvas1.offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
+        this.canvasLocation = jqCanvas1.offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
 
 
         this.text = $('#textinput1');
@@ -302,10 +324,12 @@ var InputPanel = function(){
         this.emoticon.show();
 
 
-        this.text.css({"top": eventObject.y + this.tempLocation.top + "px", "left": eventObject.x + this.tempLocation.left + "px"})
-//    $("#permissionSelect").css({"top": eventObject.y + tempLocation.top + "px", "left": eventObject.x + tempLocation.left + 200 + "px"});
-        this.emoticon.css({"top": eventObject.y + this.tempLocation.top + 35 + "px", "left": eventObject.x + this.tempLocation.left + "px"});
-//    $("#profileImg").css({"top": eventObject.y + tempLocation.top + "px", "left": eventObject.x + tempLocation.left - 30 + "px"});
+        this.text.css({"top": eventObject.y/contextScale + this.canvasLocation.top + "px", "left": eventObject.x/contextScale + this.canvasLocation.left + "px"})
+
+//    $("#permissionSelect").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left + 200 + "px"});
+        this.emoticon.css({"top": eventObject.y/contextScale + this.canvasLocation.top + 35 + "px", "left": eventObject.x/contextScale + this.canvasLocation.left + "px"});
+
+//    $("#profileImg").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left - 30 + "px"});
 
         console.log(this.text.css("left"));
 
