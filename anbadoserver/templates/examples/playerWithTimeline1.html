@@ -3,7 +3,6 @@
 <head>
     <title>anbado player example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=500, initial-scale=1">
 
 
     <!--<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>-->
@@ -16,8 +15,8 @@
     <script type="text/javascript" src="{{ url_for('static', filename='anbadoRealtime.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='anbadoRestful.js') }}"></script>
     <script type="text/javascript">
-{#        anbado.realtime.setPrefixURL("http://localhost:8888");#}
-{#        anbado.restful.setPrefixURL("http://localhost:8888");#}
+        anbado.realtime.setPrefixURL("http://localhost:8888");
+        anbado.restful.setPrefixURL("http://localhost:8888");
     </script>
 
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>

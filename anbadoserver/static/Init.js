@@ -2,9 +2,9 @@
 
 
 var userID = 1;
-var videoID = 1;
+var videoID = 6;
 
-var contextScale = 1; // 오버샘플링을 위한 캔버스 스케일 값
+
 
 var data1 = anbado.restful.getUserInfo(userID);
 var data2 = anbado.restful.getVideoInfo(videoID);
@@ -67,10 +67,15 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     else if (provider === 'anbado'){
-        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", "asset/"+ data2.video.provider_vid.toString() + ".mp4" );
+        CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
     }
 
 
+
+    jqVideoEmbed = $('#videoEmbed');
+    CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
+    CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
+    CLIENTVAR.popcornobj.controls(false);
 
 
 
@@ -116,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log("evt.userid is " + evt.user_id);
 
             var think = {  // 전역 이벤트 없이 통과해가며 완성됨
+
                 ID : CLIENTVAR.totalEvent,
                 step :3, // 0은 생성상태. 1은 생성 중. 2는 생성완료. 3은 외부 이벤트
 
@@ -245,10 +251,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
 var videoPositioning = function(targetDOM){
 
+    var videoWidth = 640;
+    var videoHeight = 480;
+
 
 
 //    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
-    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:640px;height:480px;margin-left:auto;margin-right:auto;"></div>');
+    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:'+ videoWidth+';height:' + videoHeight +';margin-left:auto;margin-right:auto;"></div>');
 
 //    $("#player").append('<div id="videoEmbed"></div>');
 
@@ -257,7 +266,7 @@ var videoPositioning = function(targetDOM){
 //    console.log("player offset is " + $("#player").offset());
 //    $("#videoEmbed").css({"left":0, "top":0});
     var jqVideoEmbed =$("#videoEmbed");
-    jqVideoEmbed.css({"width":640, "height":480});
+    jqVideoEmbed.css({"width":videoWidth, "height":videoHeight});
 //    $("#videoEmbed").offset({left:500, top:300});
 
 
@@ -267,22 +276,19 @@ var videoPositioning = function(targetDOM){
 
     // experiment
 //    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>'); // OK code for canvas positioning
-    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()*contextScale+'px" height = "'+jqVideoEmbed.height()*contextScale+'px" style="position:relative; width:'+jqVideoEmbed.width()+'px;'+'height:'+jqVideoEmbed.height()+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; width:'+jqVideoEmbed.width()+'px;'+'height:'+jqVideoEmbed.height()+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
     $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
 
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
 
 //    $("#canvas1").css({});
 
-
     $('#canvas1').offset($('#videoEmbed').offset());
     $('#mytimeline').offset($('#videoEmbed').offset());
 
 
 
-
 }
-
 
 
 var InputPanel = function(){
@@ -324,10 +330,10 @@ var InputPanel = function(){
         this.emoticon.show();
 
 
-        this.text.css({"top": eventObject.y/contextScale + this.canvasLocation.top + "px", "left": eventObject.x/contextScale + this.canvasLocation.left + "px"})
+        this.text.css({"top": eventObject.y + this.canvasLocation.top + "px", "left": eventObject.x + this.canvasLocation.left + "px"})
 
 //    $("#permissionSelect").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left + 200 + "px"});
-        this.emoticon.css({"top": eventObject.y/contextScale + this.canvasLocation.top + 35 + "px", "left": eventObject.x/contextScale + this.canvasLocation.left + "px"});
+        this.emoticon.css({"top": eventObject.y + this.canvasLocation.top + 35 + "px", "left": eventObject.x + this.canvasLocation.left + "px"});
 
 //    $("#profileImg").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left - 30 + "px"});
 
