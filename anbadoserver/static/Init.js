@@ -1,8 +1,15 @@
 // TODO : 유저 프로파일 리스트 만들어 놓기. Participants
 
 
-var userID = 1;
-var videoID = 6;
+
+
+if(userID === undefined){
+    userID = 1;
+}
+if(videoID === undefined){
+    videoID = 6;
+}
+
 
 
 
