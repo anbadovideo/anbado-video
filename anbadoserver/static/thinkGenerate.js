@@ -90,8 +90,8 @@ var thinkTypeCheck = function(think) {
                 });
 
                 anbado.realtime.postEvent({
-                    user_id: 1,
-                    video_id: 1,
+                    user_id: userID,
+                    video_id: videoID,
                     appeared: think.clickTime,
                     disappeared: think.clickTime + think.displayDuration,
                     content: think.content,
@@ -117,8 +117,8 @@ var thinkTypeCheck = function(think) {
                 });
 
                 anbado.realtime.postEvent({
-                    user_id: 1,
-                    video_id: 1,
+                    user_id: userID,
+                    video_id: videoID,
                     appeared: think.clickTime,
                     disappeared: think.clickTime + think.displayDuration,
                     content: think.content,
@@ -135,8 +135,6 @@ var thinkTypeCheck = function(think) {
             default :
                 console.log("not in event type");
                 break;
-
-
         }
     }
     if (think.step === 3) {          // 외부 이미지 입력하는 경우
@@ -292,11 +290,9 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
         eaTextContent.shadowColor = "red";
 
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,0,0,0.3)").drawRoundRect(think.x, think.y, (eaTextContent.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTextContent.getTransformedBounds().width*contextScale : eaTextName.getTransformedBounds().width*contextScale) + 60, eaTextContent.getTransformedBounds().height*contextScale + 23, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.graphics.beginFill("rgba(0,0,0,0.3)").drawRoundRect(think.x, think.y, (eaTextContent.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTextContent.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 60, eaTextContent.getTransformedBounds().height+ 23, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
         eaBackPanel.regX = 40;
         eaBackPanel.regY = 27;
-
-
 
         // 백패널 추가후 텍스트 올림
         think.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
