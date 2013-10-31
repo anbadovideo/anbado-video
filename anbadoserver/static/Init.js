@@ -1,12 +1,14 @@
 // TODO : 유저 프로파일 리스트 만들어 놓기. Participants
 
 
+
 if(userID === undefined){
     var userID = 1;
 }
 if(videoID === undefined){
     var videoID = 1;
 }
+
 
 var data1 = anbado.restful.getUserInfo(userID);
 var data2 = anbado.restful.getVideoInfo(videoID);
