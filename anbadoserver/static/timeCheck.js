@@ -203,10 +203,14 @@ function happybutton() {
     var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
     var barName='.nv-bar.positive.nv-bar-0-'+parseInt((testObj.coverId.x.baseVal.value-70)/offsetBarWidth);
 
-    testObj.positionId.setAttribute('r',5);
-      testObj.positionId.setAttribute('cy',(90-($(barName)[0].height.baseVal.value)));
-  testObj.positionId.setAttribute('cx',testObj.coverId.x.baseVal.value);
-console.log('current:'+(90-($(barName)[0].height.baseVal.value)));
+    //testObj.positionId.setAttribute('r',5);
+//      testObj.positionId.setAttribute('cy',(90-($(barName)[0].height.baseVal.value)));
+//        testObj.positionId.setAttribute('cx',testObj.coverId.x.baseVal.value);
+        testObj.imageId.setAttribute('y',(90-($(barName)[0].height.baseVal.value)-testObj.imageId.height.baseVal.value));
+        testObj.imageId.setAttribute('x',testObj.coverId.x.baseVal.value-(testObj.imageId.width.baseVal.value/2));
+
+
+    console.log('current:'+(90-($(barName)[0].height.baseVal.value)));
 $('.tick.major line').remove();
     anbado.realtime.postEvent({
         user_id: 1,
