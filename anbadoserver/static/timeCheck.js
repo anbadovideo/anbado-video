@@ -200,15 +200,13 @@ function happybutton() {
     testObj.drawVisualization('g');
 
 
-//    var offsetLeft=$('#rect2').offset().left;
-//    var currentTime =(CLIENTVAR.popcornobj.currentTime()-offsetLeft);
-//    var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
-//    var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
-//
-//    testObj.positionId.setAttribute('r',5);
-//      testObj.positionId.setAttribute('cy',200);
-//  testObj.positionId.setAttribute('cx',100);
+    var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
+    var barName='.nv-bar.positive.nv-bar-0-'+parseInt((testObj.coverId.x.baseVal.value-70)/offsetBarWidth);
 
+    testObj.positionId.setAttribute('r',5);
+      testObj.positionId.setAttribute('cy',(90-($(barName)[0].height.baseVal.value)));
+  testObj.positionId.setAttribute('cx',testObj.coverId.x.baseVal.value);
+console.log('current:'+(90-($(barName)[0].height.baseVal.value)));
 $('.tick.major line').remove();
     anbado.realtime.postEvent({
         user_id: 1,
