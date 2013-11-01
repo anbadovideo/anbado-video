@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 DATABASE_URI = "sqlite:////tmp/anbado-test.db"
-SOCKET_PORT = 8888
+SOCKET_PORT = 8887
 DEBUG = True
 
 FROGSPAWN_TYPE = "dummy"
