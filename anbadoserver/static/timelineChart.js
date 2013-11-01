@@ -44,8 +44,8 @@
 
             var currentTime =(evt.clientX-offsetLeft);
 
-            var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
 
+            var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
             var timeLineWidth=offsetWidth.width.baseVal.value;
 
             var perTime = CLIENTVAR.popcornobj.duration();
@@ -71,6 +71,11 @@ testObj.positionId.setAttribute('r',0);
 
 var anbadoTimeLine = function(getId) {
 
+    /**
+     * getid  로 동영상 플레이어의 width 와 height 의 길이를 불러와서
+     * 타임라인에 적용시킨다.
+     * @type {string}
+     */
 
     this.videoId = "#" + getId;
     /**
@@ -112,6 +117,8 @@ var anbadoTimeLine = function(getId) {
 
     /**
      * jquery id 받기
+     * jauery 의 사용을 줄이기 위해서 한번 쓰고 이후에
+     * this 에서 받아서 처리한다.
      */
 
 
@@ -187,6 +194,7 @@ anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
  * @param time 동영상의 길이
  */
 anbadoTimeLine.prototype.initialize = function(time) {
+
     var vidjQueryId=$(this.videoId);
     var height = vidjQueryId.css("height");
     var width = vidjQueryId.css("width");
@@ -197,8 +205,8 @@ anbadoTimeLine.prototype.initialize = function(time) {
     vidjQueryId.append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     vidjQueryId.append('<div class="bardiv" ><svg id="barchart"> ' +
         '<circle id="circle1"></circle>' +
-        '<rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20" width="0" height="0" style="fill:gray;fill-opacity:0.5;"  />' +
-        '<rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20" width="0" height="0" style="fill:blue;fill-opacity:0.1;"  /> </svg></div>');
+        '<rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20"  style="fill:gray;fill-opacity:0.5;"  />' +
+        '<rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20"  style="fill:blue;fill-opacity:0.1;"  /> </svg></div>');
 
     this.$areaDom=$('.areadiv');
     this.$lineDom=$('.linediv');

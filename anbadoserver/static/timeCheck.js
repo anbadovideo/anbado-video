@@ -26,10 +26,16 @@ document.addEventListener("DOMContentLoaded", function() {
             ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
 
 
+            /**
+             * 원 svg
+             */
             //testObj.positionId.setAttribute('r',5);
             testObj.positionId.setAttribute('cy',15);
             testObj.positionId.setAttribute('cx',60);
             testObj.positionId.setAttribute('fill','red');
+            /**
+             * 타임라인 앞 뒤 커버
+             */
             testObj.coverId.setAttribute('height',70);
             testObj.coverId.setAttribute('x',70);
             testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
@@ -37,7 +43,15 @@ document.addEventListener("DOMContentLoaded", function() {
             testObj.backcoverId.setAttribute('x',70);
             testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
 
+            /**
+             * 동영상 타임 , 클릭수 에서 나오는 하얀색 기준선을 없애는 jauery
+             */
             $('.tick.major line').remove();
+            /**
+             * 타임라인위에 있는 바차트 설명 해주는 거 숨김
+             */
+            $('.nv-legendWrap').hide();
+
         },100)
     });
 
@@ -184,6 +198,16 @@ function graphselect() {
 var timeset = 2;
 function happybutton() {
     testObj.drawVisualization('g');
+
+
+//    var offsetLeft=$('#rect2').offset().left;
+//    var currentTime =(CLIENTVAR.popcornobj.currentTime()-offsetLeft);
+//    var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
+//    var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
+//
+//    testObj.positionId.setAttribute('r',5);
+//      testObj.positionId.setAttribute('cy',200);
+//  testObj.positionId.setAttribute('cx',100);
 
 $('.tick.major line').remove();
     anbado.realtime.postEvent({
