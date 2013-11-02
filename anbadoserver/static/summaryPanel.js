@@ -28,9 +28,8 @@ function drawTimelineVisualization() {
 
     // specify options
     var options = {
-
-        'width': '640px',
-        'height': '400px',
+        'width': '880px',
+        'height': '540px',
         'editable': true,   // enable dragging and editing events
         'style': 'box',
         'start': new Date(CLIENTVAR.pageGenerationTime.getTime()),
