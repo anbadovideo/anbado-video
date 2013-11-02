@@ -1,3 +1,8 @@
+/**
+ * @author : haksudol
+ * @since : 0.1
+ */
+
 // TODO : 유저 프로파일 리스트 만들어 놓기. Participants
 
 
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     $("#player1").remove();
 
-    videoPositioning('#player');
+    videoPositioning('#player', 880, 540);
 
 
 
@@ -85,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
             var tempType = "";
-            console.log("evt is " + evt);
             if(evt.category == "text"){
                 tempType = "textinput1"
 
@@ -245,9 +249,7 @@ document.addEventListener("DOMContentLoaded", function(){
  * @param targetDOM  : 페이지에서 표시할 DOM의 위치. jQuery 타입으로 표시함
  */
 
-var videoPositioning = function(targetDOM){
-    var videoWidth = 880;
-    var videoHeight = 540;
+var videoPositioning = function(targetDOM, videoWidth, videoHeight){
 
 
 
