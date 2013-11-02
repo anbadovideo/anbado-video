@@ -11,7 +11,7 @@ if(userID === undefined){
     var userID = 1;
 }
 if(videoID === undefined){
-    var videoID = 1;
+    var videoID = 2;
 }
 
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     $("#player1").remove();
 
-    videoPositioning('#player', 880, 540);
+
 
 
 
@@ -61,13 +61,16 @@ document.addEventListener("DOMContentLoaded", function(){
     var provider = data2.video.provider;
 
     if(provider === 'youtube'){
+        videoPositioning('#player', 880, 440);
         CLIENTVAR.popcornobj= Popcorn.youtube( "#videoEmbed", "http://www.youtube.com/embed/"+ video_id +"?hd=1" + "&iv_load_policy=3" );
     }
     else if(provider === 'vimeo'){
+        videoPositioning('#player', 880, 440);
         CLIENTVAR.popcornobj= Popcorn.vimeo( "#videoEmbed", "vimeo.com/"+ video_id);
     }
 
     else if (provider === 'anbado'){
+        videoPositioning('#player', 880, 540);
         CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
     }
 
@@ -212,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function(){
 //    CLIENTVAR.stage.update();
 //
 //    myGraphics = new createjs.Shape();
-//    myGraphics.compositeOperation='destination-out';
+//    myGraphics.compositeOration='destination-out';
 //    myGraphics.graphics.beginStroke("#000").beginFill("#28343C").arc(300,240, 220, 0, Math.PI*2);
 ////    myGraphics.graphics.beginStroke("#F00").beginFill("#28343c").drawCircle(300,240, 20);
 //
@@ -244,9 +247,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
+
+
 /**
  * 화면에 DOM에 비디오를 표시함
  * @param targetDOM  : 페이지에서 표시할 DOM의 위치. jQuery 타입으로 표시함
+ * @param videoWidth : 비디오의 가로 크기
+ * @param videoHeight : 비디오의 세로 크기
  */
 
 var videoPositioning = function(targetDOM, videoWidth, videoHeight){
@@ -282,6 +289,7 @@ var videoPositioning = function(targetDOM, videoWidth, videoHeight){
 
     $('#canvas1').offset($('#videoEmbed').offset());
     $('#mytimeline').offset($('#videoEmbed').offset());
+    $('#mytimeline').hide();
 
 
 
