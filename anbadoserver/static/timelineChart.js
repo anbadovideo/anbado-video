@@ -109,6 +109,7 @@ var anbadoTimeLine = function(getId) {
     this.coverId=0;
     this.backcoverId=0;
     this.positionId=0;
+    this.imageId=0;
 
     this.currentTime = 0;
     this.durationTime = 0;
@@ -205,6 +206,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     vidjQueryId.append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     vidjQueryId.append('<div class="bardiv" ><svg id="barchart"> ' +
         '<circle id="circle1"></circle>' +
+        '<image id="image1" x="20" y="20" width="20" height="20" xlink:href="../static/examples/img/flower.png" />'+
         '<rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20"  style="fill:gray;fill-opacity:0.5;"  />' +
         '<rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20"  style="fill:blue;fill-opacity:0.1;"  /> </svg></div>');
 
@@ -240,6 +242,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
    this.coverId= document.getElementById("rect1");
     this.backcoverId= document.getElementById("rect2");
     this.positionId=document.getElementById("circle1");
+    this.imageId=document.getElementById("image1");
        if(false)
        {
         this.dummy=time/100;
