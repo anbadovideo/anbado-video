@@ -344,8 +344,14 @@ var InputPanel = function(){
 
 //        this.text.hide();
 //        this.emoticon.hide();
-        this.text.remove();
-        this.emoticon.remove();
+
+
+        this.text.hide('puff',400);
+        this.emoticon.hide('puff', 400);
+        setTimeout(function(){
+            this.text.remove();
+            this.emoticon.remove();
+        },650);
         CLIENTVAR.inputPanelShow = false;
     }
 

@@ -59,6 +59,7 @@ function saveCoord(evt) {
 
     think.x = evt.stageX;
     think.y = evt.stageY;
+    think.clickTime = CLIENTVAR.popcornobj.currentTime();
 
     displayInputPanel(think);
 
