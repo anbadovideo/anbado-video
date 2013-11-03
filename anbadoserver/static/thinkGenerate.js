@@ -4,6 +4,21 @@
  *
  * @author anbado video
  * @since 0.1
+ *
+ * Copyright 2013 anbado video
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ *
  */
 
 
@@ -25,13 +40,13 @@ function thinkGenerate(think) { // video interaction event generation
 
         thinkTypeCheck(think);
 
-        console.log("current" + think.clickTime);
+//        console.log("current" + think.clickTime);
         endup();
     }
     else if (think.step === 3) {// 생성å완료된 이벤트의 경우
 
         thinkTypeCheck(think);
-        console.log("current" + think.clickTime);
+//        console.log("current" + think.clickTime);
 
 
     }
@@ -178,7 +193,7 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
 
     //TODO: diplayInput 패널 함수에 조건을 통해 이 함수를 합쳐야함. 조건체크를 해야하기 때문
     isItCommentReply = true;
-    console.log("this is " + think);
+//    console.log("this is " + think);
 
 
 // 선 그리기 위한 컴포넌트들
@@ -195,9 +210,9 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
     think.eaCanvasDisplayObject.addChildAt(shape, 1);
 
 
-    console.log(think.parentID);
+//    console.log(think.parentID);
     if (think.parentID === -1) { // 혼자 있던 이벤트를 클릭한 경우. 이 경우 eventObject는 클릭된 이벤트 정보가 넘어온다.
-        console.log("in minus one");
+//        console.log("in minus one");
         think.parentID = think.ID; // 대댓글 연결이 시작되지 않은 상태에서는 클릭된 원본 아이디의 위치를 기억함
         CLIENTVAR.tempEvent.x = think.x + 40;
 
@@ -220,7 +235,7 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
 
         // easeljs 를 통해 선을 그림
         for (var temp = 0; temp < CLIENTVAR.eventList[think.parentID].childrenIDarray.length; temp++) {
-            console.log("in for");
+//            console.log("in for");
 
             // set up our drawing properties:
 
@@ -323,6 +338,8 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     var img = new Image();
 //    img.onload = layout;
     img.src = think.ownerProfileImg;
+    img.width = 300;
+    img.height = 300;
 
 
 

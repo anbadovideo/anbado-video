@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     CLIENTVAR.popcornobj.on('play', function() {
+        $("#canvas1").show();
 
         var stackedAreaObject = $('#stackedarea');
 
@@ -206,8 +207,8 @@ function happybutton() {
     //testObj.positionId.setAttribute('r',5);
 //      testObj.positionId.setAttribute('cy',(90-($(barName)[0].height.baseVal.value)));
 //        testObj.positionId.setAttribute('cx',testObj.coverId.x.baseVal.value);
-        testObj.imageId.setAttribute('y',(90-($(barName)[0].height.baseVal.value)-testObj.imageId.height.baseVal.value));
-        testObj.imageId.setAttribute('x',testObj.coverId.x.baseVal.value-(testObj.imageId.width.baseVal.value/2));
+//        testObj.imageId.setAttribute('y',(90-($(barName)[0].height.baseVal.value)-testObj.imageId.height.baseVal.value));
+//        testObj.imageId.setAttribute('x',testObj.coverId.x.baseVal.value-(testObj.imageId.width.baseVal.value/2));
 
 
     console.log('current:'+(90-($(barName)[0].height.baseVal.value)));

@@ -1,6 +1,20 @@
 /**
  * @author : haksudol
  * @since : 0.1
+ *
+ * Copyright 2013 anbado video
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  */
 
 // TODO : 유저 프로파일 리스트 만들어 놓기. Participants
@@ -281,7 +295,15 @@ var videoPositioning = function(targetDOM, videoWidth, videoHeight){
     // experiment
 //    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>'); // OK code for canvas positioning
 
-    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; width:'+jqVideoEmbed.width()+'px;'+'height:'+jqVideoEmbed.height()+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+
+    if(data2.video.provider === 'youtube'){
+        $(targetDOM).append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-100)+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-100)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+
+    }
+    else{
+        $(targetDOM).append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+videoHeight+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+videoHeight+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+    }
+
     $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
 
 //    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
