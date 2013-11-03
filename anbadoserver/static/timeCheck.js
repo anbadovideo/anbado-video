@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //            console.log(this);
             timeCheck()
-        }, 20);
+        }, 500);
 
         var k=parseInt($(testObj.videoId).css('width'));
         var ti=(k/testObj.durationTime);
