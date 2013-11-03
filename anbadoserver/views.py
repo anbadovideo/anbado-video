@@ -7,9 +7,11 @@ from flask import request, Response, render_template
 from anbadoserver import app
 import anbadoserver.api.http # for load http api
 from anbadoserver.api.realtime import namespace_def
+from anbadoserver.decorators import crossdomain
 
 
 @app.route('/socket.io/<path:path>')
+@crossdomain(origin='*')
 def handle_socketio(path):
     try:
         socketio_manage(request.environ, namespace_def, request)
