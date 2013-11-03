@@ -61,10 +61,12 @@ function saveCoord(evt) {
     think.y = evt.stageY;
     think.clickTime = CLIENTVAR.popcornobj.currentTime();
 
+    var inputPanel = {}; // 입력창을 표시 InputPanel의 인스턴스이다. closure를 이용하여 displayInputPanel()에서 참조할 수 있도록 함
     displayInputPanel(think);
 
 
 }
+
 
 
 
@@ -76,21 +78,23 @@ function saveCoord(evt) {
 function displayInputPanel(think) { // on first screen, display text input panel, submit button, emoticon panel
 
 
+
     think.step = 1;
 
 
     // alert(think);
     console.log("in displayinputpaenl");
 
+
     if (CLIENTVAR.inputPanelShow === false) {
 
         console.log("inputPanelShow");
 
 
-        var tempLocation = $("#canvas1").offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
+        var tempLocation = $('#canvas1').offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
         console.log("inputpanel === false" + think);
 
-        var inputPanel = new InputPanel();
+        inputPanel = new InputPanel();
         inputPanel.createPanel(think);
 
         var jqTextinput = $("#textinput1");

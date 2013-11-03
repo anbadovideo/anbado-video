@@ -206,7 +206,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     vidjQueryId.append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     vidjQueryId.append('<div class="bardiv" ><svg id="barchart"> ' +
         '<circle id="circle1"></circle>' +
-        '<image id="image1" x="20" y="20" width="20" height="20" xlink:href="../static/examples/img/flower.png" />'+
+        '<image id="image1" x="20" y="20" width="20" height="20" xlink:href="../examples/img/flower.png" />'+
         '<rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20"  style="fill:gray;fill-opacity:0.5;"  />' +
         '<rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20"  style="fill:blue;fill-opacity:0.1;"  /> </svg></div>');
 

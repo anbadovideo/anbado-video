@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     CLIENTVAR.popcornobj.on("loadeddata",function(){
         for(var tempCounter = 0; tempCounter <= Math.floor(CLIENTVAR.popcornobj.duration()); tempCounter++){
-            console.log(tempCounter);
             CLIENTVAR.thinkTriggerList[tempCounter] = []; // 2차원 배열 할당을 위해 할당함. 각 초에서 시작할 이벤트를 모두 기록한다.
         }
 
