@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function(){
             CLIENTVAR.thinkTriggerList[tempCounter] = []; // 2차원 배열 할당을 위해 할당함. 각 초에서 시작할 이벤트를 모두 기록한다.
         }
 
-        anbado.realtime.enterVideo(userID,videoID);
+        anbado.realtime.enterVideo(videoID,userID);
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
             var tempType = "";
