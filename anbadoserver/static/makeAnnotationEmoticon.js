@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function saveCoord(evt) {
 
-    console.log("evt " + evt);
+//    console.log("evt " + evt);
 
     /**
      *
@@ -95,16 +95,16 @@ function displayInputPanel(think) { // on first screen, display text input panel
 
 
     // alert(think);
-    console.log("in displayinputpaenl");
+//    console.log("in displayinputpaenl");
 
 
     if (CLIENTVAR.inputPanelShow === false) {
 
-        console.log("inputPanelShow");
+//        console.log("inputPanelShow");
 
 
         var tempLocation = $('#canvas1').offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
-        console.log("inputpanel === false" + think);
+//        console.log("inputpanel === false" + think);
 
         inputPanel = new InputPanel();
         inputPanel.createPanel(think);

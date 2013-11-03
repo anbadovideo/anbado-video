@@ -27,7 +27,7 @@ var anbado = window.anbado || {};
 
 function thinkGenerate(think) { // video interaction event generation
 
-    console.log(think.category);
+
 
 
     if (think.step === 1) { // 생성중인 이벤트
@@ -229,8 +229,8 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
         CLIENTVAR.tempEvent.x = think.x;
 
         CLIENTVAR.tempEvent.y = CLIENTVAR.eventList[think.parentID].y + 66 * (CLIENTVAR.eventList[think.parentID].childrenIDarray.length + 1);
-        console.log(CLIENTVAR.eventList[think.parentID]);
-        console.log(CLIENTVAR.eventList[think.parentID].childrenIDarray);
+//        console.log(CLIENTVAR.eventList[think.parentID]);
+//        console.log(CLIENTVAR.eventList[think.parentID].childrenIDarray);
 
 
         // easeljs 를 통해 선을 그림

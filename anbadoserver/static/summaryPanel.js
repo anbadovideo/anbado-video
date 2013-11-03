@@ -36,7 +36,7 @@ var data = [
 
 function drawTimelineVisualization() {
 
-    console.log("in draw");
+//    console.log("in draw");
     // Create a JSON data table
 
     // specify options

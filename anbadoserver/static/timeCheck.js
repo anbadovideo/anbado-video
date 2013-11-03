@@ -211,7 +211,7 @@ function happybutton() {
 //        testObj.imageId.setAttribute('x',testObj.coverId.x.baseVal.value-(testObj.imageId.width.baseVal.value/2));
 
 
-    console.log('current:'+(90-($(barName)[0].height.baseVal.value)));
+//    console.log('current:'+(90-($(barName)[0].height.baseVal.value)));
 $('.tick.major line').remove();
     anbado.realtime.postEvent({
         user_id: 1,

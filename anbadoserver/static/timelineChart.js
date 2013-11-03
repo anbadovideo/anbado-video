@@ -280,7 +280,7 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
     var weightValue =  data2.video.timeline_chart;
 
     time = parseInt(time) + 1; // TODO: time 값에 1을 더하는 이유에 대해서 확인하기
-    console.log("array time: " + time);
+//    console.log("array time: " + time);
 
 
 //    for (var tempCounter = 0; tempCounter < testObj.durationTime; tempCounter++){
