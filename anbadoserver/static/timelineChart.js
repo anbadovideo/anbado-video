@@ -206,7 +206,7 @@ anbadoTimeLine.prototype.initialize = function(time) {
     vidjQueryId.append('<div class="halfdiv" id="halfchart"><svg id="halfpi" class="mypiechart"></svg></div>');
     vidjQueryId.append('<div class="bardiv" ><svg id="barchart"> ' +
         '<circle id="circle1"></circle>' +
-        '<image id="image1" x="20" y="20" width="20" height="20" xlink:href="../examples/img/flower.png" />'+
+//        '<image id="image1" x="20" y="20" width="20" height="20" xlink:href="../examples/img/flower.png" />'+
         '<rect onclick="timeLineCover(evt)" onmousemove="mooseOnCover(evt)" onmouseout="mouseOutCover(evt)" id="rect1" x="50" y="20"  style="fill:gray;fill-opacity:0.5;"  />' +
         '<rect onmousemove="mooseOnCover(evt)" onclick="timeLineCover(evt)" onmouseout="mouseOutCover(evt)" id="rect2" x="50" y="20"  style="fill:blue;fill-opacity:0.1;"  /> </svg></div>');
 
@@ -236,8 +236,10 @@ anbadoTimeLine.prototype.initialize = function(time) {
     this.pijQueryId.css('left', (parseInt(width) / 3) + 'px');
      this.halfjQueryId.css('top', height);
     this.halfjQueryId.css('left', (parseInt(width) / 3) + 'px');
-     this.barjQueryId.css('top', height);
-    this.barjQueryId.css('width', width);
+    this.barjQueryId.css('top', parseInt(height) -25);
+    this.barjQueryId.css('left', -80);
+
+    this.barjQueryId.css('width', parseInt(width) +130);
 
    this.coverId= document.getElementById("rect1");
     this.backcoverId= document.getElementById("rect2");

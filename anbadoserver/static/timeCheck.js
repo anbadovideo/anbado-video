@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", function() {
              */
             testObj.coverId.setAttribute('height',70);
             testObj.coverId.setAttribute('x',70);
-            testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+            testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width')));
             testObj.backcoverId.setAttribute('height',70);
             testObj.backcoverId.setAttribute('x',70);
-            testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130);
+            testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width')));
 
             /**
              * 동영상 타임 , 클릭수 에서 나오는 하얀색 기준선을 없애는 jauery
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
             timeCheck()
         }, 20);
 
-        var k=parseInt($(testObj.videoId).css('width'))-130;
+        var k=parseInt($(testObj.videoId).css('width'));
         var ti=(k/testObj.durationTime);
 
         CLIENTVAR.popcornobj.on('timeupdate', function() {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var coverTime=parseInt(ti*testObj.currentTime);
 
             testObj.coverId.setAttribute('x',70+coverTime);
-            testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-130-coverTime);
+            testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-coverTime);
 
             testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
             //testObj.tooltip();

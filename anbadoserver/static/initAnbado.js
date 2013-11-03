@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", function(){
 //    $("#youtube").offset($("#vid").offset);
 
 
+    videoPositioning('#player', 880, 540);
+
 
 //    CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://download.ted.com/talks/DanDennett_2003-480p-pt-br.mp4" );
 
@@ -61,16 +63,14 @@ document.addEventListener("DOMContentLoaded", function(){
     var provider = data2.video.provider;
 
     if(provider === 'youtube'){
-        videoPositioning('#player', 880, 440);
+
         CLIENTVAR.popcornobj= Popcorn.youtube( "#videoEmbed", "http://www.youtube.com/embed/"+ video_id +"?hd=1" + "&iv_load_policy=3" );
     }
     else if(provider === 'vimeo'){
-        videoPositioning('#player', 880, 440);
         CLIENTVAR.popcornobj= Popcorn.vimeo( "#videoEmbed", "vimeo.com/"+ video_id);
     }
 
     else if (provider === 'anbado'){
-        videoPositioning('#player', 880, 540);
         CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
     }
 
@@ -259,6 +259,7 @@ var videoPositioning = function(targetDOM, videoWidth, videoHeight){
 
 
 
+
 //    $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:1080px;height:1040px;margin-left:auto;margin-right:auto;"></div>');
     $(targetDOM).append('<div id="videoEmbed" style="position: relative;width:'+ videoWidth+';height:' + videoHeight +';margin-left:auto;margin-right:auto;"></div>');
 
@@ -279,6 +280,7 @@ var videoPositioning = function(targetDOM, videoWidth, videoHeight){
 
     // experiment
 //    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>'); // OK code for canvas positioning
+
     $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; width:'+jqVideoEmbed.width()+'px;'+'height:'+jqVideoEmbed.height()+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
     $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
 
@@ -297,8 +299,7 @@ var videoPositioning = function(targetDOM, videoWidth, videoHeight){
 
 var InputPanel = function(){
 
-    this.textinput1={};
-    this.emoticonPanel = {};
+
 
     $("#textinput1").hide();
     $("#emoticonPanel").hide();
@@ -353,18 +354,10 @@ var InputPanel = function(){
 //        this.text.hide();
 //        this.emoticon.hide();
 
-
-//        this.text.hide('puff',400);
-//        this.emoticon.hide('puff', 400);
-//        setTimeout(function(){
-            this.text.remove();
-            this.emoticon.remove();
-//        },650);
+        this.text.remove();
+        this.emoticon.remove();
         CLIENTVAR.inputPanelShow = false;
     }
-
-
-
 }
 
 //
