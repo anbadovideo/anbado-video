@@ -172,8 +172,6 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     });
 
-
-
     CLIENTVAR.pageGenerationTime = new Date(); // 페이지 생성타임을 저장하고 이를 기준시로 사용함.
     drawTimelineVisualization();
 
