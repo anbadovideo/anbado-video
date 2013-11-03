@@ -12,7 +12,7 @@ nv.utils = {}; // Utility subsystem
 nv.models = {}; //stores all the possible models/components
 nv.charts = {}; //stores all the ready to use charts
 nv.graphs = []; //stores all the graphs currently on the page
-nv.logs채 = {}; //stores some statistics and potential error messages
+nv.logs = {}; //stores some statistics and potential error messages
 
 nv.dispatch = d3.dispatch('render_start', 'render_end');
 
