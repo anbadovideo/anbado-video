@@ -34,7 +34,15 @@ var data2 = anbado.restful.getVideoInfo(videoID);
 var data3 = anbado.restful.getParticipants(videoID);
 
 
+$(window).bind('beforeunload', function(){
+    anbado.realtime.exitVideo();
+});
+
+$(window).unload(function(){
+    anbado.realtime.exitVideo();
+});
 document.addEventListener("DOMContentLoaded", function(){
+
 
     /**
      * restful api를 이용하여 현재의 사용자 정보, 비디오 정보, 이 비디오에 참여한 사람들을 받아옴
