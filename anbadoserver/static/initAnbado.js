@@ -34,7 +34,15 @@ var data2 = anbado.restful.getVideoInfo(videoID);
 var data3 = anbado.restful.getParticipants(videoID);
 
 
+$(window).bind('beforeunload', function(){
+    anbado.realtime.exitVideo();
+});
+
+$(window).unload(function(){
+    anbado.realtime.exitVideo();
+});
 document.addEventListener("DOMContentLoaded", function(){
+
 
     /**
      * restful api를 이용하여 현재의 사용자 정보, 비디오 정보, 이 비디오에 참여한 사람들을 받아옴
@@ -102,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(){
             CLIENTVAR.thinkTriggerList[tempCounter] = []; // 2차원 배열 할당을 위해 할당함. 각 초에서 시작할 이벤트를 모두 기록한다.
         }
 
-        anbado.realtime.enterVideo(userID,videoID);
+        anbado.realtime.enterVideo(videoID,userID);
 
         anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
             var tempType = "";
