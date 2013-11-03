@@ -64,7 +64,7 @@ class Video(db.Model, JsonifiedModel):
     __tablename__ = 'videos'
 
     video_id = db.Column(db.Integer, primary_key=True)
-    provider = db.Column(db.Enum('youtube', 'vimeo', 'anbado'))
+    provider = db.Column(db.Enum('youtube', 'vimeo', 'anbado', name='provider'))
     provider_vid = db.Column(db.String(2048, convert_unicode=True))
 
     title = db.Column(db.String(2048, convert_unicode=True))
@@ -179,13 +179,13 @@ class Event(db.Model, JsonifiedModel):
 
     #comment
     _content = db.Column(db.LargeBinary())
-    category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad'))
+    category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad', name='category'))
 
     parent_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
     _parent = db.relationship('Event', remote_side=[event_id], uselist=False)
     _children = db.relationship('Event', uselist=True, lazy='dynamic')
 
-    permission = db.Column(db.Enum('inherited', 'private', 'public', 'protected'))
+    permission = db.Column(db.Enum('inherited', 'private', 'public', 'protected', name='permission'))
 
     _coord_x = db.Column(db.Integer)
     _coord_y = db.Column(db.Integer)
