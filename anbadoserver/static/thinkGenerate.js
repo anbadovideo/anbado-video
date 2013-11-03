@@ -32,7 +32,7 @@ function thinkGenerate(think) { // video interaction event generation
 
     if (think.step === 1) { // 생성중인 이벤트
         think.occuredAbsoluteTime = (new Date());
-
+        think.clickTime = CLIENTVAR.popcornobj.currentTime();
         think.permission = "friends";
         think.secUnit = 100 * Math.round(CLIENTVAR.popcornobj.currentTime() / CLIENTVAR.popcornobj.duration());
         think.parentID = CLIENTVAR.transferEvent.parentID === undefined ? -1 : CLIENTVAR.transferEvent.parentID;
@@ -108,7 +108,7 @@ var thinkTypeCheck = function(think) {
                     user_id: userID,
                     video_id: videoID,
                     appeared: think.clickTime,
-                    disappeared: think.clickTime + think.displayDuration,
+                    disappeared: think.clickTime + 5,
                     content: think.content,
                     category: 'text',
                     parent_id: -1,
@@ -135,7 +135,7 @@ var thinkTypeCheck = function(think) {
                     user_id: userID,
                     video_id: videoID,
                     appeared: think.clickTime,
-                    disappeared: think.clickTime + think.displayDuration,
+                    disappeared: think.clickTime + 5,
                     content: think.content,
                     category: 'image',
                     parent_id: -1,
