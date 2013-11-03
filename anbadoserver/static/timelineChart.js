@@ -275,7 +275,7 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
     this.badData = [];
     this.dummData = [];
 
-    var data2 = anbado.restful.getVideoInfo(1);
+    var data2 = anbado.restful.getVideoInfo(videoID);
 
     var weightValue =  data2.video.timeline_chart;
 
