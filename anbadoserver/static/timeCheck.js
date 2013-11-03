@@ -217,7 +217,7 @@ $('.tick.major line').remove();
         user_id: userID,
         video_id: videoID,
         appeared: parseInt(think.clickTime),
-        disappeared: parseInt(think.clickTime) + 5,
+        disappeared: parseInt(think.clickTime + 5),
 
         category: 'good',
         content:'good',

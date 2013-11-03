@@ -152,7 +152,7 @@ var thinkTypeCheck = function(think) {
                 break;
         }
 
-//        happybutton(think); // 외부 이벤트의 경우에는 차트를 증가시키지 않음
+        happybutton(think); // 외부 이벤트의 경우에는 차트를 증가시키지 않음
     }
     if (think.step === 3) {          // 외부 이미지 입력하는 경우
         switch (think.category) {
