@@ -29,7 +29,7 @@ def user_post():
     if name is None:
         abort(400)
 
-    user_id = request.form.get('user_id', None)
+    user_id = int(request.form.get('user_id', -1))
 
     user = User(name, profile_image, user_id)
     if not user.save():
@@ -74,7 +74,7 @@ def video_post():
     title = request.form.get('title', '')
     length = request.form.get('length', None)
     user_id = request.form.get('user_id', None)
-    video_id = request.form.get('video_id', None)
+    video_id = int(request.form.get('video_id', -1))
 
     if (provider is None) or (provider_vid is None) or (length is None) or (user_id is None):
         abort(400)
