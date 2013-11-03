@@ -140,10 +140,10 @@ class Video(db.Model, JsonifiedModel):
     def timeline_chart(self):
         good_events = db.session.query(
             func.count(Event.event_id).label('count'), Event.appeared
-        ).filter(Event.category == 'good').group_by(Event.appeared).all()
+        ).filter(and_(Event.category == 'good', Event.video_id == self.video_id)).group_by(Event.appeared).all()
         bad_events = db.session.query(
             func.count(Event.event_id).label('count'), Event.appeared
-        ).filter(Event.category == 'bad').group_by(Event.appeared).all()
+        ).filter(and_(Event.category == 'bad', Event.video_id == self.video_id)).group_by(Event.appeared).all()
 
         results = {}
 
