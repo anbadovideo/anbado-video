@@ -12,59 +12,59 @@
 
 
 
-      function timeLineCover(evt){
+function timeLineCover(evt){
 
-            //console.log(evt);
-            var offsetLeft=$('#rect2').offset().left;
-            var offsetWidth=document.getElementById("rect2");
-            //console.log(offsetLeft);
+    //console.log(evt);
+    var offsetLeft=$('#rect2').offset().left;
+    var offsetWidth=document.getElementById("rect2");
+    //console.log(offsetLeft);
 
-            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
-
-
-            var currentTime =(evt.clientX-offsetLeft);
-            var timeLineWidth=offsetWidth.width.baseVal.value;
-
-            var perTime = CLIENTVAR.popcornobj.duration();
-            perTime=(perTime/timeLineWidth);
+    // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함
 
 
-            console.log('time :'+perTime*currentTime);
-            CLIENTVAR.popcornobj.play();
-            CLIENTVAR.popcornobj.play(perTime*currentTime);
-        }
+    var currentTime =(evt.clientX-offsetLeft);
+    var timeLineWidth=offsetWidth.width.baseVal.value;
 
-    function mooseOnCover(evt)
-    {
-        var offsetLeft=$('#rect2').offset().left;
-
-       // var offsetWidth=document.getElementById("rect2");
-        var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
+    var perTime = CLIENTVAR.popcornobj.duration();
+    perTime=(perTime/timeLineWidth);
 
 
-            var currentTime =(evt.clientX-offsetLeft);
+    console.log('time :'+perTime*currentTime);
+    CLIENTVAR.popcornobj.play();
+    CLIENTVAR.popcornobj.play(perTime*currentTime);
+}
+
+function mooseOnCover(evt)
+{
+    var offsetLeft=$('#rect2').offset().left;
+
+    // var offsetWidth=document.getElementById("rect2");
+    var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
 
 
-            var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
-            //var timeLineWidth=offsetWidth.width.baseVal.value;
+    var currentTime =(evt.clientX-offsetLeft);
 
-            //var perTime = CLIENTVAR.popcornobj.duration();
-            //perTime=(perTime/timeLineWidth);
-testObj.positionId.setAttribute('r',5);
 
-  testObj.positionId.setAttribute('cy',90-($(barName)[0].height.baseVal.value));
-  testObj.positionId.setAttribute('cx',currentTime+70);
-            // console.log('evt:'+evt.clientX);
- //console.log('evt:'+parseInt(currentTime/offsetBarWidth));
- //console.log('evt:'+(90-($(barName)[0].height.baseVal.value)));
+    var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
+    //var timeLineWidth=offsetWidth.width.baseVal.value;
 
-    }
+    //var perTime = CLIENTVAR.popcornobj.duration();
+    //perTime=(perTime/timeLineWidth);
+    testObj.positionId.setAttribute('r',5);
+
+    testObj.positionId.setAttribute('cy',90-($(barName)[0].height.baseVal.value));
+    testObj.positionId.setAttribute('cx',currentTime+70);
+    // console.log('evt:'+evt.clientX);
+    //console.log('evt:'+parseInt(currentTime/offsetBarWidth));
+    //console.log('evt:'+(90-($(barName)[0].height.baseVal.value)));
+
+}
 
 
 function mouseOutCover(evt)
 {
 
-testObj.positionId.setAttribute('r',0);
+    testObj.positionId.setAttribute('r',0);
 
 }
 
@@ -229,32 +229,32 @@ anbadoTimeLine.prototype.initialize = function(time) {
 //        $("#youtube").append(" <div id ='chartWrapper'></div>");
     this.areajQueryId.css("top", height);
     this.areajQueryId.css('width', width);
-     this.linejQueryId.css('top', height);
+    this.linejQueryId.css('top', height);
     this.linejQueryId.css('width', width);
 
     this.pijQueryId.css('top', height);
     this.pijQueryId.css('left', (parseInt(width) / 3) + 'px');
-     this.halfjQueryId.css('top', height);
+    this.halfjQueryId.css('top', height);
     this.halfjQueryId.css('left', (parseInt(width) / 3) + 'px');
     this.barjQueryId.css('top', parseInt(height) -25);
     this.barjQueryId.css('left', -80);
 
     this.barjQueryId.css('width', parseInt(width) +130);
 
-   this.coverId= document.getElementById("rect1");
+    this.coverId= document.getElementById("rect1");
     this.backcoverId= document.getElementById("rect2");
     this.positionId=document.getElementById("circle1");
     this.imageId=document.getElementById("image1");
-       if(false)
-       {
+    if(false)
+    {
         this.dummy=time/100;
         this.makeTimelineDataArray(100);
-        }
-        else if(true)
-       {
-           this.dummy=1;
-           this.makeTimelineDataArray(time);
-       }
+    }
+    else if(true)
+    {
+        this.dummy=1;
+        this.makeTimelineDataArray(time);
+    }
     //this.drawStackedAreaChart();
 
 
@@ -633,12 +633,12 @@ anbadoTimeLine.prototype.drawBarChart = function() {
             })
             .color(d3.scale.category10().range());
 
-            chart.xAxis.tickFormat(function (d) {
-                var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
-   
-                return dx ? d3.time.format('%M'+':'+'%S')(new Date(dx)) : '';
-            })
-                .showMaxMin(false);
+        chart.xAxis.tickFormat(function (d) {
+            var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+
+            return dx ? d3.time.format('%M'+':'+'%S')(new Date(dx)) : '';
+        })
+            .showMaxMin(false);
 
         chart.y1Axis
             .tickFormat(d3.format(',f'));

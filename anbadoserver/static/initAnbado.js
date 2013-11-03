@@ -135,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             }
 //            console.log("evt.userid is " + evt.user_id);
+            var thinkOwner = anbado.restful.getUserInfo(evt.user_id).user;
 
             var think = {  // 전역 이벤트 없이 통과해가며 완성됨
 
@@ -143,8 +144,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 ownerID : evt.user_id,
 
-                ownerName : anbado.restful.getUserInfo(evt.user_id).user.name,
-                ownerProfileImg : data3.participants[evt.user_id-1].profile_image,
+                ownerName : thinkOwner.name,
+                ownerProfileImg : thinkOwner.profile_image,
 
                 clickTime : evt.appeared, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
                 occuredAbsoluteTime : evt.registered, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)

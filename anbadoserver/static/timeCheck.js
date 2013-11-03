@@ -197,7 +197,7 @@ function graphselect() {
 
 }
 var timeset = 2;
-function happybutton() {
+function happybutton(think) {
     testObj.drawVisualization('g');
 
 
@@ -214,10 +214,10 @@ function happybutton() {
 //    console.log('current:'+(90-($(barName)[0].height.baseVal.value)));
 $('.tick.major line').remove();
     anbado.realtime.postEvent({
-        user_id: 1,
-        video_id: 1,
-        appeared: parseInt(CLIENTVAR.popcornobj.currentTime()),
-        disappeared: 35,
+        user_id: userID,
+        video_id: videoID,
+        appeared: parseInt(think.clickTime),
+        disappeared: parseInt(think.clickTime) + 5,
 
         category: 'good',
         content:'good',
