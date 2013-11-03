@@ -32,9 +32,12 @@ class User(db.Model, JsonifiedModel):
                                secondaryjoin=(user_id == user_user_association_table.c.friend_id),
     )
 
-    def __init__(self, name, profile_image):
+    def __init__(self, name, profile_image, user_id=None):
         self.name = name
         self.profile_image = profile_image
+
+        if user_id is not None:
+            self.user_id = user_id
 
     def __repr__(self):
         return '<User {0}> {1} {2}'.format(self.user_id, self.name, self.profile_image)
@@ -72,12 +75,15 @@ class Video(db.Model, JsonifiedModel):
 
     _events = db.relationship('Event', uselist=True, lazy='dynamic')
 
-    def __init__(self, provider, provider_vid, title, length, user):
+    def __init__(self, provider, provider_vid, title, length, user, video_id=None):
         self.provider = provider
         self.provider_vid = provider_vid
         self.title = title
         self.length = length
         self._user = user
+
+        if video_id is not None:
+            self.video_id = video_id
 
     def __repr__(self):
         return '<Video {0}> provider: {1}, vid: {2}'.format(self.video_id, self.provider, self.provider_vid)
