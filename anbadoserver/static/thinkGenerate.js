@@ -257,6 +257,9 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
 
 }
 
+var img;
+var imgsrc;
+var eaProfileImage;
 
 function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤트를 리스트에 넣게 되는 단계 (이것은 그리는 단계에서는 그러하고, 서버에서 받아오는 단계에서는 미리 저장한다
 
@@ -337,48 +340,60 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
         think.eaCanvasDisplayObject.addChild(eaTextName);
         think.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
-    var img = new Image();
+    img = new Image();
 //    img.onload = layout;
     img.src = think.ownerProfileImg;
-    img.width = 300;
-    img.height = 300;
+//    img.width = (300 +'px').toString();
+//    img.height = (300 + 'px').toString();
+    img.width = 30;
+    img.height = 30;
 
 
 
-    var eaProfileImage = new createjs.Shape();
 
 
-    eaProfileImage.graphics.beginBitmapFill(img).drawCircle(img.width/2, img.height/2, img.width/2 -1); // profile example
-    eaProfileImage.regX = 0;
-    eaProfileImage.regY = 0;
-    eaProfileImage.x = think.x - 35;
-    eaProfileImage.y = think.y - 22;
-
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.11;
+    setTimeout(function(){
+        eaProfileImage = new createjs.Shape();
 
 
+
+        eaProfileImage.graphics.beginBitmapFill(img).drawCircle(think.x - 35, think.y - 22, img.width/2 -1); // profile example
+
+        eaProfileImage.regX = 0;
+        eaProfileImage.regY = 0;
+//        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.11;
+//        eaProfileImage.x = think.x - 35;
+        console.log(eaProfileImage.x +' ' + parseInt(think.x - 35));
+//        eaProfileImage.y = think.y - 22;
+        think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
+    },400);
+
+
+
+//    setTimeout(function(){
+//        var eaProfileImage = new createjs.Bitmap(img); // profile example
+//        eaProfileImage.regX = 0;
+//        eaProfileImage.regY = 0;
+//        eaProfileImage.x = think.x - 20;
+//        eaProfileImage.y = think.y - 20;
+//        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
 //
-//    var eaProfileImage = new createjs.Bitmap(think.ownerProfileImg); // profile example
-//    eaProfileImage.regX = 0;
-//    eaProfileImage.regY = 0;
-//    eaProfileImage.x = think.x - 20;
-//    eaProfileImage.y = think.y - 20;
-//    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
+//        console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds());
+//        console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage);
 //
-//    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds());
-//    console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage);
-//
-//    var positionBounds = eaProfileImage.getTransformedBounds();
+//        var positionBounds = eaProfileImage.getTransformedBounds();
 //
 //
-//    var eaProfileOutside = new createjs.Shape();
-//    eaProfileOutside.graphics.beginFill("#000").beginStroke("rgba(255,255,255,1)").drawCircle(positionBounds.x + positionBounds.width/2,positionBounds.y + positionBounds.height/2,positionBounds.width/2 - 1).endStroke();
-//    eaProfileImage.mask = eaProfileOutside;
-//
+//        var eaProfileOutside = new createjs.Shape();
+//        eaProfileOutside.graphics.beginFill("#000").beginStroke("rgba(255,255,255,1)").drawCircle(positionBounds.x + positionBounds.width/2,positionBounds.y + positionBounds.height/2,positionBounds.width/2 - 1).endStroke();
+//        eaProfileImage.mask = eaProfileOutside;
+//        think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+//    },200);
 
 
 
-    think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
 
     if (think.eventTypeArg === "textinput2") {
 
