@@ -75,7 +75,7 @@ class Video(db.Model, JsonifiedModel):
     __tablename__ = 'videos'
 
     video_id = db.Column(db.Integer, primary_key=True)
-    provider = db.Column(db.Enum('youtube', 'vimeo', 'anbado', name='video_provider'))
+    provider = db.Column(db.Enum('youtube', 'vimeo', 'ted', 'anbado', name='video_provider'))
     provider_vid = db.Column(db.String(2048, convert_unicode=True))
 
     title = db.Column(db.String(2048, convert_unicode=True))
