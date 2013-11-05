@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 ownerID : evt.user_id,
 
                 ownerName : thinkOwner.name,
-                ownerProfileImg : thinkOwner.profile_image,
+                profileImg : new Image(300,300),
 
                 clickTime : evt.appeared, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
                 occuredAbsoluteTime : evt.registered, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
@@ -173,7 +173,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 parentID: -1 , // 0 인 경우에 단독이고, 부모 이벤트 아이디가 있는 경우
                 childrenIDarray:[] // 자식들이 생기게 되면 이를 표현해줌. 객체 배열을 가지지 말고 eventList에서 참조할 수 있도록 아이디만 가지고 가도록
             }; // 이벤트의 생성시점
-            CLIENTVAR.totalEvent++;
+            think.profileImg.src = thinkOwner.profile_image;
+
+
+
+        CLIENTVAR.totalEvent++;
+
 
             thinkGenerate(think);
 
