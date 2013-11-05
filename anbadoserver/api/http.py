@@ -4,13 +4,21 @@ from flask import request, abort, jsonify
 
 from sqlalchemy.exc import SQLAlchemyError
 from anbadoserver.models import User, Video
-from anbadoserver import app, db, frogspawn
+from anbadoserver import app, db, frogspawn, config
 from anbadoserver.decorators import crossdomain
 
 
 @app.route('/user/<int:user_id>', methods=('GET', ))
 @crossdomain(origin='*')
 def user_get(user_id):
+    if user_id == 0:
+        user = {
+            'name': config.GUEST_USER_NAME,
+            'profile_image': config.GUEST_PROFILE_IMAGE,
+            'user_id': 0
+        }
+        return jsonify(user=user)
+
     user = User.by_user_id(user_id)
     if user is None:
         abort(404)
