@@ -2,7 +2,7 @@
  *
  * Date: 9/22/13
  *
- * @author anbado video
+ * @author anbado video, haksudol
  * @since 0.1
  *
  * Copyright 2013 anbado video
@@ -40,6 +40,7 @@ function thinkGenerate(think) { // video interaction event generation
 
         thinkTypeCheck(think);
 
+
 //        console.log("current" + think.clickTime);
         endup();
     }
@@ -57,7 +58,7 @@ function thinkGenerate(think) { // video interaction event generation
 //        ID : CLIENTVAR.totalEvent,
 //
 ////        ownerName : "owner",
-////        ownerProfileImg : "asset/assetImages/profile1.png",
+////        profileImg : "asset/assetImages/profile1.png",
 ////        clickTime : CLIENTVAR.popcornobj.currentTime(), // 플레어에서의 currentTime을 받는 것으로. 상대 시간
 ////        occuredAbsoluteTime : (new Date()), // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
 ////        displayDuration : 4, // 얼마나 지속되는지
@@ -97,12 +98,14 @@ var thinkTypeCheck = function(think) {
         switch (think.category) {
 
             case "textinput1":
+
                 eaDisplaySetting(think);
 
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + think.clickTime * 1000),
-                    'content': '<img src="' + think.ownerProfileImg + '" style="width:32px; height:32px;">' + think.content
+                    'content': '<img src="' + think.profileImg.src + '" style="width:32px; height:32px;">' + think.content
                 });
+
 
                 anbado.realtime.postEvent({
                     user_id: userID,
@@ -117,7 +120,6 @@ var thinkTypeCheck = function(think) {
                     size: [200, 100]
                 });
 
-
                 drawTimelineVisualization();
 
                 break;
@@ -128,7 +130,7 @@ var thinkTypeCheck = function(think) {
                 eaDisplaySetting(think);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + think.clickTime * 1000),
-                    'content': '<img src="' + think.ownerProfileImg + '" style="width:32px; height:32px;">' + '<img src="' + think.content + '"style="width:32px; height:32px;">'
+                    'content': '<img src="' + think.profileImg.src + '" style="width:32px; height:32px;">' + '<img src="' + think.content + '"style="width:32px; height:32px;">'
                 });
 
                 anbado.realtime.postEvent({
@@ -146,13 +148,14 @@ var thinkTypeCheck = function(think) {
                 drawTimelineVisualization();
                 break;
 
-
             default :
                 console.log("not in event type");
                 break;
         }
 
-        happybutton(think); // 외부 이벤트의 경우에는 차트를 증가시키지 않음
+
+
+//        happybutton(think); // 외부 이벤트의 경우에는 차트를 증가시키지 않음
     }
     if (think.step === 3) {          // 외부 이미지 입력하는 경우
         switch (think.category) {
@@ -161,9 +164,8 @@ var thinkTypeCheck = function(think) {
 
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + think.clickTime * 1000),
-                    'content': '<img src="' + think.ownerProfileImg + '" style="width:32px; height:32px;">' + think.content
+                    'content': '<img src="' + think.profileImg.src + '" style="width:32px; height:32px;">' + think.content
                 });
-
 
                 drawTimelineVisualization();
 
@@ -175,9 +177,8 @@ var thinkTypeCheck = function(think) {
                 eaDisplaySetting(think);
                 data.push({
                     'start': new Date(CLIENTVAR.pageGenerationTime.getTime() + think.clickTime * 1000),
-                    'content': '<img src="' + think.ownerProfileImg + '" style="width:32px; height:32px;">' + '<img src="' + think.content + '"style="width:32px; height:32px;">'
+                    'content': '<img src="' + think.profileImg.src + '" style="width:32px; height:32px;">' + '<img src="' + think.content + '"style="width:32px; height:32px;">'
                 });
-
 
                 drawTimelineVisualization();
                 break;
@@ -254,14 +255,12 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
         }
     }
     displayInputPanel(CLIENTVAR.tempEvent);
-
 }
 
-var img;
-var imgsrc;
-var eaProfileImage;
+
 
 function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤트를 리스트에 넣게 되는 단계 (이것은 그리는 단계에서는 그러하고, 서버에서 받아오는 단계에서는 미리 저장한다
+
 
 
     var textFont = 'Nanum Gothic';
@@ -289,9 +288,6 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     eaTextName.regY = 23;
     eaTextName.x = think.x;
     eaTextName.y = think.y;
-
-
-
 
     if (think.category === 'textinput1' || think.category === 'textinput2') {
 
@@ -340,59 +336,52 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
         think.eaCanvasDisplayObject.addChild(eaTextName);
         think.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
-    img = new Image();
-//    img.onload = layout;
-    img.src = think.ownerProfileImg;
-//    img.width = (300 +'px').toString();
-//    img.height = (300 + 'px').toString();
-    img.width = 30;
-    img.height = 30;
 
 
-
-
-
-    setTimeout(function(){
-        eaProfileImage = new createjs.Shape();
-
-
-
-        eaProfileImage.graphics.beginBitmapFill(img).drawCircle(think.x - 35, think.y - 22, img.width/2 -1); // profile example
-
-        eaProfileImage.regX = 0;
-        eaProfileImage.regY = 0;
-//        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.11;
-//        eaProfileImage.x = think.x - 35;
-        console.log(eaProfileImage.x +' ' + parseInt(think.x - 35));
-//        eaProfileImage.y = think.y - 22;
-        think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-
-    },400);
+//    var anbaoThinkProfileImg = new Image();
+////    anbaoThinkProfileImg.onload = layout;
+//    anbaoThinkProfileImg.src = think.profileImg.src;
+////    anbaoThinkProfileImg.width = (300 +'px').toString();
+////    anbaoThinkProfileImg.height = (300 + 'px').toString();
+//    anbaoThinkProfileImg.width = 300;
+//    anbaoThinkProfileImg.height = 300;
 
 
 
 //    setTimeout(function(){
-//        var eaProfileImage = new createjs.Bitmap(img); // profile example
+//        eaProfileImage = new createjs.Shape();
+//
+//        eaProfileImage.graphics.beginBitmapFill(anbaoThinkProfileImg).drawCircle(think.x - 35, think.y - 22, anbaoThinkProfileImg.width/2 -1); // profile example
+//
 //        eaProfileImage.regX = 0;
 //        eaProfileImage.regY = 0;
-//        eaProfileImage.x = think.x - 20;
-//        eaProfileImage.y = think.y - 20;
-//        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
+////        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.11;
+////        eaProfileImage.x = think.x - 35;
+//        console.log(eaProfileImage.x +' ' + parseInt(think.x - 35));
+////        eaProfileImage.y = think.y - 22;
 //
+
+//    },10);
+//    think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
+
+//    setTimeout(function(){
+        var eaProfileImage = new createjs.Bitmap(think.profileImg); // profile example
+        eaProfileImage.regX = 0;
+        eaProfileImage.regY = 0;
+        eaProfileImage.x = think.x - 10;
+        eaProfileImage.y = think.y - 20;
+        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
+
 //        console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds());
 //        console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage);
-//
+
 //        var positionBounds = eaProfileImage.getTransformedBounds();
-//
-//
 //        var eaProfileOutside = new createjs.Shape();
 //        eaProfileOutside.graphics.beginFill("#000").beginStroke("rgba(255,255,255,1)").drawCircle(positionBounds.x + positionBounds.width/2,positionBounds.y + positionBounds.height/2,positionBounds.width/2 - 1).endStroke();
 //        eaProfileImage.mask = eaProfileOutside;
-//        think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-//    },200);
-
-
-
+        think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+//    },350);
 
 
     if (think.eventTypeArg === "textinput2") {
@@ -439,7 +428,6 @@ function endup() { // 이벤트 후 처리 부분
 //        getFocus();
 //    }, 100);// TODO: getFocus 함수 손보기. 타임아웃 방식보다 더 안정적인 방식을 적용할 것.
 }
-
 
 function getFocus() {
 
