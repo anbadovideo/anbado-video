@@ -44,6 +44,9 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
 
     def on_event(self, params):
         # TODO: need code validating parameters.
+        if params.get('user_id', -1) == '0':
+            return
+
         user = User.by_user_id(params.get('user_id', -1))
         if user is None:
             return
