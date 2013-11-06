@@ -49,7 +49,7 @@ function saveCoord(evt) {
 
         ownerID: {},
         ownerName: data1.user.name,
-        profileImg: new Image(300,300),
+        profileImg: new Image(),
         clickTime: {}, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
         occuredAbsoluteTime: {}, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
         displayDuration: 4, // 얼마나 지속되는지
@@ -70,12 +70,17 @@ function saveCoord(evt) {
     think.profileImg.src = data1.user.profile_image;
 
 
+
     think.x = evt.stageX;
     think.y = evt.stageY;
 
 
     var inputPanel = {}; // 입력창을 표시 InputPanel의 인스턴스이다. closure를 이용하여 displayInputPanel()에서 참조할 수 있도록 함
-    displayInputPanel(think);
+
+    think.profileImg.onload = function(){
+        displayInputPanel(think);
+    };
+
 
 
 }
