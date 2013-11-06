@@ -364,7 +364,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
 
-    eaProfileImage.x = think.x - 42;
+    eaProfileImage.x = think.x - 41;
     eaProfileImage.y = think.y - 20;
 
 
