@@ -31,7 +31,8 @@ function timeLineCover(evt){
 
     console.log('time :'+perTime*currentTime);
     CLIENTVAR.popcornobj.play();
-    CLIENTVAR.popcornobj.play(perTime*currentTime);
+    CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
+    //CLIENTVAR.popcornobj.play(perTime*currentTime);
 }
 
 function mooseOnCover(evt)
