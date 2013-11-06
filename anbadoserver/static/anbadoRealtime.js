@@ -45,6 +45,9 @@ jQuery.extend(true, anbado, (function() {
     var connect = function() {
         var deferred = jQuery.Deferred();
 
+        if (isConnected())
+            disconnect();
+
         socket = io.connect(prefixURL + '/', {
             'force new connection': true,
             reconnect: false
@@ -62,6 +65,8 @@ jQuery.extend(true, anbado, (function() {
      */
     var disconnect = function() {
         socket.disconnect();
+        if (isConnected())
+            socket.socket.disconnect();
         socket = null;
         transaction_id = 0;
     };
@@ -121,7 +126,7 @@ jQuery.extend(true, anbado, (function() {
                     return;
                 }
                 tryCount++;
-                enterVideo();
+                enterVideo(videoID, userID);
             }).done(function() {
                 socket.emit('enter', { video_id: videoID, user_id: userID });
             });
@@ -180,7 +185,7 @@ jQuery.extend(true, anbado, (function() {
      */
     var setPrefixURL = function(url) {
         prefixURL = url;
-    }
+    };
 
     return {
         realtime: {
