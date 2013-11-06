@@ -95,6 +95,8 @@ function thinkGenerate(think) { // video interaction event generation
 
 var thinkTypeCheck = function(think) {
     if (think.step === 1) { // 만들어지고 있는 이벤트
+
+
         switch (think.category) {
 
             case "textinput1":
@@ -155,9 +157,10 @@ var thinkTypeCheck = function(think) {
 
 
 
-//        happybutton(think); // 외부 이벤트의 경우에는 차트를 증가시키지 않음
+        happybutton(think); // 외부 이벤트의 경우에는 차트를 증가시키지 않음
     }
-    if (think.step === 3) {          // 외부 이미지 입력하는 경우
+    if (think.step === 3) {          // 서버로부터 생각 입력하는 경우
+
         switch (think.category) {
             case "textinput1":
                 eaDisplaySetting(think);
@@ -346,42 +349,38 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 //    anbaoThinkProfileImg.width = 300;
 //    anbaoThinkProfileImg.height = 300;
 
+    var eaProfileImage = new createjs.Shape();
+
+    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2)); // profile example
+
+    eaProfileImage.regX = 0;
+    eaProfileImage.regY = 0;
+    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.26;
+    eaProfileImage.x = think.x - 45;
+    eaProfileImage.y = think.y - 20;
+
+
 
 
 //    setTimeout(function(){
-//        eaProfileImage = new createjs.Shape();
-//
-//        eaProfileImage.graphics.beginBitmapFill(anbaoThinkProfileImg).drawCircle(think.x - 35, think.y - 22, anbaoThinkProfileImg.width/2 -1); // profile example
-//
+//        var eaProfileImage = new createjs.Bitmap(think.profileImg); // profile example
 //        eaProfileImage.regX = 0;
 //        eaProfileImage.regY = 0;
-////        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.11;
-////        eaProfileImage.x = think.x - 35;
-//        console.log(eaProfileImage.x +' ' + parseInt(think.x - 35));
-////        eaProfileImage.y = think.y - 22;
-//
-
-//    },10);
-//    think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-
-
-//    setTimeout(function(){
-        var eaProfileImage = new createjs.Bitmap(think.profileImg); // profile example
-        eaProfileImage.regX = 0;
-        eaProfileImage.regY = 0;
-        eaProfileImage.x = think.x - 50;
-        eaProfileImage.y = think.y - 20;
-        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
+//        eaProfileImage.x = think.x - 50;
+//        eaProfileImage.y = think.y - 20;
+//        eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.3;
 
 //        console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage.getTransformedBounds());
 //        console.log("GETBOUNDSSSSSSSSSSSSSSSSSSSSSS" + eaProfileImage);
-
-//        var positionBounds = eaProfileImage.getTransformedBounds();
+//    console.log('eaprofile' + eaProfileImage.width);
+//    var positionBounds = eaProfileImage.getTransformedBounds();
+//
+//    console.log('positionbounds' + positionBounds);
 //        var eaProfileOutside = new createjs.Shape();
 //        eaProfileOutside.graphics.beginFill("#000").beginStroke("rgba(255,255,255,1)").drawCircle(positionBounds.x + positionBounds.width/2,positionBounds.y + positionBounds.height/2,positionBounds.width/2 - 1).endStroke();
 //        eaProfileImage.mask = eaProfileOutside;
-        think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
-//    },350);
+    think.eaCanvasDisplayObject.addChild(eaProfileImage); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+//    },150);
 
 
     if (think.eventTypeArg === "textinput2") {

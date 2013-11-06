@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     CLIENTVAR.popcornobj.on('play', function() {
-        anbado.realtime.enterVideo(videoID, userID);
+//        anbado.realtime.enterVideo(videoID, userID);
         $("#canvas1").show();
 
         var stackedAreaObject = $('#stackedarea');
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     CLIENTVAR.popcornobj.on('ended', function() {
         $("#canvas1").hide();
-        anbado.realtime.exitVideo();
+//        anbado.realtime.exitVideo();
     });
 
     var activeThinkList = [];
