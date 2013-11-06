@@ -78,6 +78,7 @@ function saveCoord(evt) {
     var inputPanel = {}; // 입력창을 표시 InputPanel의 인스턴스이다. closure를 이용하여 displayInputPanel()에서 참조할 수 있도록 함
 
     think.profileImg.onload = function(){
+
         displayInputPanel(think);
     };
 
@@ -94,11 +95,7 @@ function saveCoord(evt) {
  * @param think : 생각 객체가 전달된다. 클릭해서 입력하는 경우에 호출됨
  */
 function displayInputPanel(think) { // on first screen, display text input panel, submit button, emoticon panel
-
-
-
     think.step = 1;
-
 
     // alert(think);
 //    console.log("in displayinputpaenl");
@@ -184,7 +181,7 @@ function displayInputPanel(think) { // on first screen, display text input panel
     else if (CLIENTVAR.inputPanelShow === true) { // 클릭이 되어 있는 경우
 
 
-        console.log("inputPanelShow True");
+//        console.log("inputPanelShow True");
         inputPanel.deletePanel();
 //        hidePanel();
 

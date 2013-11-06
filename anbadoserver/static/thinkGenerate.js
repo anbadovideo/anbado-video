@@ -340,23 +340,31 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
         think.eaCanvasDisplayObject.addChild(eaTempEmoticon);
     }
 
+//    think.profileImg.id = 'profileImg';
+//    $('body').append(think.profileImg);
+//    think.profileImg.width = 250;
+//    think.profileImg.height = 250;
+//    think.profileImg.setAttribute('background-repeat','no-repeat');
+//    think.profileImg.setAttribute('overflow','hidden');
+//    document.getElementById('profileImg').height = 400;
+//    document.getElementById('profileImg').width = 400;
 
-//    var anbaoThinkProfileImg = new Image();
-////    anbaoThinkProfileImg.onload = layout;
-//    anbaoThinkProfileImg.src = think.profileImg.src;
-////    anbaoThinkProfileImg.width = (300 +'px').toString();
-////    anbaoThinkProfileImg.height = (300 + 'px').toString();
-//    anbaoThinkProfileImg.width = 300;
-//    anbaoThinkProfileImg.height = 300;
 
     var eaProfileImage = new createjs.Shape();
+    var profileRadius;
+    profileRadius = (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2); // 프로파일 반지름을 설정해줌. 짦은 변을 기준으로
+    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
 
-    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2)); // profile example
+    eaProfileImage.scaleX = 17 / profileRadius; // 스케일을 조정하여 사이즈 조절
+    eaProfileImage.scaleY = 17 / profileRadius;
 
+//    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? 50 : 50)); // profile example. 가로 세로중 짦은 변의 1/2를 반지름으로 하게 된다.
+
+//    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.5;
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
-    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.26;
-    eaProfileImage.x = think.x - 45;
+
+    eaProfileImage.x = think.x - 42;
     eaProfileImage.y = think.y - 20;
 
 

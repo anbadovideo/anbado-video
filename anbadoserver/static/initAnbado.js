@@ -49,10 +49,10 @@ document.addEventListener("DOMContentLoaded", function(){
      *
      * @type {json}
      */
-
-    console.log(data1);
-    console.log(data2);
-    console.log(data3);
+//
+//    console.log(data1);
+//    console.log(data2);
+//    console.log(data3);
 
 //    hidePanel(); // 입력 패널은 DOM객체이므로 이를 보이지 않도록 한다. TODO: 동적 생성으로 하여 이 부분이 필요하지 않도록 하기
 
