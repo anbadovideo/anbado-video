@@ -35,6 +35,7 @@ function timeLineCover(evt){
 
     CLIENTVAR.popcornobj.pause(perTime*currentTime);
 
+
         setTimeout(function()
     {CLIENTVAR.popcornobj.play();},1000)
     //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
