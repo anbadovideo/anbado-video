@@ -292,7 +292,27 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     eaTextName.x = think.x;
     eaTextName.y = think.y;
 
+
+    var eaProfileImage = new createjs.Shape();
+    var profileRadius;
+    profileRadius = (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2); // 프로파일 반지름을 설정해줌. 짦은 변을 기준으로
+    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
+
+    var profileImgSize = 18;
+    eaProfileImage.scaleX = profileImgSize / profileRadius; // 스케일을 조정하여 사이즈 조절
+    eaProfileImage.scaleY = profileImgSize / profileRadius;
+
+//    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? 50 : 50)); // profile example. 가로 세로중 짦은 변의 1/2를 반지름으로 하게 된다.
+
+//    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.5;
+    eaProfileImage.regX = 0;
+    eaProfileImage.regY = 0;
+
+
     if (think.category === 'textinput1' || think.category === 'textinput2') {
+
+        eaProfileImage.x = think.x - 44;
+        eaProfileImage.y = think.y - 24;
 
         if (think.eventTypeArg === "textinput2") {
             think.x = 100;
@@ -322,6 +342,10 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     else if (think.category === 'image') {
 //    else if (think.category === "emoticon0"  || think.category === "emoticon1" || think.category === "emoticon2" || think.category === "emoticon3") {
         // TODO: edit if statement using indexOf method.
+
+        eaProfileImage.x = think.x - 44;
+        eaProfileImage.y = think.y - 16;
+
         var eaTempEmoticon = new createjs.Bitmap(think.content); // make emoticon easeljs object
 
         eaTempEmoticon.regX = 0;
@@ -349,24 +373,9 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 //    document.getElementById('profileImg').height = 400;
 //    document.getElementById('profileImg').width = 400;
 
-
-    var eaProfileImage = new createjs.Shape();
-    var profileRadius;
-    profileRadius = (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2); // 프로파일 반지름을 설정해줌. 짦은 변을 기준으로
-    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
-
-    var profileImgSize = 23;
-    eaProfileImage.scaleX = profileImgSize / profileRadius; // 스케일을 조정하여 사이즈 조절
-    eaProfileImage.scaleY = profileImgSize / profileRadius;
-
-//    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? 50 : 50)); // profile example. 가로 세로중 짦은 변의 1/2를 반지름으로 하게 된다.
-
-//    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.5;
-    eaProfileImage.regX = 0;
-    eaProfileImage.regY = 0;
-
-    eaProfileImage.x = think.x - 41;
-    eaProfileImage.y = think.y - 20;
+//
+//    eaProfileImage.x = think.x - 44;
+//    eaProfileImage.y = think.y - 20;
 
 
 

@@ -128,9 +128,6 @@ function displayInputPanel(think) { // on first screen, display text input panel
                 think.content = jqTextinput.val();
                 inputPanel.deletePanel();
                 thinkGenerate(think);
-
-
-
             }
 
             if (evt.keyCode === 27 || evt.charCode === 27) { // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
