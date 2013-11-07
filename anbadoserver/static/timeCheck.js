@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     CLIENTVAR.popcornobj.on("loadeddata", function() {
 
+
         durationtime = CLIENTVAR.popcornobj.duration();
 
         testObj.initialize(durationtime);
@@ -57,20 +58,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     CLIENTVAR.popcornobj.on('play', function() {
+
 //        anbado.realtime.enterVideo(videoID, userID);
         $("#canvas1").show();
 
         var stackedAreaObject = $('#stackedarea');
 
 //        $("#canvas1").show();
-
-        inti = self.setInterval(function() {
-            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
-            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
-
-//            console.log(this);
-            timeCheck()
-        }, 500);
+//
+//        inti = self.setInterval(function() {
+//            timeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
+//            timeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
+//
+////            console.log(this);
+//            timeCheck()
+//        }, 500);
 
         var k=parseInt($(testObj.videoId).css('width'));
         var ti=(k/testObj.durationTime);
@@ -92,7 +94,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     });
+
+
+
     CLIENTVAR.popcornobj.on('pause',function(){
+
         inti = window.clearInterval(inti);
     });
 

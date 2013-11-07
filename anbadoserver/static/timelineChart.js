@@ -14,6 +14,7 @@
 
 function timeLineCover(evt){
 
+
     //console.log(evt);
     var offsetLeft=$('#rect2').offset().left;
     var offsetWidth=document.getElementById("rect2");
@@ -30,8 +31,13 @@ function timeLineCover(evt){
 
 
     console.log('time :'+perTime*currentTime);
-    CLIENTVAR.popcornobj.play();
-    CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
+
+
+    CLIENTVAR.popcornobj.pause(perTime*currentTime);
+
+        setTimeout(function()
+    {CLIENTVAR.popcornobj.play();},1000)
+    //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
     //CLIENTVAR.popcornobj.play(perTime*currentTime);
 }
 
