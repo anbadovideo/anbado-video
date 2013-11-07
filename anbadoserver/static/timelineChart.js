@@ -30,6 +30,7 @@ function timeLineCover(evt){
     perTime=(perTime/timeLineWidth);
 
 
+
     console.log('time :'+perTime*currentTime);
 
 
