@@ -286,7 +286,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 //    think.eaCanvasDisplayObject.addChild(eaBackNamePanel);
 
 
-    var eaTextName = new createjs.Text(think.ownerName, 'bold 11px ' + textFont.toString(), '#0099ff');
+    var eaTextName = new createjs.Text(think.ownerName, 'bold 11px ' + textFont.toString(), '#00ddff');
     eaTextName.regX = -2;
     eaTextName.regY = 23;
     eaTextName.x = think.x;
@@ -355,8 +355,9 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     profileRadius = (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2); // 프로파일 반지름을 설정해줌. 짦은 변을 기준으로
     eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
 
-    eaProfileImage.scaleX = 17 / profileRadius; // 스케일을 조정하여 사이즈 조절
-    eaProfileImage.scaleY = 17 / profileRadius;
+    var profileImgSize = 23;
+    eaProfileImage.scaleX = profileImgSize / profileRadius; // 스케일을 조정하여 사이즈 조절
+    eaProfileImage.scaleY = profileImgSize / profileRadius;
 
 //    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? 50 : 50)); // profile example. 가로 세로중 짦은 변의 1/2를 반지름으로 하게 된다.
 
