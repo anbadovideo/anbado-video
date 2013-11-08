@@ -79,12 +79,6 @@ document.addEventListener("DOMContentLoaded", function(){
         else if (provider === 'anbado'){
             CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
         }
-        else if(provider === 'ted'){
-//            console.log(data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
-            CLIENTVAR.popcornobj = Popcorn.smart('#videoEmbed', 'http://download.ted.com/talks/'+ data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
-
-        }
-
 
 
     }
@@ -175,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
+
         videoDomAppend('#player',880,540);
         canvasPositioning('#player', 880, 540);
 
@@ -184,10 +179,13 @@ document.addEventListener("DOMContentLoaded", function(){
         videoLoad();
 
 
+
         jqVideoEmbed = $('#videoEmbed');
         CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
         CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
         CLIENTVAR.popcornobj.controls(false);
+
+
 
 
 
@@ -437,6 +435,7 @@ var InputPanel = function(){
 //        this.emoticonPanel.remove();
 
 //        this.txt.hide();
+
 //        this.emoticon.hide();
 
         this.text.remove();
