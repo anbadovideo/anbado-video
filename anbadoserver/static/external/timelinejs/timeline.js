@@ -50,7 +50,7 @@
  * Bug: when an item contains an image without size, or a css max-width, it is not sized correctly
  * Bug: neglect items when they have no valid start/end, instead of throwing an error
  * Bug: Pinching on ipad does not work very well, sometimes the page will zoom when pinching vertically
- * Bug: cannot set max width for an item, like div.summaryTimeline-event-content {white-space: normal; max-width: 100px;}
+ * Bug: cannot set max width for an item, like div.timeline-event-content {white-space: normal; max-width: 100px;}
  * Bug on IE in Quirks mode. When you have groups, and delete an item, the groups become invisible
  */
 
@@ -104,9 +104,9 @@ if (!Array.prototype.forEach) {
 
 /**
  * @constructor links.Timeline
- * The summaryTimeline is a visualization chart to visualize events in time.
+ * The timeline is a visualization chart to visualize events in time.
  *
- * The summaryTimeline is developed in javascript as a Google Visualization Chart.
+ * The timeline is developed in javascript as a Google Visualization Chart.
  *
  * @param {Element} container   The DOM element in which the Timeline will
  *                                  be created. Normally a div element.
@@ -208,7 +208,7 @@ links.Timeline = function(container) {
         'style': 'box',
         'customStackOrder': false, //a function(a,b) for determining stackorder amongst a group of items. Essentially a comparator, -ve value for "a before b" and vice versa
         
-        // i18n: Timeline only has built-in English text per default. Include summaryTimeline-locales.js to support more localized text.
+        // i18n: Timeline only has built-in English text per default. Include timeline-locales.js to support more localized text.
         'locale': 'en',
         'MONTHS': new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"),
         'MONTHS_SHORT': new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
@@ -261,16 +261,16 @@ links.Timeline = function(container) {
 
 /**
  * Main drawing logic. This is the function that needs to be called
- * in the html page, to draw the summaryTimeline.
+ * in the html page, to draw the timeline.
  *
  * A data table with the events must be provided, and an options table.
  *
  * @param {google.visualization.DataTable}      data
- *                                 The data containing the events for the summaryTimeline.
+ *                                 The data containing the events for the timeline.
  *                                 Object DataTable is defined in
  *                                 google.visualization.DataTable
  * @param {Object} options         A name/value map containing settings for the
- *                                 summaryTimeline. Optional.
+ *                                 timeline. Optional.
  */
 links.Timeline.prototype.draw = function(data, options) {
     this.setOptions(options);
@@ -282,7 +282,7 @@ links.Timeline.prototype.draw = function(data, options) {
     // read the data
     this.setData(data);
 
-    // set timer range. this will also redraw the summaryTimeline
+    // set timer range. this will also redraw the timeline
     if (options && (options.start || options.end)) {
         this.setVisibleChartRange(options.start, options.end);
     }
@@ -295,10 +295,10 @@ links.Timeline.prototype.draw = function(data, options) {
 
 
 /**
- * Set options for the summaryTimeline.
+ * Set options for the timeline.
  * Timeline must be redrawn afterwards
  * @param {Object} options A name/value map containing settings for the
- *                                 summaryTimeline. Optional.
+ *                                 timeline. Optional.
  */
 links.Timeline.prototype.setOptions = function(options) {
     if (options) {
@@ -399,7 +399,7 @@ links.Timeline.mapColumnIds = function (dataTable) {
 };
 
 /**
- * Set data for the summaryTimeline
+ * Set data for the timeline
  * @param {google.visualization.DataTable | Array} data
  */
 links.Timeline.prototype.setData = function(data) {
@@ -565,7 +565,7 @@ links.Timeline.prototype.getItemIndex = function(element) {
 };
 
 /**
- * Set a new size for the summaryTimeline
+ * Set a new size for the timeline
  * @param {string} width   Width in pixels or percentage (for example "800px"
  *                         or "50%")
  * @param {string} height  Height in pixels or percentage  (for example "400px"
@@ -591,14 +591,14 @@ links.Timeline.prototype.setSize = function(width, height) {
 
 
 /**
- * Set a new value for the visible range int the summaryTimeline.
+ * Set a new value for the visible range int the timeline.
  * Set start undefined to include everything from the earliest date to end.
  * Set end undefined to include everything from start to the last date.
  * Example usage:
  *    myTimeline.setVisibleChartRange(new Date("2010-08-22"),
  *                                    new Date("2010-09-13"));
- * @param {Date}   start     The start date for the summaryTimeline. optional
- * @param {Date}   end       The end date for the summaryTimeline. optional
+ * @param {Date}   start     The start date for the timeline. optional
+ * @param {Date}   end       The end date for the timeline. optional
  * @param {boolean} redraw   Optional. If true (default) the Timeline is
  *                           directly redrawn
  */
@@ -680,7 +680,7 @@ links.Timeline.prototype.setVisibleChartRangeAuto = function() {
 
 /**
  * Adjust the visible range such that the current time is located in the center
- * of the summaryTimeline
+ * of the timeline
  */
 links.Timeline.prototype.setVisibleChartRangeNow = function() {
     var now = new Date();
@@ -694,7 +694,7 @@ links.Timeline.prototype.setVisibleChartRangeNow = function() {
 
 
 /**
- * Retrieve the current visible range in the summaryTimeline.
+ * Retrieve the current visible range in the timeline.
  * @return {Object} An object with start and end properties
  */
 links.Timeline.prototype.getVisibleChartRange = function() {
@@ -814,7 +814,7 @@ links.Timeline.prototype.repaint = function() {
 };
 
 /**
- * Reflow the summaryTimeline frame
+ * Reflow the timeline frame
  * @return {boolean} resized    Returns true if any of the frame elements
  *                              have been resized.
  */
@@ -915,7 +915,7 @@ links.Timeline.prototype.repaintFrame = function() {
 };
 
 /**
- * Reflow the summaryTimeline axis. Calculate its height, width, positioning, etc...
+ * Reflow the timeline axis. Calculate its height, width, positioning, etc...
  * @return {boolean} resized    returns true if the axis is resized
  */
 links.Timeline.prototype.reflowAxis = function() {
@@ -981,7 +981,7 @@ links.Timeline.prototype.reflowAxis = function() {
 };
 
 /**
- * Redraw the summaryTimeline axis with minor and major labels
+ * Redraw the timeline axis with minor and major labels
  * @return {boolean} needsReflow     Returns true if the DOM is changed such
  *                                   that a reflow is needed.
  */
@@ -1482,7 +1482,7 @@ links.Timeline.prototype.recalcItems = function () {
 
     var actualHeight = 0;
     if (groups.length == 0) {
-        // calculate actual height of the summaryTimeline when there are no groups
+        // calculate actual height of the timeline when there are no groups
         // but stacked items
         if (options.autoHeight || options.cluster) {
             var min = 0,
@@ -2188,8 +2188,8 @@ links.Timeline.prototype.repaintNavigation = function () {
                 // create a new event at the center of the frame
                 var w = timeline.size.contentWidth;
                 var x = w / 2;
-                var xstart = timeline.screenToTime(x - w / 10); // subtract 10% of summaryTimeline width
-                var xend = timeline.screenToTime(x + w / 10);   // add 10% of summaryTimeline width
+                var xstart = timeline.screenToTime(x - w / 10); // subtract 10% of timeline width
+                var xend = timeline.screenToTime(x + w / 10);   // add 10% of timeline width
                 if (options.snapEvents) {
                     timeline.step.snap(xstart);
                     timeline.step.snap(xend);
@@ -2316,7 +2316,7 @@ links.Timeline.prototype.repaintNavigation = function () {
 
 /**
  * Set current time. This function can be used to set the time in the client
- * summaryTimeline equal with the time on a server.
+ * timeline equal with the time on a server.
  * @param {Date} time
  */
 links.Timeline.prototype.setCurrentTime = function(time) {
@@ -2384,8 +2384,8 @@ links.Timeline.prototype.setAutoScale = function(enable) {
 };
 
 /**
- * Redraw the summaryTimeline
- * Reloads the (linked) data table and redraws the summaryTimeline when resized.
+ * Redraw the timeline
+ * Reloads the (linked) data table and redraws the timeline when resized.
  * See also the method checkResize
  */
 links.Timeline.prototype.redraw = function() {
@@ -2394,7 +2394,7 @@ links.Timeline.prototype.redraw = function() {
 
 
 /**
- * Check if the summaryTimeline is resized, and if so, redraw the summaryTimeline.
+ * Check if the timeline is resized, and if so, redraw the timeline.
  * Useful when the webpage is resized.
  */
 links.Timeline.prototype.checkResize = function() {
@@ -2678,7 +2678,7 @@ links.Timeline.prototype.onMouseDown = function(event) {
     }
     if (!params.touchDown) {
         // add event listeners to handle moving the contents
-        // we store the function onmousemove and onmouseup in the summaryTimeline, so we can
+        // we store the function onmousemove and onmouseup in the timeline, so we can
         // remove the eventlisteners lateron in the function mouseUp()
         var me = this;
         if (!params.onMouseMove) {
@@ -2971,7 +2971,7 @@ links.Timeline.prototype.onMouseUp = function (event) {
             }
         }
         else {
-            // summaryTimeline is moved
+            // timeline is moved
             // TODO: optimize: no need to reflow and cluster again?
             this.render();
 
@@ -3013,7 +3013,7 @@ links.Timeline.prototype.onDblClick = function (event) {
 
             // create a new event at the current mouse position
             var xstart = this.screenToTime(x);
-            var xend = this.screenToTime(x  + size.frameWidth / 10); // add 10% of summaryTimeline width
+            var xend = this.screenToTime(x  + size.frameWidth / 10); // add 10% of timeline width
             if (options.snapEvents) {
                 this.step.snap(xstart);
                 this.step.snap(xend);
@@ -3055,7 +3055,7 @@ links.Timeline.prototype.onDblClick = function (event) {
 
 
 /**
- * Event handler for mouse wheel event, used to zoom the summaryTimeline
+ * Event handler for mouse wheel event, used to zoom the timeline
  * Code from http://adomas.org/javascript-mouse-wheel/
  * @param {Event}  event   The event
  */
@@ -3103,7 +3103,7 @@ links.Timeline.prototype.onMouseWheel = function(event) {
         };
 
         var scroll = function () {
-            // Scroll the summaryTimeline
+            // Scroll the timeline
             timeline.move(delta * -0.2);
             timeline.trigger("rangechange");
             timeline.trigger("rangechanged");
@@ -3125,8 +3125,8 @@ links.Timeline.prototype.onMouseWheel = function(event) {
 
 
 /**
- * Zoom the summaryTimeline the given zoomfactor in or out. Start and end date will
- * be adjusted, and the summaryTimeline will be redrawn. You can optionally give a
+ * Zoom the timeline the given zoomfactor in or out. Start and end date will
+ * be adjusted, and the timeline will be redrawn. You can optionally give a
  * date around which to zoom.
  * For example, try zoomfactor = 0.1 or -0.1
  * @param {Number} zoomFactor      Zooming amount. Positive value will zoom in,
@@ -3178,8 +3178,8 @@ links.Timeline.prototype.zoom = function(zoomFactor, zoomAroundDate) {
 };
 
 /**
- * Move the summaryTimeline the given movefactor to the left or right. Start and end
- * date will be adjusted, and the summaryTimeline will be redrawn.
+ * Move the timeline the given movefactor to the left or right. Start and end
+ * date will be adjusted, and the timeline will be redrawn.
  * For example, try moveFactor = 0.1 or -0.1
  * @param {Number}  moveFactor      Moving amount. Positive value will move right,
  *                                 negative value will move left
@@ -3315,7 +3315,7 @@ links.Timeline.prototype.confirmDeleteItem = function(index) {
 /**
  * Delete an item
  * @param {int} index   Index of the item to be deleted
- * @param {boolean} [preventRender=false]   Do not re-render summaryTimeline if true
+ * @param {boolean} [preventRender=false]   Do not re-render timeline if true
  *                                          (optimization for multiple delete)
  */
 links.Timeline.prototype.deleteItem = function(index, preventRender) {
@@ -3400,8 +3400,8 @@ links.Timeline.prototype.deleteAllItems = function() {
 
 
 /**
- * Find the group from a given height in the summaryTimeline
- * @param {Number} height   Height in the summaryTimeline
+ * Find the group from a given height in the timeline
+ * @param {Number} height   Height in the timeline
  * @return {Object | undefined} group   The group object, or undefined if out
  *                                      of range
  */
@@ -3549,7 +3549,7 @@ links.Timeline.Item.prototype.updateDOM = function () {
 
 /**
  * Reposition the item, recalculate its left, top, and width, using the current
- * range of the summaryTimeline and the summaryTimeline options.
+ * range of the timeline and the timeline options.
  * @param {links.Timeline} timeline
  */
 links.Timeline.Item.prototype.updatePosition = function (timeline) {
@@ -3557,7 +3557,7 @@ links.Timeline.Item.prototype.updatePosition = function (timeline) {
 };
 
 /**
- * Check if the item is drawn in the summaryTimeline (i.e. the DOM of the item is
+ * Check if the item is drawn in the timeline (i.e. the DOM of the item is
  * attached to the frame. You may also just request the parameter item.rendered
  * @return {boolean} rendered
  */
@@ -3566,7 +3566,7 @@ links.Timeline.Item.prototype.isRendered = function () {
 };
 
 /**
- * Check if the item is located in the visible area of the summaryTimeline, and
+ * Check if the item is located in the visible area of the timeline, and
  * not part of a cluster
  * @param {Date} start
  * @param {Date} end
@@ -3795,7 +3795,7 @@ links.Timeline.ItemBox.prototype.updateDOM = function () {
 
 /**
  * Reposition the item, recalculate its left, top, and width, using the current
- * range of the summaryTimeline and the summaryTimeline options.
+ * range of the timeline and the timeline options.
  * @param {links.Timeline} timeline
  * @override
  */
@@ -3838,7 +3838,7 @@ links.Timeline.ItemBox.prototype.updatePosition = function (timeline) {
 };
 
 /**
- * Check if the item is visible in the summaryTimeline, and not part of a cluster
+ * Check if the item is visible in the timeline, and not part of a cluster
  * @param {Date} start
  * @param {Date} end
  * @return {Boolean} visible
@@ -4020,7 +4020,7 @@ links.Timeline.ItemRange.prototype.updateDOM = function () {
 
 /**
  * Reposition the item, recalculate its left, top, and width, using the current
- * range of the summaryTimeline and the summaryTimeline options. *
+ * range of the timeline and the timeline options. *
  * @param {links.Timeline} timeline
  * @override
  */
@@ -4047,7 +4047,7 @@ links.Timeline.ItemRange.prototype.updatePosition = function (timeline) {
 };
 
 /**
- * Check if the item is visible in the summaryTimeline, and not part of a cluster
+ * Check if the item is visible in the timeline, and not part of a cluster
  * @param {Number} start
  * @param {Number} end
  * @return {boolean} visible
@@ -4261,7 +4261,7 @@ links.Timeline.ItemDot.prototype.updateDOM = function () {
 
 /**
  * Reposition the item, recalculate its left, top, and width, using the current
- * range of the summaryTimeline and the summaryTimeline options. *
+ * range of the timeline and the timeline options. *
  * @param {links.Timeline} timeline
  * @override
  */
@@ -4280,7 +4280,7 @@ links.Timeline.ItemDot.prototype.updatePosition = function (timeline) {
 };
 
 /**
- * Check if the item is visible in the summaryTimeline, and not part of a cluster.
+ * Check if the item is visible in the timeline, and not part of a cluster.
  * @param {Date} start
  * @param {Date} end
  * @return {boolean} visible
@@ -4373,7 +4373,7 @@ links.Timeline.prototype.getItem = function (index) {
  *                              {String} className (optional)
  *                              {Boolean} editable (optional)
  *                              {String} type (optional)
- * @param {boolean} [preventRender=false]   Do not re-render summaryTimeline if true
+ * @param {boolean} [preventRender=false]   Do not re-render timeline if true
  */
 links.Timeline.prototype.addItem = function (itemData, preventRender) {
     var itemsData = [
@@ -4394,7 +4394,7 @@ links.Timeline.prototype.addItem = function (itemData, preventRender) {
  *                            {String} className (optional)
  *                            {String} editable (optional)
  *                            {String} type (optional)
- * @param {boolean} [preventRender=false]   Do not re-render summaryTimeline if true
+ * @param {boolean} [preventRender=false]   Do not re-render timeline if true
  */
 links.Timeline.prototype.addItems = function (itemsData, preventRender) {
     var timeline = this,
@@ -4470,7 +4470,7 @@ links.Timeline.prototype.createItem = function(itemData) {
  *                              {Date} end (optional),
  *                              {String} content (required),
  *                              {String} group (optional)
- * @param {boolean} [preventRender=false]   Do not re-render summaryTimeline if true
+ * @param {boolean} [preventRender=false]   Do not re-render timeline if true
  */
 links.Timeline.prototype.changeItem = function (index, itemData, preventRender) {
     var oldItem = this.items[index];
@@ -4503,7 +4503,7 @@ links.Timeline.prototype.changeItem = function (index, itemData, preventRender) 
     }
 
     if (!preventRender) {
-        // redraw summaryTimeline
+        // redraw timeline
         this.render({
             animate: false
         });
@@ -4822,7 +4822,7 @@ links.Timeline.prototype.stackOrder = function(items) {
 /**
  * Adjust vertical positions of the events such that they don't overlap each
  * other.
- * @param {summaryTimeline.Item[]} items
+ * @param {timeline.Item[]} items
  * @return {Object[]} finalItems
  */
 links.Timeline.prototype.stackCalculateFinal = function(items) {
