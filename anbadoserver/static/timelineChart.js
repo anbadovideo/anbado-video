@@ -31,7 +31,7 @@ function timeLineCover(evt){
 
 
 
-    console.log('time :'+perTime*currentTime);
+//    console.log('time :'+perTime*currentTime);
 
 
     CLIENTVAR.popcornobj.pause(perTime*currentTime);

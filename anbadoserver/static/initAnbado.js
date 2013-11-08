@@ -25,15 +25,20 @@ if(userID === undefined){
     var userID = -1; // anonymous user
 }
 if(videoID === undefined){
-    var videoID = 1;
+    var videoID = -1;
 }
 
 
-var data1;
-var data2 = anbado.restful.getVideoInfo(videoID);
-var data3 = anbado.restful.getParticipants(videoID);
+if(videoID != -1){
 
+    var data1;
+    var data2 = anbado.restful.getVideoInfo(videoID);
+    var data3 = anbado.restful.getParticipants(videoID);
+}
 document.addEventListener("DOMContentLoaded", function(){
+    if(videoID==-1){
+        return;
+    }
 
     /**
      * Append video display DOM
@@ -74,6 +79,12 @@ document.addEventListener("DOMContentLoaded", function(){
         else if (provider === 'anbado'){
             CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
         }
+        else if(provider === 'ted'){
+//            console.log(data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
+            CLIENTVAR.popcornobj = Popcorn.smart('#videoEmbed', 'http://download.ted.com/talks/'+ data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
+
+        }
+
 
 
     }
@@ -163,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function(){
 //    $("#youtube").offset($("#vid").offset);
 
 
+
         videoDomAppend('#player',880,540);
         canvasPositioning('#player', 880, 540);
 
@@ -171,10 +183,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
         videoLoad();
 
+
         jqVideoEmbed = $('#videoEmbed');
         CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
         CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
         CLIENTVAR.popcornobj.controls(false);
+
+
 
 
 
@@ -332,11 +347,22 @@ document.addEventListener("DOMContentLoaded", function(){
 
     }
     else if(userID == -1){
+        if(videoID == -1){
+            return;
+        }
 
         var deferred = $.Deferred();
+
         deferred.done(videoDomAppend('#player',880,540),canvasPositioning('#player', 880, 540),videoLoad(),drawTimelineVisualization());
 
-        alert("로그인하시면 화면 위에 생각을 남기실 수 있어요");
+
+        CLIENTVAR.canvaslayer = document.getElementById("canvas1");
+
+        CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
+
+    CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에 생각을 남기실 수 있어요"));
+
+
 
     }
 
@@ -388,7 +414,7 @@ var InputPanel = function(){
         this.text = $('#textinput1');
         this.emoticon = $('#emoticonPanel');
 
-//    CLIENTVAR.inputPanelShow = true;
+
 
         this.text.show();
         this.emoticon.show();
@@ -410,7 +436,7 @@ var InputPanel = function(){
 //        this.textinput1.remove();
 //        this.emoticonPanel.remove();
 
-//        this.text.hide();
+//        this.txt.hide();
 //        this.emoticon.hide();
 
         this.text.remove();
