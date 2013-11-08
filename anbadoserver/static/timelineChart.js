@@ -319,9 +319,9 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 
 
 /**
- * 주어지는 timeline canvas위에 툴팁을 그린다.
+ * 주어지는 summaryTimeline canvas위에 툴팁을 그린다.
  *
- * @param svgObject 툴팁을 그릴 timeline canvas
+ * @param svgObject 툴팁을 그릴 summaryTimeline canvas
  */
 anbadoTimeLine.prototype.tooltip = function(svgObject) {
 
@@ -751,7 +751,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 };
 
 //    return {
-//        timeline: {
+//        summaryTimeline: {
 //            initialize: initialize,
 //            drawVisualization: drawVisualization,
 //            tooltip: tooltip,
@@ -773,7 +773,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 //    if (timeset === 2) {
 //        console.log("gray");
 //        $("#happy1").css({"background": 'gray'});
-//        anbado.timeline.drawVisualization('g');
+//        anbado.summaryTimeline.drawVisualization('g');
 //        timeset = 1;
 //
 //        if (timeset === 1) {
@@ -792,7 +792,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 //{
 //
 //    if (timeset === 2) {
-//        anbado.timeline.drawVisualization('b');
+//        anbado.summaryTimeline.drawVisualization('b');
 //        timeset = 1;
 //        if (timeset === 1) {
 //            setTimeout(function () {
@@ -811,30 +811,30 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 //
 //    if (graphTemp === "1")//area graph
 //    {
-//        anbado.timeline.setGraphShape(1);
-//        anbado.timeline.drawVisualization();
+//        anbado.summaryTimeline.setGraphShape(1);
+//        anbado.summaryTimeline.drawVisualization();
 //
 //    }
 //    else if (graphTemp === "2") //line graph
 //    {
-//        anbado.timeline.setGraphShape(2);
-//        anbado.timeline.drawVisualization();
+//        anbado.summaryTimeline.setGraphShape(2);
+//        anbado.summaryTimeline.drawVisualization();
 //        console.log("top:"+($('#linechart').top));
 //    }
 //    else if (graphTemp === "3") {
 //
-//        anbado.timeline.setGraphShape(3);
-//        anbado.timeline.drawVisualization();
+//        anbado.summaryTimeline.setGraphShape(3);
+//        anbado.summaryTimeline.drawVisualization();
 //    }
 //    else if (graphTemp === "4") {
 //
-//        anbado.timeline.setGraphShape(4);
-//        anbado.timeline.drawVisualization();
+//        anbado.summaryTimeline.setGraphShape(4);
+//        anbado.summaryTimeline.drawVisualization();
 //    }
 //    else if (graphTemp === "5") {
 //
-//        anbado.timeline.setGraphShape(5);
-//        anbado.timeline.drawVisualization();
+//        anbado.summaryTimeline.setGraphShape(5);
+//        anbado.summaryTimeline.drawVisualization();
 //        console.log("top:"+($('#barchart').top));
 //    }
 //

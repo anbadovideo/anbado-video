@@ -21,7 +21,7 @@
 var anbado = window.anbado || {};
 
 
-var timeline;
+var summaryTimeline;
 
 var data = [
 ];
@@ -31,10 +31,12 @@ var data = [
 
 /**
  * 플레이어 페이지 밑의 드로잉 페이지를 그리는 함수. 전반적인 설정값을 결정한다.
- * This function uses chaplink-timeline library
+ * This function uses chaplink-summaryTimeline library
  */
 
 function drawTimelineVisualization() {
+
+
 
 //    console.log("in draw");
     // Create a JSON data table
@@ -63,14 +65,14 @@ function drawTimelineVisualization() {
     };
 
 
-    // Instantiate our timeline object.
-    timeline = new links.Timeline(document.getElementById('mytimeline'));
+    // Instantiate our summaryTimeline object.
+    summaryTimeline = new links.Timeline(document.getElementById('mytimeline'));
 
     // attach an event listener using the links events handler
-//    links.events.addListener(timeline, 'rangechanged', onRangeChanged);
+//    links.events.addListener(summaryTimeline, 'rangechanged', onRangeChanged);
 
-    // Draw our timeline with the created data and options
-    timeline.draw(data, options);
+    // Draw our summaryTimeline with the created data and options
+    summaryTimeline.draw(data, options);
 
 }
 

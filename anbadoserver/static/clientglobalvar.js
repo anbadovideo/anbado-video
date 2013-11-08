@@ -53,7 +53,7 @@ var CLIENTVAR = {
         childrenIDarray: [] // 자식들이 생기게 되면 이를 표현해줌. 객체 배열을 가지지 말고 eventList에서 참조할 수 있도록 아이디만 가지고 가도록
     },
     inputPanelShow: false, // 한번 클릭된 상태라면 다른 쪽을 클릭하면 패널이 사라져야 함
-    // timeline.js 변수 들
+    // summaryTimeline.js 변수 들
     good: 0, // good 의 수
     bad: 0,  //bad 의수
     arrayg: [], // good array
