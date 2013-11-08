@@ -11,6 +11,10 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
+    if( CLIENTVAR.popcornobj === 0){
+        return;
+    }
+
 
 
         var inti;    // 타임체크 함수를 위한 카운터
