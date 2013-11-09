@@ -88,6 +88,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
+
+
     }
 
     var canvasPositioning = function(targetDOM, videoWidth, videoHeight){
@@ -205,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
             anbado.realtime.enterVideo(videoID,userID);
 
+
+
             anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
                 var tempType = "";
                 if(evt.category == "text"){
@@ -261,6 +265,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         drawTimelineVisualization();
+        CLIENTVAR.popcornobj.play();
 
 
 
