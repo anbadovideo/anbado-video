@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+""":mod:`anbadoserver.api.realtime` --- Anbado Video Real-time Solution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"""
 
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin
@@ -10,8 +14,17 @@ from anbadoserver import frogspawn
 def get_room_name(video_id):
     return str(video_id)
 
+
 class SocketIONamespace(BaseNamespace, RoomsMixin):
+    """Anbado Video socket.io Namespace
+    """
+
     def on_enter(self, params):
+        """Handles when new user is arrived. This handler registers user to video.
+
+            :param params: dictionary containing video id, user id
+            :type params: dict
+        """
         self.join(get_room_name(params['video_id']))
         self.video_room = get_room_name(params['video_id'])
         self.emit('enter_complete', None)
@@ -33,6 +46,11 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
             self.emit('event', event.to_json())
 
     def on_exit(self, params):
+        """Handles when user is exit from video.
+
+            :param params: dictionary containing video id, user id
+            :type params: dict
+        """
         self.leave(self.video_room)
         self.emit('exit_complete', None)
 
@@ -43,6 +61,11 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
         })
 
     def on_event(self, params):
+        """Handles when a event is posted.
+
+            :param params: dictionary containing
+            :type params: dict
+        """
         # TODO: need code validating parameters.
         user = User.by_user_id(params.get('user_id', -1))
         if user is None:
