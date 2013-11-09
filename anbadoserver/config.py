@@ -5,6 +5,9 @@ DATABASE_URI = "sqlite:////tmp/anbado-test.db"
 SOCKET_PORT = 8888
 DEBUG = True
 
+if not DEBUG:
+    SQLALCHEMY_POOL_SIZE = 100
+
 FROGSPAWN_TYPE = "dummy"
 
 FROGSPAWN_REDIS_HOST = "localhost"
