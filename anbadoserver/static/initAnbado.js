@@ -449,11 +449,15 @@ var InputPanel = function(){
 //        var deferred = $.Deferred();
 //
 //        deferred
-//            .done(this.text.hide('puff',300),this.text.remove())
-//            .done(this.emoticon.hide('puff',300), this.emoticon.remove());
+//            .done([this.text.hide('puff',300),this.emoticon.hide('puff',300)])
+//            .done([this.text.remove(),this.emoticon.remove()]);
+//
 //        deferred.resolve();
-        this.text.hide('puff',400).promise().done(this.text.remove());
-        this.emoticon.hide('puff',400).promise().done(this.emoticon.remove());
+//        this.text.hide('puff',300);
+//        this.emoticon.hide('puff',300);
+        this.text.hide('puff',300,this.text.remove());
+        this.emoticon.hide('puff',300,this.emoticon.remove());
+
 
 
         CLIENTVAR.inputPanelShow = false;
