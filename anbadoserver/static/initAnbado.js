@@ -79,6 +79,13 @@ document.addEventListener("DOMContentLoaded", function(){
         else if (provider === 'anbado'){
             CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
         }
+        else if(provider === 'ted'){
+//            console.log(data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
+            CLIENTVAR.popcornobj = Popcorn.smart('#videoEmbed', 'http://download.ted.com/talks/'+ data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
+
+        }
+
+
 
 
     }
@@ -438,8 +445,15 @@ var InputPanel = function(){
 
 //        this.emoticon.hide();
 
-        this.text.remove();
-        this.emoticon.remove();
+
+        var deferred = $.Deferred();
+
+        deferred
+            .done(this.text.hide('puff',300),this.text.remove())
+            .done(this.emoticon.hide('puff',300), this.emoticon.remove());
+        deferred.resolve();
+
+
         CLIENTVAR.inputPanelShow = false;
     }
 }

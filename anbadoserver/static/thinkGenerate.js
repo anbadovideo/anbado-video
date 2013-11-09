@@ -32,7 +32,7 @@ function thinkGenerate(think) { // video interaction event generation
 
     if (think.step === 1) { // 생성중인 이벤트
         think.occuredAbsoluteTime = (new Date());
-        think.clickTime = CLIENTVAR.popcornobj.currentTime();
+
         think.permission = "friends";
         think.secUnit = 100 * Math.round(CLIENTVAR.popcornobj.currentTime() / CLIENTVAR.popcornobj.duration());
         think.parentID = CLIENTVAR.transferEvent.parentID === undefined ? -1 : CLIENTVAR.transferEvent.parentID;
