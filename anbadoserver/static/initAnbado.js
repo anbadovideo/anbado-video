@@ -446,12 +446,14 @@ var InputPanel = function(){
 //        this.emoticon.hide();
 
 
-        var deferred = $.Deferred();
-
-        deferred
-            .done(this.text.hide('puff',300),this.text.remove())
-            .done(this.emoticon.hide('puff',300), this.emoticon.remove());
-        deferred.resolve();
+//        var deferred = $.Deferred();
+//
+//        deferred
+//            .done(this.text.hide('puff',300),this.text.remove())
+//            .done(this.emoticon.hide('puff',300), this.emoticon.remove());
+//        deferred.resolve();
+        this.text.hide('puff',400).promise().done(this.text.remove());
+        this.emoticon.hide('puff',400).promise().done(this.emoticon.remove());
 
 
         CLIENTVAR.inputPanelShow = false;
