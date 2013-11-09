@@ -265,6 +265,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         drawTimelineVisualization();
+        CLIENTVAR.popcornobj.play();
 
 
 
