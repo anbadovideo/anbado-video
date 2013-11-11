@@ -73,6 +73,7 @@ function saveCoord(evt) {
 
     think.x = evt.stageX;
     think.y = evt.stageY;
+    think.clickTime = CLIENTVAR.popcornobj.currentTime();
 
 
     var inputPanel = {}; // 입력창을 표시 InputPanel의 인스턴스이다. closure를 이용하여 displayInputPanel()에서 참조할 수 있도록 함

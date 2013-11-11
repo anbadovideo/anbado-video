@@ -79,6 +79,15 @@ document.addEventListener("DOMContentLoaded", function(){
         else if (provider === 'anbado'){
             CLIENTVAR.popcornobj= Popcorn.smart( "#videoEmbed", data2.video.provider_vid.toString());
         }
+        else if(provider === 'ted'){
+//            console.log(data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
+            CLIENTVAR.popcornobj = Popcorn.smart('#videoEmbed', 'http://download.ted.com/talks/'+ data2.video.provider_vid.split('/talks/')[1].split('?api')[0]);
+
+        }
+
+
+
+
 
 
     }
@@ -198,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
             anbado.realtime.enterVideo(videoID,userID);
 
+
+
             anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
                 var tempType = "";
                 if(evt.category == "text"){
@@ -254,6 +265,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         drawTimelineVisualization();
+
+
+
 
 
 
@@ -358,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
 
-    CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에 생각을 남기실 수 있어요"));
+    CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에서 친구들의 생각을 보거나 여러분의 생각을 남기실 수 있어요"));
 
 
 
@@ -438,8 +452,21 @@ var InputPanel = function(){
 
 //        this.emoticon.hide();
 
-        this.text.remove();
-        this.emoticon.remove();
+
+//        var deferred = $.Deferred();
+//
+//        deferred
+//            .done([this.text.hide('puff',300),this.emoticon.hide('puff',300)])
+//            .done([this.text.remove(),this.emoticon.remove()]);
+//
+//        deferred.resolve();
+//        this.text.hide('puff',300);
+//        this.emoticon.hide('puff',300);
+        this.text.hide('puff',300,this.text.remove());
+        this.emoticon.hide('puff',300,this.emoticon.remove());
+
+
+
         CLIENTVAR.inputPanelShow = false;
     }
 }

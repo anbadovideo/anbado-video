@@ -1,7 +1,7 @@
 var anbado = window.anbado || {};
 
 var CLIENTVAR = {
-    popcornobj: {}, // global access video object.
+    popcornobj: 0, // global access video object.
     totalEvent: 0,  // total event number
     totalChat: 0,
     currentEventPosition: 0,
