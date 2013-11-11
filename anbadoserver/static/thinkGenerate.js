@@ -119,7 +119,7 @@ var thinkTypeCheck = function(think) {
                     parent_id: -1,
                     permission: 'protected',
                     coord: [think.x, think.y],
-                    size: [200, 100]
+                    size: [CLIENTVAR.popcornobj.media.width, CLIENTVAR.popcornobj.media.height]
                 });
 
                 drawTimelineVisualization();
@@ -145,7 +145,7 @@ var thinkTypeCheck = function(think) {
                     parent_id: -1,
                     permission: 'protected',
                     coord: [think.x, think.y],
-                    size: [200, 100]
+                    size: [CLIENTVAR.popcornobj.media.width, CLIENTVAR.popcornobj.media.height]
                 });
                 drawTimelineVisualization();
                 break;
