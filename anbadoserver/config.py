@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+""":mod:anbadoserver.config --- Configuration Module
+
+"""
 
 DATABASE_URI = "sqlite:////tmp/anbado-test.db"
 SOCKET_PORT = 8888

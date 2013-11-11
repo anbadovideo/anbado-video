@@ -1,3 +1,6 @@
+""":mod:`anbadoserver.decorators` --- Decorators for Flask views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
 from functools import wraps, update_wrapper
 from flask import request, current_app, make_response
 from datetime import timedelta
@@ -21,6 +24,7 @@ def jsonp(func):
 
 # Taken from: http://flask.pocoo.org/snippets/56/
 def crossdomain(origin=None, methods=None, headers=None, max_age=21600, attach_to_all=True, automatic_options=True):
+    """Wraps response to clear Cross-Origin-Resources-Sharing"""
     if methods is not None:
         methods = ', '.join(sorted(x.upper() for x in methods))
     if headers is not None and not isinstance(headers, basestring):
