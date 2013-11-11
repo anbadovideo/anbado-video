@@ -117,7 +117,7 @@ var thinkTypeCheck = function(think) {
                     content: think.content,
                     category: 'text',
                     parent_id: -1,
-                    permission: 'public',
+                    permission: 'protected',
                     coord: [think.x, think.y],
                     size: [200, 100]
                 });
@@ -143,7 +143,7 @@ var thinkTypeCheck = function(think) {
                     content: think.content,
                     category: 'image',
                     parent_id: -1,
-                    permission: 'public',
+                    permission: 'protected',
                     coord: [think.x, think.y],
                     size: [200, 100]
                 });
