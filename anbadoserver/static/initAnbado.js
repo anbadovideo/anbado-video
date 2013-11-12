@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
                     category : tempType, // think type e.g text, emoticon, image, button action, webcam
                     content : evt.content, // 이모티콘인 경우에 주소를 넘김
-                    contentImg : {},
+                    contentImg : new Image(),
                     permission : evt.permission,
                     secUnit : {},// 몇번째 유닛인지?
                     eaCanvasObject : {}, // easeljs 객체를 추가해주기 위해서 컨테이너를 하위 속성으로 가지고 있음.
@@ -250,14 +250,23 @@ document.addEventListener("DOMContentLoaded", function(){
                 }; // 이벤트의 생성시점
 
 
+                //TODO deferred로 처리하자
 
                 think.profileImg.src = thinkOwner.profile_image;
+
+
 //                console.log(think.profileImg);
                 CLIENTVAR.totalEvent++;
                 think.profileImg.onload = function(){
 //                    console.log("onload");
-//                    thinkGenerate(think)
+                    thinkGenerate(think);
                 };
+                if(evt.category === 'image'){
+                    think.contentImg.src = evt.content;
+                    think.contentImg.onload = function(){
+
+                    }
+                }
             });
         });
 
