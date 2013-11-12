@@ -303,7 +303,6 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     eaProfileImage.scaleY = profileImgSize / profileRadius;
 
 //    eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, (think.profileImg.width > think.profileImg.height ? 50 : 50)); // profile example. 가로 세로중 짦은 변의 1/2를 반지름으로 하게 된다.
-
 //    eaProfileImage.scaleX = eaProfileImage.scaleY = eaProfileImage.scale = 0.5;
     eaProfileImage.regX = 0;
     eaProfileImage.regY = 0;
@@ -318,7 +317,6 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
             think.x = 100;
             think.y = 0 + CLIENTVAR.totalChat * 50;
             CLIENTVAR.totalChat++;
-
         }
 
         var eaTextContent = new createjs.Text(think.content, 15 + "px " + textFont.toString(), "#ffffff");
@@ -341,27 +339,31 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     }
     else if (think.category === 'image') {
 //    else if (think.category === "emoticon0"  || think.category === "emoticon1" || think.category === "emoticon2" || think.category === "emoticon3") {
-        // TODO: edit if statement using indexOf method.
 
         eaProfileImage.x = think.x - 44;
         eaProfileImage.y = think.y - 16;
 
-        var eaTempEmoticon = new createjs.Bitmap(think.content); // make emoticon easeljs object
+        var eaEmoticon = new createjs.Shape(); // make emoticon easeljs object
 
-        eaTempEmoticon.regX = 0;
-        eaTempEmoticon.regY = 0;
-        eaTempEmoticon.x = think.x + 7;
-        eaTempEmoticon.y = think.y - 5;
-        eaTempEmoticon.scaleX = eaTempEmoticon.scaleY = eaTempEmoticon.scale = 0.4;
+        eaEmoticon.scaleX = eaEmoticon.scaleY = eaEmoticon.scale = 0.4;
+        eaEmoticon.graphics.beginBitmapFill(think.contentImg).drawCircle(50, 50, 48); //
+//        setTimeout(function(){
+        eaEmoticon.regX = 0;
+        eaEmoticon.regY = 0;
+        eaEmoticon.x = think.x + 7;
+        eaEmoticon.y = think.y - 5;
+
 
         var eaBackPanel = new createjs.Shape();
-        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(think.x, think.y, (eaTempEmoticon.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaTempEmoticon.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 64, eaTempEmoticon.getTransformedBounds().height + eaTextName.getTransformedBounds().height + 10, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-        eaBackPanel.regX = 40;
-        eaBackPanel.regY = 23;
+//        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(think.x, think.y, (eaEmoticon.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaEmoticon.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 64, eaEmoticon.getTransformedBounds().height + eaTextName.getTransformedBounds().height + 10, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+//        eaBackPanel.regX = 40;
+//        eaBackPanel.regY = 23;
 
         think.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
         think.eaCanvasDisplayObject.addChild(eaTextName);
-        think.eaCanvasDisplayObject.addChild(eaTempEmoticon);
+        think.eaCanvasDisplayObject.addChild(eaEmoticon);
+//        };
+//        },500);
     }
 
 //    think.profileImg.id = 'profileImg';
@@ -411,7 +413,6 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 //        CLIENTVAR.stage.update();
     }
 
-
 //    console.log("parent ID mark : " + think.parentID);
 
     if (think.parentID !== -1) { // 최상위 객체인지 확인하고 그게 아닌 경우에 이벤트에 관계 목록을 추가한다.
@@ -421,7 +422,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     CLIENTVAR.eventList.push(think); // 전체 이벤트 목록에 저장
 //    CLIENTVAR.thinkTriggerList[Math.floor(think.clickTime)].push(think);
 
-    // 밑의 타임라인에 저장
+// 밑의 타임라인에 저장
 
 
 //    CLIENTVAR.chatRightStage.addChild(think.eaCanvasDisplayObject);
