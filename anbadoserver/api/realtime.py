@@ -88,7 +88,7 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
         frogspawn.put({
             'type': 'postEvent',
             'category': params['category'],
-            'content': params['content'] if params['category'] == 'text' else 'BINARY_CONTENT',
+            'content': params['content'],
             'permission': params['permission'],
             'user_id': user.user_id,
             'video_id': video.video_id,
