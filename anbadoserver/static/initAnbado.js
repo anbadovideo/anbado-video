@@ -260,6 +260,9 @@ document.addEventListener("DOMContentLoaded", function(){
                         promise1.resolve();
                     }
                 }
+                else{
+                    promise1.resolve(); // 텍스트인경우 바로 resolve
+                }
 
                 think.profileImg.src = thinkOwner.profile_image;
                 think.profileImg.onload = function(){
