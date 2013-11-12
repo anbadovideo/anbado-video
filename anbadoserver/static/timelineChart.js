@@ -6,11 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
-//var anbado = window.anbado || {};
 
-//var anbadoDummy=(function($){
-
-
+/**
+ *
+ * @param evt
+ * 타임라인 마우스 클릭할경우
+ */
 
 function timeLineCover(evt){
 
@@ -31,7 +32,7 @@ function timeLineCover(evt){
 
 
 
-//    console.log('time :'+perTime*currentTime);
+    console.log('time :'+perTime*currentTime);
 
 
     CLIENTVAR.popcornobj.pause(perTime*currentTime);
@@ -43,6 +44,11 @@ function timeLineCover(evt){
     //CLIENTVAR.popcornobj.play(perTime*currentTime);
 }
 
+/**
+ *
+ * @param evt
+ * 타임라인 에 마우스가 올라갔을 경우
+ */
 function mooseOnCover(evt)
 {
     var offsetLeft=$('#rect2').offset().left;
@@ -70,6 +76,11 @@ function mooseOnCover(evt)
 }
 
 
+/**
+ *
+ * @param evt
+ * 마우스가 커버 밖으로 나갔을 경우
+ */
 function mouseOutCover(evt)
 {
 
@@ -77,6 +88,14 @@ function mouseOutCover(evt)
 
 }
 
+/**
+ * 안바도 타임라인과 width 를 동기화할 html id 를 가져와서 객체를 생성한다.
+ * @class
+ * @param getId
+ * html  id 를 가져온다.
+ *
+ * @example var test=anbadoTimeLine('player');
+ */
 
 var anbadoTimeLine = function(getId) {
 
@@ -115,13 +134,40 @@ var anbadoTimeLine = function(getId) {
 
     this.dummData = [];
 
+    /**
+     *
+     * @type {number}
+     * 커버 아이디를 저장함
+     */
     this.coverId=0;
+    /**
+     *
+     * @type {number}
+     * 백그라운드 커버아이디
+     */
     this.backcoverId=0;
+    /**
+     *
+     * @type {number}
+     * 포인트 아이디
+     */
     this.positionId=0;
     this.imageId=0;
 
+    /**
+     * 현재시간을 받아들인다.
+     * @type {number}
+     */
     this.currentTime = 0;
+    /**
+     * 동영상을 총 시간을 받아들인다.
+     * @type {number}
+     */
     this.durationTime = 0;
+    /**
+     * 타임을 커팅하기위한 더미값 추후 수정 필요
+     * @type {number}
+     */
     this.dummy=0;
 
 
@@ -130,7 +176,6 @@ var anbadoTimeLine = function(getId) {
      * jauery 의 사용을 줄이기 위해서 한번 쓰고 이후에
      * this 에서 받아서 처리한다.
      */
-
 
     this.areajQueryId=0;
     this.linejQueryId=0;
@@ -170,6 +215,19 @@ var anbadoTimeLine = function(getId) {
 //}
 //
 
+/**
+ * @class
+ * @param inputTime
+ * 동영상의 current time  를 넣는다.
+ * @example
+ * var test=anbadoTimeLine('player');
+ *
+ * timeupdate()
+ * {
+ *  test.getCurrentTime(currenttime);
+ * }
+ *
+ */
 
 anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
     this.currentTime = inputTime;
@@ -200,13 +258,32 @@ anbadoTimeLine.prototype.getCurrentTime = function(inputTime) {
 
 /**
  * 타임라인 그래프를 초기화 한다.
- *
+ * @class
  * @param time 동영상의 길이
+ * duration time  동영상의 총 플레이시간을 받는다.
+ * @example
+ * var test=anbadoTimeLine();
+ *
+ * test.initialize(duration);
+ *
  */
 anbadoTimeLine.prototype.initialize = function(time) {
 
+    /**
+     * @type {*|jQuery|HTMLElement}
+     * 비디오 아이디를 jquery 를  받아온다.
+     */
     var vidjQueryId=$(this.videoId);
+    /**
+     *
+     * @type {*}
+     * 비디오의 높이를 받는다.
+     */
     var height = vidjQueryId.css("height");
+    /**
+     * @type {*}
+     * 비디오의 width 를받는다.
+     */
     var width = vidjQueryId.css("width");
 
     vidjQueryId.append('<div class="areadiv"><svg id="stackedarea"></svg></div>');
@@ -274,8 +351,9 @@ anbadoTimeLine.prototype.initialize = function(time) {
 
 /**
  * 주어진 시간 길이에 맞게 타임라인에 필요한 배열을 생성한다.
- *
+ * @class
  * @param time 동영상의 길이
+ *
  */
 anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 
@@ -319,13 +397,20 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 
 
 /**
- * 주어지는 summaryTimeline canvas위에 툴팁을 그린다.
- *
- * @param svgObject 툴팁을 그릴 summaryTimeline canvas
+ * 주어지는 timeline canvas위에 툴팁을 그린다.
+ * @class
+ * @param svgObject 툴팁을 그릴 timeline canvas
  */
 anbadoTimeLine.prototype.tooltip = function(svgObject) {
 
+    /**
+     * html 툴팁에 남는 글
+     */
     var con;
+    /**
+     * jquery 로 타임라인의 width 와 height 를 받기위해 사용한다.
+     * @type {*|jQuery|HTMLElement}
+     */
     var $svgObject = $(svgObject);
 
     var top = parseInt($svgObject.css("height"));
@@ -346,7 +431,7 @@ anbadoTimeLine.prototype.tooltip = function(svgObject) {
 
 /**
  * 그래프 모양을 변경한다.
- *
+ * @class
  * @param newGraphShape 새로 변경할 그래프 모양
  */
 anbadoTimeLine.prototype.setGraphShape = function(newGraphShape) {
@@ -678,10 +763,24 @@ anbadoTimeLine.prototype.drawBarChart = function() {
 
 /**
  * 지정된 그래프 타입에 따라 적절한 그래프를 선택하여 그린다.
+ * @class
  * @param type good 인지 bad 인지에 따라 구분함
+ * @example
+ * var test = anbadoTimeLine('player');
+ *
+ * test.drawVisualization('g');// 차트 해당시간에 good 카운트 증가
+ *
+ * test.drawVisualization('b');// 차트 해당시간에 bad 카운트 증가
+ *
+ * test.drawVisualization();// offset 차트 그리기
  */
 anbadoTimeLine.prototype.drawVisualization = function(type) {
 
+    /**
+     *
+     * @type {number}
+     * 현재시간을 받아온다.
+     */
     var inttime = this.currentTime;
     inttime = parseInt(inttime);
 
@@ -751,7 +850,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 };
 
 //    return {
-//        summaryTimeline: {
+//        timeline: {
 //            initialize: initialize,
 //            drawVisualization: drawVisualization,
 //            tooltip: tooltip,
@@ -773,7 +872,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 //    if (timeset === 2) {
 //        console.log("gray");
 //        $("#happy1").css({"background": 'gray'});
-//        anbado.summaryTimeline.drawVisualization('g');
+//        anbado.timeline.drawVisualization('g');
 //        timeset = 1;
 //
 //        if (timeset === 1) {
@@ -792,7 +891,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 //{
 //
 //    if (timeset === 2) {
-//        anbado.summaryTimeline.drawVisualization('b');
+//        anbado.timeline.drawVisualization('b');
 //        timeset = 1;
 //        if (timeset === 1) {
 //            setTimeout(function () {
@@ -811,30 +910,30 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
 //
 //    if (graphTemp === "1")//area graph
 //    {
-//        anbado.summaryTimeline.setGraphShape(1);
-//        anbado.summaryTimeline.drawVisualization();
+//        anbado.timeline.setGraphShape(1);
+//        anbado.timeline.drawVisualization();
 //
 //    }
 //    else if (graphTemp === "2") //line graph
 //    {
-//        anbado.summaryTimeline.setGraphShape(2);
-//        anbado.summaryTimeline.drawVisualization();
+//        anbado.timeline.setGraphShape(2);
+//        anbado.timeline.drawVisualization();
 //        console.log("top:"+($('#linechart').top));
 //    }
 //    else if (graphTemp === "3") {
 //
-//        anbado.summaryTimeline.setGraphShape(3);
-//        anbado.summaryTimeline.drawVisualization();
+//        anbado.timeline.setGraphShape(3);
+//        anbado.timeline.drawVisualization();
 //    }
 //    else if (graphTemp === "4") {
 //
-//        anbado.summaryTimeline.setGraphShape(4);
-//        anbado.summaryTimeline.drawVisualization();
+//        anbado.timeline.setGraphShape(4);
+//        anbado.timeline.drawVisualization();
 //    }
 //    else if (graphTemp === "5") {
 //
-//        anbado.summaryTimeline.setGraphShape(5);
-//        anbado.summaryTimeline.drawVisualization();
+//        anbado.timeline.setGraphShape(5);
+//        anbado.timeline.drawVisualization();
 //        console.log("top:"+($('#barchart').top));
 //    }
 //
