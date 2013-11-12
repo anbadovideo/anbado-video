@@ -252,8 +252,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 var promise1 = $.Deferred();
                 var promise2 = $.Deferred();
-                console.log(promise1);
-                console.log(promise2);
+
 
                 if(evt.category === 'image'){
                     think.contentImg.src = evt.content;
