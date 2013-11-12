@@ -250,23 +250,44 @@ document.addEventListener("DOMContentLoaded", function(){
                 }; // 이벤트의 생성시점
 
 
-                //TODO deferred로 처리하자
+                var promise1 = $.Deferred();
+                var promise2 = $.Deferred();
+                console.log(promise1);
+                console.log(promise2);
+
+                if(evt.category === 'image'){
+                    think.contentImg.src = evt.content;
+                    think.contentImg.onload = function(){
+                        promise1.resolve();
+                    }
+                }
 
                 think.profileImg.src = thinkOwner.profile_image;
+                think.profileImg.onload = function(){
+                    promise2.resolve();
+                };
+
+                $.when(promise1, promise2).then(function(){
+                    thinkGenerate(think);
+                });
+
+
+
+
+
+
+
+
+
 
 
 //                console.log(think.profileImg);
                 CLIENTVAR.totalEvent++;
-                think.profileImg.onload = function(){
-//                    console.log("onload");
-                    thinkGenerate(think);
-                };
-                if(evt.category === 'image'){
-                    think.contentImg.src = evt.content;
-                    think.contentImg.onload = function(){
+//                think.profileImg.onload = function(){
+//
+//                    thinkGenerate(think);
+//                };
 
-                    }
-                }
             });
         });
 
@@ -424,7 +445,7 @@ var InputPanel = function(){
 
 //        console.log(emoticonImgList[tempCounter]);
 
-        emoticonImgList[tempCounter].src = prefix + 'examples/img/emo'+tempCounter +'.png';
+        emoticonImgList[tempCounter].src = prefix + 'examples/img/emo_'+tempCounter +'.png';
         emoticonImgList[tempCounter].id = 'emoticon'+tempCounter.toString();
     }
 
@@ -519,7 +540,6 @@ var InputPanel = function(){
             if (evt.keyCode === 27 || evt.charCode === 27) { // webkit 브라우져에서 keyCode에서의 esc를 못받는 것을 해결하기 위해
 
                 inputPanel.deletePanel();
-
             }
         });
 
@@ -562,7 +582,6 @@ var InputPanel = function(){
 
 //        this.emoticon.hide();
 
-
 //        var deferred = $.Deferred();
 //
 //        deferred
@@ -570,10 +589,17 @@ var InputPanel = function(){
 //            .done([this.text.remove(),this.emoticon.remove()]);
 //
 //        deferred.resolve();
-//        this.text.hide('puff',300);
-//        this.emoticon.hide('puff',300);
-        this.text.hide('puff',300,this.text.remove());
-        this.emoticon.hide('puff',300,this.emoticon.remove());
+        var promise1 = this.text.hide('puff',{percent:50},300).promise();
+        var promise2 = this.emoticon.hide('puff',{percent:50},300).promise();
+
+
+        $.when(promise1,promise2).done(function(){
+            inputPanel.text.remove();
+            inputPanel.emoticon.remove();
+        });
+
+//        this.text.hide('puff',300,this.text.remove());
+//        this.emoticon.hide('puff',300,this.emoticon.remove());
 
 
 
