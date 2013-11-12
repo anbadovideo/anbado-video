@@ -413,7 +413,7 @@ var InputPanel = function(){
 
     for(var tempCounter = 0; tempCounter < emoticonImgList.length; tempCounter++){
 
-        console.log(emoticonImgList[tempCounter]);
+//        console.log(emoticonImgList[tempCounter]);
 
         emoticonImgList[tempCounter].src = prefix + 'examples/img/emo'+tempCounter +'.png';
         emoticonImgList[tempCounter].id = 'emoticon'+tempCounter.toString();
@@ -446,7 +446,7 @@ var InputPanel = function(){
         think.category = 'image';
 
         for(var tempCounter = 0; tempCounter< emoticonImgList.length; tempCounter++){
-            console.log(tempCounter);
+//            console.log(tempCounter);
             emoticonImgList[tempCounter].onclick = function (){
                 think.content = this.src;
                 think.contentImg = this;
