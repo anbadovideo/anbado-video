@@ -38,7 +38,7 @@ function timeLineCover(evt){
     CLIENTVAR.popcornobj.pause(perTime*currentTime);
 
 
-        setTimeout(function()
+    setTimeout(function()
     {CLIENTVAR.popcornobj.play();},1000)
     //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
     //CLIENTVAR.popcornobj.play(perTime*currentTime);
@@ -774,15 +774,21 @@ anbadoTimeLine.prototype.drawBarChart = function() {
  *
  * test.drawVisualization();// offset 차트 그리기
  */
-anbadoTimeLine.prototype.drawVisualization = function(type) {
+anbadoTimeLine.prototype.drawVisualization = function(type,think) {
 
     /**
      *
      * @type {number}
      * 현재시간을 받아온다.
      */
-    var inttime = this.currentTime;
 
+
+//    if(think === undefined){
+//        var inttime = this.currentTime;
+//    }
+//    else{
+        var inttime = think.clickTime;
+//    }
     inttime = parseInt(inttime);
 
 

@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             testObj.initialize(durationtime);
             testObj.setGraphShape(5);
-            testObj.drawVisualization();
+            var think ={};
+            think.clickTime = 0;
+            testObj.drawVisualization('g',think);
 
 
             setTimeout(function()
@@ -216,7 +218,7 @@ function graphselect() {
 
 var timeset = 2;
 function happybutton(think) {
-    testObj.drawVisualization('g');
+    testObj.drawVisualization('g',think);
 
 
     var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;

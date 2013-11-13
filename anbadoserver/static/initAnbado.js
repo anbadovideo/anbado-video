@@ -452,13 +452,6 @@ var InputPanel = function(){
     }
 
 
-
-
-
-
-
-
-
     this.createPanel = function(think){
         var jqBody = $('body');
         jqBody.append('<input id="textinput1" type="text" placeholder="생각을 남겨보세요" onkeydown="this.style.width = ((this.value.length + 3) * 12) + \'px\';" style = "font-size:14px"/>' );
