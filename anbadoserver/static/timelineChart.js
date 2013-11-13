@@ -782,6 +782,7 @@ anbadoTimeLine.prototype.drawVisualization = function(type) {
      * 현재시간을 받아온다.
      */
     var inttime = this.currentTime;
+
     inttime = parseInt(inttime);
 
 

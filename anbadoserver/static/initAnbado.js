@@ -435,7 +435,7 @@ var InputPanel = function(){
 
 
     CLIENTVAR.inputPanelShow = false;
-    var prefix = '/playerstatic/';
+
 
 
     var emoticonImgList = [];
@@ -447,11 +447,17 @@ var InputPanel = function(){
 
     for(var tempCounter = 0; tempCounter < emoticonImgList.length; tempCounter++){
 
-//        console.log(emoticonImgList[tempCounter]);
-
-        emoticonImgList[tempCounter].src = prefix + 'examples/img/emo_'+tempCounter +'.png';
+        emoticonImgList[tempCounter].src = emoticonFilePrefix + 'examples/img/emo_'+tempCounter +'.png';
         emoticonImgList[tempCounter].id = 'emoticon'+tempCounter.toString();
     }
+
+
+
+
+
+
+
+
 
     this.createPanel = function(think){
         var jqBody = $('body');
@@ -488,10 +494,6 @@ var InputPanel = function(){
                 inputPanel.deletePanel();
             }
         }
-
-
-
-
 
         var jqCanvas1 = $('#canvas1');
 
@@ -593,8 +595,8 @@ var InputPanel = function(){
 //            .done([this.text.remove(),this.emoticon.remove()]);
 //
 //        deferred.resolve();
-        var promise1 = this.text.hide('puff',{percent:50},300).promise();
-        var promise2 = this.emoticon.hide('puff',{percent:50},300).promise();
+        var promise1 = this.text.hide('puff',{percent:50},400).promise();
+        var promise2 = this.emoticon.hide('puff',{percent:50},400).promise();
 
 
         $.when(promise1,promise2).done(function(){
