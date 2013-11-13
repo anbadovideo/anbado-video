@@ -355,11 +355,14 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 
 
         var eaBackPanel = new createjs.Shape();
+//
 //        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(think.x, think.y, (eaEmoticon.getTransformedBounds().width>eaTextName.getTransformedBounds().width ? eaEmoticon.getTransformedBounds().width : eaTextName.getTransformedBounds().width) + 64, eaEmoticon.getTransformedBounds().height + eaTextName.getTransformedBounds().height + 10, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
-//        eaBackPanel.regX = 40;
-//        eaBackPanel.regY = 23;
+        eaBackPanel.graphics.beginFill("rgba(0,25,0,0.5)").drawRoundRect(think.x, think.y, (50>eaTextName.getTransformedBounds().width ? 50 : eaTextName.getTransformedBounds().width) + 64, 50 + eaTextName.getTransformedBounds().height, 100); // 불투명도가 계속해서 높아지는 버그가 있음. easeljs issue인 듯
+        eaBackPanel.regX = 40;
+        eaBackPanel.regY = 23;
 
         think.eaCanvasDisplayObject.addChild(eaBackPanel); // 뒷 배경과 무관하게 넣어주기 위해서 백패널을 이용함
+
         think.eaCanvasDisplayObject.addChild(eaTextName);
         think.eaCanvasDisplayObject.addChild(eaEmoticon);
 //        };

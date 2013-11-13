@@ -128,10 +128,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 //    $("#canvas1").css({});
 
-        $('#canvas1').offset($('#videoEmbed').offset());
-        $('#canvas1').hide();
-        $('#mytimeline').offset($('#videoEmbed').offset());
-        $('#mytimeline').hide();
+        var jqCanvas = $('#canvas1');
+        jqCanvas.offset(jqVideoEmbed.offset());
+        jqCanvas.hide();
+        var jqMysummary = $('#mytimeline');
+        jqMysummary.offset(jqVideoEmbed.offset());
+        jqMysummary.hide();
 
     };
 

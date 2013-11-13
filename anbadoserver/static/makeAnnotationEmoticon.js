@@ -105,12 +105,7 @@ function displayInputPanel(think) { // on first screen, display text input panel
         var tempLocation = $('#canvas1').offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
 //        console.log("inputpanel === false" + think);
 
-
-
 //        alert(alert1);
-
-
-
 
         inputPanel.createPanel(think);
 
