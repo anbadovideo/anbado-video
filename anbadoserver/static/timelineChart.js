@@ -38,8 +38,9 @@ function timeLineCover(evt){
     CLIENTVAR.popcornobj.pause(perTime*currentTime);
 
 
-    setTimeout(function()
-    {CLIENTVAR.popcornobj.play();},1000)
+    setTimeout(function(){
+        CLIENTVAR.popcornobj.play();
+    },1000);
     //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
     //CLIENTVAR.popcornobj.play(perTime*currentTime);
 }
@@ -783,12 +784,13 @@ anbadoTimeLine.prototype.drawVisualization = function(type,think) {
      */
 
 
-//    if(think === undefined){
-//        var inttime = this.currentTime;
-//    }
-//    else{
+
+    if(think === undefined){
+        var inttime = this.currentTime;
+    }
+    else{
         var inttime = think.clickTime;
-//    }
+    }
     inttime = parseInt(inttime);
 
 

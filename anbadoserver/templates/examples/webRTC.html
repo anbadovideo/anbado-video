@@ -5,33 +5,29 @@
     <title>anbado player webrtc example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <!--<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>-->
+    {#    <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>#}
     <script type="text/javascript" src="{{ url_for('static', filename='external/popcorn-complete-modified.js') }}"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
     <script src="{{ url_for('static', filename='external/whammy.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='anbadoWebRTC.js') }}"></script>
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='examples/css/layout.css') }}">
 
     <script type="text/javascript">
 
-        function test() {
-            var popcornobj1 = Popcorn.smart("#youtube", "{{ url_for('static', filename='examples/video/introAnbadoVideo.mp4') }}");
 
-            popcornobj1.on("loadeddata", function() {
+        var popcornobj1;
+        function test() {
+            popcornobj1 = Popcorn.smart("#youtube", "{{ url_for('static', filename='examples/video/introAnbadoVideo.mp4') }}");
+            console.log(popcornobj1);
+            popcornobj1.on('loadeddata', function() {
                 anbado.webrtc.makeVidDom();
                 anbado.webrtc.webrtcSeting(5, 10);// 안바도 time,frame 순서로 셋팅해준다.
                 anbado.webrtc.getVideoObj(popcornobj1);
-
             });
 
-
             popcornobj1.on("playing", function() {
-
-
                 popcornobj1.on("timeupdate", function() {
 
                     anbado.webrtc.sinkRecord();
@@ -48,17 +44,32 @@
 </head>
 <body onload="test()">
 
+<div id="wrapper">
+    <div id="container">
+        <div id="top">
+            <div id="logo"></div>
+            <div id="sub_txt">WebRTC Example, anbado video solution</div>
+            <div id="signin_pannel">
+                <button id="top_default" onclick="location.href='{{ url_for('example', name='playerWithTimeline') }}';" >Default Example</button>
 
-<div id='youtube' style=width:600px;height:500px;top:100px;></div>
-
-
-<div id="videotag">
-    <vidtag>
-    </vidtag>
-    <button id="camera-on" onclick="anbado.webrtc.onCam()"> camera on</button>
-    <button id="record-video" onclick="anbado.webrtc.startRecord()"> start</button>
-    <!--<button id="first" onclick="anbado.webrtc.makeVidDom()"> makedom </button>-->
+                <button id="top_signup" class="active" onclick="location.href='{{ url_for('example', name='webRTC') }}';">WebRTC example</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<div id="player_wrap">
+    <div id="youtube" style="width:600px;height:500px;margin:auto;"></div>
+
+    <div id="videotag" style="text-align: center;">
+        <button id="camera-on" onclick="anbado.webrtc.onCam()"> camera on</button>
+        <button id="record-video" onclick="anbado.webrtc.startRecord()"> start</button>
+        <!--<button id="first" onclick="anbado.webrtc.makeVidDom()"> makedom </button>-->
+    </div>
+
+</div>
+
 
 
 </body>
