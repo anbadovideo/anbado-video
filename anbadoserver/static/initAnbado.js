@@ -28,7 +28,7 @@ if(videoID === undefined){
     var videoID = -1;
 }
 
-console.log(emoticonFilePrefix);
+//console.log(emoticonFilePrefix);
 var inputPanel;
 
 
