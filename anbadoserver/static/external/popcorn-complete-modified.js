@@ -8961,10 +8961,10 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           return "";
         });
 
-        autoPlay = ( /autoplay=1/.test( query ) );
+        autoPlay = ( /autoplay=0/.test( query ) );
 
         params = query.split( /[\&\?]/g );
-        playerVars = { wmode: "transparent", rel: 0, controls: 0, showinfo:0};
+        playerVars = { wmode: "transparent", rel: 0, controls: 0, showinfo:0, iv_load_policy:3};
 
         for( var i = 0; i < params.length; i++ ) {
           queryStringItem = params[ i ].split( "=" );

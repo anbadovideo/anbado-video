@@ -14,7 +14,7 @@ user1.save()
 user2 = User('anbado user2','/static/examples/img/profile2.jpg')
 user2.save()
 
-user3 = User('anbado user3','/static/examples/img/profile3.jpg')
+user3 = User('anbado user3','/static/examples/img/profile3.png')
 user3.save()
 
 
