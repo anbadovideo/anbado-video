@@ -227,8 +227,8 @@ jQuery.extend(true, anbado, (function($) {
      */
     var makeVidDom = function() {
 
-        $("vidtag").append("<video style='width:340px;height:280px' id = " + tempID + " controls/>");
-        $("vidtag").append("<canvas id=" + cnavasID + " style='display:none'/>");
+        $('vidtag').append("<video style='width:340px;height:280px' id = " + tempID + " controls/>");
+        $('vidtag').append("<canvas id=" + cnavasID + " style='display:none'/>");
     };
 
     /**
@@ -289,8 +289,8 @@ jQuery.extend(true, anbado, (function($) {
         viddom++;
         videoTagnum++;
         tempID = "test" + viddom;
-        $("vidtag").append("<video style='width:340px;height:280px' id = " + tempID + " controls/>");
-        $("vidtag").append("<canvas id=" + cnavasID + " style='display:none'/>");
+        $('vidtag').append("<video style='width:340px;height:280px' id = " + tempID + " controls/>");
+        $('vidtag').append("<canvas id=" + cnavasID + " style='display:none'/>");
         $("#" + "test" + (viddom - 1)).show();
         $("#" + tempID).hide();
         tagNumber = 's';

@@ -21,8 +21,8 @@
     <script type="text/javascript" src="{{ url_for('static', filename='anbadoRealtime.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='anbadoRestful.js') }}"></script>
     <script type="text/javascript">
-{#        anbado.realtime.setPrefixURL("http://localhost:8888");#}
-{#        anbado.restful.setPrefixURL("http://localhost:8888");#}
+        {#        anbado.realtime.setPrefixURL("http://localhost:8888");#}
+        {#        anbado.restful.setPrefixURL("http://localhost:8888");#}
     </script>
 
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -61,27 +61,27 @@
 
     <script>
 
-{#        function timeLineCover(evt){#}
-{##}
-{#            //console.log(evt);#}
-{#            var offsetLeft=$('#rect2').offset().left;#}
-{#            var offsetWidth=document.getElementById("rect2");#}
-{#            //console.log(offsetLeft);#}
-{##}
-{#            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함#}
-{##}
-{##}
-{#            var currentTime =(evt.clientX-offsetLeft);#}
-{#            var timeLineWidth=offsetWidth.width.baseVal.value;#}
-{##}
-{#            var perTime = CLIENTVAR.popcornobj.duration();#}
-{#            perTime=(perTime/timeLineWidth);#}
-{##}
-{##}
-{#            console.log('time :'+perTime*currentTime);#}
-{#            CLIENTVAR.popcornobj.play();#}
-{#            CLIENTVAR.popcornobj.play(perTime*currentTime);#}
-{#        }#}
+        {#        function timeLineCover(evt){#}
+        {##}
+        {#            //console.log(evt);#}
+        {#            var offsetLeft=$('#rect2').offset().left;#}
+        {#            var offsetWidth=document.getElementById("rect2");#}
+        {#            //console.log(offsetLeft);#}
+        {##}
+        {#            // alert("x:"+(evt.clientX-398));}// 여기 동영상 left 값을 offset 값으로 수정해줘야함#}
+        {##}
+        {##}
+        {#            var currentTime =(evt.clientX-offsetLeft);#}
+        {#            var timeLineWidth=offsetWidth.width.baseVal.value;#}
+        {##}
+        {#            var perTime = CLIENTVAR.popcornobj.duration();#}
+        {#            perTime=(perTime/timeLineWidth);#}
+        {##}
+        {##}
+        {#            console.log('time :'+perTime*currentTime);#}
+        {#            CLIENTVAR.popcornobj.play();#}
+        {#            CLIENTVAR.popcornobj.play(perTime*currentTime);#}
+        {#        }#}
 
 
     </script>
@@ -102,8 +102,8 @@
             <div id="sub_txt">Default Example, anbado video solution</div>
             <div id="signin_pannel">
                 <button id="top_default" class="active">Default Example</button>
-                <button id="top_signin" onclick="location.href='{{ url_for('example', name='timeline') }}';">Example1</button>
-                <button id="top_signup" onclick="location.href='{{ url_for('example', name='webRTC') }}';">Example2</button>
+
+                <button id="top_signup" onclick="location.href='{{ url_for('example', name='webRTC') }}';">WebRTC exmaple</button>
             </div>
         </div>
     </div>
@@ -128,7 +128,7 @@
         <div id="player" style="text-align: center;">
 
         </div>
-        <div style='position: relative;top:100px;'>
+        <div style='position: relative;top:200px;margin: 20px 0px 400px 25%;'>
             <select id="graphSelector" name="graph" onchange="graphselect();">
                 <option value="1" selected="selected">area graph</option>
                 <option value="2">line graph</option>
@@ -137,20 +137,20 @@
                 <option value="5">bar chart</option>
             </select>
 
-            <input id="happy" type="button" onclick="happybutton()" value="happy"/>
-            <input id="sad" type="button" onclick="sadbutton()" value="sad"/>
+            <input id="happy" type="button" onclick="happybutton({clickTime:CLIENTVAR.popcornobj.currentTime()})" value="good"/>
+            <input id="bad" type="button" onclick="sadbutton()" value="bad"/>
 
-<input id="btnPlay" type="button" size="53" onclick = "CLIENTVAR.popcornobj.play()" value="play"/>
-<input id="btnStop" type="button" size="53" onclick = "CLIENTVAR.popcornobj.pause()" value = "pause"/>
-<input id="btnCanvasOn" type="button" size="53" onclick = "$('#canvas1').show()" value = "canvas on"/>
-<input id="btnCanvasOff" type="button" size="53" onclick = "$('#canvas1').hide()" value = "canvas off"/>
-<input id="btnSummaryOn" type="button" size="53" onclick = "$('#mytimeline').show()" value = "summary on"/>
-<input id="btnSummaryOff" type="button" size="53" onclick = "$('#mytimeline').hide()" value = "summary off"/>
-<input id="btnSize1280X720" type="button" size="53" onclick = "" value = "1280 * 720"/>
-<input id="btnSize1600X900" type="button" size="53" onclick = "" value = "1600 * 900"/>
+            <input id="btnPlay" type="button" size="53" onclick = "CLIENTVAR.popcornobj.play()" value="play"/>
+            <input id="btnStop" type="button" size="53" onclick = "CLIENTVAR.popcornobj.pause()" value = "pause"/>
+            <input id="btnCanvasOn" type="button" size="53" onclick = "$('#canvas1').show()" value = "canvas on"/>
+            <input id="btnCanvasOff" type="button" size="53" onclick = "$('#canvas1').hide()" value = "canvas off"/>
+            <input id="btnSummaryOn" type="button" size="53" onclick = "$('#mytimeline').show();$('#mytimeline').offset($('#videoEmbed').offset());" value = "summary on"/>
+            <input id="btnSummaryOff" type="button" size="53" onclick = "$('#mytimeline').hide()" value = "summary off"/>
+            {#<input id="btnSize1280X720" type="button" size="53" onclick = "" value = "1280 * 720"/>#}
+            {#<input id="btnSize1600X900" type="button" size="53" onclick = "" value = "1600 * 900"/>#}
 
 
-</div>
+        </div>
 
         <div id="player_shadow"></div>
 
