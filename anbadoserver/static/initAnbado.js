@@ -152,9 +152,6 @@ document.addEventListener("DOMContentLoaded", function(){
         data1 = anbado.restful.getUserInfo(userID);
 
 
-
-
-
         /**
          * restful api를 이용하여 현재의 사용자 정보, 비디오 정보, 이 비디오에 참여한 사람들을 받아옴
          *
