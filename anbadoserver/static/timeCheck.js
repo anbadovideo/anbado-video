@@ -23,9 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             testObj.initialize(durationtime);
             testObj.setGraphShape(5);
-            var think ={};
-            think.clickTime = 0;
-            testObj.drawVisualization('g',think);
+
+            testObj.drawVisualization();
 
 
             setTimeout(function()
