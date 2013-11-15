@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
                  * 타임라인 앞 뒤 커버
                  */
                 testObj.coverId.setAttribute('height',70);
-                testObj.coverId.setAttribute('x',70);
+                testObj.coverId.setAttribute('x',71);
                 testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width')));
                 testObj.backcoverId.setAttribute('height',70);
                 testObj.backcoverId.setAttribute('x',70);
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 var coverTime=parseInt(ti*testObj.currentTime);
 
-                testObj.coverId.setAttribute('x',70+coverTime);
+                testObj.coverId.setAttribute('x',71+coverTime);
                 testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-coverTime);
 
                 testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
@@ -223,10 +223,13 @@ function happybutton(think) {
     testObj.drawVisualization('g',think);
 
 
-            setTimeout(function(){
+    console.log('time:'+parseInt(anbadoTimeLine.currentTime));
 
-    var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
-    var barName='.nv-bar.positive.nv-bar-0-'+parseInt((testObj.coverId.x.baseVal.value-70)/offsetBarWidth);
+    setTimeout(function(){
+
+    //var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
+    //var barName='.nv-bar.positive.nv-bar-0-'+parseInt((testObj.coverId.x.baseVal.value-70)/offsetBarWidth);
+    var barName='.nv-bar.positive.nv-bar-0-'+parseInt(testObj.currentTime);
 
     var docSelector= document.querySelector(barName);
 
