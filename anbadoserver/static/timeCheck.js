@@ -23,9 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             testObj.initialize(durationtime);
             testObj.setGraphShape(5);
-            var think ={};
-            think.clickTime = 0;
-            testObj.drawVisualization('g',think);
+
+            testObj.drawVisualization();
 
 
             setTimeout(function()
@@ -223,7 +222,7 @@ function happybutton(think) {
     testObj.drawVisualization('g',think);
 
 
-    console.log('time:'+parseInt(anbadoTimeLine.currentTime));
+//    console.log('time:'+parseInt(anbadoTimeLine.currentTime));
 
     setTimeout(function(){
 

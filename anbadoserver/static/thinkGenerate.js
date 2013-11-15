@@ -299,7 +299,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
     eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
 
 
-    console.log(think.profileImg.width/2);
+//    console.log(think.profileImg.width/2);
 
     var profileImgSize = 18;
     eaProfileImage.scaleX = profileImgSize / profileRadius; // 스케일을 조정하여 사이즈 조절
