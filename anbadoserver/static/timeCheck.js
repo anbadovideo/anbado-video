@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             setTimeout(function()
             {
+
                 var ba = document.getElementsByClassName("nv-linePlusBar");
                 ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
 
@@ -218,11 +219,19 @@ function graphselect() {
 
 var timeset = 2;
 function happybutton(think) {
+
     testObj.drawVisualization('g',think);
 
 
+            setTimeout(function(){
+
     var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
     var barName='.nv-bar.positive.nv-bar-0-'+parseInt((testObj.coverId.x.baseVal.value-70)/offsetBarWidth);
+
+    var docSelector= document.querySelector(barName);
+
+    docSelector.setAttribute('fill','green');
+                },100)
 
     //testObj.positionId.setAttribute('r',5);
 //      testObj.positionId.setAttribute('cy',(90-($(barName)[0].height.baseVal.value)));
