@@ -224,7 +224,8 @@ function happybutton(think) {
 
     //var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
     //var barName='.nv-bar.positive.nv-bar-0-'+parseInt((testObj.coverId.x.baseVal.value-70)/offsetBarWidth);
-    var barName='.nv-bar.positive.nv-bar-0-'+parseInt(testObj.currentTime);
+   // var barName='.nv-bar.positive.nv-bar-0-'+parseInt(testObj.currentTime);
+ var barName='.nv-bar.positive.nv-bar-0-'+parseInt(think.clickTime);
 
     var docSelector= document.querySelector(barName);
 
