@@ -515,7 +515,7 @@ var InputPanel = function(){
 
         var jqTextinput = $("#textinput1");
 
-        jqTextinput.keyup(function(evt) {
+        jqTextinput.keypress(function(evt) {
 
             var evt = evt || window.event;
 
