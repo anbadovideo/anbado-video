@@ -5,10 +5,6 @@
  */
 
 
-
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
 
 

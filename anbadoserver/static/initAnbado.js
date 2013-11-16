@@ -517,6 +517,8 @@ var InputPanel = function(){
 
         jqTextinput.keyup(function(evt) {
 
+            var evt = evt || window.event;
+
 //            console.log("keyup event" + evt);
 
 
