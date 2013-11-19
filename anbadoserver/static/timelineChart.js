@@ -35,12 +35,23 @@ function timeLineCover(evt){
 //    console.log('time :'+perTime*currentTime);
 
 
-    CLIENTVAR.popcornobj.pause(perTime*currentTime);
+    if(CLIENTVAR.popcornobj.paused()==true)
+    {
+        testObj.currentTime=perTime*currentTime;
+        CLIENTVAR.popcornobj.play(perTime*currentTime);
+
+    }
 
 
-    setTimeout(function(){
-        CLIENTVAR.popcornobj.play();
-    },3000);
+    CLIENTVAR.popcornobj.play(perTime*currentTime);
+
+//    CLIENTVAR.popcornobj.pause(perTime*currentTime);
+//
+//
+//    setTimeout(function(){
+//        CLIENTVAR.popcornobj.play();
+//    },3000);
+//
     //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
     //CLIENTVAR.popcornobj.play(perTime*currentTime);
 }
