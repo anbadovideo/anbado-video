@@ -32,7 +32,7 @@ function timeLineCover(evt){
 
 
 
-    console.log('time :'+perTime*currentTime);
+//    console.log('time :'+perTime*currentTime);
 
 
     CLIENTVAR.popcornobj.pause(perTime*currentTime);
@@ -40,7 +40,7 @@ function timeLineCover(evt){
 
     setTimeout(function(){
         CLIENTVAR.popcornobj.play();
-    },1000);
+    },3000);
     //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
     //CLIENTVAR.popcornobj.play(perTime*currentTime);
 }

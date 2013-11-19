@@ -8981,6 +8981,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           events: {
             "onReady": function(){
 
+
               // pulling initial volume states form baseplayer
               lastVolume = media.volume;
               lastMuted = media.muted;
@@ -8989,7 +8990,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
 
               paused = media.paused;
               createProperties();
-              options.youtubeObject.playVideo();
+//              options.youtubeObject.playVideo();
 
               media.currentTime = fragmentStart;
               // wait to dispatch ready events until we get a duration
