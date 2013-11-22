@@ -62,29 +62,49 @@ document.addEventListener("DOMContentLoaded", function() {
             },100)
         });
 
-
+var testwatchdog= 0,stuck=2;
         CLIENTVAR.popcornobj.on('play', function() {
-
+            testwatchdog=0;
 //        anbado.realtime.enterVideo(videoID, userID);
             $("#canvas1").show();
 
-            var stackedAreaObject = $('#stackedarea');
+           // var stackedAreaObject = $('#stackedarea');
 
-            $("#canvas1").show();
 
             inti = self.setInterval(function() {
                 summaryTimeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
                 summaryTimeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
+                timeCheck();
 
-//            console.log(this);
-                timeCheck()
+                if(testwatchdog==0)
+                {console.log('stuck...');stuck++;}
+
+
+            if(stuck>4)
+            {
+                CLIENTVAR.popcornobj.pause();
+                stuck=0;
+            }
+
+            else if(stuck<=4&&stuck>=0)
+            {
+                CLIENTVAR.popcornobj.play();
+                stuck=-1;
+            }
+
             }, 500);
+
+
+
 
             var k=parseInt($(testObj.videoId).css('width'));
             var ti=(k/testObj.durationTime);
 
+
+
             CLIENTVAR.popcornobj.on('timeupdate', function() {
 //            console.log(this.media.src);
+                testwatchdog=1;
 
                 var coverTime=parseInt(ti*testObj.currentTime);
 
@@ -101,13 +121,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         });
 
-        CLIENTVAR.popcornobj.on('loadeddata', function() {
-            console.log('loaded ');
-        });
 
-        CLIENTVAR.popcornobj.on('error', function() {
-            console.log('error');
-        });
+
+
+
 
         CLIENTVAR.popcornobj.on('pause',function(){
 
@@ -115,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         CLIENTVAR.popcornobj.on('seeking', function() {
+            console.log('seek');
             timeCheck();
         });
 
