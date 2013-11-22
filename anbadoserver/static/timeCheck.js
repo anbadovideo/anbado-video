@@ -101,7 +101,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         });
 
+        CLIENTVAR.popcornobj.on('loadeddata', function() {
+            console.log('loaded ');
+        });
 
+        CLIENTVAR.popcornobj.on('error', function() {
+            console.log('error');
+        });
 
         CLIENTVAR.popcornobj.on('pause',function(){
 

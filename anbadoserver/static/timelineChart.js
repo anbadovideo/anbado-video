@@ -36,7 +36,7 @@ function timeLineCover(evt){
 
          CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
 
-        CLIENTVAR.popcornobj.play();
+        //CLIENTVAR.popcornobj.play();
 //testObj.test++;
 //}
     //}
