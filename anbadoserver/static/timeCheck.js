@@ -77,7 +77,7 @@ var testwatchdog= 0,stuck=2;
                 timeCheck();
 
                 if(testwatchdog==0)
-                {console.log('stuck...');stuck++;}
+                {stuck++;}
 
 
             if(stuck>4)
