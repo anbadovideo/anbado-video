@@ -62,7 +62,10 @@ document.addEventListener("DOMContentLoaded", function() {
             },100)
         });
 
-var testwatchdog= 0,stuck=2;
+    //setInterval(function() {console.log('1');},500)
+
+
+var testwatchdog= 0,stuck= 2;
         CLIENTVAR.popcornobj.on('play', function() {
             testwatchdog=0;
 //        anbado.realtime.enterVideo(videoID, userID);
@@ -72,24 +75,28 @@ var testwatchdog= 0,stuck=2;
 
 
             inti = self.setInterval(function() {
+
                 summaryTimeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
                 summaryTimeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
                 timeCheck();
 
                 if(testwatchdog==0)
-                {stuck++;}
+                {//console.log('stuck');
+                    stuck++;}
 
-
-            if(stuck>4)
+            if(stuck>30&&testwatchdog==0)
             {
+                //console.log('pause');
                 CLIENTVAR.popcornobj.pause();
                 stuck=0;
             }
 
-            else if(stuck<=4&&stuck>=0)
+            else if(stuck<=30&&testwatchdog==0)
             {
+
+                //console.log('play');
                 CLIENTVAR.popcornobj.play();
-                stuck=-1;
+
             }
 
             }, 500);
@@ -117,6 +124,8 @@ var testwatchdog= 0,stuck=2;
 
             });
             // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
+
+
 
 
         });
