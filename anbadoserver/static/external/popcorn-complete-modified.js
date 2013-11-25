@@ -8964,7 +8964,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
         autoPlay = ( /autoplay=0/.test( query ) );
 
         params = query.split( /[\&\?]/g );
-        playerVars = { wmode: "transparent", rel: 0, controls: 0, showinfo:0, iv_load_policy:3,playsinline:1}; // relative recommend off, control off, information off, annotation off, inline on
+        playerVars = { wmode: "transparent", rel: 0, controls: 0, showinfo:0, iv_load_policy:3 ,playsinline:1}; // relative recommend off, control off, information off, annotation off, inline on
 
         for( var i = 0; i < params.length; i++ ) {
           queryStringItem = params[ i ].split( "=" );
@@ -8980,7 +8980,6 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           videoId: src,
           events: {
             "onReady": function(){
-
 
               // pulling initial volume states form baseplayer
               lastVolume = media.volume;

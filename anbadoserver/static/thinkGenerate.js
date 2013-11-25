@@ -24,6 +24,11 @@
 
 var anbado = window.anbado || {};
 
+/**
+ * think 객체에 대한 정보 생성
+ *
+ * @param think
+ */
 
 function thinkGenerate(think) { // video interaction event generation
 
@@ -296,14 +301,27 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
 //
 //    think.eaCanvasDisplayObject.addChild(eaBackNamePanel);
 
-
+    /**
+     * 생각을 만든 사람 이름
+     *
+     * @type {createjs.Text}
+     */
     var eaTextName = new createjs.Text(think.ownerName, 'bold 11px ' + textFont.toString(), '#00ddff');
     eaTextName.regX = -2;
     eaTextName.regY = 23;
     eaTextName.x = think.x;
     eaTextName.y = think.y;
 
+    /**
+     * 생각을 만든 사람의 프로필 사진
+     * @type {createjs.Shape}
+     */
+
     var eaProfileImage = new createjs.Shape();
+
+    /**
+     * 프로필 사진이 그려질 반경
+     */
     var profileRadius;
     profileRadius = (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2); // 프로파일 반지름을 설정해줌. 짦은 변을 기준으로
     eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
@@ -365,6 +383,10 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
         eaEmoticon.x = think.x + 7;
         eaEmoticon.y = think.y - 5;
 
+        /**
+         * 뒷 부분에 투명하게 패널을 넣어 시각성을 확보하며 이질감을 줄이도록 합니다.
+         * @type {createjs.Shape}
+         */
 
         var eaBackPanel = new createjs.Shape();
 //

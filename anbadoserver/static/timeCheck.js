@@ -7,10 +7,6 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-
-
-
-
         var inti;    // 타임체크 함수를 위한 카운터
         var totalCount = 0; // 이벤트들이 제대로 숫자가 생성되었는지를 확인하기 위한 부분임
 

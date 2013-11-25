@@ -38,7 +38,7 @@ function saveCoord(evt) {
 //    console.log("evt " + evt);
 
     /**
-     *
+     * 생각에 대한 정보들을 저장함. TODO : model.js에 따라 사용자 객체와 분리하도록
      *
      * @type {{ID: {}, step: number, ownerID: {}, ownerName: string, profileImg: string, clickTime: {}, occuredAbsoluteTime: {}, displayDuration: number, x: {}, y: {}, timelineOffset: {}, category: {}, content: {}, permission: {}, secUnit: {}, eaCanvasObject: {}, hasParent: boolean, parent: {}, parentID: number, childrenIDarray: Array}}
      */
@@ -70,14 +70,9 @@ function saveCoord(evt) {
     }; // 이벤트의 생성시점
     think.profileImg.src = data1.user.profile_image;
 
-
-
     think.x = evt.stageX;
     think.y = evt.stageY;
     think.clickTime = CLIENTVAR.popcornobj.currentTime();
-
-
-
 
     think.profileImg.onload = function(){
         displayInputPanel(think);
@@ -102,18 +97,14 @@ function displayInputPanel(think) { // on first screen, display text input panel
 
 //        console.log("inputPanelShow");
 
-
         var tempLocation = $('#canvas1').offset(); // 갠버스의 오프셋을 잡아 이를 스테이지값에 더해야 제대로 인풋 패널 표현이 가능하다.
 //        console.log("inputpanel === false" + think);
 
 //        alert(alert1);
 
         inputPanel.createPanel(think);
-
-
     }
     else if (CLIENTVAR.inputPanelShow === true) { // 클릭이 되어 있는 경우
-
 
 //        console.log("inputPanelShow True");
         inputPanel.deletePanel();
