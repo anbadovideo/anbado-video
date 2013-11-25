@@ -514,8 +514,6 @@ var InputPanel = function(){
 
         jqTextinput.keydown(function(evt) {
 
-            console.log(evt);
-            console.log(window.evt);
 
             var evt = evt || window.event;
 

@@ -93,6 +93,12 @@ function thinkGenerate(think) { // video interaction event generation
 
 }
 
+/**
+ * 서버에서 받은 think인지, 현재 세션에서 생성된 think인지를 체크합니다. 현재 세션에서 생성된 객체라면 이를 서버에 post 하는 과정을 거칩니다.
+ *
+ * @param think
+ */
+
 var thinkTypeCheck = function(think) {
     if (think.step === 1) { // 만들어지고 있는 이벤트
 
@@ -261,6 +267,11 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
 }
 
 
+/**
+ * 입력된 생각 객체를 캔버스 위에 추가할 수 있도록 캔버스 도형을 생성합니다.
+ *
+ * @param think : 서버에서 받은 think와 현재 세션에서 입력된 think가 전달됩니다.
+ */
 
 function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤트를 리스트에 넣게 되는 단계 (이것은 그리는 단계에서는 그러하고, 서버에서 받아오는 단계에서는 미리 저장한다
 

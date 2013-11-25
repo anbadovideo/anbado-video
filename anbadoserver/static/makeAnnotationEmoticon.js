@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /**
+ * 캔버스 위를 클릭했을 시에 좌표를 저장하며, think 객체를 생성하고 입력창을 호출하는 역할을 합니다.
  *
  * @param evt easeljs의 스테이지에서 발생한 마우스 이벤트
  */
