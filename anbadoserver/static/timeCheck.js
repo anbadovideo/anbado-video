@@ -62,29 +62,56 @@ document.addEventListener("DOMContentLoaded", function() {
             },100)
         });
 
+    //setInterval(function() {console.log('1');},500)
 
+
+var testwatchdog= 0,stuck= 2;
         CLIENTVAR.popcornobj.on('play', function() {
-
+            testwatchdog=0;
 //        anbado.realtime.enterVideo(videoID, userID);
             $("#canvas1").show();
 
-            var stackedAreaObject = $('#stackedarea');
+           // var stackedAreaObject = $('#stackedarea');
 
-            $("#canvas1").show();
 
             inti = self.setInterval(function() {
+
                 summaryTimeline.setCustomTime(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000));
                 summaryTimeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
+                timeCheck();
 
-//            console.log(this);
-                timeCheck()
+                if(testwatchdog==0)
+                {//console.log('stuck');
+                    stuck++;}
+
+            if(stuck>30&&testwatchdog==0)
+            {
+                //console.log('pause');
+                CLIENTVAR.popcornobj.pause();
+                stuck=0;
+            }
+
+            else if(stuck<=30&&testwatchdog==0)
+            {
+
+                //console.log('play');
+                CLIENTVAR.popcornobj.play();
+
+            }
+
             }, 500);
+
+
+
 
             var k=parseInt($(testObj.videoId).css('width'));
             var ti=(k/testObj.durationTime);
 
+
+
             CLIENTVAR.popcornobj.on('timeupdate', function() {
 //            console.log(this.media.src);
+                testwatchdog=1;
 
                 var coverTime=parseInt(ti*testObj.currentTime);
 
@@ -99,7 +126,12 @@ document.addEventListener("DOMContentLoaded", function() {
             // socket.emit('sample',{hello: CLIENTVAR.popcornobj.currentTime()});
 
 
+
+
         });
+
+
+
 
 
 
@@ -109,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         CLIENTVAR.popcornobj.on('seeking', function() {
+            console.log('seek');
             timeCheck();
         });
 

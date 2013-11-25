@@ -16,7 +16,11 @@
 function timeLineCover(evt){
 
 
-    //console.log(evt);
+
+    //if(CLIENTVAR.popcornobj.paused()==true)
+    //{
+
+//if(testObj.test==0){
     var offsetLeft=$('#rect2').offset().left;
     var offsetWidth=document.getElementById("rect2");
     //console.log(offsetLeft);
@@ -30,20 +34,24 @@ function timeLineCover(evt){
     var perTime = CLIENTVAR.popcornobj.duration();
     perTime=(perTime/timeLineWidth);
 
+         CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
+   CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
+   CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
+   CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
 
 
-//    console.log('time :'+perTime*currentTime);
 
 
-    if(CLIENTVAR.popcornobj.paused()==true)
-    {
-        testObj.currentTime=perTime*currentTime;
-        CLIENTVAR.popcornobj.play(perTime*currentTime);
-
-    }
+        //CLIENTVAR.popcornobj.play();
+//testObj.test++;
+//}
+    //}
 
 
-    CLIENTVAR.popcornobj.play(perTime*currentTime);
+        //testObj.currentTime=perTime*currentTime;
+        //CLIENTVAR.popcornobj.play();
+        //testObj.currentTime=perTime*currentTime;
+
 
 //    CLIENTVAR.popcornobj.pause(perTime*currentTime);
 //
@@ -111,6 +119,8 @@ function mouseOutCover(evt)
 
 var anbadoTimeLine = function(getId) {
 
+
+    this.test=0
     /**
      * getid  로 동영상 플레이어의 width 와 height 의 길이를 불러와서
      * 타임라인에 적용시킨다.
