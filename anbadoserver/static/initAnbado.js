@@ -512,7 +512,7 @@ var InputPanel = function(){
 
         var jqTextinput = $("#textinput1");
 
-        jqTextinput.keyup(function(evt) {
+        jqTextinput.keydown(function(evt) {
 
             console.log(evt);
             console.log(window.evt);
