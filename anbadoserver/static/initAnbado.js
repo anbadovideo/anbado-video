@@ -341,9 +341,6 @@ document.addEventListener("DOMContentLoaded", function(){
         CLIENTVAR.chatLeftStage = new createjs.Stage(CLIENTVAR.canvas3);
         CLIENTVAR.chatRightStage = new createjs.Stage(CLIENTVAR.canvas4);
 
-
-
-
 //    var myGraphics = new createjs.Shape();
 //    myGraphics.graphics.beginFill("#28343C").drawRect(0,0,640,480);
 //
@@ -515,7 +512,10 @@ var InputPanel = function(){
 
         var jqTextinput = $("#textinput1");
 
-        jqTextinput.keypress(function(evt) {
+        jqTextinput.keyup(function(evt) {
+
+            console.log(evt);
+            console.log(window.evt);
 
             var evt = evt || window.event;
 
