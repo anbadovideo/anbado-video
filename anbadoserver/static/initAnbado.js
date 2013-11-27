@@ -271,16 +271,6 @@ document.addEventListener("DOMContentLoaded", function(){
                     thinkGenerate(think);
                 });
 
-
-
-
-
-
-
-
-
-
-
 //                console.log(think.profileImg);
                 CLIENTVAR.totalEvent++;
 //                think.profileImg.onload = function(){
@@ -293,11 +283,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         drawTimelineVisualization();
-
-
-
-
-
 
         var youtubeID = CLIENTVAR.popcornobj.media.src.split('.be/')[1];
         if(youtubeID === undefined){
@@ -396,8 +381,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
 
-        CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에서 친구들의 생각을 보거나 여러분의 생각을 남기실 수 있어요"));
-
+//        CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에서 친구들의 생각을 보거나 여러분의 생각을 남기실 수 있어요"));
 
 
     }
