@@ -80,20 +80,21 @@ var testwatchdog= 0,stuck= 2;
                 {//console.log('stuck');
                     stuck++;}
 
-            if(stuck>30&&testwatchdog==0)
+            if(stuck>5&&testwatchdog==0)
             {
                 //console.log('pause');
                 CLIENTVAR.popcornobj.pause();
                 stuck=0;
-            }
-
-            else if(stuck<=30&&testwatchdog==0)
-            {
-
-                //console.log('play');
                 CLIENTVAR.popcornobj.play();
-
             }
+//
+//            else if(stuck<=30&&testwatchdog==0)
+//            {
+//
+//                //console.log('play');
+//                CLIENTVAR.popcornobj.play();
+//
+//            }
 
             }, 500);
 
