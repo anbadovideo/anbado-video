@@ -311,7 +311,9 @@ document.addEventListener("DOMContentLoaded", function(){
 //    CLIENTVAR.canvaslayer.onclick = displayInputPanel; // 캔버스 온클릭의 경우 스테이지에서의 고저차가 무시되어버린다는 문제점이 발생한다. 원래 이를 캔버스 이벤트로 둔것은 인풋 패널을 위치시킬 때 easel 객체가 너무 많이 생성되었기 때문이었다. (그래서 인풋 패널을 놓기 위해 이렇게 생성) 하지만 stage의 위아래가 구분안되는 문제가 있어, stage이벤트로 가야한다(대댓글의 문제에서 특히)
 
 
+
         CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
+        createjs.Touch.enable(CLIENTVAR.stage);
 //    CLIENTVAR.stage.onMouseDown = saveCoord; // 스테이지 자체에 대한 클릭을 받으면 객체 위에 올려지는 객체에 대한 클릭을 받지 못하게된다(이벤트가 stage클릭이 우선이므로)
 //    CLIENTVAR.stage.addEventListener("click", displayInputPanel);
 
