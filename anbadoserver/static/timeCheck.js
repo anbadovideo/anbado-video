@@ -76,25 +76,27 @@ var testwatchdog= 0,stuck= 2;
                 summaryTimeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
                 timeCheck();
 
+
                 if(testwatchdog==0)
                 {//console.log('stuck');
+
                     stuck++;}
 
-            if(stuck>5&&testwatchdog==0)
+            if(stuck>10&&testwatchdog==0)
             {
-                //console.log('pause');
+                //console.log('pause and play');
                 CLIENTVAR.popcornobj.pause();
                 stuck=0;
-                CLIENTVAR.popcornobj.play();
+
             }
-//
-//            else if(stuck<=30&&testwatchdog==0)
-//            {
-//
-//                //console.log('play');
-//                CLIENTVAR.popcornobj.play();
-//
-//            }
+
+            else if(stuck<=10&&testwatchdog==0)
+            {
+
+                //console.log('play');
+                CLIENTVAR.popcornobj.play();
+
+            }
 
             }, 500);
 
