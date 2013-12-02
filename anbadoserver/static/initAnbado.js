@@ -111,11 +111,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         if(data2.video.provider === 'youtube'){
-            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-160)+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-100)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-130)+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-130)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
 
         }
         else if(data2.video.provider === 'vimeo'){
-            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-100)+'px" style="position:relative; width:'+(videoWidth-50)+'px;'+'height:'+(videoHeight-100)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+            jqTargetDOM.append('<canvas id="canvas1" width = "'+(videoWidth-50)+'px" height = "'+(videoHeight-100)+'px" style="position:relative; width:'+(videoWidth-50)+'px;'+'height:'+(videoHeight-100)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
         }
         else{
             jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+videoHeight+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+videoHeight+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
