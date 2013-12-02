@@ -135,6 +135,7 @@ var testwatchdog= 0,stuck= 2;
 
 
         CLIENTVAR.popcornobj.on('pause',function(){
+            $("#canvas1").hide();
 
             inti = window.clearInterval(inti);
         });
