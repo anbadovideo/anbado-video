@@ -128,7 +128,7 @@ var thinkTypeCheck = function(think) {
                     content: think.content,
                     category: 'text',
                     parent_id: -1,
-                    permission: 'protected',
+                    permission: 'public',
                     coord: [think.x, think.y],
                     size: [CLIENTVAR.popcornobj.media.width, CLIENTVAR.popcornobj.media.height]
                 });
@@ -154,7 +154,7 @@ var thinkTypeCheck = function(think) {
                     content: think.content,
                     category: 'image',
                     parent_id: -1,
-                    permission: 'protected',
+                    permission: 'public',
                     coord: [think.x, think.y],
                     size: [CLIENTVAR.popcornobj.media.width, CLIENTVAR.popcornobj.media.height]
                 });
