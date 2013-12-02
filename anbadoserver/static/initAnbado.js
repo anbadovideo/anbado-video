@@ -195,90 +195,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         CLIENTVAR.popcornobj.on("loadeddata",function(){
-            for(var tempCounter = 0; tempCounter <= Math.floor(CLIENTVAR.popcornobj.duration()); tempCounter++){
-                CLIENTVAR.thinkTriggerList[tempCounter] = []; // 2차원 배열 할당을 위해 할당함. 각 초에서 시작할 이벤트를 모두 기록한다.
-            }
 
             anbado.realtime.enterVideo(videoID,userID);
-
-
-
-            anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
-                var tempType = "";
-                if(evt.category == "text"){
-                    tempType = "textinput1"
-
-                }
-                else if(evt.category === 'image'){
-
-                    tempType = 'image';
-
-                }
-//            console.log("evt.userid is " + evt.user_id);
-                var thinkOwner = anbado.restful.getUserInfo(evt.user_id).user;
-
-                var think = {  // 전역 이벤트 없이 통과해가며 완성됨
-
-                    ID : CLIENTVAR.totalEvent,
-                    step :3, // 0은 생성상태. 1은 생성 중. 2는 생성완료. 3은 외부 이벤트
-
-                    ownerID : evt.user_id,
-
-                    ownerName : thinkOwner.name,
-                    profileImg : new Image(),
-
-                    clickTime : evt.appeared, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
-                    occuredAbsoluteTime : evt.registered, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
-
-                    displayDuration : evt.disappeared - evt.appeared, // 얼마나 지속되는지
-                    x : evt.coord[0] ,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
-                    y : evt.coord[1] ,
-                    timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
-                    category : tempType, // think type e.g text, emoticon, image, button action, webcam
-                    content : evt.content, // 이모티콘인 경우에 주소를 넘김
-                    contentImg : new Image(),
-                    permission : evt.permission,
-                    secUnit : {},// 몇번째 유닛인지?
-                    eaCanvasObject : {}, // easeljs 객체를 추가해주기 위해서 컨테이너를 하위 속성으로 가지고 있음.
-
-                    hasParent : false, // 이것이 최상위 이벤트인가? 밑에 댓글이 달려있는가? 부모 이벤트가 없다면 최상위 이벤트(이거나 독립 이벤트)로 간주
-                    parent : {}, // 이미 달린 반응에 클릭해서 남기는 경우 그에 대한 부모 이벤트 아이디를 저장함 TODO: 저장할 필요가 있나? 이미 아이디를 가지는데 객체를 저장할 필요는 없지 않을까?
-                    parentID: -1 , // 0 인 경우에 단독이고, 부모 이벤트 아이디가 있는 경우
-                    childrenIDarray:[] // 자식들이 생기게 되면 이를 표현해줌. 객체 배열을 가지지 말고 eventList에서 참조할 수 있도록 아이디만 가지고 가도록
-                }; // 이벤트의 생성시점
-
-
-                var promise1 = $.Deferred();
-                var promise2 = $.Deferred();
-
-
-                if(evt.category === 'image'){
-                    think.contentImg.src = evt.content;
-                    think.contentImg.onload = function(){
-                        promise1.resolve();
-                    }
-                }
-                else{
-                    promise1.resolve(); // 텍스트인경우 바로 resolve
-                }
-
-                think.profileImg.src = thinkOwner.profile_image;
-                think.profileImg.onload = function(){
-                    promise2.resolve();
-                };
-
-                $.when(promise1, promise2).then(function(){
-                    thinkGenerate(think);
-                });
-
-//                console.log(think.profileImg);
-                CLIENTVAR.totalEvent++;
-//                think.profileImg.onload = function(){
-//
-//                    thinkGenerate(think);
-//                };
-
-            });
+            eventArrive();
         });
 
 
@@ -379,9 +298,16 @@ document.addEventListener("DOMContentLoaded", function(){
         deferred.done(videoDomAppend('#player',880,540),canvasPositioning('#player', 880, 540),videoLoad(),drawTimelineVisualization());
 
 
+
         CLIENTVAR.canvaslayer = document.getElementById("canvas1");
 
         CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
+
+        CLIENTVAR.popcornobj.on("loadeddata",function(){
+
+            anbado.realtime.enterVideo(videoID,userID);
+            eventArrive();
+        });
 
 //        CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에서 친구들의 생각을 보거나 여러분의 생각을 남기실 수 있어요"));
 
@@ -402,6 +328,92 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 });
+
+function eventArrive(){
+
+    for(var tempCounter = 0; tempCounter <= Math.floor(CLIENTVAR.popcornobj.duration()); tempCounter++){
+        CLIENTVAR.thinkTriggerList[tempCounter] = []; // 2차원 배열 할당을 위해 할당함. 각 초에서 시작할 이벤트를 모두 기록한다.
+    }
+
+
+    anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
+        var tempType = "";
+        if(evt.category == "text"){
+            tempType = "textinput1"
+
+        }
+        else if(evt.category === 'image'){
+
+            tempType = 'image';
+
+        }
+//            console.log("evt.userid is " + evt.user_id);
+        var thinkOwner = anbado.restful.getUserInfo(evt.user_id).user;
+
+        var think = {  // 전역 이벤트 없이 통과해가며 완성됨
+
+            ID : CLIENTVAR.totalEvent,
+            step :3, // 0은 생성상태. 1은 생성 중. 2는 생성완료. 3은 외부 이벤트
+
+            ownerID : evt.user_id,
+
+            ownerName : thinkOwner.name,
+            profileImg : new Image(),
+
+            clickTime : evt.appeared, // 플레어에서의 currentTime을 받는 것으로. 상대 시간
+            occuredAbsoluteTime : evt.registered, // 이벤트가 생성된 현재 시간.(실제 현실 시간, 이를 이용해 사용자가 남긴 반응들을 시점별로 정렬이 가능)
+
+            displayDuration : evt.disappeared - evt.appeared, // 얼마나 지속되는지
+            x : evt.coord[0] ,  // 화면의 디스플레이를 표시하도록. 실제로 디스플레이 되는 것은 eaCanvasDisplayObject이나 좌표값은 보존한다.
+            y : evt.coord[1] ,
+            timelineOffset : {},  // 타임라인에서 얼마나 떨어져 있는가?
+            category : tempType, // think type e.g text, emoticon, image, button action, webcam
+            content : evt.content, // 이모티콘인 경우에 주소를 넘김
+            contentImg : new Image(),
+            permission : evt.permission,
+            secUnit : {},// 몇번째 유닛인지?
+            eaCanvasObject : {}, // easeljs 객체를 추가해주기 위해서 컨테이너를 하위 속성으로 가지고 있음.
+
+            hasParent : false, // 이것이 최상위 이벤트인가? 밑에 댓글이 달려있는가? 부모 이벤트가 없다면 최상위 이벤트(이거나 독립 이벤트)로 간주
+            parent : {}, // 이미 달린 반응에 클릭해서 남기는 경우 그에 대한 부모 이벤트 아이디를 저장함 TODO: 저장할 필요가 있나? 이미 아이디를 가지는데 객체를 저장할 필요는 없지 않을까?
+            parentID: -1 , // 0 인 경우에 단독이고, 부모 이벤트 아이디가 있는 경우
+            childrenIDarray:[] // 자식들이 생기게 되면 이를 표현해줌. 객체 배열을 가지지 말고 eventList에서 참조할 수 있도록 아이디만 가지고 가도록
+        }; // 이벤트의 생성시점
+
+
+        var promise1 = $.Deferred();
+        var promise2 = $.Deferred();
+
+
+        if(evt.category === 'image'){
+            think.contentImg.src = evt.content;
+            think.contentImg.onload = function(){
+                promise1.resolve();
+            }
+        }
+        else{
+            promise1.resolve(); // 텍스트인경우 바로 resolve
+        }
+
+        think.profileImg.src = thinkOwner.profile_image;
+        think.profileImg.onload = function(){
+            promise2.resolve();
+        };
+
+        $.when(promise1, promise2).then(function(){
+            thinkGenerate(think);
+        });
+
+//                console.log(think.profileImg);
+        CLIENTVAR.totalEvent++;
+//                think.profileImg.onload = function(){
+//
+//                    thinkGenerate(think);
+//                };
+
+    });
+
+}
 
 
 var InputPanel = function(){
