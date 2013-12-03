@@ -724,6 +724,7 @@ anbadoTimeLine.prototype.drawBarChart = function() {
 
 //
 
+
     var testdata = [
         {
             "key": "Quantity",
@@ -780,6 +781,8 @@ anbadoTimeLine.prototype.drawBarChart = function() {
 
         return chart;
     });
+
+
 };
 
 
@@ -832,6 +835,8 @@ anbadoTimeLine.prototype.drawVisualization = function(type,think) {
     else if (type === 'b') {
         this.badData[inttime][1] = (this.badData[inttime][1] + 1);
     }
+
+
 
 
     switch (this.graphShape) {

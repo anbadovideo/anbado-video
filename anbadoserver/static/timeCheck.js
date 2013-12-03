@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 var ba = document.getElementsByClassName("nv-linePlusBar");
                 ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
-
+                ba[0].setAttribute("transform","translate(10,8)");
 
                 /**
                  * 원 svg
@@ -264,7 +264,13 @@ function happybutton(think) {
     var docSelector= document.querySelector(barName);
 
     docSelector.setAttribute('fill','green');
-                },100)
+
+                var ba = document.getElementsByClassName("nv-linePlusBar");
+                ba[0].setAttribute("transform","translate(10,8)");
+
+                },10)
+
+
 
     //testObj.positionId.setAttribute('r',5);
 //      testObj.positionId.setAttribute('cy',(90-($(barName)[0].height.baseVal.value)));
