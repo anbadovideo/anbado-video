@@ -129,13 +129,9 @@ var testwatchdog= 0,stuck= 2;
 
         });
 
-
-
-
-
-
         CLIENTVAR.popcornobj.on('pause',function(){
-            $("#canvas1").hide();
+            $('#canvas1').hide();
+            $('#summaryPanel').hide();
 
             inti = window.clearInterval(inti);
         });
@@ -286,8 +282,8 @@ function happybutton(think) {
         category: 'good',
         content:'good',
         permission:'public',
-        coord: [100, 100],
-        size: [200, 100]
+        coord: [0, 0],
+        size: [CLIENTVAR.popcornobj.media.width, CLIENTVAR.popcornobj.media.height]
     });
 
 //               for(var i=0;i<$('.tick.major line').length+1;i++)

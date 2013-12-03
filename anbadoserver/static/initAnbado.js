@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function(){
         inputPanel = new InputPanel();
 
     }
-    else if(userID == -1){
+    else if(userID == -1){      // anonymous user
         if(videoID == -1){
             return;
         }
@@ -337,6 +337,7 @@ function eventArrive(){
 
 
     anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
+        console.log(evt);
         var tempType = "";
         if(evt.category == "text"){
             tempType = "textinput1"
@@ -412,6 +413,8 @@ function eventArrive(){
 //                };
 
     });
+
+    console.log('arrive');
 
 }
 

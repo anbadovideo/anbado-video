@@ -33,7 +33,13 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
         video = Video.by_video_id(params['video_id'])
         events = video.event_permitted_to(user)
 
-        self.user_id = user.user_id
+        if user is None :
+            user = User(u'Anonymous', '',)
+
+            self.user_id = -1
+        else :
+            self.user_id = user.user_id
+
         self.video_id = video.video_id
 
         frogspawn.put({

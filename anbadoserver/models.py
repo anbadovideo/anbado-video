@@ -109,6 +109,19 @@ class Video(db.Model, JsonifiedModel):
     def event_permitted_to(self, user):
         if user is None:
             user_id = -1
+            try:
+                results = self._events.filter(Event.permission == 'public').all()
+
+                depth2_events = self._events.filter(Event.permission == 'inherited').all()
+                for event in depth2_events:
+                    if event.user_id == user.user_id or event._parent.permission == 'public' or (
+                                event._parent.permission == 'protected' and event._parent._user.friends.exists(user)):
+                        results.append(event)
+
+                return results
+            except SQLAlchemyError:
+                return []
+
         else:
             user_id = user.user_id
 
