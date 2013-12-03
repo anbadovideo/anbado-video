@@ -87,7 +87,7 @@ function mooseOnCover(evt)
     //perTime=(perTime/timeLineWidth);
     testObj.positionId.setAttribute('r',5);
 
-    testObj.positionId.setAttribute('cy',90-($(barName)[0].height.baseVal.value));
+    testObj.positionId.setAttribute('cy',75-($(barName)[0].height.baseVal.value));
     testObj.positionId.setAttribute('cx',currentTime+10);
     // console.log('evt:'+evt.clientX);
     //console.log('evt:'+parseInt(currentTime/offsetBarWidth));
