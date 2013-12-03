@@ -337,7 +337,7 @@ function eventArrive(){
 
 
     anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
-        console.log(evt);
+
         var tempType = "";
         if(evt.category == "text"){
             tempType = "textinput1"
@@ -414,7 +414,7 @@ function eventArrive(){
 
     });
 
-    console.log('arrive');
+
 
 }
 
