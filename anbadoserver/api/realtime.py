@@ -33,9 +33,8 @@ class SocketIONamespace(BaseNamespace, RoomsMixin):
         video = Video.by_video_id(params['video_id'])
         events = video.event_permitted_to(user)
 
-        if user is None :
+        if not user :
             user = User(u'Anonymous', '',)
-
             self.user_id = -1
         else :
             self.user_id = user.user_id
