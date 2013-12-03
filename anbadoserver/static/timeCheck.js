@@ -33,18 +33,20 @@ document.addEventListener("DOMContentLoaded", function() {
                  * 원 svg
                  */
                     //testObj.positionId.setAttribute('r',5);
-                testObj.positionId.setAttribute('cy',15);
-                testObj.positionId.setAttribute('cx',60);
+                testObj.positionId.setAttribute('cy',0);
+                testObj.positionId.setAttribute('cx',10);
                 testObj.positionId.setAttribute('fill','red');
                 /**
                  * 타임라인 앞 뒤 커버
                  */
-                testObj.coverId.setAttribute('height',70);
-                testObj.coverId.setAttribute('x',71);
-                testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width')));
-                testObj.backcoverId.setAttribute('height',70);
-                testObj.backcoverId.setAttribute('x',70);
-                testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width')));
+                testObj.coverId.setAttribute('height',80);
+                testObj.coverId.setAttribute('x',10);
+                testObj.coverId.setAttribute('y',0);
+                testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-10);
+                testObj.backcoverId.setAttribute('height',80);
+                testObj.backcoverId.setAttribute('x',10);
+                testObj.backcoverId.setAttribute('y',0);
+                testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-10);
 
                 /**
                  * 동영상 타임 , 클릭수 에서 나오는 하얀색 기준선을 없애는 jauery
@@ -103,7 +105,7 @@ var testwatchdog= 0,stuck= 2;
 
 
 
-            var k=parseInt($(testObj.videoId).css('width'));
+            var k=parseInt($(testObj.videoId).css('width'))-10;
             var ti=(k/testObj.durationTime);
 
 
@@ -114,8 +116,8 @@ var testwatchdog= 0,stuck= 2;
 
                 var coverTime=parseInt(ti*testObj.currentTime);
 
-                testObj.coverId.setAttribute('x',71+coverTime);
-                testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-coverTime);
+                testObj.coverId.setAttribute('x',coverTime+10);
+                testObj.coverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-coverTime-10);
 
                 testObj.getCurrentTime(CLIENTVAR.popcornobj.currentTime());
                 //testObj.tooltip();

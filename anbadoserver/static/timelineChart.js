@@ -88,7 +88,7 @@ function mooseOnCover(evt)
     testObj.positionId.setAttribute('r',5);
 
     testObj.positionId.setAttribute('cy',90-($(barName)[0].height.baseVal.value));
-    testObj.positionId.setAttribute('cx',currentTime+70);
+    testObj.positionId.setAttribute('cx',currentTime+10);
     // console.log('evt:'+evt.clientX);
     //console.log('evt:'+parseInt(currentTime/offsetBarWidth));
     //console.log('evt:'+(90-($(barName)[0].height.baseVal.value)));
@@ -344,10 +344,11 @@ anbadoTimeLine.prototype.initialize = function(time) {
     this.pijQueryId.css('left', (parseInt(width) / 3) + 'px');
     this.halfjQueryId.css('top', height);
     this.halfjQueryId.css('left', (parseInt(width) / 3) + 'px');
-    this.barjQueryId.css('top', parseInt(height) -25);
-    this.barjQueryId.css('left', -80);
 
-    this.barjQueryId.css('width', parseInt(width) +130);
+    this.barjQueryId.css('top', parseInt(height));
+    this.barjQueryId.css('left', 0);
+
+    this.barjQueryId.css('width', parseInt(width));
 
     this.coverId= document.getElementById("rect1");
     this.backcoverId= document.getElementById("rect2");
@@ -743,7 +744,7 @@ anbadoTimeLine.prototype.drawBarChart = function() {
     nv.addGraph(function() {
 
         chart = nv.models.linePlusBarChart()
-            .margin({top: 30, right: 60, bottom: 50, left: 70})
+            .margin({top: 0, right: 0, bottom: 40, left:10})
             .x(function(d, i) {
                 return i
             })

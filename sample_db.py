@@ -32,7 +32,7 @@ user2.save()
 video = Video('anbado', 'http://web1.anbado.com/data/introAnbadoVideo.mp4', u'sample', 400, user1)
 video.save()
 
-video2 = Video('youtube', 'http://www.youtube.com/watch?v=Ks-_Mh1QhMc', u'youtubeSample', 400, user1)
+video2 = Video('youtube', 'http://www.youtube.com/watch?feature=player_embedded&v=91P_j2nVBQU', u'youtubeSample', 400, user1)
 video2.save()
 
 video3 = Video('vimeo', 'http://vimeo.com/78788086', u'vimeoSample', 400, user1)
