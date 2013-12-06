@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 var ba = document.getElementsByClassName("nv-linePlusBar");
                 ba[0].parentNode.insertBefore(ba[0],ba[0].parentNode.firstChild);
-                ba[0].setAttribute("transform","translate(10,8)");
+                //ba[0].setAttribute("transform","translate(10,8)");
 
                 /**
                  * 원 svg
@@ -47,6 +47,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 testObj.backcoverId.setAttribute('x',10);
                 testObj.backcoverId.setAttribute('y',0);
                 testObj.backcoverId.setAttribute('width',parseInt($(testObj.videoId).css('width'))-10);
+
+
+                /**
+                 * 차트 뒤에 시간이 가려지는 문제 해결
+                 */
+                //$('#barchart').width(980);
 
                 /**
                  * 동영상 타임 , 클릭수 에서 나오는 하얀색 기준선을 없애는 jauery
@@ -265,8 +271,9 @@ function happybutton(think) {
 
     docSelector.setAttribute('fill','green');
 
-                var ba = document.getElementsByClassName("nv-linePlusBar");
-                ba[0].setAttribute("transform","translate(10,8)");
+                //var ba = document.getElementsByClassName("nv-linePlusBar");
+                //ba[0].setAttribute("transform","translate(10,8)");
+
 
                 },10)
 

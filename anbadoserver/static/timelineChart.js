@@ -753,6 +753,7 @@ anbadoTimeLine.prototype.drawBarChart = function() {
 
         chart.xAxis.tickFormat(function (d) {
             var dx = testdata[0].values[d] && testdata[0].values[d].x || 0;
+                dx=null;
 
             return dx ? d3.time.format('%M'+':'+'%S')(new Date(dx)) : '';
         })

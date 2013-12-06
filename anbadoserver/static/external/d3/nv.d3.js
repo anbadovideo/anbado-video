@@ -5067,7 +5067,8 @@ nv.models.linePlusBarChart = function() {
       //------------------------------------------------------------
 
 
-      wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      //wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+ wrap.attr('transform', 'translate(' + 10 + ',' + 8 + ')');
 
 
       //------------------------------------------------------------
@@ -5108,8 +5109,11 @@ nv.models.linePlusBarChart = function() {
 
       xAxis
         .scale(x)
-        .ticks( availableWidth / 100 )
-        .tickSize(-availableHeight, 0);
+        //.ticks( availableWidth /100 )
+        .ticks(3)
+          .tickSize(-availableHeight, 0);
+
+
 
       g.select('.nv-x.nv-axis')
           .attr('transform', 'translate(0,' + y1.range()[0] + ')');
