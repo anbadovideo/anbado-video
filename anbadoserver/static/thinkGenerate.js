@@ -323,6 +323,7 @@ function eaDisplaySetting(think) { // 객체를 캔버스에 저장하고 이벤
      * 프로필 사진이 그려질 반경
      */
     var profileRadius;
+
     profileRadius = (think.profileImg.width > think.profileImg.height ? think.profileImg.height/2 : think.profileImg.width/2); // 프로파일 반지름을 설정해줌. 짦은 변을 기준으로
     eaProfileImage.graphics.beginBitmapFill(think.profileImg).drawCircle(think.profileImg.width/2, think.profileImg.height/2, profileRadius); //
 

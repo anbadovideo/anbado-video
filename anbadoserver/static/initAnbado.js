@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function(){
         jqVideoEmbed = $('#videoEmbed');
         CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
         CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
-        CLIENTVAR.popcornobj.controls(false);
+        CLIENTVAR.popcornobj.controls(true);
 
 
         CLIENTVAR.popcornobj.on("loadeddata",function(){
@@ -337,6 +337,7 @@ function eventArrive(){
 
 
     anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
+        console.log(evt);
 
         var tempType = "";
         if(evt.category == "text"){
@@ -382,6 +383,8 @@ function eventArrive(){
         }; // 이벤트의 생성시점
 
 
+
+
         var promise1 = $.Deferred();
         var promise2 = $.Deferred();
 
@@ -404,6 +407,9 @@ function eventArrive(){
         $.when(promise1, promise2).then(function(){
             thinkGenerate(think);
         });
+
+        console.log('evt profile : ' + think.profileImg.src );
+        console.log('evt content : ' + think.contentImg.src );
 
 //                console.log(think.profileImg);
         CLIENTVAR.totalEvent++;
