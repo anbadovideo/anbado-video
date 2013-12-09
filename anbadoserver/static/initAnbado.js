@@ -337,7 +337,7 @@ function eventArrive(){
 
 
     anbado.realtime.onEvent(function(evt){ // 이벤트 도착 처리 핸들러
-        console.log(evt);
+
 
         var tempType = "";
         if(evt.category == "text"){
@@ -408,8 +408,7 @@ function eventArrive(){
             thinkGenerate(think);
         });
 
-        console.log('evt profile : ' + think.profileImg.src );
-        console.log('evt content : ' + think.contentImg.src );
+
 
 //                console.log(think.profileImg);
         CLIENTVAR.totalEvent++;
