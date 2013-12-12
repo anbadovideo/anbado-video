@@ -88,27 +88,18 @@ document.addEventListener("DOMContentLoaded", function(){
 
         }
 
+        jqVideoEmbed = $('#videoEmbed'); // size fitting
+        CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
+        CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
+
     }
 
     var canvasPositioning = function(targetDOM, videoWidth, videoHeight){
 
 
         var jqTargetDOM = $(targetDOM);
-
-//    console.log("player offset is " + $("#player").offset());
-//    $("#videoEmbed").css({"left":0, "top":0});
         var jqVideoEmbed =$("#videoEmbed");
         jqVideoEmbed.css({"width":videoWidth, "height":videoHeight});
-//    $("#videoEmbed").offset({left:500, top:300});
-
-
-        // OK code
-//    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
-//    $(targetDOM).append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
-
-        // experiment
-//    $(targetDOM).append('<canvas id="canvas1" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>'); // OK code for canvas positioning
-
 
         if(data2.video.provider === 'youtube'){
             jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-130)+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-130)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
@@ -123,9 +114,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
         jqTargetDOM.append('<div id="mytimeline" width = "'+jqVideoEmbed.width()+'px" height = "'+jqVideoEmbed.height()+'px" style="position:relative; z-index:20; margin-left:auto; margin-right:auto;">summaryPanel</div>');
 
-//    $("#player").append("<canvas id='canvas1' align='center' width = '"+$("#videoEmbed").width()+"height = '"+($("#videoEmbed").height()-80)+"px'></canvas>");
-
-//    $("#canvas1").css({});
 
         var jqCanvas = $('#canvas1');
         jqCanvas.offset(jqVideoEmbed.offset());
@@ -135,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function(){
         jqMysummary.hide();
 
     };
+
+
 
 
     $(window).bind('beforeunload', function(){
@@ -156,26 +146,6 @@ document.addEventListener("DOMContentLoaded", function(){
          *
          * @type {json}
          */
-//
-//    console.log(data1);
-//    console.log(data2);
-//    console.log(data3);
-
-//    hidePanel(); // 입력 패널은 DOM객체이므로 이를 보이지 않도록 한다. TODO: 동적 생성으로 하여 이 부분이 필요하지 않도록 하기
-
-//    $("#player").append("<video id='videoEmbed' controls ></video>");    // 요걸로 하면 정렬됨
-//    $("#player").append("<video id='videoEmbed' controls style='position: absolute;'></video>");
-
-
-//    $("#canvas1").position({left:0, top:0});
-
-
-
-//    $("#canvas1").offset({top: 0,left:0});
-
-//    $("#youtube").offset($("#vid").offset);
-
-
 
 
         videoDomAppend('#player',880,540);
@@ -188,9 +158,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-        jqVideoEmbed = $('#videoEmbed');
-        CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
-        CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
+
+
         CLIENTVAR.popcornobj.controls(true);
 
 
@@ -214,21 +183,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Thumbnail 부분 만들어내기
             var youtubeThumbnailsAddr = [];
-//    youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/0.jpg");
+
             youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/1.jpg");
             youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/2.jpg");
             youtubeThumbnailsAddr.push("http://img.youtube.com/vi/" + youtubeID + "/3.jpg");
 
-//        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[0] + "' style='width: 30%;' />" );
-//        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[1] + "' style='width: 30%;' />" );
-//        $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[2] + "' style='width: 30%;' />" );
-//    $("#thumbnailPanorama").append("<img src = '"+ youtubeThumbnailsAddr[3] + "'/>");
         }
         CLIENTVAR.canvaslayer = document.getElementById("canvas1");
-//    console.log("canvas layer : " + CLIENTVAR.canvaslayer.width);
-//    console.log("canvas layer : " + document.getElementById("canvas1"));
-//    CLIENTVAR.canvaslayer.onclick = displayInputPanel; // 캔버스 온클릭의 경우 스테이지에서의 고저차가 무시되어버린다는 문제점이 발생한다. 원래 이를 캔버스 이벤트로 둔것은 인풋 패널을 위치시킬 때 easel 객체가 너무 많이 생성되었기 때문이었다. (그래서 인풋 패널을 놓기 위해 이렇게 생성) 하지만 stage의 위아래가 구분안되는 문제가 있어, stage이벤트로 가야한다(대댓글의 문제에서 특히)
-
 
 
         CLIENTVAR.stage = new createjs.Stage(CLIENTVAR.canvaslayer);
@@ -295,9 +256,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
         var deferred = $.Deferred();
 
-        deferred.done(videoDomAppend('#player',880,540),canvasPositioning('#player', 880, 540),videoLoad(),drawTimelineVisualization());
-
-
+        deferred.done(videoDomAppend('#player',880,540),videoLoad(),canvasPositioning('#player', 880, 540),drawTimelineVisualization());
+        jqVideoEmbed = $('#videoEmbed');
 
         CLIENTVAR.canvaslayer = document.getElementById("canvas1");
 
@@ -309,23 +269,7 @@ document.addEventListener("DOMContentLoaded", function(){
             eventArrive();
         });
 
-//        CLIENTVAR.stage.addEventListener("click", alert("로그인하시면 화면 위에서 친구들의 생각을 보거나 여러분의 생각을 남기실 수 있어요"));
-
-
     }
-
-
-//
-//var hidePanel = function(){
-//
-//    CLIENTVAR.inputPanelShow = false;
-//    $("#textinput1").hide("fast");
-//    $("#permissionSelect").hide("fast");
-//    $("#emoticonPanel").hide("fast");
-//
-//}
-
-
 
 });
 
@@ -352,7 +296,7 @@ function eventArrive(){
 //            console.log("evt.userid is " + evt.user_id);
         var thinkOwner = anbado.restful.getUserInfo(evt.user_id).user;
 
-        var think = {  // 전역 이벤트 없이 통과해가며 완성됨
+        var think = {  // 생각객체
 
             ID : CLIENTVAR.totalEvent,
             step :3, // 0은 생성상태. 1은 생성 중. 2는 생성완료. 3은 외부 이벤트
@@ -408,16 +352,11 @@ function eventArrive(){
             thinkGenerate(think);
         });
 
-
-
-//                console.log(think.profileImg);
         CLIENTVAR.totalEvent++;
-//                think.profileImg.onload = function(){
-//
-//                    thinkGenerate(think);
-//                };
+
 
     });
+
 
 
 
@@ -426,16 +365,10 @@ function eventArrive(){
 
 var InputPanel = function(){
 
-
-
     $("#textinput1").hide();
     $("#emoticonPanel").hide();
 
-
-
     CLIENTVAR.inputPanelShow = false;
-
-
 
     var emoticonImgList = [];
     emoticonImgList[0] = new Image(34,34);
@@ -454,17 +387,7 @@ var InputPanel = function(){
     this.createPanel = function(think){
         var jqBody = $('body');
         jqBody.append('<input id="textinput1" type="text" placeholder="생각을 남겨보세요" onkeydown="this.style.width = ((this.value.length + 3) * 12) + \'px\';" style = "font-size:14px"/>' );
-//        jqBody.append('' +
-//            '<div id="emoticonPanel">'+
-//            '<input id="emoticon0" type="image" src="playerstatic/examples/img/emo0.png" value="emo1" class="emoticon_button"></input>'
-//            +
-//            '<input id="emoticon1" type="image" src="playerstatic/examples/img/emo2.png" value="emo2" class="emoticon_button"></input>'
-//            +
-//            '<input id="emoticon2" type="image" src="playerstatic/examples/img/emo1.png" value="emo3" class="emoticon_button"></input>'
-//            +
-//            '<input id="emoticon3" type="image" src="playerstatic/examples/img/emo3.png" value="emo4" class="emoticon_button"></input>'
-//            + '</div>'
-//        );
+
         jqBody.append('' +
             '<div id="emoticonPanel"></div>'
         );
@@ -544,52 +467,11 @@ var InputPanel = function(){
             }
         });
 
-//        /**
-//         * 각각의 이모티콘 버튼. 클릭하면 이벤트를 생성하도록 한다.
-//         *
-//         * @type {HTMLElement} 이모티콘을 입력받는다.
-//         */
-//
-//
-//        var emo1 = document.getElementById('emoticon1');
-//        emo1.addEventListener("click", function() {
-//            think.category = 'image';
-//            think.content= 'playerstatic/example/img/emo0.png';
-//            inputPanel.deletePanel();
-//            thinkGenerate(think);
-//
-//        });
-//        var emo2 = document.getElementById('emoticon2');
-//        emo2.addEventListener("click", function() {
-//            think.category = 'image';
-//            think.content = '/playerstatic/examples/img/emo1.png';
-//            inputPanel.deletePanel();
-//            thinkGenerate(think);
-//        });
-//        var emo3 = document.getElementById('emoticon3');
-//        emo3.addEventListener("click", function() {
-//            think.content = '/playerstatic/examples/img/emo3.png' ;
-//            think.category = 'image';
-//            inputPanel.deletePanel();
-//            thinkGenerate(think);
-//        });
+
     }
 
     this.deletePanel = function(){
-//        this.textinput1.remove();
-//        this.emoticonPanel.remove();
 
-//        this.txt.hide();
-
-//        this.emoticon.hide();
-
-//        var deferred = $.Deferred();
-//
-//        deferred
-//            .done([this.text.hide('puff',300),this.emoticon.hide('puff',300)])
-//            .done([this.text.remove(),this.emoticon.remove()]);
-//
-//        deferred.resolve();
         var promise1 = this.text.hide('puff',{percent:50},400).promise();
         var promise2 = this.emoticon.hide('puff',{percent:50},400).promise();
 
@@ -598,10 +480,6 @@ var InputPanel = function(){
             inputPanel.text.remove();
             inputPanel.emoticon.remove();
         });
-
-//        this.text.hide('puff',300,this.text.remove());
-//        this.emoticon.hide('puff',300,this.emoticon.remove());
-
 
 
         CLIENTVAR.inputPanelShow = false;
