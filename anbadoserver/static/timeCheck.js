@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var teststate=1;
     var pauseState=0;
+    var agt = navigator.userAgent.toLowerCase();
 
         CLIENTVAR.popcornobj.on('play', function() {
 
@@ -94,10 +95,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 else if(CLIENTVAR.popcornobj.paused()==true)// 일시정지상태
                 {
+
+                    if (agt.indexOf("chrome") != -1) {
                     if(testObj.watchDog==1&&teststate==1)// 타임업데이트
                     {CLIENTVAR.popcornobj.play();teststate=0;pauseState=0;}
                     else if(testObj.watchDog!=1)// 타임업데이트 안일어남
                     {CLIENTVAR.popcornobj.pause();pauseState=1;}
+                    }
+
+                    else if (agt.indexOf("safari") != -1)
+                    {
+                    if(testObj.watchDog==1&&teststate==1)// 타임업데이트
+                    {CLIENTVAR.popcornobj.play();teststate=0;pauseState=0;}
+                    else if(testObj.watchDog!=1)// 타임업데이트 안일어남
+                    {CLIENTVAR.popcornobj.play();pauseState=1;}
+                    }
 
                 }
 
@@ -115,7 +127,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             CLIENTVAR.popcornobj.on('timeupdate', function() {
 //            console.log(this.media.src);
-
                 testObj.watchDog=1;
 
                 var coverTime=parseInt(ti*testObj.currentTime);
@@ -141,6 +152,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if(pauseState!=1)
             {inti = window.clearInterval(inti);}
+
+
+
         });
 
         CLIENTVAR.popcornobj.on('seeking', function() {
