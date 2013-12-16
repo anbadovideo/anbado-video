@@ -69,9 +69,11 @@ document.addEventListener("DOMContentLoaded", function() {
     //setInterval(function() {console.log('1');},500)
 
 
-var testwatchdog= 0,stuck= 2;
+    var teststate=1;
+    var pauseState=0;
+
         CLIENTVAR.popcornobj.on('play', function() {
-            testwatchdog=0;
+
 //        anbado.realtime.enterVideo(videoID, userID);
             $("#canvas1").show();
 
@@ -84,27 +86,22 @@ var testwatchdog= 0,stuck= 2;
                 summaryTimeline.setVisibleChartRange(new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 - 1000*CLIENTVAR.popcornobj.duration()/10), new Date(CLIENTVAR.pageGenerationTime.getTime() + CLIENTVAR.popcornobj.currentTime()*1000 + 1000*CLIENTVAR.popcornobj.duration()/10));
                 timeCheck();
 
+                if(CLIENTVAR.popcornobj.paused()==false)// 플레이 상태
+                {
+                    if(testObj.watchDog!=1)//타임업데이트가 안일어난다.
+                    {CLIENTVAR.popcornobj.pause();teststate=1;pauseState=1;}
+                }
 
-                if(testwatchdog==0)
-                {//console.log('stuck');
+                else if(CLIENTVAR.popcornobj.paused()==true)// 일시정지상태
+                {
+                    if(testObj.watchDog==1&&teststate==1)// 타임업데이트
+                    {CLIENTVAR.popcornobj.play();teststate=0;pauseState=0;}
+                    else if(testObj.watchDog!=1)// 타임업데이트 안일어남
+                    {CLIENTVAR.popcornobj.pause();pauseState=1;}
 
-                    stuck++;}
+                }
 
-            if(stuck>10&&testwatchdog==0)
-            {
-                //console.log('pause and play');
-                CLIENTVAR.popcornobj.pause();
-                stuck=0;
 
-            }
-
-            else if(stuck<=10&&testwatchdog==0)
-            {
-
-                //console.log('play');
-                CLIENTVAR.popcornobj.play();
-
-            }
 
             }, 500);
 
@@ -118,7 +115,8 @@ var testwatchdog= 0,stuck= 2;
 
             CLIENTVAR.popcornobj.on('timeupdate', function() {
 //            console.log(this.media.src);
-                testwatchdog=1;
+
+                testObj.watchDog=1;
 
                 var coverTime=parseInt(ti*testObj.currentTime);
 
@@ -141,7 +139,8 @@ var testwatchdog= 0,stuck= 2;
             $('#canvas1').hide();
             $('#summaryPanel').hide();
 
-            inti = window.clearInterval(inti);
+            if(pauseState!=1)
+            {inti = window.clearInterval(inti);}
         });
 
         CLIENTVAR.popcornobj.on('seeking', function() {

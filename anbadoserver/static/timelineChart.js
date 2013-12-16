@@ -34,10 +34,8 @@ function timeLineCover(evt){
     var perTime = CLIENTVAR.popcornobj.duration();
     perTime=(perTime/timeLineWidth);
 
+        testObj.watchDog=0;
          CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
-   CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
-   CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
-   CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
 
 
 
@@ -211,6 +209,8 @@ var anbadoTimeLine = function(getId) {
     this.$halfDom=0;
     this.$barDom=0;
 
+
+    this.watchDog=0;
 }
 
 
