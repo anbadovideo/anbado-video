@@ -161,13 +161,13 @@ document.addEventListener("DOMContentLoaded", function() {
         {inti = window.clearInterval(inti);}
     });
 
-
-    CLIENTVAR.popcornobj.cue( 10, function() {
-
-        testObj.watchDog=0;
-        this.currentTime(60);
-
-    });
+//
+//    CLIENTVAR.popcornobj.cue( 10, function() {
+//
+//        testObj.watchDog=0;
+//        this.currentTime(60);
+//
+//    });
 
 
 
