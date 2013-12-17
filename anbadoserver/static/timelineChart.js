@@ -210,9 +210,8 @@ var anbadoTimeLine = function(getId) {
 
 
     this.watchDog=0;
-    this.popularStartPoint=[0,0,0];
-    this.popularEndPoint=[0,0,0];
-    this.timePoint=[0,0,0];
+    this.popularStartPoint=[];
+    this.pointSum=[0,0,0];
 }
 
 
@@ -401,21 +400,73 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
 //
 //    }
 
+    var countData= 0,step=0;
+    var sum=0;
+
+    for(var j=0;j<time;j++)
+    {
+        if(weightValue[j]===undefined){
+            weightValue[j]=0;
+
+        }
+        sum=sum+weightValue[j];
+    }
+    sum=sum*0.1;
+    sum=parseInt(sum)+1;
+
+
     for (var i = 0; i < time; i++) {
 
 
         if(weightValue[i]===undefined){
             weightValue[i]=0;
+
         }
+
+        if(weightValue[i]>0&&step==0)// 뭔가 데이터가 있다.
+        {
+            step=1;//step 를 1로 해준다.
+            this.popularStartPoint[countData]=i;//처음 발생한 인터렉션에대한 시간을 저장한다.
+            this.pointSum[0]=this.pointSum[0]+weightValue[i];//그시간의 데이터값을 저장한다.
+//            countData++;//뭔데이터가 있고나서 카운트 시간 측정
+//            this.pointSum[0]=this.pointSum[0]+weightValue[i];//그동안 데이터 더함
 //
-//        else if(weightValue[i]>0)
-//        {
-//            if(weightValue[i]>this.popularStartPoint[0])
+//            if(countData>=5)//시간
 //            {
-//            this.popularStartPoint[0]=weightValue[i]
-//            this.timePoint[0]=i;
+//                if(this.pointSum[0]>=2)//만약 5초안에 쌓인 데이터가 전체의 10프로 이상이라면
+//                {
+//                    this.popularStartPoint[0]=(i-5);
+//
+//                }//처음 시작 시간을 저장한다.
+//                else if(this.pointSum[0]<2)// 만약 10 프로 이하라면.
+//                {
+//                    ;
+//                }
+//                countData=0;
+//
 //            }
-//        }
+
+        }
+        else if(weightValue[i]>=0&&step==1)
+        {
+            this.pointSum[0]=this.pointSum[0]+weightValue[i];//데이터를 저장한다.
+            if(i-this.popularStartPoint[countData]>5)//초기 데이터 가 잡히고 5초뒤애
+            {
+                if(this.pointSum[0]>=sum)////만약 5초안에 쌓인 데이터가 전체의 10프로 이상이라면
+                {
+                    this.pointSum[0]=0;
+                    countData++;step=0;
+
+                }
+                else if(this.pointSum[0]<sum)//만약 10프로 이하라면
+                {
+                    this.pointSum[0]=0;
+                    this.popularStartPoint[countData]=0;step=0;
+                }
+
+            }
+
+        }
 
 
         // TODO: 0.5 값이 적당한지 확인 필요
