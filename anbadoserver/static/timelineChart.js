@@ -210,6 +210,9 @@ var anbadoTimeLine = function(getId) {
 
 
     this.watchDog=0;
+    this.popularStartPoint=[0,0,0];
+    this.popularEndPoint=[0,0,0];
+    this.timePoint=[0,0,0];
 }
 
 
@@ -404,6 +407,16 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
         if(weightValue[i]===undefined){
             weightValue[i]=0;
         }
+//
+//        else if(weightValue[i]>0)
+//        {
+//            if(weightValue[i]>this.popularStartPoint[0])
+//            {
+//            this.popularStartPoint[0]=weightValue[i]
+//            this.timePoint[0]=i;
+//            }
+//        }
+
 
         // TODO: 0.5 값이 적당한지 확인 필요
         // goodData[i][0] = 시간
