@@ -35,7 +35,10 @@ function timeLineCover(evt){
     perTime=(perTime/timeLineWidth);
 
         testObj.watchDog=0;
-        CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
+
+    testObj.clickEvtCheck=1;
+    testObj.clickPoint=perTime*currentTime;
+        //CLIENTVAR.popcornobj.currentTime(perTime*currentTime);
 
 
 
@@ -212,6 +215,9 @@ var anbadoTimeLine = function(getId) {
     this.watchDog=0;
     this.popularStartPoint=[];
     this.pointSum=[0,0,0];
+
+    this.clickEvtCheck=0;
+    this.clickPoint=0;
 }
 
 

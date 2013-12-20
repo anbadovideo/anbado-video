@@ -89,8 +89,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if(CLIENTVAR.popcornobj.paused()==false)// 플레이 상태
             {
-                if(testObj.watchDog!=1)//타임업데이트가 안일어난다.
-                {CLIENTVAR.popcornobj.pause();teststate=1;pauseState=1;}
+
+                if(testObj.clickEvtCheck==1)
+                {testObj.clickEvtCheck=0;CLIENTVAR.popcornobj.currentTime(testObj.clickPoint);}
+                //else if(testObj.watchDog!=1&&testObj.clickEvtCheck!=1)//타임업데이트가 안일어난다.
+                //{CLIENTVAR.popcornobj.pause();teststate=1;pauseState=1;}
+
+
             }
 
             else if(CLIENTVAR.popcornobj.paused()==true)// 일시정지상태
@@ -113,9 +118,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 else
                 {
                     if(testObj.watchDog==1&&teststate==1)// 타임업데이트
-                    {CLIENTVAR.popcornobj.play();teststate=0;pauseState=0;}
+                    {CLIENTVAR.popcornobj.play(testObj.clickPoint);teststate=0;pauseState=0;}
                     else if(testObj.watchDog!=1)// 타임업데이트 안일어남
-                    {CLIENTVAR.popcornobj.pause();pauseState=1;}
+                    {CLIENTVAR.popcornobj.pause(testObj.clickPoint);pauseState=1;}
                 }
 
             }
