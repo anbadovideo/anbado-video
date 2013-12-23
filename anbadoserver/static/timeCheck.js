@@ -107,21 +107,21 @@ document.addEventListener("DOMContentLoaded", function() {
 //                    else if(testObj.watchDog!=1)// 타임업데이트 안일어남
 //                    {CLIENTVAR.popcornobj.pause();pauseState=1;}
 //                    }
-
-                if (agt.indexOf("safari") != -1)
-                {
-                    if(testObj.watchDog==1&&teststate==1)// 타임업데이트
-                    {CLIENTVAR.popcornobj.play();teststate=0;pauseState=0;}
-                    else if(testObj.watchDog!=1)// 타임업데이트 안일어남
-                    {CLIENTVAR.popcornobj.play();pauseState=1;}
-                }
-                else
-                {
+//
+//                if (agt.indexOf("safari") != -1)
+//                {
+//                    if(testObj.watchDog==1&&teststate==1)// 타임업데이트
+//                    {CLIENTVAR.popcornobj.play();teststate=0;pauseState=0;}
+//                    else if(testObj.watchDog!=1)// 타임업데이트 안일어남
+//                    {CLIENTVAR.popcornobj.play();pauseState=1;}
+//                }
+//                else
+//                {
                     if(testObj.watchDog==1&&teststate==1)// 타임업데이트
                     {CLIENTVAR.popcornobj.play(testObj.clickPoint);teststate=0;pauseState=0;}
                     else if(testObj.watchDog!=1)// 타임업데이트 안일어남
                     {CLIENTVAR.popcornobj.pause(testObj.clickPoint);pauseState=1;}
-                }
+                //}
 
             }
 
