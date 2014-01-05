@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+       <title>anbado player example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script type="text/javascript">
+        var videoID = 2;
+        var userID = 1;
+        var emoticonFilePrefix = '/static/';
+
+    </script>
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='external/popcorn-complete-modified.js') }}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
+
+    <!--서버 솔루션과 연동되는 부분-->
+    <script type="text/javascript" src="{{ url_for('static', filename='external/socket.io/socket.io.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='anbadoRealtime.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='anbadoRestful.js') }}"></script>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='basicCSS.css') }}">
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='external/timelinejs/timeline.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='timelineSummary.css') }}">
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='clientGlobalVar.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='initAnbado.js') }}"></script>
+
+    <script>
+
+        var testurl=['http://www.youtube.com/watch?v=Il52fKokmcM','http://www.youtube.com/watch?v=sI8H0cZizho','http://www.youtube.com/watch?v=em7S2kNDEFQ'];
+        var videonumber=0;
+
+    function nextcall()
+    {
+        videonumber++;
+       var videoWidth= CLIENTVAR.popcornobj.media.width;
+        var videoHeight=CLIENTVAR.popcornobj.media.height;
+
+    $("#player").remove();
+    $("#vid").append("<div id='player' style='text-align: center;' />");
+
+
+
+        var jqTargetDOM = $('#player');
+        jqTargetDOM.append('<div id="videoEmbed" style="position: relative;width:'+ videoWidth+';height:' + videoHeight +';margin-left:auto;margin-right:auto;"></div>');
+
+        var jqVideoEmbed =$("#videoEmbed");
+        jqVideoEmbed.css({"width":videoWidth, "height":videoHeight});
+
+         CLIENTVAR.popcornobj= Popcorn.youtube( "#videoEmbed", "http://www.youtube.com/embed/"+ testurl[videonumber] +"?hd=1" + "&iv_load_policy=3" );
+
+        CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
+        CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
+        console.log('next');
+    }
+
+    function precall()
+    {
+        videonumber--;
+
+               var videoWidth= CLIENTVAR.popcornobj.media.width;
+        var videoHeight=CLIENTVAR.popcornobj.media.height;
+
+    $("#player").remove();
+    $("#vid").append("<div id='player' style='text-align: center;' />");
+
+
+
+        var jqTargetDOM = $('#player');
+        jqTargetDOM.append('<div id="videoEmbed" style="position: relative;width:'+ videoWidth+';height:' + videoHeight +';margin-left:auto;margin-right:auto;"></div>');
+
+        var jqVideoEmbed =$("#videoEmbed");
+        jqVideoEmbed.css({"width":videoWidth, "height":videoHeight});
+
+         CLIENTVAR.popcornobj= Popcorn.youtube( "#videoEmbed", "http://www.youtube.com/embed/"+ testurl[videonumber] +"?hd=1" + "&iv_load_policy=3" );
+
+        CLIENTVAR.popcornobj.media.width = parseInt(jqVideoEmbed.css('width'));
+        CLIENTVAR.popcornobj.media.height = parseInt(jqVideoEmbed.css('height'));
+        console.log('pre');
+    }
+
+
+    </script>
+
+
+</head>
+<body>
+
+        <div id="vid">
+        <div id="player" style="text-align: center;">
+        </div>
+            </div>
+
+            <input id="pre" type="button" size="53" onclick = "precall()" value = "<--"/>
+            <input id="next" type="button" size="53" onclick = "nextcall()" value="-->"/>
+
+</body>
+</html>

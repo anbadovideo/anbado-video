@@ -462,7 +462,6 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
                 {
                     this.pointSum[0]=0;
                     countData++;step=0;
-
                 }
                 else if(this.pointSum[0]<sum)//만약 10프로 이하라면
                 {
