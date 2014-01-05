@@ -232,15 +232,10 @@ class Event(db.Model, JsonifiedModel):
     @hybrid_property
     def content(self):
         return self._content
-        #return self._content.decode('utf-8')
 
     @content.setter
     def content(self, value):
         self._content = value
-        #if isinstance(value, unicode):
-        #    self._content = value.encode('utf-8')
-        #else:
-        #    self._content = value
 
     @hybrid_property
     def coord(self):
