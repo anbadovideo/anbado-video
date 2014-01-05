@@ -202,7 +202,7 @@ class Event(db.Model, JsonifiedModel):
     disappeared = db.Column(db.Integer)
 
     #comment
-    _content = db.Column(db.LargeBinary())
+    _content = db.Column(db.Text)
     category = db.Column(db.Enum('text', 'image', 'movie', 'good', 'bad', name='event_category'))
 
     parent_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
