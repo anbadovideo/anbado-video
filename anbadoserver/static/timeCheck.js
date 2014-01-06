@@ -91,9 +91,9 @@ document.addEventListener("DOMContentLoaded", function() {
             {
 
                 if(testObj.clickEvtCheck==1)
-                {testObj.clickEvtCheck=0;CLIENTVAR.popcornobj.currentTime(testObj.clickPoint);}
-                //else if(testObj.watchDog!=1&&testObj.clickEvtCheck!=1)//타임업데이트가 안일어난다.
-                //{CLIENTVAR.popcornobj.pause();teststate=1;pauseState=1;}
+                {testObj.clickEvtCheck=0;testObj.watchDog=0;CLIENTVAR.popcornobj.currentTime(testObj.clickPoint);}
+                else if(testObj.watchDog!=1&&testObj.clickEvtCheck!=1)//타임업데이트가 안일어난다.
+                {CLIENTVAR.popcornobj.pause();teststate=1;pauseState=1;}
 
 
             }
