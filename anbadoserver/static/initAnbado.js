@@ -33,7 +33,6 @@ var inputPanel;
 
 
 if(videoID != -1){
-
     var data1;
     var data2 = anbado.restful.getVideoInfo(videoID);
     var data3 = anbado.restful.getParticipants(videoID);
@@ -42,6 +41,11 @@ document.addEventListener("DOMContentLoaded", function(){
     if(videoID==-1){
         return;
     }
+
+
+
+
+
 
     /**
      * Append video display DOM
@@ -102,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
         jqVideoEmbed.css({"width":videoWidth, "height":videoHeight});
 
         if(data2.video.provider === 'youtube'){
-            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-130)+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-130)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-130)+'px" style="background-color:#fff;position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-130)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
 
         }
         else if(data2.video.provider === 'vimeo'){
@@ -123,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function(){
         jqMysummary.hide();
 
     };
+
 
 
 
@@ -152,13 +157,30 @@ document.addEventListener("DOMContentLoaded", function(){
         canvasPositioning('#player', 880, 540);
 
 
+        var c = $('#canvas1');
+        var ct = c.get(0).getContext('2d');
+        var container = $(c).parent();
+
+
+        //http://ameijer.nl/demo/respondCanvas.html
+        $(window).resize( respondCanvas );
+
+        function respondCanvas(){
+            c.css('width', $(window).width()-100);
+            c.css('height', $(window).height()-100);
+            c.attr('width', $(window).width() -100 );
+            c.attr('height', $(window).height() -100 );
+
+            //Call a function to redraw other content (texts, images etc)
+        }
+
+        //Initial call
+        respondCanvas();
+
+
 //    CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://download.ted.com/talks/DanDennett_2003-480p-pt-br.mp4" );
 
         videoLoad();
-
-
-
-
 
         CLIENTVAR.popcornobj.controls(true);
 
@@ -354,11 +376,7 @@ function eventArrive(){
 
         CLIENTVAR.totalEvent++;
 
-
     });
-
-
-
 
 }
 
@@ -419,11 +437,6 @@ var InputPanel = function(){
         this.emoticon = $('#emoticonPanel');
 
 
-
-        this.text.show();
-        this.emoticon.show();
-
-
         this.text.css({"top": think.y + this.canvasLocation.top-28 + "px", "left": think.x + this.canvasLocation.left-30 + "px"})
 
 //    $("#permissionSelect").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left + 200 + "px"});
@@ -432,7 +445,8 @@ var InputPanel = function(){
 //    $("#profileImg").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left - 30 + "px"});
 
 //        console.log(this.text.css("left"));
-
+        this.text.show();
+        this.emoticon.show();
 
 
         CLIENTVAR.inputPanelShow = true;
@@ -472,8 +486,8 @@ var InputPanel = function(){
 
     this.deletePanel = function(){
 
-        var promise1 = this.text.hide('puff',{percent:50},400).promise();
-        var promise2 = this.emoticon.hide('puff',{percent:50},400).promise();
+        var promise1 = this.text.hide('puff',{percent:50},100).promise();
+        var promise2 = this.emoticon.hide('puff',{percent:50},100).promise();
 
 
         $.when(promise1,promise2).done(function(){
