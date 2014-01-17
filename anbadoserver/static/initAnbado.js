@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function(){
         return;
     }
 
+
+
+
     /**
      * Append video display DOM
      * @param targetDOM  : 페이지에서 표시할 DOM의 위치. jQuery 타입으로 표시함
@@ -296,6 +299,7 @@ function eventArrive(){
 //            console.log("evt.userid is " + evt.user_id);
         var thinkOwner = anbado.restful.getUserInfo(evt.user_id).user;
 
+
         var think = {  // 생각객체
 
             ID : CLIENTVAR.totalEvent,
@@ -352,10 +356,61 @@ function eventArrive(){
             thinkGenerate(think);
         });
 
+
+      $('.bardiv').append('<img  name="profileImg"   src="'+ think.profileImg.src + '"/>');
+
+
+        var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
+
+        var profilePosition=0;
+
+
+         $(profileImg[0]).css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+
+        if(CLIENTVAR.totalEvent!=0)
+        {
+            if(CLIENTVAR.totalEvent%2==1)
+            { $(profileImg[CLIENTVAR.totalEvent]).css({'width':0,'height':50,'position':'absolute','top':620,'left':10});}
+            else if(CLIENTVAR.totalEvent%2==0)
+            {  $(profileImg[CLIENTVAR.totalEvent]).css({'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});}
+        }
+
+
+
+
         CLIENTVAR.totalEvent++;
+
+        //$('body').append('<img width="50px" height="50px"  name="profileImg"   src="'+ think.profileImg.src + '"/>');
+
+//
+//        console.log('testclick time '+think.clickTime);
+//        console.log('testclick id '+think.ownerID);
+
+
+
+//
+//        for(var i=1;i<CLIENTVAR.totalEvent;i++)
+//        {
+//            if(i%2==1)
+//            { $(profileImg[i]).css({'width':0,'height':50,'position':'absolute','top':620,'left':10});}
+//            else if(i%2==0)
+//            {  $(profileImg[i]).css({'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10});}
+//
+//        }
+
+//        $(profileImg[0]).css({'width':10,'height':50,'position':'absolute','top':620,'left':10});
+//        $(profileImg[1]).css({'width':10,'height':50,'position':'absolute','top':620,'left':20});
+//        $(profileImg[2]).css({'width':10,'height':50,'position':'absolute','top':620,'left':30});
+
+        // width 를 타임라인 차트의 left 를 타임라인의 시간을 맞추어서 띄워준다.
+        //$(profileImg[0]).css({'position':'relative','top':0});absolute
+        // 이건 바차트의 두께
+        //var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
 
 
     });
+
+
 
 
 
