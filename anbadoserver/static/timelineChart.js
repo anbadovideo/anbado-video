@@ -73,12 +73,21 @@ function mooseOnCover(evt)
 {
     var offsetLeft=$('#rect2').offset().left;
 
-    // var offsetWidth=document.getElementById("rect2");
+    var offsetWidth=document.getElementById("rect2");
+
     var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
 
 
     var currentTime =(evt.clientX-offsetLeft);
 
+
+    var durationTime = CLIENTVAR.popcornobj.duration();
+
+    var timeLineWidth=offsetWidth.width.baseVal.value;
+
+    durationTime=(durationTime/timeLineWidth);
+
+    //console.log('current time:'+durationTime*currentTime);//마우스 오버시의 현재 동영상시간 durationTime*currentTime
 
     var barName='.nv-bar.positive.nv-bar-0-'+parseInt(currentTime/offsetBarWidth);
     //var timeLineWidth=offsetWidth.width.baseVal.value;
@@ -89,7 +98,34 @@ function mooseOnCover(evt)
 
     testObj.positionId.setAttribute('cy',75-($(barName)[0].height.baseVal.value));
     testObj.positionId.setAttribute('cx',currentTime+10);
-    // console.log('evt:'+evt.clientX);
+
+
+    var numberOfProfile =testsavetimecount[parseInt(durationTime*currentTime)];
+
+
+    if($(barName)[0].height.baseVal.value>1)
+    {
+        //console.log('event time'+parseInt(durationTime*currentTime));
+
+        //var numberOfTime=parseInt(durationTime*currentTime);
+
+        $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth});
+        $('.profileImg:odd').css('width',0);
+
+        $('.profileImg').eq(numberOfProfile).css({'zIndex':15,'width':50});
+
+        console.log(numberOfProfile);
+
+    }
+     if($(barName)[0].height.baseVal.value==1)
+    {
+        $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth});
+        $('.profileImg:odd').css('width',0);
+
+    }
+
     //console.log('evt:'+parseInt(currentTime/offsetBarWidth));
     //console.log('evt:'+(90-($(barName)[0].height.baseVal.value)));
 
@@ -104,7 +140,14 @@ function mooseOnCover(evt)
 function mouseOutCover(evt)
 {
 
+    var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
+
     testObj.positionId.setAttribute('r',0);
+
+
+        $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth});
+        $('.profileImg:odd').css('width',0);
 
 }
 
@@ -418,7 +461,7 @@ anbadoTimeLine.prototype.makeTimelineDataArray = function(time) {
         sum=sum+weightValue[j];
     }
     sum=sum*0.1;
-    sum=parseInt(sum)+1;
+    sum=parseInt(sum);
 
 
     for (var i = 0; i < time; i++) {

@@ -276,6 +276,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
+var testsavetimecount=[];
+
+
 function eventArrive(){
 
     for(var tempCounter = 0; tempCounter <= Math.floor(CLIENTVAR.popcornobj.duration()); tempCounter++){
@@ -373,22 +376,25 @@ function eventArrive(){
 
             if(CLIENTVAR.totalEvent%2==0)
             {
-            $('.profileImg:last').css({'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
-            $('.profileImg:last').hover(function(){
-                this.style.width = '100px';
-                this.style.zIndex = 100;
-            });
-            $('.profileImg:last').mouseleave(function(){
-                this.style.width = offsetBarWidth + 'px';
-                this.style.zIndex = 1;
-            });
+            $('.profileImg:last').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
+            testsavetimecount[think.clickTime]=[CLIENTVAR.totalEvent];
+
+
+//            $('.profileImg:last').hover(function(){
+//                this.style.width = '100px';
+//                this.style.zIndex = 100;
+//            });
+//            $('.profileImg:last').mouseleave(function(){
+//                this.style.width = offsetBarWidth + 'px';
+//                this.style.zIndex = 1;
+//            });
             }
             else if(CLIENTVAR.totalEvent%2==1)
             {
                 $('.profileImg:last').css({'width':0,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
+
             }
 
-            console.log(think.clickTime);
 //            if(CLIENTVAR.totalEvent%2==1)
 //            { $('.profileImg:odd').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});}
 //            else if(CLIENTVAR.totalEvent%2==0)
