@@ -276,8 +276,17 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-var testsavetimecount=[];
 
+//var testsavetimecount=[];
+
+var testsavetimecount = [];
+var sameTime=[];
+var compileOfnum=[];
+
+        var test=0;
+
+
+        var profilePosition=0;
 
 function eventArrive(){
 
@@ -365,10 +374,12 @@ function eventArrive(){
 
         var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
 
-        var profilePosition=0;
 
 
          $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+
+
+
 
         if(CLIENTVAR.totalEvent!=0)
         {
@@ -376,8 +387,73 @@ function eventArrive(){
 
             if(CLIENTVAR.totalEvent%2==0)
             {
-            $('.profileImg:last').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
-            testsavetimecount[think.clickTime]=[CLIENTVAR.totalEvent];
+
+              $('.profileImg:last').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
+
+
+
+             if(testsavetimecount[think.clickTime]!=undefined)// 같은시간에 여러개 존재
+            {
+            sameTime[think.clickTime]=sameTime[think.clickTime]||[];
+            sameTime[think.clickTime].push(CLIENTVAR.totalEvent);
+
+            }
+            else if(testsavetimecount[think.clickTime]==undefined)// 한개만
+            {
+                testsavetimecount[think.clickTime]=[CLIENTVAR.totalEvent];
+            }
+
+//
+//                if(testsavetimecount[think.clickTime]!=undefined)// 같은시간에 여러개 존재
+//                {
+//                    test++;
+//                testsavetimecount[1][think.clickTime]=[CLIENTVAR.totalEvent];
+//                    console.log('time'+CLIENTVAR.totalEvent);
+//                }
+//                else if(testsavetimecount[think.clickTime]==undefined)// 한시간에 한개만 존재
+//                {testsavetimecount[0][think.clickTime]=[CLIENTVAR.totalEvent];}
+
+
+//
+//                if(testsavetimecount[think.clickTime]!=undefined)// 같은시간에 여러개 존재
+//                {
+//                   compileOfnum[test]=[think.clickTime,CLIENTVAR.totalEvent];
+//                    //testsavetimecount[think.clickTime]=CLIENTVAR.totalEvent;
+//
+//                   //testsavetimecount[think.clickTime]=CLIENTVAR.totalEvent;
+//                    test++;
+//                }
+//                else if(testsavetimecount[think.clickTime]==undefined)// 한시간에 한개만 존재
+//                {
+//                   testsavetimecount[think.clickTime]=CLIENTVAR.totalEvent;
+//                }
+
+
+
+
+
+//               incrreseHeight[profilePosition]=CLIENTVAR.totalEvent;
+//               testsavetimecount[think.clickTime]=incrreseHeight;
+
+
+                //incrreseHeight=[];
+
+
+                //testsavetimecount[think.clickTime]=CLIENTVAR.totalEvent;
+
+
+//                if(testsavetimecount[think.clickTime]==undefined)
+//                {
+//                $('.profileImg:last').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
+//                testsavetimecount[think.clickTime]=[incrreseHeight,CLIENTVAR.totalEvent];
+//                }
+//                 if(testsavetimecount[think.clickTime]!=undefined)
+//                {
+//                    incrreseHeight++;
+//                $('.profileImg:last').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620+incrreseHeight*50,'left':10+think.clickTime*offsetBarWidth});
+//                testsavetimecount[think.clickTime]=[incrreseHeight,CLIENTVAR.totalEvent];
+//                }
+
 
 
 //            $('.profileImg:last').hover(function(){
@@ -391,6 +467,7 @@ function eventArrive(){
             }
             else if(CLIENTVAR.totalEvent%2==1)
             {
+
                 $('.profileImg:last').css({'width':0,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
 
             }

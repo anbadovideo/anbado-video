@@ -115,7 +115,16 @@ function mooseOnCover(evt)
 
         $('.profileImg').eq(numberOfProfile).css({'zIndex':15,'width':50});
 
-        console.log(numberOfProfile);
+
+
+        if(sameTime[parseInt(durationTime*currentTime)].length>=1)
+        {
+            for(var i=0;i<sameTime[parseInt(durationTime*currentTime)].length;i++)
+            {
+                $('.profileImg').eq(sameTime[parseInt(durationTime*currentTime)][i]).css({'zIndex':15,'width':50,'top':620+50*(i+1)});
+            }
+
+        }
 
     }
      if($(barName)[0].height.baseVal.value==1)
