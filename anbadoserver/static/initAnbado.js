@@ -357,7 +357,7 @@ function eventArrive(){
         });
 
 
-      $('.bardiv').append('<img  name="profileImg"   src="'+ think.profileImg.src + '"/>');
+      $('.bardiv').append('<img class="profileImg"   src="'+ think.profileImg.src + '"/>');
 
 
         var offsetBarWidth=$('.nv-bar.positive.nv-bar-0-1').offset().left-$('.nv-bar.positive.nv-bar-0-0').offset().left;
@@ -365,14 +365,34 @@ function eventArrive(){
         var profilePosition=0;
 
 
-         $(profileImg[0]).css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+         $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
 
         if(CLIENTVAR.totalEvent!=0)
         {
-            if(CLIENTVAR.totalEvent%2==1)
-            { $(profileImg[CLIENTVAR.totalEvent]).css({'width':0,'height':50,'position':'absolute','top':620,'left':10});}
-            else if(CLIENTVAR.totalEvent%2==0)
-            {  $(profileImg[CLIENTVAR.totalEvent]).css({'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});}
+//            { $('.profileImg:odd').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});}
+
+            if(CLIENTVAR.totalEvent%2==0)
+            {
+            $('.profileImg:last').css({'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
+            $('.profileImg:last').hover(function(){
+                this.style.width = '100px';
+                this.style.zIndex = 100;
+            });
+            $('.profileImg:last').mouseleave(function(){
+                this.style.width = offsetBarWidth + 'px';
+                this.style.zIndex = 1;
+            });
+            }
+            else if(CLIENTVAR.totalEvent%2==1)
+            {
+                $('.profileImg:last').css({'width':0,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});
+            }
+
+            console.log(think.clickTime);
+//            if(CLIENTVAR.totalEvent%2==1)
+//            { $('.profileImg:odd').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});}
+//            else if(CLIENTVAR.totalEvent%2==0)
+//            { $('.profileImg:even').css({'width':offsetBarWidth,'height':50,'position':'absolute','top':620,'left':10+think.clickTime*offsetBarWidth});}
         }
 
 
