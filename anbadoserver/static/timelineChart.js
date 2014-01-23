@@ -103,7 +103,7 @@ function mooseOnCover(evt)
     var numberOfProfile =testsavetimecount[parseInt(durationTime*currentTime)];
 
 
-    if($(barName)[0].height.baseVal.value>1)
+    if($(barName)[0].height.baseVal.value>1)// 타임라인 의 시점에 어떤 값이 들어 있다.
     {
         //console.log('event time'+parseInt(durationTime*currentTime));
 
@@ -116,21 +116,21 @@ function mooseOnCover(evt)
         $('.profileImg').eq(numberOfProfile).css({'zIndex':15,'width':50});
 
 
-
         if(sameTime[parseInt(durationTime*currentTime)].length>=1)
         {
-            for(var i=0;i<sameTime[parseInt(durationTime*currentTime)].length;i++)
+            for(var i=0;i<sameTime[parseInt(durationTime*currentTime)].length;i++)//여기는 문제 없음 length 이대로 쓰면됨
             {
                 $('.profileImg').eq(sameTime[parseInt(durationTime*currentTime)][i]).css({'zIndex':15,'width':50,'top':620+50*(i+1)});
             }
 
         }
 
+
     }
-     if($(barName)[0].height.baseVal.value==1)
+     if($(barName)[0].height.baseVal.value==1)// 타임라인에 아무런 값도 없다.
     {
         $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
-        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth});
+        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620});
         $('.profileImg:odd').css('width',0);
 
     }
@@ -155,7 +155,7 @@ function mouseOutCover(evt)
 
 
         $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
-        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth});
+        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620});
         $('.profileImg:odd').css('width',0);
 
 }

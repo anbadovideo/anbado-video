@@ -395,12 +395,15 @@ function eventArrive(){
              if(testsavetimecount[think.clickTime]!=undefined)// 같은시간에 여러개 존재
             {
             sameTime[think.clickTime]=sameTime[think.clickTime]||[];
-            sameTime[think.clickTime].push(CLIENTVAR.totalEvent);
+            sameTime[think.clickTime].push([CLIENTVAR.totalEvent]);
+            //sameTime[think.clickTime].push([CLIENTVAR.totalEvent]);
 
             }
             else if(testsavetimecount[think.clickTime]==undefined)// 한개만
             {
                 testsavetimecount[think.clickTime]=[CLIENTVAR.totalEvent];
+                //testsavetimecount[think.clickTime]=[CLIENTVAR.totalEvent];
+
             }
 
 //
