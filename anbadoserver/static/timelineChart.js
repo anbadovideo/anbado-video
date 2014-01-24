@@ -109,7 +109,7 @@ function mooseOnCover(evt)
 //
 //for(var i=0;i<leng;i++)
 //{
-// k=b.shift();
+//k=b.shift();
 //	if(b.length==0){a[j]=k;}
 //	else if(b.length!=0)
 //	{
@@ -121,26 +121,30 @@ function mooseOnCover(evt)
 
 
 
+
+
+
+
+
     if($(barName)[0].height.baseVal.value>1)// 타임라인 의 시점에 어떤 값이 들어 있다.
     {
-
-
-
+    var b=[];
+        b= b.concat(sameTime[parseInt(durationTime*currentTime)]);
 
 var k=[];
     var a=[];var j=0;
-var leng=sameTime[parseInt(durationTime*currentTime)].length;
+var leng=b.length;
 
-               sameTime[parseInt(durationTime*currentTime)].sort(function(a,b){return a[1]-b[1];});
+    b.sort(function(c,d){return c[1]-d[1];})
 
 for(var i=0;i<leng;i++)
 {
- k=sameTime[parseInt(durationTime*currentTime)].shift();
-	if(sameTime[parseInt(durationTime*currentTime)].length==0){a[j]=k;}
-	else if(sameTime[parseInt(durationTime*currentTime)].length!=0)
+k=b.shift();
+	if(b.length==0){a[j]=k;}
+	else if(b.length!=0)
 	{
-	if(k[1]==sameTime[parseInt(durationTime*currentTime)][0][1]){a[j]=sameTime[parseInt(durationTime*currentTime)][0];}
-	else if(k[1]!=sameTime[parseInt(durationTime*currentTime)][0][1]){a[j]=k;j++;}
+	if(k[1]==b[0][1]){a[j]=b[0];}
+	else if(k[1]!=b[0][1]){a[j]=k;j++;}
 	}
 }
 
