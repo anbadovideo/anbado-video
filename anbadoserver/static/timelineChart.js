@@ -100,30 +100,72 @@ function mooseOnCover(evt)
     testObj.positionId.setAttribute('cx',currentTime+10);
 
 
-    var numberOfProfile =testsavetimecount[parseInt(durationTime*currentTime)];
+//var b=[[1,2],[2,2],[7,1],[6,1],[11,3]];
+//var k=[];
+//    var a=[];var j=0;
+//var leng=b.length;
+//
+//    b.sort(function(c,d){return c[1]-d[1];})
+//
+//for(var i=0;i<leng;i++)
+//{
+// k=b.shift();
+//	if(b.length==0){a[j]=k;}
+//	else if(b.length!=0)
+//	{
+//	if(k[1]==b[0][1]){a[j]=b[0];}
+//	else if(k[1]!=b[0][1]){a[j]=k;j++;}
+//	}
+//}
+
+
 
 
     if($(barName)[0].height.baseVal.value>1)// 타임라인 의 시점에 어떤 값이 들어 있다.
     {
-        //console.log('event time'+parseInt(durationTime*currentTime));
-
-        //var numberOfTime=parseInt(durationTime*currentTime);
-
-        $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
-        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth});
-        $('.profileImg:odd').css('width',0);
-
-        $('.profileImg').eq(numberOfProfile).css({'zIndex':15,'width':50});
 
 
-        if(sameTime[parseInt(durationTime*currentTime)].length>=1)
+
+
+var k=[];
+    var a=[];var j=0;
+var leng=sameTime[parseInt(durationTime*currentTime)].length;
+
+               sameTime[parseInt(durationTime*currentTime)].sort(function(a,b){return a[1]-b[1];});
+
+for(var i=0;i<leng;i++)
+{
+ k=sameTime[parseInt(durationTime*currentTime)].shift();
+	if(sameTime[parseInt(durationTime*currentTime)].length==0){a[j]=k;}
+	else if(sameTime[parseInt(durationTime*currentTime)].length!=0)
+	{
+	if(k[1]==sameTime[parseInt(durationTime*currentTime)][0][1]){a[j]=sameTime[parseInt(durationTime*currentTime)][0];}
+	else if(k[1]!=sameTime[parseInt(durationTime*currentTime)][0][1]){a[j]=k;j++;}
+	}
+}
+
+
+        if(a.length>=1)//2개 이상의 profile img
         {
-            for(var i=0;i<sameTime[parseInt(durationTime*currentTime)].length;i++)//여기는 문제 없음 length 이대로 쓰면됨
+            for(var i=0;i<a.length;i++)//여기는 문제 없음 length 이대로 쓰면됨
             {
-                $('.profileImg').eq(sameTime[parseInt(durationTime*currentTime)][i]).css({'zIndex':15,'width':50,'top':620+50*(i+1)});
+                        $('.profileImg').eq(a[i][0]).css({'zIndex':15,'width':50,'top':620+50*(i)});
             }
 
         }
+
+
+
+
+//
+//        if(sameTime[parseInt(durationTime*currentTime)].length>=1)//2개 이상의 profile img
+//        {
+//            for(var i=0;i<sameTime[parseInt(durationTime*currentTime)].length;i++)//여기는 문제 없음 length 이대로 쓰면됨
+//            {
+//                        $('.profileImg').eq(sameTime[parseInt(durationTime*currentTime)][i][0]).css({'zIndex':15,'width':50,'top':620+50*(i)});
+//            }
+//
+//        }
 
 
     }
