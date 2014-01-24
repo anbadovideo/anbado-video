@@ -128,6 +128,12 @@ function mooseOnCover(evt)
 
     if($(barName)[0].height.baseVal.value>1)// 타임라인 의 시점에 어떤 값이 들어 있다.
     {
+
+
+        $('.profileImg:eq(0)').css({'width':0,'height':50,'position':'absolute','top':620,'left':10});
+        $('.profileImg:even').css({'zIndex':5,'width':offsetBarWidth,'height':50,'position':'absolute','top':620});
+        $('.profileImg:odd').css('width',0);
+
     var b=[];
         b= b.concat(sameTime[parseInt(durationTime*currentTime)]);
 
