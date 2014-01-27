@@ -159,7 +159,7 @@ k=b.shift();
         {
             for(var i=0;i<a.length;i++)//여기는 문제 없음 length 이대로 쓰면됨
             {
-                        $('.profileImg').eq(a[i][0]).css({'zIndex':15,'width':50,'top':620+50*(i)});
+                        $('.profileImg').eq(a[i][0]).css({'zIndex':15,'width':50,'top':620+50*(i),'border-radius': 100 });
             }
 
         }
