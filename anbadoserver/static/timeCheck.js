@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     CLIENTVAR.popcornobj.on('seeking', function() {
-        console.log('seek');
+
         timeCheck();
     });
 
@@ -209,8 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 CLIENTVAR.stage.update();
             }
             totalCount++;
-//            console.log("TOTAL : " + totalCount);
-//            console.log("this time:"+this.currentTime());
+
         }
 
 

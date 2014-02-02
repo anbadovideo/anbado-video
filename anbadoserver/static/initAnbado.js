@@ -157,25 +157,6 @@ document.addEventListener("DOMContentLoaded", function(){
         canvasPositioning('#player', 880, 540);
 
 
-        var c = $('#canvas1');
-        var ct = c.get(0).getContext('2d');
-        var container = $(c).parent();
-
-
-        //http://ameijer.nl/demo/respondCanvas.html
-        $(window).resize( respondCanvas );
-
-        function respondCanvas(){
-            c.css('width', $(window).width()-100);
-            c.css('height', $(window).height()-100);
-            c.attr('width', $(window).width() -100 );
-            c.attr('height', $(window).height() -100 );
-
-            //Call a function to redraw other content (texts, images etc)
-        }
-
-        //Initial call
-        respondCanvas();
 
 
 //    CLIENTVAR.popcornobj= Popcorn.smart( "#youtube", "http://download.ted.com/talks/DanDennett_2003-480p-pt-br.mp4" );

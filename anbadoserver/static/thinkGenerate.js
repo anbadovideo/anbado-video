@@ -210,7 +210,6 @@ var commentReply = function(think) { // stage mousedown event 가 발생하므�
         CLIENTVAR.tempEvent.y = CLIENTVAR.eventList[think.parentID].y + 66 * (CLIENTVAR.eventList[think.parentID].childrenIDarray.length + 1);
 
 
-
         // easeljs 를 통해 선을 그림
         for (var temp = 0; temp < CLIENTVAR.eventList[think.parentID].childrenIDarray.length; temp++) {
 //            console.log("in for");
