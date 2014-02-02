@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
         jqVideoEmbed.css({"width":videoWidth, "height":videoHeight});
 
         if(data2.video.provider === 'youtube'){
-            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-130)+'px" style="background-color:#fff;position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-130)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
+            jqTargetDOM.append('<canvas id="canvas1" width = "'+videoWidth+'px" height = "'+(videoHeight-130)+'px" style="position:relative; width:'+videoWidth+'px;'+'height:'+(videoHeight-130)+'px;'+'z-index:20; margin-left:auto; margin-right:auto;">canvas</canvas>');
 
         }
         else if(data2.video.provider === 'vimeo'){
