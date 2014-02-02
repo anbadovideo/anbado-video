@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         videoLoad();
 
-        CLIENTVAR.popcornobj.controls(true);
+        CLIENTVAR.popcornobj.controls(false);
 
 
         CLIENTVAR.popcornobj.on("loadeddata",function(){
