@@ -209,35 +209,6 @@ document.addEventListener("DOMContentLoaded", function(){
         CLIENTVAR.chatLeftStage = new createjs.Stage(CLIENTVAR.canvas3);
         CLIENTVAR.chatRightStage = new createjs.Stage(CLIENTVAR.canvas4);
 
-//    var myGraphics = new createjs.Shape();
-//    myGraphics.graphics.beginFill("#28343C").drawRect(0,0,640,480);
-//
-//    CLIENTVAR.stage.addChild(myGraphics);
-//    CLIENTVAR.stage.update();
-//
-//    myGraphics = new createjs.Shape();
-//    myGraphics.compositeOration='destination-out';
-//    myGraphics.graphics.beginStroke("#000").beginFill("#28343C").arc(300,240, 220, 0, Math.PI*2);
-////    myGraphics.graphics.beginStroke("#F00").beginFill("#28343c").drawCircle(300,240, 20);
-//
-//    CLIENTVAR.stage.addChild(myGraphics);
-//    CLIENTVAR.stage.update();
-//
-//    myGraphics = new createjs.Shape(); // 외부 써클을 위해
-//
-//
-//    pie = 0;
-//    setInterval(function(){
-//
-//        myGraphics.graphics.beginStroke("#F00").setStrokeStyle(12,'round', 'round').arc(300,240, 240, 0, Math.PI*(2)*pie);
-//
-//        CLIENTVAR.stage.addChildAt(myGraphics,1);
-//        CLIENTVAR.stage.update();
-//        pie += CLIENTVAR.popcornobj.currentTime()  * Math.PI/CLIENTVAR.popcornobj.duration();
-//    }, pie += CLIENTVAR.popcornobj.currentTime()  * Math.PI/CLIENTVAR.popcornobj.duration());
-
-
-
 
         CLIENTVAR.stageMousePanelWrapper = new createjs.Shape();
 
@@ -382,11 +353,9 @@ var InputPanel = function(){
         emoticonImgList[tempCounter].id = 'emoticon'+tempCounter.toString();
     }
 
-
     this.createPanel = function(think){
         var jqBody = $('body');
-        jqBody.append('<input id="textinput1" type="text" placeholder="생각을 남겨보세요" onkeydown="this.style.width = ((this.value.length + 3) * 12) + \'px\';" style = "font-size:14px"/>' );
-
+        jqBody.append('<input id="textinput1" type="text" maxlength="20" placeholder="' + parseInt(think.clickTime).toString() + '초에 생각이 남겨집니다" onkeydown="this.style.width = ((this.value.length + 3) * 12) + \'px\';:return;" style = "font-size:14px; width : 150px"/>' );
         jqBody.append('' +
             '<div id="emoticonPanel"></div>'
         );
@@ -442,7 +411,7 @@ var InputPanel = function(){
 //            console.log("keyup event" + evt);
 
 
-            jqTextinput.attr("size", jqTextinput.val().length); // by text length size scailing. key by key
+//            jqTextinput.attr("size", jqTextinput.val().length); // by text length size scailing. key by key
 
 
             if (evt.keyCode === 13 || evt.charCode === 13) { // 엔터인 경우
