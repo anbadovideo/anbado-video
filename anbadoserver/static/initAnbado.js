@@ -355,7 +355,7 @@ var InputPanel = function(){
 
     this.createPanel = function(think){
         var jqBody = $('body');
-        jqBody.append('<input id="textinput1" type="text" maxlength="20" placeholder="' + parseInt(think.clickTime).toString() + '초에 생각이 남겨집니다" onkeydown="this.style.width = ((this.value.length + 3) * 12) + \'px\';:return;" style = "font-size:14px; width : 150px"/>' );
+        jqBody.append('<input id="textinput1" type="text" placeholder="' + parseInt(think.clickTime).toString() + '초에 생각이 남겨집니다" onkeydown="this.style.width = ((this.value.length + 3) * 12) + \'px\';:return;" style = "font-size:14px; width : 150px"/>' );
         jqBody.append('' +
             '<div id="emoticonPanel"></div>'
         );
@@ -388,13 +388,9 @@ var InputPanel = function(){
 
 
         this.text.css({"top": think.y + this.canvasLocation.top-28 + "px", "left": think.x + this.canvasLocation.left-30 + "px"})
-
-//    $("#permissionSelect").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left + 200 + "px"});
         this.emoticon.css({"top": think.y + this.canvasLocation.top+7 + "px", "left": think.x + this.canvasLocation.left-30 + "px"});
 
-//    $("#profileImg").css({"top": eventObject.y + canvasLocation.top + "px", "left": eventObject.x + canvasLocation.left - 30 + "px"});
 
-//        console.log(this.text.css("left"));
         this.text.show();
         this.emoticon.show();
 
@@ -407,12 +403,6 @@ var InputPanel = function(){
 
 
             var evt = evt || window.event;
-
-//            console.log("keyup event" + evt);
-
-
-//            jqTextinput.attr("size", jqTextinput.val().length); // by text length size scailing. key by key
-
 
             if (evt.keyCode === 13 || evt.charCode === 13) { // 엔터인 경우
 
@@ -444,7 +434,6 @@ var InputPanel = function(){
             inputPanel.text.remove();
             inputPanel.emoticon.remove();
         });
-
 
         CLIENTVAR.inputPanelShow = false;
     }
